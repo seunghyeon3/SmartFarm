@@ -44,15 +44,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>charsetFilter</filter-name>
-<<<<<<< HEAD
 		<url-pattern>/*</url-pattern>
-=======
-		<url-pattern>/</url-pattern>
-		<url-pattern>*.do</url-pattern>
-		<url-pattern>/*/*</url-pattern>
-		<url-pattern>/**/**</url-pattern>
-		<url-pattern>/*/*/*</url-pattern>
-		<url-pattern>/**/**/**</url-pattern>
->>>>>>> 28e005a8128007c874314097e4658128bcce0b79
 	</filter-mapping>
 </web-app>
