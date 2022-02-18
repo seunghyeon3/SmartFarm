@@ -1,6 +1,4 @@
 target/
-target
-.settings/
 .settings
 pom.xml.tag
 pom.xml.releaseBackup
