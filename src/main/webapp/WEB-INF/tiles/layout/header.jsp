@@ -22,14 +22,14 @@
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="index-2.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Home </a>
+                        <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Home </a>
                         <ul class="dropdown-menu">
                            <li><a href="index-2.html">Home One</a></li>
                            <li><a href="home-two.html">Home Two</a></li>
                            <li><a href="home-three.html">Home Three</a></li>
                         </ul>
                      </li>
-                     <li class="nav-item"> <a class="nav-link" href="about.html">About</a> </li>
+                     <li class="nav-item"> <a class="nav-link" href="">About</a> </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Events </a>
                         <ul class="dropdown-menu">
