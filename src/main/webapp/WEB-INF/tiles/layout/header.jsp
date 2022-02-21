@@ -13,6 +13,7 @@
       <link href="resources/css/prettyPhoto.css" rel="stylesheet">
       <link href="resources/css/all.min.css" rel="stylesheet">
       <link href="resources/css/popup.css" rel="stylesheet">
+      <link href="resources/css/table.css" rel="stylesheet">
 </head>
 <body>
 <header class="header-style-2">
