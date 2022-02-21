@@ -15,7 +15,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/login.do")
+	@RequestMapping("/test.do")
 	public String test() {
 		return "auction/test";
 	}
