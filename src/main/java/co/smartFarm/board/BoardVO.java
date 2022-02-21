@@ -1,5 +1,5 @@
 package co.smartFarm.board;
 
-public class babo {
+public class BoardVO {
 
 }
