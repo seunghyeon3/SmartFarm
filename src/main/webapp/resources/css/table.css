@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+table.GeneratedTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-width: 1px;
+  border-color: #dfe1e5;
+  border-style: groove;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+table.GeneratedTable td, table.GeneratedTable th {
+  border-width: 1px;
+  border-color: #dfe1e5;
+  border-style: groove;
+  padding: 5px;
+}
+
+table.GeneratedTable th {
+  background-color: #7bb972;
+  color: #ffffff;
+  
+}
+
+
+table.GeneratedTable td {
+  background-color: #ffffff;
+  color: #000000;
+  
+}
+

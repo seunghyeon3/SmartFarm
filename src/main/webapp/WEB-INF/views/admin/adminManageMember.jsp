@@ -19,6 +19,8 @@
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="../resources/css/prettyPhoto.css" rel="stylesheet">
 <link href="../resources/css/all.min.css" rel="stylesheet">
+<link href="../resources/css/popup.css" rel="stylesheet">
+<link href="../resources/css/table.css" rel="stylesheet">
 <!-- CSS FILES End -->
 <style type="text/css">
 .radioCss {
@@ -79,7 +81,7 @@ input[type="checkbox"]:checked::before {
 
 			<div class="projects-grid"></div>
 			<div class="container">
-				<h1>매출</h1>
+				<h1>회원관리</h1>
 
 				<br> <br>
 				<div class="row">
@@ -95,11 +97,11 @@ input[type="checkbox"]:checked::before {
 
 						<div class="side-search">
 							<form>
-								<select class="form-control" style="width:120px; float:left">
+								<select class="form-control" style="width: 120px; float: left">
 									<option>이름</option>
 									<option>이메일</option>
-								</select> 
-								<input type="search" class="form-control" placeholder="검색"  style="margin:0 10px;width:380px; float:left;">
+								</select> <input type="search" class="form-control" placeholder="검색"
+									style="margin: 0 10px; width: 380px; float: left;">
 								<button>
 									<i class="fas fa-search"></i>
 								</button>
@@ -107,12 +109,66 @@ input[type="checkbox"]:checked::before {
 						</div>
 					</div>
 
+					
 
+					<div class="col-md-12 col-sm-6" style="padding:20px;">
+						<table class="GeneratedTable">
+							<thead>
+								<tr>
 
-					<div class="col-md-12 col-sm-6" style="background-color: blue">
-						<!--campaign box start-->
-						테이블자리!
-						<!--campaign box end-->
+									<th>번호</th>
+									<th>이메일</th>
+									<th>이름</th>
+									<th>권한</th>
+									<th>첨부파일</th>
+									<th>농부신청</th>
+								</tr>
+
+							</thead>
+							<tbody>
+								<tr>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+								</tr>
+
+								<tr>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+								</tr>
+								<tr>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+								</tr>
+								<tr>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+								</tr>
+								<tr>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+									<td>asdasdf</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 
 
