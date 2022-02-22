@@ -1,21 +1,23 @@
 package co.smartFarm.grow;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Handles requests for the application home page.
  */
+
 @Controller
 public class GrowController {
+	
+	@Autowired GrowMapper map;
 	
 //	재배 진행 정보 페이지
 	@RequestMapping(value = "/grow.do", method = RequestMethod.GET)
@@ -43,6 +45,29 @@ public class GrowController {
 	public String control(Locale locale, Model model) {
 	
 		return "grow/control";
+	}
+
+//	실시간 정보 페이지
+	@RequestMapping(value = "/sensor.do", method = RequestMethod.GET)
+	public String sensor(Locale locale, Model model) {
+	
+		return "grow/sensor";
+	}
+
+//	실시간 정보 페이지
+	@RequestMapping(value = "/log.do", method = RequestMethod.GET)
+	public String log(Locale locale, Model model) {
+	
+		return "grow/log";
+	}
+	
+//	실시간 정보 페이지
+	@RequestMapping(value = "/diary.do", method = RequestMethod.GET)
+	public String diary(Locale locale, Model model) {
+		
+		model.addAttribute("test", map.diary());
+		System.out.println(map.diary());
+		return "grow/diary";
 	}
 	
 }
