@@ -56,24 +56,21 @@
 						<div style="display: block;">
 							<div>
 								<ul class="check-list" style="margin-top: 20px;">
-									<li><strong>키트 이름:</strong><input type="text"></li>
-									<li><strong>작물 이름:</strong><input type="text"></li>
-									<li><strong>온도:</strong><input type="text"></li>
-									<li><strong>습도:</strong><input type="text"></li>
-									<li><strong>하루 중 일사량(시간):</strong><input type="text"></li>
-									<li><strong>하루 중 급액량:</strong><input type="text"></li>
-									<li><strong>하루 중 농약량:</strong><input type="text"></li>
+									<li><strong>키트 이름:</strong> 딸기키트</li>
+									<li><strong>작물 이름:</strong> 딸기</li>
+									<li><strong>현재 온도:</strong> 30</li>
+									<li><strong>현재 습도:</strong> 60</li>
+									<li><strong>조명 여부:</strong> ON</li>
+									<li><strong>당일 급액량:</strong> 30</li>
+									<li><strong>당일 농약량:</strong> 10</li>
 								</ul>
 							</div>
 						</div>
 						
 						<div style="float: left;">
-							<a href="#" class="dn-btn">재배 시작</a>
-							<a href="#" class="dn-btn">재배 중지</a>
-							<a href="#" class="dn-btn">값 변경</a>
-							
-							<a href="#" class="dn-btn">재배 완료(일지 저장)</a>
-							<a href="#" class="dn-btn">취소(일지 저장 안함)</a>
+
+							<!-- 날씨api 사용 위치 -->
+
 						</div>
 						<!--재배 관리 화면 출력부 종료-->
 						
