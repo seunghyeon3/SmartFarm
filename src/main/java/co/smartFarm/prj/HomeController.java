@@ -1,8 +1,6 @@
 package co.smartFarm.prj;
 
-import java.util.Locale;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-	
+	public String home() {
+
 		return "home";
 	}
 	
-	@RequestMapping("/login.do")
+	@RequestMapping("/test.do")
 	public String test() {
 		return "auction/test";
 	}
-	
+
 }
