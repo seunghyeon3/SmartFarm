@@ -1,4 +1,4 @@
-package co.smartFarm.intro;
+package co.smartFarm.board;
 
 import lombok.Getter;
 import lombok.Setter;
