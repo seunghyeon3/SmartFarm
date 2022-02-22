@@ -95,18 +95,24 @@ Fonts Start
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300i,400,400i,700');
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
 @font-face {
-	font-family: 'droidSans';
+	font-family: 'yg-jalnan','droidSans';
 	src: url('../webfonts/DroidSans-webfont.eot');
 	src: url('../webfonts/DroidSans-webfontd41d.eot?#iefix') format('embedded-opentype'), url('../webfonts/droidsans-webfont.woff2') format('woff2'), url('../webfonts/DroidSans-webfont.woff') format('woff'), url('../webfonts/DroidSans-webfont.ttf') format('truetype'), url('../webfonts/DroidSans-webfont.svg#droid_sansregular') format('svg');
 	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
-	font-family: 'droidSans';
+	font-family: 'yg-jalnan','droidSans';
 	src: url('../webfonts/DroidSans-Bold-webfont.eot');
 	src: url('../webfonts/DroidSans-Bold-webfontd41d.eot?#iefix') format('embedded-opentype'), url('../webfonts/droidsans-bold-webfont.woff2') format('woff2'), url('../webfonts/DroidSans-Bold-webfont.html') format('woff'), url('../webfonts/DroidSans-Bold-webfont-2.html') format('truetype'), url('../webfonts/DroidSans-Bold-webfont.svg#droid_sansbold') format('svg');
 	font-weight: 700;
 	font-style: normal;
+}
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 /*********************************
 Fonts End
@@ -122,11 +128,11 @@ html body {
 	margin: 0px;
 	padding: 0px;
 	font-weight: 400;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	color: #555555;
 }
 html body p, html body li {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	color: #555555;
 }
 body a:hover {
@@ -171,7 +177,7 @@ body h6 {
 	height: auto;
 }
 body h1, body h2, body h3, body h4, body h5, body h6 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	color: #222;
 }
 .wrapper a:focus, .wrapper button:focus {
@@ -201,7 +207,7 @@ Header Start
 .header-style-1 .navbar-expand-lg .navbar-nav .nav-link {
 	font-size: 20px;
 	color: #fff;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	font-weight: 400;
 	padding: 35px 15px;
 }
@@ -226,7 +232,7 @@ Header Start
 .topside-menu a {
 	color: #fffefe;
 	line-height: 40px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 }
 .topside-menu a:hover, .topside-menu a i {
 	color: #689f38;
@@ -245,7 +251,7 @@ a.con {
 	color: #689f38;
 }
 .header-style-1 .dropdown-menu a {
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 }
 .header-style-2 .dropdown-menu, .header-style-1 .dropdown-menu {
 	padding: 0px;
@@ -328,7 +334,7 @@ Inner Header Start
 }
 .inner-header ul li {
 	display: inline-block;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .inner-header ul li:after {
 	content: " : : ";
@@ -370,7 +376,7 @@ Home Page Content Start
 }
 .slider-caption strong {
 	font-size: 36px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	color: #fff;
 	line-height: 40px;
 	margin-bottom: 25px;
@@ -378,7 +384,7 @@ Home Page Content Start
 }
 .slider-caption h1 {
 	font-size: 90px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	color: #fff;
 	line-height: 70px;
 	margin: 0 0 15px;
@@ -388,7 +394,7 @@ Home Page Content Start
 }
 .slider-caption p {
 	font-size: 22px;
-	font-family: 'droidSans', serif;
+	font-family: 'yg-jalnan','droidSans', serif;
 	color: #fff;
 	width: 60%;
 	margin: 0 0 37px;
@@ -405,7 +411,7 @@ Home Page Content Start
 	color: #fff;
 	display: inline-block;
 	border-radius: 30px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	font-size: 18px;
 	font-weight: 500;
 	margin-right: 15px;
@@ -421,7 +427,7 @@ Home Page Content Start
 	border: 2px solid #6ea53b;
 }
 .slider-caption.h2slider strong {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 40px;
 }
 .slider-caption.h2slider strong span {
@@ -436,7 +442,7 @@ Home Page Content Start
 	border: 0px;
 	color: #222222;
 	border-radius: 5px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	text-transform: uppercase;
 	font-size: 16px;
 	font-weight: 500;
@@ -460,7 +466,7 @@ Home Page Content Start
 	text-align: center;
 }
 .slider-caption.h3slider strong {
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	font-size: 48px;
 	font-weight: 500;
 	text-shadow: 0 8px 15px rgba(0,0,0,.20);
@@ -475,7 +481,7 @@ Home Page Content Start
 .slider-caption.h3slider a {
 	border-radius: 0px;
 	color: #027371;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	background: #fff;
 	border: 0px;
 	height: 53px;
@@ -525,7 +531,7 @@ section#home-slider img {
 	content: "\f060";
 	color: #fff;
 	font-size: 16px;
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 }
 #home-slider.owl-theme .owl-nav button.owl-next:after {
 	content: "\f061";
@@ -536,13 +542,13 @@ section#home-slider img {
 /***************  Home About Section Start  *****************/
 
 .home1 h1, .home1 h2, .home1 h3, .home1 h4, .home1 h5, .home1 h6 {
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	font-weight: 700;
 	margin: 0px;
 	letter-spacing: -0.15px;
 }
 .home1 li, .home1 p {
-	font-family: 'droidSans';
+	font-family: 'yg-jalnan','droidSans';
 }
 .home-about {
 	background: url(../images/aboutbg.jpg) no-repeat #fff;
@@ -638,7 +644,7 @@ section#home-slider img {
 	background: -webkit-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to right, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	font-size: 18px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 }
 .home1 a.lm:hover {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8bc34a+0,689f38+100 */
@@ -768,7 +774,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8bc34a', end
 .section-title strong {
 	color: #689f38;
 	text-transform: uppercase;
-	font-family: 'droidSans';
+	font-family: 'yg-jalnan','droidSans';
 	font-size: 14px;
 	position: relative;
 }
@@ -981,7 +987,7 @@ a.dbutton {
 	background: -moz-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(left, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to right, rgba(104,159,56,1) 0%, rgba(139,195,74,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 16px;
 	font-weight: 500;
 	text-transform: uppercase;
@@ -1036,7 +1042,7 @@ ul.funds li:last-child {
 	text-align: right;
 }
 .home1 .newsletter input[type=submit], .home1 a.dbutton, .home1 ul.funds li strong {
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	font-weight: 600;
 }
 ul.funds li strong {
@@ -1194,7 +1200,7 @@ p.ctxt {
 	line-height: 55px;
 	font-size: 18px;
 	color: #fff;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	font-weight: 700;
 	border: 0px;
 	cursor: pointer;
@@ -1355,7 +1361,7 @@ ul.quick-links li a {
 }
 ul.quick-links li a:before {
 	content: "\f00c";
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #cccccc;
 	font-size: 12px;
 	margin-right: 10px;
@@ -1382,10 +1388,10 @@ ul.lastest-products strong {
 	color: #ccc;
 	font-weight: 500;
 	font-size: 14px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 ul.quick-links li a {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 span.pdate {
 	color: #999999;
@@ -1466,10 +1472,10 @@ Footer End
 Home Page 2 Start
 *********************************/
 .home2 h1, .home2 h2, .home2 h3, .home2 h4, .home2 h5, .home2 h6 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .home2 p, .home2 li {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 }
 header.header-style-2 {
 	background: #1b5e20;
@@ -1498,7 +1504,7 @@ ul.topnav-right li {
 	background: #66bb6a;
 	color: #fff;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 44px;
@@ -1574,7 +1580,7 @@ a.cart-icon:hover, a.search-icon:hover {
 .header-style-2 .navbar-expand-lg .navbar-nav .nav-link {
 	padding: 22px;
 	color: #c8e6c9;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 15px;
 	font-weight: 500;
 	text-transform: uppercase;
@@ -1612,14 +1618,14 @@ section.services-area ul li:last-child .sinfo {
 	border: 0px;
 }
 .services-area h6 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 	font-size: 20px;
 	margin: 22px 0 7px;
 	color: #222;
 }
 .services-area p {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-size: 14px;
 	margin: 0px;
 	color: #777777;
@@ -1659,7 +1665,7 @@ section.services-area ul li.active:after {
 	border-radius: 3px;
 	line-height: 44px;
 	padding: 0 25px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 14px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -1747,17 +1753,17 @@ section.services-area ul li.active:after {
 }
 .h2-about-txt h3 {
 	color: #66bb6a;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 500;
 }
 .h2-about-txt h2 {
 	color: #222222;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 700;
 	margin: 15px 0;
 }
 .h2-about-txt p {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-size: 18px;
 	color: #555555;
 	line-height: 28px;
@@ -1771,13 +1777,13 @@ section.services-area ul li.active:after {
 }
 .section-title-2 h5 {
 	color: #66bb6a;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 500;
 	margin-bottom: 10px;
 }
 .section-title-2 h2 {
 	color: #222222;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 700;
 	margin-bottom: 25px;
 }
@@ -1787,7 +1793,7 @@ section.services-area ul li.active:after {
 .urgent-causes p {
 	color: #fff;
 	font-size: 18px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 300;
 	margin: 0 0 20px;
 }
@@ -1806,12 +1812,12 @@ section.services-area ul li.active:after {
 }
 .urgent-causes .funds li {
 	color: #fff;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 16px;
 }
 .urgent-causes .funds li strong {
 	color: #fff;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 30px;
 	font-weight: 700;
 }
@@ -1823,7 +1829,7 @@ section.services-area ul li.active:after {
 }
 .donation-amount h5 {
 	color: #fff;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 500;
 	margin: 0 0 10px 5px;
 }
@@ -1905,7 +1911,7 @@ li.form-submit button {
 	border: 0px;
 	background: #66bb6a;
 	color: #fff;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 16px;
 	font-weight: 500;
 	border-radius: 3px;
@@ -1951,7 +1957,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	bottom: 0;
 	color: #fff;
 	padding: 20px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 	z-index: 99;
 }
@@ -1969,7 +1975,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	-webkit-transition: all ease-in-out 0.5s;
 }
 .pro-hover h6 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 	color: #222;
 	margin: 0 0 10px;
@@ -1977,7 +1983,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .pro-hover p {
 	font-size: 14px;
 	margin: 0 0 5px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 }
 .pro-hover a {
 	text-transform: uppercase;
@@ -2007,7 +2013,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 }
 .current-projects .owl-theme .owl-nav .owl-next:after, .current-projects .owl-theme .owl-nav .owl-prev:after {
 	content: "\f104";
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	font-size: 20px;
 }
 .current-projects .owl-theme .owl-nav .owl-next:after {
@@ -2067,7 +2073,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	color: #66bb6a;
 }
 .blog-post-large .post-txt h5 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .blog-post-large .post-txt h5 a {
 	color: #fff;
@@ -2119,7 +2125,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	padding-left: 15px;
 }
 .blog-small-post .post-txt h5 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	line-height: 34px;
 	margin: 11px 0 8px;
 }
@@ -2127,13 +2133,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	color: #222;
 }
 .blog-small-post .post-txt p {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-size: 16px;
 	margin: 0 0 3px;
 }
 .rm {
 	color: #66bb6a;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	text-transform: uppercase;
 	font-size: 14px;
 	font-weight: 600;
@@ -2151,7 +2157,7 @@ a.view-more {
 	border-radius: 5px;
 	line-height: 40px;
 	padding: 0 20px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-weight: 600;
 	font-size: 14px;
 	text-transform: uppercase;
@@ -2179,14 +2185,14 @@ header .navbar-toggler {
 }
 .why-ecova h1 {
 	color: #fff;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	text-transform: uppercase;
 	margin: 0 0 10px;
 	font-weight: 700;
 }
 .why-ecova p {
 	color: #fff;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-size: 24px;
 	margin: 0 0 20px;
 	font-weight: 300;
@@ -2202,7 +2208,7 @@ header .navbar-toggler {
 	text-transform: uppercase;
 	font-weight: 600;
 	padding: 0 45px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 16px;
 }
 .cus:hover {
@@ -2239,7 +2245,7 @@ header .navbar-toggler {
 	padding: 15px 20px;
 }
 .product-box .pro-txt h6 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 500;
 	margin: 0 0 10px;
 }
@@ -2248,7 +2254,7 @@ header .navbar-toggler {
 }
 .product-box .pro-txt p.pro-price {
 	margin: 0px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-size: 16px;
 	font-weight: 700;
 	color: #66bb6a;
@@ -2299,7 +2305,7 @@ header .navbar-toggler {
 	text-transform: uppercase;
 	font-weight: 600;
 	font-size: 14px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	opacity: 0;
 }
 .pro-large img {
@@ -2392,13 +2398,13 @@ Footer Style 2 Start
 	padding: 0 20px 20px;
 	color: #fff;
 	font-size: 14px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	display: block;
 	text-transform: uppercase;
 	font-weight: 700;
 }
 .footer-style-2 h5 {
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 	color: #c8e6c9;
 	position: relative;
 	margin-bottom: 40px;
@@ -2441,7 +2447,7 @@ ul.ftags a {
 	border-radius: 17px;
 	color: #c8e6c9;
 	font-size: 14px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 }
 ul.ftags a:hover {
 	background: #66bb6a;
@@ -2453,7 +2459,7 @@ ul.ftags a:hover {
 .footer-style-2 ul.quick-links li a {
 	color: #c8e6c9;
 	font-size: 18px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 }
 .footer-social a {
@@ -2478,11 +2484,11 @@ ul.ftags a:hover {
 	font-size: 24px;
 	font-weight: 400;
 	margin-bottom: 11px;
-	font-family: 'Roboto Slab', serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
 }
 .footer-style-2 ul.lastest-products strong a {
 	color: #c8e6c9;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 500;
 }
 .newsletter ul {
@@ -2512,7 +2518,7 @@ ul.ftags a:hover {
 	background: #66bb6a;
 	color: #fff;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 	height: 50px;
 	line-height: 50px;
@@ -2547,19 +2553,19 @@ Footer Style 2 End
 Home Page 3 Style 3 Start
 *********************************/
 .home3 h1, .home3 h2, .home3 h3, .home3 h4, .home3 h5, .home3 h6 {
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	letter-spacing: -1px;
 	font-weight: 700;
 }
 .home3 p, .home3 li {
-	font-family: 'Lato', sans-serif;
+	font-family: 'yg-jalnan','Lato', sans-serif;
 }
 .header-style-3 .topbar {
 	background: #027371;
 	height: 40px;
 }
 .header-style-3 .topbar p {
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	color: #fff;
 	font-size: 16px;
 	margin: 0px;
@@ -2597,7 +2603,7 @@ ul.topbar-social li {
 	display: inline-block;
 	line-height: 40px;
 	padding: 0 20px;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 }
 .acclink:hover {
 	background: rgba(0,0,0,.3);
@@ -2615,7 +2621,7 @@ ul.topbar-social li {
 	margin: 0 20px;
 	color: #20b1aa;
 	font-size: 20px;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	line-height: 44px;
 }
 .h3-logo-row {
@@ -2640,7 +2646,7 @@ ul.topbar-social li {
 .navrow .navbar-expand-lg .navbar-nav .nav-link {
 	color: #222;
 	text-transform: uppercase;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	font-size: 20px;
 	line-height: 60px;
 	padding: 0 35px;
@@ -2705,7 +2711,7 @@ a.con-btn {
 	background: #027371;
 	color: #fff;
 	text-transform: uppercase;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	line-height: 44px;
 	font-weight: 600;
 	padding: 0 25px;
@@ -2744,7 +2750,7 @@ button.sbtn:hover {
 }
 .add-title {
 	display: block;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 18px;
 	font-weight: 600;
 }
@@ -2788,7 +2794,7 @@ button.sbtn:hover {
 }
 .donation-wrap ul.funds li strong {
 	font-size: 26px;
-	font-family: 'droidSans';
+	font-family: 'yg-jalnan','droidSans';
 }
 .donation-wrap .radio-boxes input[type=radio].css-radio+label.css-label {
 	height: 46px;
@@ -2826,7 +2832,7 @@ button.sbtn:hover {
 	border: 0px;
 	background: #20b1aa;
 	color: #fff;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	font-size: 16px;
 	font-weight: 700;
 	border-radius: 0;
@@ -2857,7 +2863,7 @@ button.sbtn:hover {
 }
 .volbox a {
 	color: #20b1aa;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	font-size: 16px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -3028,13 +3034,13 @@ button.sbtn:hover {
 #core-projects-slider.owl-theme .owl-nav button.owl-next:after {
 	content: "\f061";
 	font-size: 14px;
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #888888;
 }
 #core-projects-slider.owl-theme .owl-nav button.owl-prev:after {
 	content: "\f060";
 	font-size: 14px;
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #888888;
 }
 #core-projects-slider.owl-theme .owl-nav [class*=owl-] span {
@@ -3116,7 +3122,7 @@ ul.news-meta li i {
 }
 .news-txt .rm {
 	color: #20b1aa;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 	text-transform: uppercase;
 	font-size: 16px;
 	font-weight: 700;
@@ -3214,13 +3220,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .h3-events .owl-theme .owl-nav button.owl-next:after {
 	content: "\f061";
 	font-size: 14px;
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #888888;
 }
 .h3-events .owl-theme .owl-nav button.owl-prev:after {
 	content: "\f060";
 	font-size: 14px;
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #888888;
 }
 .h3-events .owl-theme .owl-nav [class*=owl-] span {
@@ -3333,7 +3339,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	border: 1px solid #dddddd;
 	font-size: 18px;
 	color: #555555;
-	font-family: 'droidSans';
+	font-family: 'yg-jalnan','droidSans';
 	line-height: 30px;
 	padding: 25px;
 	position: relative;
@@ -3378,11 +3384,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	margin-right: 15px;
 }
 
-.home3 .tuser strong {color:#027371; font-family: 'Roboto Condensed', sans-serif;}
+.home3 .tuser strong {color:#027371; font-family: 'yg-jalnan','Roboto Condensed', sans-serif;}
 .tuser strong {
 	color: #222;
 	font-weight: 400;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	display: block;
 	font-size: 20px;
 }
@@ -3458,7 +3464,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 	color: #20b1aa;
 }
 .h3footer ul.lastest-products strong, .h3footer ul.quick-links li a {
-	font-family: 'droidSans';
+	font-family: 'yg-jalnan','droidSans';
 	font-weight: 400;
 }
 .h3footer ul.quick-links li a {
@@ -3539,7 +3545,7 @@ a.read-post {
 	text-transform: uppercase;
 	padding: 0 30px;
 	font-weight: 500;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 14px;
 }
 .blog-txt h3 a:hover {
@@ -3587,12 +3593,12 @@ a.read-post:hover {
 }
 .blog-slider button.owl-prev:after {
 	content: "\f060";
-	font-family: "FontAwesome";
+	font-family: 'yg-jalnan',"FontAwesome";
 	font-size: 16px;
 }
 .blog-slider button.owl-next:after {
 	content: "\f061";
-	font-family: "FontAwesome";
+	font-family: 'yg-jalnan',"FontAwesome";
 	font-size: 16px;
 }
 .blog-video iframe {
@@ -3660,7 +3666,7 @@ a.read-post:hover {
 	color: #888888;
 	border-radius: 3px;
 	font-size: 18px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 }
 .gt-pagination .page-item.active .page-link, .gt-pagination .page-link:hover {
@@ -3787,10 +3793,10 @@ Causes Pages Start
 	color: #222;
 }
 .causes-listing ul.funds li strong {
-	font-family: 'Poppins', serif;
+	font-family: 'yg-jalnan','Poppins', serif;
 }
 .causes-listing ul.funds li {
-	font-family: 'Poppins', serif;
+	font-family: 'yg-jalnan','Poppins', serif;
 	font-weight: 500;
 	font-size: 14px;
 }
@@ -3798,7 +3804,7 @@ Causes Pages Start
 	background: #66bb6a;
 	color: #fff;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 500;
 	font-size: 16px;
 	display: inline-block;
@@ -3951,7 +3957,7 @@ a.view {
 	padding: 0 30px;
 	text-transform: uppercase;
 	font-weight: 500;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .pro-list-box:hover .pro-txt h3 a {
 	color: #66bb6a;
@@ -4118,7 +4124,7 @@ a.partibtn {
 	padding: 0 30px;
 	border-radius: 5px;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .event-list .pro-list-box:hover .pro-txt h4 a {
 	color: #66bb6a;
@@ -4187,7 +4193,7 @@ ul.event-meta li:last-child {
 .event-list-box .event-txt .attbtn {
 	color: #66bb6a;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 700;
 	font-size: 14px;
 }
@@ -4254,7 +4260,7 @@ Team Pages Start
 	padding: 10px;
 }
 .vol-txt strong {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 20px;
 	font-weight: 600;
 }
@@ -4272,7 +4278,7 @@ Team Pages Start
 	text-transform: uppercase;
 	padding: 0 20px;
 	font-size: 14px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 }
 .bav:hover {
@@ -4359,7 +4365,7 @@ ul.cform textarea.textarea-control {
 	height: 55px;
 	line-height: 55px;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 18px;
 	font-weight: 600;
 	cursor: pointer;
@@ -4597,7 +4603,7 @@ Page 404 Start
 	color: #66bb6a;
 }
 .page-404-txt strong.title-404 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	display: block;
 	font-size: 250px;
 	line-height: 300px;
@@ -4611,7 +4617,7 @@ Page 404 Start
 	padding: 0 50px;
 	font-weight: 600;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .page-404-txt a:hover {
 	background: #33691e;
@@ -4647,7 +4653,7 @@ Coming Soon Start
 	color: #fff;
 	font-size: 22px;
 	font-weight: 300;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	margin: 0 0 40px;
 }
 .cs-txt h1 {
@@ -4672,7 +4678,7 @@ Coming Soon Start
 .cs-txt .countdown-amount {
 	display: block;
 	color: #fff;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-size: 60px;
 	font-weight: 800;
 	line-height: 60px;
@@ -4683,7 +4689,7 @@ Coming Soon Start
 	text-transform: uppercase;
 	font-size: 20px;
 	font-weight: 500;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 }
 .cs-newsletter-form {
 	width: 80%;
@@ -4718,7 +4724,7 @@ Coming Soon Start
 	font-size: 18px;
 	text-transform: uppercase;
 	padding: 0 30px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 /*********************************
 Coming Soon End 
@@ -4754,7 +4760,7 @@ My Account Page Start
 	background: #66bb6a;
 	color: #fff;
 	font-size: 18px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	text-transform: uppercase;
 	font-weight: 500;
 	cursor: pointer;
@@ -4814,7 +4820,7 @@ My Account Page Start
 	text-transform: uppercase;
 	font-size: 18px;
 	font-weight: 500;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	cursor: pointer;
 }
 /*********************************
@@ -4827,7 +4833,7 @@ Testimonials Page Start
 *********************************/
 
 .testimonials-section h1.text-center {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 700;
 	margin: 0 0 30px;
 }
@@ -4929,7 +4935,7 @@ Blog Details Start
 }
 .blog-single-content blockquote:after {
 	content: "\f10e";
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #e1e1e1;
 	position: absolute;
 	bottom: 0;
@@ -4940,7 +4946,7 @@ Blog Details Start
 	margin: 0px;
 	color: #666666;
 	font-size: 24px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
 	font-style: italic;
 	font-weight: 300;
 	line-height: 36px;
@@ -4959,7 +4965,7 @@ Blog Details Start
 .check-list li:before {
 	content: "\f00c";
 	color: #38a935;
-	font-family: "FontAwesome";
+	font-family: 'yg-jalnan',"FontAwesome";
 	margin-right: 10px;
 }
 .small-gallery {
@@ -5162,7 +5168,7 @@ ul.children {
 	border-radius: 3px;
 	background: #66bb6a;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 18px;
 	font-weight: 600;
 	color: #fff;
@@ -5349,7 +5355,7 @@ Event Details Start
 	border-radius: 5px;
 	line-height: 44px;
 	padding: 0 25px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 	font-size: 14px;
 	text-transform: uppercase;
@@ -5405,7 +5411,7 @@ Event Details Start
 .single-counter-box strong {
 	color: #888888;
 	font-size: 16px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 }
 .chief-guest.team-grid {
@@ -5485,7 +5491,7 @@ a.contact-team {
 	line-height: 44px;
 	border-radius: 5px;
 	display: inline-block;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 16px;
 	text-transform: uppercase;
 	font-weight: 500;
@@ -5540,7 +5546,7 @@ p.stars a:before {
 	width: 1em;
 	height: 1em;
 	line-height: 1;
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	content: '\f005';
 	color: #43454b;
 	text-indent: 0;
@@ -5572,7 +5578,7 @@ p.stars a:hover, p.stars a:hover:before {
 	border-bottom: 0px;
 }
 .products-tabs .nav-tabs .nav-link {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 20px;
 	font-weight: 600;
 	color: #222;
@@ -5629,7 +5635,7 @@ p.stars a:hover, p.stars a:hover:before {
 	border: 0px;
 	border-radius: 5px;
 	padding: 0 20px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 500;
 	text-transform: uppercase;
 	font-size: 16px;
@@ -5698,7 +5704,7 @@ Donation Page Start
 	color: #555;
 	font-size: 20px;
 	font-weight: 600;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .donator-details ul {
 	margin: 0px;
@@ -5727,7 +5733,7 @@ Donation Page Start
 	text-transform: uppercase;
 	color: #fff;
 	font-weight: 600;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	background: #66bb6a;
 	border-radius: 5px;
 	cursor: pointer;
@@ -5832,7 +5838,7 @@ About Us Page
 	border-radius: 5px;
 	display: inline-block;
 	color: #fff;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	text-transform: uppercase;
 	font-size: 14px;
 	font-weight: 500;
@@ -5859,7 +5865,7 @@ About Us Page
 	display: block;
 	position: relative;
 	z-index: 999;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .story-title-bg strong.t1 {
 	font-size: 72px;
@@ -6036,7 +6042,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', end
 }
 .timeline .slick-slide .checklist li:before {
 	content: "\f105";
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #d32f2f;
 	margin-right: 5px;
 }
@@ -6089,7 +6095,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', end
 }
 .choose-ecova .volunteer-form input.fsubmit {
 	border-radius: 5px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 16px;
 	font-weight: 500;
 	text-transform: uppercase;
@@ -6177,7 +6183,7 @@ SideWidgets
 	margin: 0px;
 }
 .side-widget .lastest-products strong a {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-size: 16px;
 	font-weight: 500;
 	color: #333;
@@ -6200,11 +6206,11 @@ SideWidgets
 	line-height: 32px;
 	color: #666666;
 	font-size: 16px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .side-widget.archives ul li a:before, .project-list-widget ul li a:before {
 	content: "\f00c";
-	font-family: FontAwesome;
+	font-family: 'yg-jalnan',FontAwesome;
 	color: #66bb6a;
 	font-size: 14px;
 	margin-right: 10px;
@@ -6246,11 +6252,11 @@ SideWidgets
 }
 .side-widget .campaign-box ul.funds li strong {
 	font-size: 16px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 }
 .side-widget .campaign-box a.dbutton {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	font-weight: 600;
 }
 .side-widget .event-thumb .post-meta {
@@ -6289,7 +6295,7 @@ SideWidgets
 	border: 0px;
 	border-radius: 5px;
 	width: 100%;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'yg-jalnan','Poppins', sans-serif;
 	text-transform: uppercase;
 	font-weight: 600;
 	font-size: 16px;
@@ -6753,11 +6759,11 @@ Search Overlay End
 	box-shadow: 0 0 0 0.2rem rgba(102,187,106,.25);
 }
 .font {
-	font-family: 'Roboto Slab', serif;
-	font-family: 'droidSans';
-	font-family: 'Poppins', sans-serif;
-	font-family: 'Roboto', sans-serif;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'yg-jalnan','Roboto Slab', serif;
+	font-family: 'yg-jalnan','droidSans';
+	font-family: 'yg-jalnan','Poppins', sans-serif;
+	font-family: 'yg-jalnan','Roboto', sans-serif;
+	font-family: 'yg-jalnan','Roboto Condensed', sans-serif;
 }
 .newsletter input[type=submit]:hover, a.lm:hover, .add-2-cart input[type="submit"]:hover, a.view:hover, .side-search button:hover, .choose-ecova .volunteer-form input.fsubmit:hover, #search .btn:hover, .aboutus:hover {
 	background: #1b5e20;

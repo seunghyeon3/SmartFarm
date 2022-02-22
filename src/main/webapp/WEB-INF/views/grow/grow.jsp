@@ -92,9 +92,9 @@
 											aria-valuemax="100"></div>
 									</div>
 									<div style="float: right;">
-									<a href="#" class="dn-btn">재배 관리</a>
-									<a href="#" class="dn-btn">실시간 정보</a>
-									<a href="#" class="dn-btn">일별 로그</a>
+										<a href="#" class="dn-btn">재배 관리</a>
+										<a href="#" class="dn-btn">실시간 정보</a>
+										<a href="#" class="dn-btn">일별 로그</a>
 									</div>
 								</div>
 							</div>
@@ -120,7 +120,7 @@
                         </div>
                      </div>
                   </div>
-				<!--페이징처리 종료-->                  
+                  <!--페이징처리 종료-->
                   
 			</div>
 		</div>

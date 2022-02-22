@@ -12,5 +12,6 @@
 	Hello world! 
 </h1>
 <a href="login.do">로그인하기</a>
+<a href="plantShopList.do">쇼핑</a>
 </body>
 </html>

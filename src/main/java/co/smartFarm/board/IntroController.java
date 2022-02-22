@@ -1,4 +1,4 @@
-package co.smartFarm.web;
+package co.smartFarm.board;
 
 import java.util.Locale;
 
@@ -14,7 +14,6 @@ public class IntroController {
 
 		return "board/intro";
 	}
-
 	@RequestMapping(value = "/introinsert.do", method = RequestMethod.GET)
 	public String introinsert() {
 
@@ -28,8 +27,22 @@ public class IntroController {
 	public String introg() {
 		return "board/introg";
 	}
+	@RequestMapping(value = "/introinsertg.do", method = RequestMethod.GET)
+	public String introinsertg() {
+
+		return "board/introinsertg";
+	}
+	@RequestMapping(value = "/introupdateFormg.do", method = RequestMethod.GET)
+	public String introupdateFormg() {
+
+		return "board/introupdateFormg";
+	}
+	@RequestMapping(value = "/introupdateFormn.do", method = RequestMethod.GET)
+	public String introupdateg() {
+		return "board/introupdateFormn";
+	}
 	@RequestMapping(value = "/intron.do", method = RequestMethod.GET)
 	public String intron() {
 		return "board/intron";
 	}
-}
+	}
