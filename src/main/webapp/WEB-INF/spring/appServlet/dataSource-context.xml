@@ -23,6 +23,7 @@
 	<!-- classpath: 경로 src/main/resources로 연결 -->
 	<!-- classpath*: 경로 src/main/java -->
 
+
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
 		id="sqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

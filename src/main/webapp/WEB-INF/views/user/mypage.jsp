@@ -84,10 +84,9 @@
 				}
 				}); */
 				
-            var table = $('<table>').attr({'border': '1', 'id': 'mytab'});
+            var table = $('<table>').attr('id', 'mytab').addClass('GeneratedTable');
             var thead = $('<thead>').append( //
             $('<tr>').append( //
-					$('<th>').text('No.'), //
 					$('<th>').text('작물명'), //
 					$('<th>').text('품질'), //
 					$('<th>').text('점수'),
@@ -97,7 +96,7 @@
             var tbody = $('<tbody>');
             	var tr = $('<tr>');
             	tr.append(//
-            	$('<td>').text('1'),//
+            	$('<td>').text('1').attr('style', "display:none;"),//
             	$('<td>').text('샤인머스켓'),//
             	$('<td>').text('상'),//
             	$('<td>').text('92'),
