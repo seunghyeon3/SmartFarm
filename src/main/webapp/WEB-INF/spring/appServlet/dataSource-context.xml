@@ -25,13 +25,13 @@
   <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource"/>
       <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
-      <property name="mapperLocations" value="classpath*:co/smartFarm/prj/**/service/*-map.xml"/>
+      <property name="mapperLocations" value="classpath*:co/smartFarm/**/*-map.xml"/>
    </bean>	
 	  
    <bean class="org.mybatis.spring.SqlSessionTemplate">
       <constructor-arg ref="sqlSessionFactoryBean"/>
    </bean>
    
-   <mybatis-spring:scan base-package="co.smartFarm.prj"/>
+   <mybatis-spring:scan base-package="co.smartFarm"/>
 </beans>
 
