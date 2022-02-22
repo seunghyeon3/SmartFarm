@@ -14,102 +14,73 @@
       <link href="resources/css/all.min.css" rel="stylesheet">
       <link href="resources/css/popup.css" rel="stylesheet">
       <link href="resources/css/table.css" rel="stylesheet">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
-               <a class="navbar-brand" href="index-2.html"><img src="images/h2logo.png" alt=""></a>
+               <a class="navbar-brand" href="index-2.html"><img src="resources/images/h2logo.png" alt=""></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Home </a>
+                        <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="index-2.html">Home One</a></li>
-                           <li><a href="home-two.html">Home Two</a></li>
-                           <li><a href="home-three.html">Home Three</a></li>
-                        </ul>
-                     </li>
-                     <li class="nav-item"> <a class="nav-link" href="">About</a> </li>
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Events </a>
-                        <ul class="dropdown-menu">
-                           <li><a href="events-grid.html">Events Grid</a></li>
-                           <li><a href="events-grid-2.html">Events Grid Two</a></li>
-                           <li><a href="events-grid-3.html">Events Grid Three</a></li>
-                           <li><a href="events-list.html">Events List</a></li>
-                           <li><a href="events-list-two.html">Events List Two</a></li>
-                           <li><a href="event-details.html">Event Details</a></li>
+                           <li><a href="intro.do">스마트 팜 안내</a></li>
+                           <li><a href="#">과수 분야</a></li>
+                           <li><a href="#">노지 분야</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="causes.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Causes </a>
+                        <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 알림 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="causes.html">Causes Grid</a></li>
-                           <li><a href="causes-list.html">Causes List</a></li>
-                           <li><a href="causes-details.html">Causes Details</a> </li>
+                           <li><a href="#">공지사항</a></li>
+                           <li><a href="#">자료실</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Blogs </a>
+                        <a class="nav-link dropdown-toggle" href="causes.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 판매 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="blog.html">Blog Default</a></li>
-                           <li><a href="blog-list.html">Blog List</a> </li>
-                           <li><a href="blog-grid.html">Blog Grid</a></li>
-                           <li><a href="blog-two-col.html">Blog Two Columns</a> </li>
-                           <li><a href="blog-three-col.html">Blog Three Columns</a></li>
-                           <li><a href="blog-details.html">Blog Details</a></li>
+                           <li><a href="#">작물 판매</a></li>
+                           <li><a href="#">키트 판매</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Pages </a>
+                        <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
                         <ul class="dropdown-menu">
-                           <li>
-                              <a href="#">Projects</a>
-                              <ul class="dropdown-menu">
-                                 <li><a href="projects.html">Projects</a> </li>
-                                 <li><a href="projects-grid.html">Projects Grid</a> </li>
-                                 <li><a href="projects-grid-two.html">Projects Grid Two</a> </li>
-                                 <li><a href="projects-list.html">Projects List</a> </li>
-                                 <li><a href="projects-details.html">Project Details</a> </li>
-                              </ul>
-                           </li>
-                           <li>
-                              <a href="#">Shop</a>
-                              <ul class="dropdown-menu">
-                                 <li><a href="shop.html">Shop</a> </li>
-                                 <li><a href="shop-two.html">Shop Two</a> </li>
-                                 <li><a href="shop-details.html">Shop Details</a> </li>
-                              </ul>
-                           </li>
-                           <li>
-                              <a href="team.html">Team</a>
-                              <ul class="dropdown-menu">
-                                 <li><a href="team.html">Team One</a> </li>
-                                 <li><a href="team-two.html">Team Two</a> </li>
-                                 <li><a href="team-details.html">Team Details</a> </li>
-                              </ul>
-                           </li>
-                           <li>
-                              <a href="#">Gallery</a>
-                              <ul class="dropdown-menu">
-                                 <li><a href="gallery-grid.html">Gallery Grid</a> </li>
-                                 <li><a href="gallery-full.html">Gallery Full</a> </li>
-                                 <li><a href="gallery-masonry.html">Gallery Masonry</a> </li>
-                              </ul>
-                           </li>
-                           <li><a href="testimonials.html">Testimonials</a> </li>
-                           <li><a href="donation.html">Donation</a> </li>
-                           <li><a href="my-account.html">My Account</a> </li>
-                           <li><a href="coming-soon.html">Coming Soon</a> </li>
-                           <li><a href="page-404.html">404 Error</a> </li>
+                           <li><a href="#">자유 게시판</a></li>
+                           <li><a href="#">이용 후기</a> </li>
+                           
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Contact </a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 고객지원 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="contact-one.html">Contact One</a> </li>
-                           <li><a href="contact-two.html">Contact Two</a> </li>
+                           <li><a href="#">QnA</a></li>
+                           <li><a href="#">FAQ</a> </li>
+
+                         </ul>  
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#">재배 홈</a></li>
+                           <li><a href="#">사용법</a> </li>
+                           <li><a href="#">CCTV</a></li>
+                           <li><a href="#">재배관리</a> </li>
+                           <li><a href="#">실시간 정보</a></li>
+                           <li><a href="#">일별 로그</a></li>
+                           <li><a href="#">영농 일지</a></li>
+                        </ul>
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#">매출</a> </li>
+                           <li><a href="#">키트 구매 현황</a> </li>
+                           <li><a href="#">회원관리</a> </li>
+                           <li><a href="#">작물관리</a> </li>
+                           <li><a href="#">NFT 현황 조회</a> </li>
                         </ul>
                      </li>
                   </ul>
@@ -138,6 +109,28 @@
                   </ul>
                </div>
             </nav>
-         </header>
+         </header>  
+         <!-- 각자 페이지에 맞게 추가 해아함 -->    
+         <section class="wf100 p100 inner-header">
+            <div class="container" id="menu">
+            <h1>header파일에 링크 넣어주세요</h1>
+            <!--    <h1>About Us</h1>
+               <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">About Us</a></li>
+               </ul> -->
+            </div>
+         </section>
+         
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script src="resources/js/jquery-3.3.1.min.js"></script> 
+      <script src="resources/js/jquery-migrate-1.4.1.min.js"></script> 
+      <script src="resources/js/popper.min.js"></script> 
+      <script src="resources/js/bootstrap.min.js"></script> 
+      <script src="resources/js/owl.carousel.min.js"></script> 
+      <script src="resources/js/jquery.prettyPhoto.js"></script> 
+      <script src="resources/js/isotope.min.js"></script> 
+      <script src="resources/js/custom.js"></script>
 </body>
 </html>

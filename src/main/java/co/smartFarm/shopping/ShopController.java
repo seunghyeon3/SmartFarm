@@ -1,10 +1,15 @@
 package co.smartFarm.shopping;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ShopController {	
+	
+	@Autowired
+	private ShoppingMapper shoppingDao;
+	
 	@RequestMapping("/plantShopList.do")
 	public String plantShopList() {
 		return "shopping/plantShopList";
@@ -23,5 +28,5 @@ public class ShopController {
 	public String plantProductUpdate() {
 		return "shopping/plantProductUpdate";
 	}
-	
+
 }
