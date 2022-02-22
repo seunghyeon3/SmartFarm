@@ -11,6 +11,7 @@
 </head>
 <body>
 <script src="https://kit.fontawesome.com/1874543bef.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 	<!--본문 시작-->
 	<section class="wf100 p80 blog">
@@ -53,28 +54,23 @@
 							</div>
 						</div>
 											
-						<div style="display: block;">
-							<div>
-								<ul class="check-list" style="margin-top: 20px;">
-									<li><strong>키트 이름:</strong><input type="text"></li>
-									<li><strong>작물 이름:</strong><input type="text"></li>
-									<li><strong>온도:</strong><input type="text"></li>
-									<li><strong>습도:</strong><input type="text"></li>
-									<li><strong>하루 중 일사량(시간):</strong><input type="text"></li>
-									<li><strong>하루 중 급액량:</strong><input type="text"></li>
-									<li><strong>하루 중 농약량:</strong><input type="text"></li>
-								</ul>
-							</div>
+						<div style="display: inline-block; width: 10%;">
+							<ul id="daily" class="check-list" style="margin-top: 20px;">
+								<li><strong>1일차</strong></li>
+								<li><strong>2일차</strong></li>
+								<li><strong>3일차</strong></li>
+								<li><strong>4일차</strong></li>
+							</ul>
 						</div>
 						
-						<div style="float: left;">
-							<a href="#" class="dn-btn">재배 시작</a>
-							<a href="#" class="dn-btn">재배 중지</a>
-							<a href="#" class="dn-btn">값 변경</a>
-							
-							<a href="#" class="dn-btn">재배 완료(일지 저장)</a>
-							<a href="#" class="dn-btn">취소(일지 저장 안함)</a>
+						<div style="display: inline-block; width: 85%; border: 1px solid black;">
+							<ul id="log" class="check-list">
+								<li>00:00 자동재배중입니다/온도30 습도60 일사량5 급액량400 재배중입니다</li>
+								<li>10:17 온도변화를 감지하였습니다 27 -> 33</li>
+								<li>15:20 온도를 설정값을 30도로 변경하였습니다</li>
+							</ul>
 						</div>
+						
 						<!--재배 관리 화면 출력부 종료-->
 						
 					</div>
@@ -83,7 +79,19 @@
 		</div>
 	</section>
 	<!--본문 종료-->
+<script type="text/javascript">
 
+$("#daily").on("click", "li", function(event){ 
+	console.log("test")
+	
+	$("#log").empty();
+	
+	for(var i=0; i<10; i++) {
+		$("#log").append("<li>New li tag</li>");
+	}
+}) 
+
+</script>
 
 </body>
 </html>
