@@ -19,6 +19,8 @@
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="../resources/css/prettyPhoto.css" rel="stylesheet">
 <link href="../resources/css/all.min.css" rel="stylesheet">
+<link href="../resources/css/popup.css" rel="stylesheet">
+<link href="../resources/css/table.css" rel="stylesheet">
 <!-- CSS FILES End -->
 <style type="text/css">
 .radioCss {
@@ -66,53 +68,33 @@ input[type="checkbox"]:checked::before {
 	font-size: 1.2em;
 }
 
-/* 팝업창 */
-.black_overlay {
-	display: none;
-	position: absolute;
-	top: 0%;
-	left: 0%;
+input[type="text"], input[type="number"] {
+	border: none;
+	border-right: 0px;
+	border-top: 0px;
+	boder-left: 0px;
+	boder-bottom: 0px;
 	width: 100%;
-	height: 100%;
-	background-color: black;
-	z-index: 1001;
-	-moz-opacity: 0.8;
-	opacity: .80;
-	filter: alpha(opacity = 80);
 }
 
-.white_content {
-	display: none;
-	position: absolute;
-	top: 25%;
-	left: 25%;
-	width: 50%;
-	height: 70%;
-	padding: 16px;
-	border: 16px solid orange;
-	background-color: white;
-	z-index: 1002;
-	overflow: auto;
+/* 팝업창 */
+h3 {
+	display: inline;
+	width: 200px;
 }
 
-/* table>tbody>tr {
-	margin: 1px;
+/* 버튼 폼 */
+.formBtn>li>button {
+	width: 200%;
+	margin: 0 150px;
+	float: left;
 }
-
-table {
-	border: 1 solid black;
-}
-
-table>tbody>tr>th {
-	text-align: center;
-	margin: 2px 10px;
-	padding: 2px 10px;
-} */
 </style>
 
 
 
 </head>
+
 <body>
 
 
@@ -125,7 +107,7 @@ table>tbody>tr>th {
 
 			<div class="projects-grid"></div>
 			<div class="container">
-				<h1>키트 판매현황</h1>
+				<h1>키트 구매현황</h1>
 				<br>
 				<div class="row">
 					<div class="single-post-tags wf50" style="float: left;">
@@ -139,10 +121,24 @@ table>tbody>tr>th {
 
 					<div class="wf100 comment-form">
 						<ul>
-							<li class="w3"><input type="text" class="form-control"
-								placeholder="시작일"></li>
-							<li class="w3"><input type="text" class="form-control"
-								placeholder="마지막"></li>
+							<li class="w3">
+								<div
+									class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+									style="width: 200px; height: 50px;">
+									<input id="startpicker-input" type="text" aria-label="Date">
+									<span class="tui-ico-date"></span>
+									<div id="startpicker-container" style="margin-left: -1px;"></div>
+								</div>
+							</li>
+							<li class="w3">
+								<div
+									class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+									style="width: 200px; height: 50px;">
+									<input id="endpicker-input" type="text" aria-label="Date">
+									<span class="tui-ico-date"></span>
+									<div id="endpicker-container" style="margin-left: -1px;"></div>
+								</div>
+							</li>
 							<li class="w3 np"><button class="post-btn">검색</button></li>
 
 						</ul>
@@ -150,10 +146,8 @@ table>tbody>tr>th {
 
 
 
-					<div class="col-md-8 col-sm-6" style="background-color: blue">
-						<!--campaign box start-->
-						그래프자리!
-						<!--campaign box end-->
+					<div class="col-md-8 col-sm-6">
+						<canvas id="myChart"></canvas>
 					</div>
 
 
@@ -184,20 +178,30 @@ table>tbody>tr>th {
 
 	</div>
 
+	<!-- 팝업창 -->
+	<div id="lightInstP" class="col-md-12 white_content"
+		style="text-align: center; height: 800px; top: 70px;">
+		<br>
 
-	<div id="lightInstP" class="col-md-12 white_content">
+		<div>
 
+			<h3>작물등록</h3>
+			<a href="javascript:void(0)"
+				onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
+			</a>
 
+		</div>
+		<br>
 
+		<div class="blog-single-content"
+			style="width: 80%; display: inline-block;">
+			<form action="">
 
-		<h3>작물등록</h3>
+				<div class="single-post-tags wf50">
+					<a href="#">과일류</a>&nbsp;&nbsp;&nbsp; <a href="#">채소류</a>
+				</div>
 
-		<a href="javascript:void(0)"
-			onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
-		</a> <br> <br>
-		<div class="blog-single-content">
-			<form action="" class="insertPlant">
-				<table>
+				<table class="GeneratedTable">
 					<tbody>
 						<tr>
 							<th>작물종류</th>
@@ -232,10 +236,6 @@ table>tbody>tr>th {
 							<td><input type="number"></td>
 						</tr>
 						<tr>
-							<th>습도</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
 							<th>cctv</th>
 							<td><input type="text"></td>
 						</tr>
@@ -251,6 +251,8 @@ table>tbody>tr>th {
 							<th>설명 이미지</th>
 							<td><input type="text"></td>
 						</tr>
+
+						<!-- hidden 영역 -->
 						<tr>
 							<th>판매여부</th>
 							<td><input type="text" value="Y"></td>
@@ -265,27 +267,30 @@ table>tbody>tr>th {
 							<td><input type="text" value=0></td>
 						</tr>
 
-
-
 					</tbody>
 
 
 
 				</table>
-				<div class="col-md-4 col-sm-6" style="margin: 30px 150px;">
-					<div class="wf100 comment-form">
 
-						<ul>
+				<div class="wf100 comment-form"
+					style="width: 80%; text-align: center;">
 
-							<li class="w3 np"><button onclick="openInstP()"
-									class="post-btn" style="width: 100px; margin: 0 150px;">작물등록</button></li>
-							<li class="w3 np"><button onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'"
-									class="post-btn" style="width: 100px; margin: 0 150px;">취소</button></li>
-						</ul>
+					<ul style="width: 100%;">
+						<li class="w2 np"></li>
+						<li class="w3 np"><button onclick="openInstP()"
+								class="post-btn">작물등록</button></li>
 
-					</div>
+						<li class="w3 np">
+							<button
+								onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'"
+								class="post-btn"
+								style="background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">취소</button>
+						</li>
+					</ul>
 
 				</div>
+
 			</form>
 		</div>
 	</div>
@@ -303,11 +308,76 @@ table>tbody>tr>th {
 	<script src="../resources/js/jquery.prettyPhoto.js"></script>
 	<script src="../resources/js/isotope.min.js"></script>
 	<script src="../resources/js/custom.js"></script>
-	<script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script type="text/javascript">
+		//=====차트=====
+		var context = document.getElementById('myChart').getContext('2d');
+		var myChart = new Chart(context,
+				{
+					type : 'pie', // 차트의 형태 line, pie, bar
+					data : { // 차트에 들어갈 데이터
+						labels : [
+						//x 축
+						'1', '2', '3', '4', '5', '6', '7' ],
+						datasets : [ { //데이터
+							label : 'test1', //차트 제목
+							fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+							data : [ 21, 19, 25, 20, 23, 26, 25 //x축 label에 대응되는 데이터 값
+							],
+							backgroundColor : [
+							//색상
+							'rgba(255, 99, 132, 0.2)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(255, 206, 86, 0.2)',
+									'rgba(75, 192, 192, 0.2)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(255, 159, 64, 0.2)' ],
+							borderColor : [
+							//경계선 색상
+							'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)',
+									'rgba(255, 206, 86, 1)',
+									'rgba(75, 192, 192, 1)',
+									'rgba(153, 102, 255, 1)',
+									'rgba(255, 159, 64, 1)' ],
+							borderWidth : 1
+						//경계선 굵기
+						} ]
+					},
+					options : {
+						scales : {
+							yAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
+						}
+					}
+				});
+
 		function openInstP() {
 			document.getElementById('lightInstP').style.display = 'block';
 			document.getElementById('fadeInstP').style.display = 'block';
 		}
+
+		function manageMember() {
+
+		}
+		//=====팝업 달력=====
+
+		var today = new Date();
+		var picker = tui.DatePicker.createRangePicker({
+			startpicker : {
+				date : today,
+				input : '#startpicker-input',
+				container : '#startpicker-container'
+			},
+			endpicker : {
+				date : today,
+				input : '#endpicker-input',
+				container : '#endpicker-container'
+			}
+		});
 	</script>
 </body>
 

@@ -20,10 +20,9 @@
 <link href="../resources/css/prettyPhoto.css" rel="stylesheet">
 <link href="../resources/css/all.min.css" rel="stylesheet">
 <link href="../resources/css/popup.css" rel="stylesheet">
-<link href="../resources/css/table.css" rel="stylesheet">	
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-
-
+<link href="../resources/css/table.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 
 <!-- CSS FILES End -->
 <style type="text/css">
@@ -71,6 +70,10 @@ input[type="checkbox"]:checked::before {
 .checkList {
 	font-size: 1.2em;
 }
+
+.inner {
+	width: 150px;
+}
 </style>
 </head>
 
@@ -86,27 +89,19 @@ input[type="checkbox"]:checked::before {
 
 			<div class="projects-grid"></div>
 			<div class="container">
-				<h1>회원관리</h1>
+				<h1>NFT 거래 현황</h1>
 
 				<br> <br>
 				<div class="row">
-					<div class="col-md-6 col-sm-6">
+					<div class="col-md-8 col-sm-6"></div>
 
-						<div class="single-post-tags wf50" style="float: left;">
-							<a href="#">전체</a>&nbsp;&nbsp;&nbsp; <a href="#">농부</a>&nbsp;&nbsp;&nbsp;
-							<a href="#">일반회원</a> &nbsp;&nbsp;&nbsp; <a href="#">농부신청</a>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-sm-1">
+					<!-- 검색바 -->
+					<div class="col-md-4 col-sm-1">
 
 						<div class="side-search">
 							<form>
-								<select class="form-control" style="width: 120px; float: left">
-									<option>이름</option>
-									<option>이메일</option>
-								</select> <input type="search" class="form-control" placeholder="검색"
-									style="margin: 0 10px; width: 380px; float: left;">
+								<input type="search" class="form-control" placeholder="검색"
+									style="margin: 0 10px;">
 								<button>
 									<i class="fas fa-search"></i>
 								</button>
@@ -114,27 +109,24 @@ input[type="checkbox"]:checked::before {
 						</div>
 					</div>
 
-
-
+					<!-- 테이블 -->
 					<div class="col-md-12 col-sm-6" style="padding: 20px;">
 						<div id="grid"></div>
 					</div>
 
-
 				</div>
 			</div>
+
 		</section>
 		<!--Causes End-->
-
 
 
 	</div>
 
 
 
-
-
 	<!--   JS Files Start  -->
+
 	<script src="../resources/js/jquery-3.3.1.min.js"></script>
 	<script src="../resources/js/jquery-migrate-1.4.1.min.js"></script>
 	<script src="../resources/js/popper.min.js"></script>
@@ -150,124 +142,60 @@ input[type="checkbox"]:checked::before {
 		// 나이는 수정할 수 있도록 설정한다.
 		var grid = new tui.Grid({
 			el : document.getElementById('grid'),
-
 			scrollX : false,
 			scrollY : false,
 			columns : [ {
 				header : '번호',
 				name : 'number',
-				sortingType : 'desc',
-				sortable : true
+				sortingType:'desc',
+				sortable: true
 			}, {
-				header : '이메일',
-				name : 'memEmail'
+				header : '작물이름',
+				name : 'plantName',
+				filter :'select'
 			}, {
-				header : '이름',
-				name : 'memName'
+				header : '작물종류',
+				name : 'plantClass',
+				filter :'select'
 			}, {
-				header : '권한',
-				name : 'memAthr',
-				filter : 'select'
+				header : '등급',
+				name : 'plantGrd',
+				filter :'select'
 			}, {
-				header : '첨부파일',
-				name : 'memFmReq'
-			}, {
-				header : '농부신청',
-				name : 'memAthrReq',
-				 formatter: 'listItemText',
-		          editor: {
-		            type: 'select',
-		            options: {
-		              listItems: [
-		                { text: '승인', value: '1' },
-		                { text: '거절', value: '2' }
-		              ]
-		            }
-		          }
+				header : '개수',
+				name : 'count',
+				sortingType:'desc',
+				sortable: true
 			}
+
 			]
 		});
 
 		// GRID 에 데이터를 입력한다.
-		var gridData = [ {
+		var arrData = [ {
 			number : '1',
-			memEmail : 'aaa@abc.com',
-			memName : '홍길동',
-			memAthr : '농부',
-			memFmReq : 'null',
-			memAthrReq : '농부'
-
+			plantName : '딸기',
+			plantClass : '과일',
+			plantGrd : '상',
+			count : '3'
 		}, {
 			number : '2',
-			memEmail : 'bbb@abc.com',
-			memName : '강길동',
-			memAthr : '일반회원',
-			memFmReq : '농부신청.jsp',
-			memAthrReq : '신청중'
-
+			plantName : '딸기',
+			plantClass : '과일',
+			plantGrd : '중',
+			count : '5'
 		}, {
 			number : '3',
-			memEmail : 'ccc@abc.com',
-			memName : '김길동',
-			memAthr : '일반회원',
-			memFmReq : '농부신청.jsp',
-			memAthrReq : '거절됨'
-
+			plantName : '오이',
+			plantClass : '채소',
+			plantGrd : '상',
+			count : 2
 		} ];
-		
 
-		 class CustomTextEditor {
-		      constructor(props) {
-		        const el = document.createElement('input');
-		        const { maxLength } = props.columnInfo.editor.options;
-
-		        el.type = 'text';
-		        el.maxLength = maxLength;
-		        el.value = String(props.value);
-
-		        this.el = el;
-		      }
-
-		      getElement() {
-		        return this.el;
-		      }
-
-		      getValue() {
-		        return this.el.value;
-		      }
-
-		      mounted() {
-		        this.el.select();
-		      }
-		    }
-		 
-		    
-	    grid.on('beforeChange', ev => {
-	        console.log('before change:', ev);
-	      });
-	    
-	      grid.on('afterChange', ev => {
-	        console.log('after change:', ev);
-	      });
-	      
-	      grid.on('dblclick', ev => {
-		      console.log('double clicked!!');
-		    });
-		    
-		   /*  grid.on('focusChange', ev => {
-		        console.log('change focused cell!', ev);
-		      }); */
-		    
-	      grid.resetData(gridData);
-		      
-		  
-		      
-	      
-	      
-
-		    
-		    
+		grid.resetData(arrData);
 	</script>
+
+
 </body>
 
 
