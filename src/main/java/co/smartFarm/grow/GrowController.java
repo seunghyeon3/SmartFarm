@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class GrowController {
 	
-	@Autowired GrowMapper map;
+	@Autowired GrowDiaryMapper map;
 	
 //	재배 진행 정보 페이지
 	@RequestMapping(value = "/grow.do", method = RequestMethod.GET)
@@ -65,8 +65,8 @@ public class GrowController {
 	@RequestMapping(value = "/diary.do", method = RequestMethod.GET)
 	public String diary(Locale locale, Model model) {
 		
-		model.addAttribute("test", map.diary());
-		System.out.println(map.diary());
+		model.addAttribute("test", map.growDiaryMyList("aaa@abc.com"));
+		System.out.println(map.growDiaryMyList("aaa@abc.com"));
 		return "grow/diary";
 	}
 	
