@@ -12,65 +12,70 @@
 <meta name="author" content="">
 <link rel="icon" href="images/favicon.png">
 <title>ECO HTML</title>
-<!-- CSS FILES START -->
-<link href="css/custom.css" rel="stylesheet">
-<link href="css/color.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
-<link href="css/owl.carousel.min.css" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/prettyPhoto.css" rel="stylesheet">
-<link href="css/all.min.css" rel="stylesheet">
-<link href="css/slick.css" rel="stylesheet">
-<!-- CSS FILES End -->
+
+<style>
+.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: 1px solid #4cae4c;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+  background-color: #6ed36e;
+}
+
+.filebox label:active {
+  background-color: #367c36;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+</style>
 </head>
 <body>
 	<div class="wrapper">
 
-		<!--Inner Header Start-->
-		<section class="wf100 p100 inner-header">
-			<div class="container">
-				<h1>스마트팜 안내</h1>
-				<ul>
-					<li><a href="#">Home</a></li>
-					<li><a href="#">About Us</a></li>
-				</ul>
-			</div>
-		</section>
 		<!--Inner Header End-->
 		<!--About Start-->
-		<section class="wf100 about">
-			<!--About Txt Video Start-->
-			<div class="about-video-section wf100">
-				<div class="container">
-								<form enctype="multipart/form-data"
-									method="post">
-									<div id="in_title">
-										<textarea name="title" id="utitle" rows="1" cols="55"
-											placeholder="제목" maxlength="100" required></textarea>
-									</div>
-
-									<div class="wi_line"></div>
-									<div id="in_content">
-										<textarea name="content" id="ucontent" placeholder="내용"
-											required></textarea>
-									</div>
-
-									<input type="file" name="SelectFile" />
-
-
-									<div class="bt_se">
-									<a href="intro.do"><role="submit">수정</a>
-									<a href="noticeDelete.do"><role="button"><class="btn btn-outline-info">삭제</a>
-									<input type="button" id="btn" value="취소" />
-									</div>
-								</form>
-							</div>
-						</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--About Txt Video End-->
+		<section class="contact-page wf100 p80">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                     <div class="contact-form mb60">
+                        <h3>수정</h3>
+                        <ul class="cform">
+                           <!-- 파일업로드 버튼 구성 -->
+                           <div class="filebox" style="float: right">
+  								<label for="ex_file">사진 업로드</label>
+  								<input type="file" id="ex_file">
+						   </div>
+                           
+                           <li class="full">
+                              <input type="submit" value="수정" onclick="location.href='intro.do'"class="fsubmit">
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
 
 
 			<!--   JS Files Start  -->

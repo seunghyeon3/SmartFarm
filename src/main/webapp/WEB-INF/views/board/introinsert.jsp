@@ -22,6 +22,28 @@
 <link href="css/all.min.css" rel="stylesheet">
 <link href="css/slick.css" rel="stylesheet">
 <!-- CSS FILES End -->
+<style>
+.container {
+	width: 1000px;
+	margin: auto;
+	text-align: center;
+}
+
+.bt_se {
+	width: 1000px;
+	margin: auto;
+	text-align: center;
+}
+
+.file {
+	width: 105px;
+	height: 50px;
+	float: left;
+	
+	
+}
+}
+</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -38,49 +60,49 @@
 		</section>
 		<!--Inner Header End-->
 		<!--About Start-->
-		<section class="wf100 about">
-			<!--About Txt Video Start-->
+		<!-- <section class="wf100 about">
+			About Txt Video Start
 			<div class="about-video-section wf100">
 				<div class="container">
-								<form enctype="multipart/form-data"
-									method="post">
-									<div id="in_title">
-										<textarea name="title" id="utitle" rows="1" cols="55"
-											placeholder="제목" maxlength="100" required></textarea>
-									</div>
+					<form enctype="multipart/form-data" method="post">
+						<div id="in_title">
+							<textarea name="title" id="utitle" rows="1" cols="70"
+								placeholder="제목" maxlength="100" required></textarea>
+						</div>
 
-									<div class="wi_line"></div>
-									<div id="in_content">
-										<textarea name="content" id="ucontent" placeholder="내용"
-											required></textarea>
-									</div>
-
-									<input type="file" name="SelectFile" />
-
-
-									<div class="bt_se">
-									<a href="introinsert.do"><role="submit">등록</a>
-									<input type="button" id="btn" value="취소" />
-									</div>
-								</form>
+						<div class="wi_line"></div>
+						<div id="in_content">
+							<textarea name="content" id="ucontent" rows="15" cols="70"
+								placeholder="내용" required></textarea>
+						</div> -->
+						<div class="file">
+							<input type="file" name="SelectFile" />
+						</div>
+					</form>
+						<div class="bt_se">
+							<div align="right" class="bt_se">
+								<a class="aboutus" href="intro.do">등록</a> 
+								<a class="aboutus" href="intro.do">취소</a>
 							</div>
 						</div>
-						</div>
-					</div>
 				</div>
 			</div>
-			<!--About Txt Video End-->
+	</div>
+	</div>
+	</div>
+	</div>
+	<!--About Txt Video End-->
 
 
-			<!--   JS Files Start  -->
-			<script src="js/jquery-3.3.1.min.js"></script>
-			<script src="js/jquery-migrate-1.4.1.min.js"></script>
-			<script src="js/popper.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/owl.carousel.min.js"></script>
-			<script src="js/jquery.prettyPhoto.js"></script>
-			<script src="js/slick.min.js"></script>
-			<script src="js/custom.js"></script>
+	<!--   JS Files Start  -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/jquery-migrate-1.4.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/slick.min.js"></script>
+	<script src="js/custom.js"></script>
 </body>
 
 </html>
