@@ -54,9 +54,5 @@
 
 
 
-	<context:component-scan
-		base-package="co.smartFarm" />
-
-
-
+	<context:component-scan base-package="co.smartFarm.*" />
 </beans:beans>
