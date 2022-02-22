@@ -19,6 +19,8 @@
 <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="../resources/css/prettyPhoto.css" rel="stylesheet">
 <link href="../resources/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
 <!-- CSS FILES End -->
 <style type="text/css">
 .radioCss {
@@ -78,69 +80,79 @@ input[type="checkbox"]:checked::before {
 
 
 			<div class="projects-grid"></div>
+
 			<div class="container">
 				<h1>매출</h1>
 				<br>
 				<div class="row">
-					
+
 
 
 					<!-- 팝업 달력 -->
 					<div class="col-md-12 comment-form">
 						<form action="">
-							<ul>
-								<li class="col-md-8 np">
+							<ul class="col-md-12" style="display: inline-block;">
+
+								<li class="col-md-3" style="float: left;">
 									<div
-										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"  style="width:200px;height:50px;">
-										<input id="startpicker-input" type="text" aria-label="Date">
-										<span class="tui-ico-date"></span>
-										<div id="startpicker-container" style="margin-left: -1px;"></div>
-									</div>
-									<span> ~ </span> 
-									<div
-										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"  style="width:200px;height:50px;">
-										<input id="endpicker-input" type="text" aria-label="Date">
-										<span class="tui-ico-date"></span>
-										<div id="endpicker-container" style="margin-left: -1px;"></div>
+										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+										style="width: 200px; height: 50px;">
+										<input id="startpicker-input" type="text" aria-label="Date"
+											style="z-index: 2;"> <span class="tui-ico-date"></span>
+										<div id="startpicker-container"
+											style="margin-left: -1px; z-index: 3;"></div>
 									</div>
 								</li>
+								<li class="col-md-3" style="float: left;">
 
+									<div
+										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+										style="width: 200px; height: 50px;">
+										<input id="endpicker-input" type="text" aria-label="Date"
+											style="z-index: 2;"> <span class="tui-ico-date"></span>
 
-								<li class="col-md-2 np"><button class="post-btn" style="width:100px;height:50px;">검색</button></li>
-								
+										<div id="endpicker-container"
+											style="margin-left: -1px; z-index: 3;"></div>
+									</div>
+								</li>
+								<li class="col-md-2" style="float: left;"><button
+										class="post-btn" style="width: 100px; height: 50px;">검색</button></li>
 							</ul>
 
-
 						</form>
+
 					</div>
 
 
 					<!-- 차트 -->
-					<div class="col-md-8 col-sm-6">
-						<canvas id="myChart"></canvas>
+					<div class="col-md-8 col-sm-6" style="z-index: 1;">
+						<canvas id="myChart" style="z-index: 1;"></canvas>
 					</div>
 
 
-
+					<!-- 엑셀 출력 폼 -->
 					<div class="col-md-4 col-sm-6 checkList">
 						<div class="wf100 comment-form">
 
 							<ul>
 								<li class=""><input type='checkbox' name='export'
-									value='dog' onclick='getCheckboxValue()' />&nbsp;&nbsp;매출</li>
+									value='exportIncome' onclick='getCheckboxValue()' />&nbsp;&nbsp;매출</li>
 
 								<li class=""><input type='checkbox' name='export'
-									value='dog' onclick='getCheckboxValue()' />&nbsp;&nbsp;키트 구매현황</li>
+									value='exportKit' onclick='getCheckboxValue()' />&nbsp;&nbsp;키트
+									구매현황</li>
 								<li class=""><input type='checkbox' name='export'
-									value='dog' onclick='getCheckboxValue()' />&nbsp;&nbsp;회원관리</li>
+									value='exportMember' onclick='getCheckboxValue()' />&nbsp;&nbsp;회원관리</li>
 								<li class=""><input type='checkbox' name='export'
-									value='dog' onclick='getCheckboxValue()' />&nbsp;&nbsp;작물관리</li>
+									value='exportPlant' onclick='getCheckboxValue()' />&nbsp;&nbsp;작물관리</li>
 								<li class=""><input type='checkbox' name='export'
-									value='dog' onclick='getCheckboxValue()' />&nbsp;&nbsp;NFT
+									value='exportNFT' onclick='getCheckboxValue()' />&nbsp;&nbsp;NFT
 									현황조회</li>
 
 
-								<li class="w3 np"><button class="post-btn">엑셀출력</button></li>
+								<li class="w3 np">
+									<button class="post-btn">엑셀출력</button>
+								</li>
 
 							</ul>
 
@@ -167,16 +179,17 @@ input[type="checkbox"]:checked::before {
 	<script src="../resources/js/isotope.min.js"></script>
 	<script src="../resources/js/custom.js"></script>
 	<script
+		src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
+	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
 	<script type="text/javascript">
 		//=====차트=====
 		var context = document.getElementById('myChart').getContext('2d');
 		var myChart = new Chart(context, {
 			type : 'line', // 차트의 형태 line, pie, bar
 			data : { // 차트에 들어갈 데이터
-				labels : [
-				//x 축
-				'1', '2', '3', '4', '5', '6', '7' ],
+				labels : [ '1', '2', '3', '4', '5', '6', '7' ],//x 축
 				datasets : [ { //데이터
 					label : '총매출', //차트 제목
 					fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
@@ -184,7 +197,6 @@ input[type="checkbox"]:checked::before {
 					],
 					backgroundColor : [
 					//색상
-
 					'rgba(255, 206, 86, 1)' ],
 					borderColor : [
 					//경계선 색상
@@ -219,8 +231,8 @@ input[type="checkbox"]:checked::before {
 			}
 		});
 
+		
 		//=====팝업 달력=====
-
 		var today = new Date();
 		var picker = tui.DatePicker.createRangePicker({
 			startpicker : {

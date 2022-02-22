@@ -146,8 +146,7 @@ input[type="checkbox"]:checked::before {
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 
 	<script>
-		// GRID 를 생성한다.
-		// 나이는 수정할 수 있도록 설정한다.
+		//표 출력
 		var grid = new tui.Grid({
 			el : document.getElementById('grid'),
 
@@ -239,7 +238,7 @@ input[type="checkbox"]:checked::before {
 		      mounted() {
 		        this.el.select();
 		      }
-		    }
+		}
 		 
 		    
 	    grid.on('beforeChange', ev => {
