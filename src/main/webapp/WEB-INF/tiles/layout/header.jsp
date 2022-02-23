@@ -91,7 +91,7 @@
                         <a class="cart-icon" href="#" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
                      </li>
                      <li class="login-reg"> <a href="#">Login</a> | <a href="#">Signup</a> </li>
-                     <li class="login-reg"> <a href="#">Logout</a> | <a href="#">Mypage</a> </li>
+                     <li class="login-reg"> <a href="#">Logout</a> | <a href="mypage.do">Mypage</a> </li>
                   </ul>
                </div>
             </nav>
