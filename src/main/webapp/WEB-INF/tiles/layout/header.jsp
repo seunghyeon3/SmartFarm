@@ -1,25 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-      <link href="resources/css/custom.css" rel="stylesheet">
-      <link href="resources/css/color.css" rel="stylesheet">
-      <link href="resources/css/responsive.css" rel="stylesheet">
-      <link href="resources/css/owl.carousel.min.css" rel="stylesheet">
-      <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-      <link href="resources/css/prettyPhoto.css" rel="stylesheet">
-      <link href="resources/css/all.min.css" rel="stylesheet">
-      <link href="resources/css/popup.css" rel="stylesheet">
-      <link href="resources/css/table.css" rel="stylesheet">
+      <link href="<c:url value="/resources/css/custom.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/color.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/responsive.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/owl.carousel.min.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/prettyPhoto.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/all.min.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
+      <link href="<c:url value="/resources/css/table.css" />" rel="stylesheet">
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
-<body>
+<body style="background: url(resources/images/aboutbg.jpg) no-repeat #fff; background-size: cover;">
+
 <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
-               <a class="navbar-brand" href="index-2.html"><img src="resources/images/h2logo.png" alt=""></a>
+               <a class="navbar-brand" href="index-2.html"><img src="<c:url value='/resources/images/h2logo.png' />" alt=""></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
@@ -39,9 +41,9 @@
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="causes.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 판매 </a>
+                        <a class="nav-link dropdown-toggle" href="plantShopList.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 판매 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">작물 판매</a></li>
+                           <li><a href="plantShopList.do">작물 판매</a></li>
                            <li><a href="#">키트 판매</a></li>
                         </ul>
                      </li>
@@ -85,33 +87,17 @@
                      </li>
                   </ul>
                   <ul class="topnav-right">
-                     <li> <a class="mdonate" href="donation.html"><span>Make a Donation</span></a> </li>
-                     <li> <a class="search-icon" href="#search"> <i class="fas fa-search"></i> </a> </li>
                      <li class="dropdown">
                         <a class="cart-icon" href="#" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
-                        <div class="dropdown-menu cart-box" aria-labelledby="cartdropdown">
-                           Recently added item(s)
-                           <ul class="list">
-                              <li class="item">
-                                 <a href="#" class="preview-image"><img class="preview" src="images/pro.jpg" alt=""></a>
-                                 <div class="description"> <a href="#">Sample Course</a> <strong class="price">1 x $44.95</strong> </div>
-                              </li>
-                              <li class="item">
-                                 <a href="#" class="preview-image"><img class="preview" src="images/pro.jpg" alt=""></a>
-                                 <div class="description"> <a href="#">Sample Course</a> <strong class="price">1 x $44.95</strong> </div>
-                              </li>
-                           </ul>
-                           <div class="total">Total: <strong>$44.95</strong></div>
-                           <div class="view-link"><a href="#">Proceed to Checkout</a> <a href="#">View cart </a></div>
-                        </div>
                      </li>
-                     <li class="login-reg"> <a href="my-account.html">Login</a> | <a href="my-account.html">Signup</a> </li>
+                     <li class="login-reg"> <a href="#">Login</a> | <a href="#">Signup</a> </li>
+                     <li class="login-reg"> <a href="#">Logout</a> | <a href="#">Mypage</a> </li>
                   </ul>
                </div>
             </nav>
          </header>  
          <!-- 각자 페이지에 맞게 추가 해아함 -->    
-         <section class="wf100 p100 inner-header">
+         <section class="wf100 p100 inner-header" style="margin-bottom: 50px">
             <div class="container" id="menu">
             <h1>header파일에 링크 넣어주세요</h1>
             <!--    <h1>About Us</h1>
@@ -121,7 +107,6 @@
                </ul> -->
             </div>
          </section>
-         
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
       <script src="resources/js/jquery-3.3.1.min.js"></script> 

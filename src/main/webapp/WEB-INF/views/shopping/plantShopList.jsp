@@ -21,16 +21,15 @@
       </div>
 
       <!-- 검색 버튼 추가 -->
-      
       <div class="col-lg-3 col-md-4 side-search">
-         <input type="search" class="form-control" placeholder="Search" style="float: right;" id="autoCompt">
+         <input type="search" class="form-control" placeholder="Search" id="autoCompt">
          <button><i class="fas fa-search"></i></button>
       </div>
    </div>
 
    <section class="shop wf100 p80">
       <div class="container">
-         <div class="row" id="prolist">
+         <div class="row" id="prolist">	
          
             <div class="col-md-12">
                <a href="plantProductAdd.do" class="view-more" style="color: white; cursor: pointer;">작물등록버튼</a>
@@ -57,7 +56,6 @@
       </div>
    </section>
    <script type="text/javascript">
-   
    //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
       $.ajax({
          url: '',
