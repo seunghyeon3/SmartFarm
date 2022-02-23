@@ -116,7 +116,7 @@ input[type="checkbox"]:checked::before {
 
 
 					<div class="col-md-12 col-sm-6" style="padding: 20px;">
-						<div id="grid"></div>
+						<div id="grid" style="width: 100%;"></div>
 					</div>
 
 				</div>
@@ -145,6 +145,7 @@ input[type="checkbox"]:checked::before {
 	<script type="text/javascript">
 		//표 출력
 		var grid = new tui.Grid({
+			rowHeight : 'auto',
 			el : document.getElementById('grid'),
 			rowHeaders : [ 'rowNum' ],//번호 매기기
 			scrollX : false,
@@ -167,7 +168,9 @@ input[type="checkbox"]:checked::before {
 				filter : 'select'
 			}, {
 				header : '관리',
-				name : 'plantManage'
+				name : 'plantManage',
+				width: '155'
+
 			} ],
 			columnOptions : {
 				resizable : true
@@ -205,12 +208,13 @@ input[type="checkbox"]:checked::before {
 
 			for (var i = 0; i < gridData.length; i++) {
 				console.log(grid.getValue(i, 'plantManage'));
+				
 				if (grid.getValue(i, 'plantManage') == 'Y') {//내리기
-					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 					grid.setValue(i, 'plantManage', input, true);
 
 				} else {//올리기
-					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="width: 80px; height:30px;padding:0 0px 10px 30px;">올리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
 					grid.setValue(i, 'plantManage', input, true);
 				}
 
@@ -218,6 +222,7 @@ input[type="checkbox"]:checked::before {
 		}
 
 		changeValue();
+		
 	</script>
 </body>
 

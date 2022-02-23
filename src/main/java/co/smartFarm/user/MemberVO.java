@@ -14,4 +14,5 @@ public class MemberVO {
 	private String mem_athr;
 	private String mem_fm_req;
 	private String mem_tel;
+	private String mem_fm_result;
 }
