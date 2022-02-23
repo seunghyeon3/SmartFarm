@@ -4,7 +4,6 @@
 	pageEncoding="UTF-8"%>
 
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -74,7 +73,6 @@ input[type="checkbox"]:checked::before {
 	font-size: 1.2em;
 }
 </style>
-
 </head>
 
 <body>
@@ -89,7 +87,7 @@ input[type="checkbox"]:checked::before {
 
 			<div class="projects-grid"></div>
 			<div class="container">
-				<h1>회원관리</h1>
+				<h1>키트 관리</h1>
 
 				<br> <br>
 				<div class="row">
@@ -183,21 +181,18 @@ input[type="checkbox"]:checked::before {
 			scrollX : false,
 			scrollY : false,
 			columns : [ {
-				header : '이메일',
-				name : 'mem_email'
+				header : '작물이름',
+				name : 'kit_name'
 			}, {
-				header : '이름',
-				name : 'mem_name'
-			}, {
-				header : '권한',
-				name : 'mem_athr',
+				header : '용도',
+				name : 'kit_prpos',
 				filter : 'select'
 			}, {
-				header : '첨부파일',
-				name : 'mem_fm_req'
+				header : '분류',
+				name : 'kit_plant_class'
 			}, {
-				header : '농부신청',
-				name : 'mem_fm_result',
+				header : '관리',
+				name : 'kit_sale_whet',
 				filter : 'select'
 
 			} ]
@@ -247,7 +242,6 @@ input[type="checkbox"]:checked::before {
 		
 
 		
-
 		
 		
 		function accept(e) {
