@@ -551,7 +551,7 @@ section#home-slider img {
 	font-family: 'yg-jalnan','droidSans';
 }
 .home-about {
-	background: url(../images/aboutbg.jpg) no-repeat #fff;
+	background: url(resources/images/aboutbg.jpg) no-repeat #fff;
 }
 .about-pic {
 	position: relative;

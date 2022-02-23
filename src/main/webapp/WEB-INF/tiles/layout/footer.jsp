@@ -41,7 +41,7 @@
                         </div>
                      </div>
                      <div class="col-lg-3 col-md-6 col-sm-6">
-                          <img src="resources/images/smartfarm.png" alt="사진이 엄서용" style="width: 200px">
+                          <img src="/resources/images/smartfarm.png" alt="사진이 엄서용" style="width: 200px">
                        </div>
                   </div>
                </div>

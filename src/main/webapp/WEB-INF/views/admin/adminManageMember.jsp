@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -73,6 +74,7 @@ input[type="checkbox"]:checked::before {
 	font-size: 1.2em;
 }
 </style>
+
 </head>
 
 <body>

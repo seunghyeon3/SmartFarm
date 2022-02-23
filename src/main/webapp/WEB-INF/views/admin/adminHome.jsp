@@ -4,71 +4,63 @@
 	pageEncoding="UTF-8"%>
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="resources/images/favicon.png">
-<title>ECO HTML</title>
-<!-- CSS FILES START -->
-<link href="../resources/css/custom.css" rel="stylesheet">
-<link href="../resources/css/color.css" rel="stylesheet">
-<link href="../resources/css/responsive.css" rel="stylesheet">
-<link href="../resources/css/owl.carousel.min.css" rel="stylesheet">
-<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="../resources/css/prettyPhoto.css" rel="stylesheet">
-<link href="../resources/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<!-- CSS FILES End -->
-<style type="text/css">
-.radioCss {
-	width: 50px;
-	padding: 20px;
-	font-size: 1.2em;
-}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="resources/images/favicon.png">
+	<title>ECO HTML</title>
+	
+	<link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
+	<!-- CSS FILES End -->
+	<style type="text/css">
+		.radioCss {
+			width: 50px;
+			padding: 20px;
+			font-size: 1.2em;
+		}
 
-/*radio 버튼 색상변경 */
-input[type='radio'] {
-	-webkit-appearance: none;
-	width: 16px;
-	height: 16px;
-	border: 1px solid darkgray;
-	border-radius: 50%;
-	outline: none;
-	background: #e6e6e6;
-}
+		/*radio 버튼 색상변경 */
+		input[type='radio'] {
+			-webkit-appearance: none;
+			width: 16px;
+			height: 16px;
+			border: 1px solid darkgray;
+			border-radius: 50%;
+			outline: none;
+			background: #e6e6e6;
+		}
 
-input[type='radio']:before {
-	content: '';
-	display: block;
-	width: 60%;
-	height: 60%;
-	margin: 20% auto;
-	border-radius: 50%;
-}
+		input[type='radio']:before {
+			content: '';
+			display: block;
+			width: 60%;
+			height: 60%;
+			margin: 20% auto;
+			border-radius: 50%;
+		}
 
-input[type='radio']:checked:before {
-	background: #1b5e20;
-}
+		input[type='radio']:checked:before {
+			background: #1b5e20;
+		}
 
-input[type="checkbox"]:checked {
-	background-color: black;
-	border-color: black;
-	color: white;
-}
+		input[type="checkbox"]:checked {
+			background-color: black;
+			border-color: black;
+			color: white;
+		}
 
-input[type="checkbox"]:checked::before {
-	border-radius: 2px;
-	transform: scale(1) translate(-50%, -50%)
-}
+		input[type="checkbox"]:checked::before {
+			border-radius: 2px;
+			transform: scale(1) translate(-50%, -50%)
+		}
 
-.checkList {
-	font-size: 1.2em;
-}
-</style>
+		.checkList {
+			font-size: 1.2em;
+		}
+	</style>
 </head>
+
 <body>
 
 
@@ -94,29 +86,25 @@ input[type="checkbox"]:checked::before {
 							<ul class="col-md-12" style="display: inline-block;">
 
 								<li class="col-md-3" style="float: left;">
-									<div
-										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+									<div class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
 										style="width: 200px; height: 50px;">
-										<input id="startpicker-input" type="text" aria-label="Date"
-											style="z-index: 2;"> <span class="tui-ico-date"></span>
-										<div id="startpicker-container"
-											style="margin-left: -1px; z-index: 3;"></div>
+										<input id="startpicker-input" type="text" aria-label="Date" style="z-index: 2;">
+										<span class="tui-ico-date"></span>
+										<div id="startpicker-container" style="margin-left: -1px; z-index: 3;"></div>
 									</div>
 								</li>
 								<li class="col-md-3" style="float: left;">
 
-									<div
-										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+									<div class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
 										style="width: 200px; height: 50px;">
-										<input id="endpicker-input" type="text" aria-label="Date"
-											style="z-index: 2;"> <span class="tui-ico-date"></span>
+										<input id="endpicker-input" type="text" aria-label="Date" style="z-index: 2;">
+										<span class="tui-ico-date"></span>
 
-										<div id="endpicker-container"
-											style="margin-left: -1px; z-index: 3;"></div>
+										<div id="endpicker-container" style="margin-left: -1px; z-index: 3;"></div>
 									</div>
 								</li>
-								<li class="col-md-2" style="float: left;"><button
-										class="post-btn" style="width: 100px; height: 50px;">검색</button></li>
+								<li class="col-md-2" style="float: left;"><button class="post-btn"
+										style="width: 100px; height: 50px;">검색</button></li>
 							</ul>
 
 						</form>
@@ -135,18 +123,18 @@ input[type="checkbox"]:checked::before {
 						<div class="wf100 comment-form">
 
 							<ul>
-								<li class=""><input type='checkbox' name='export'
-									value='exportIncome' onclick='getCheckboxValue()' />&nbsp;&nbsp;매출</li>
+								<li class=""><input type='checkbox' name='export' value='exportIncome'
+										onclick='getCheckboxValue()' />&nbsp;&nbsp;매출</li>
 
-								<li class=""><input type='checkbox' name='export'
-									value='exportKit' onclick='getCheckboxValue()' />&nbsp;&nbsp;키트
+								<li class=""><input type='checkbox' name='export' value='exportKit'
+										onclick='getCheckboxValue()' />&nbsp;&nbsp;키트
 									구매현황</li>
-								<li class=""><input type='checkbox' name='export'
-									value='exportMember' onclick='getCheckboxValue()' />&nbsp;&nbsp;회원관리</li>
-								<li class=""><input type='checkbox' name='export'
-									value='exportPlant' onclick='getCheckboxValue()' />&nbsp;&nbsp;작물관리</li>
-								<li class=""><input type='checkbox' name='export'
-									value='exportNFT' onclick='getCheckboxValue()' />&nbsp;&nbsp;NFT
+								<li class=""><input type='checkbox' name='export' value='exportMember'
+										onclick='getCheckboxValue()' />&nbsp;&nbsp;회원관리</li>
+								<li class=""><input type='checkbox' name='export' value='exportPlant'
+										onclick='getCheckboxValue()' />&nbsp;&nbsp;작물관리</li>
+								<li class=""><input type='checkbox' name='export' value='exportNFT'
+										onclick='getCheckboxValue()' />&nbsp;&nbsp;NFT
 									현황조회</li>
 
 
@@ -178,6 +166,7 @@ input[type="checkbox"]:checked::before {
 	<script src="../resources/js/jquery.prettyPhoto.js"></script>
 	<script src="../resources/js/isotope.min.js"></script>
 	<script src="../resources/js/custom.js"></script>
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script
@@ -188,63 +177,67 @@ input[type="checkbox"]:checked::before {
 		//=====차트=====
 		var context = document.getElementById('myChart').getContext('2d');
 		var myChart = new Chart(context, {
-			type : 'line', // 차트의 형태 line, pie, bar
-			data : { // 차트에 들어갈 데이터
-				labels : [ '1', '2', '3', '4', '5', '6', '7' ],//x 축
-				datasets : [ { //데이터
-					label : '총매출', //차트 제목
-					fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-					data : [ 21, 19, 25, 20, 23, 26, 25 //x축 label에 대응되는 데이터 값
+			type: 'line', // 차트의 형태 line, pie, bar
+			data: { // 차트에 들어갈 데이터
+				labels: ['1', '2', '3', '4', '5', '6', '7'], //x 축
+				datasets: [{ //데이터
+					label: '총매출', //차트 제목
+					fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+					data: [21, 19, 25, 20, 23, 26, 25 //x축 label에 대응되는 데이터 값
 					],
-					backgroundColor : [
-					//색상
-					'rgba(255, 206, 86, 1)' ],
-					borderColor : [
-					//경계선 색상
-					'rgba(255, 206, 86, 1)' ],
-					borderWidth : 1
-				//경계선 굵기
+					backgroundColor: [
+						//색상
+						'rgba(255, 206, 86, 1)'
+					],
+					borderColor: [
+						//경계선 색상
+						'rgba(255, 206, 86, 1)'
+					],
+					borderWidth: 1
+					//경계선 굵기
 
 				}, { //데이터
-					label : '키트매출', //차트 제목
-					fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-					data : [ 2, 3, 14, 25, 13, 41, 12 //x축 label에 대응되는 데이터 값
+					label: '키트매출', //차트 제목
+					fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+					data: [2, 3, 14, 25, 13, 41, 12 //x축 label에 대응되는 데이터 값
 					],
-					backgroundColor : [
-					//색상
-					'rgba(75, 192, 192, 1)', ],
-					borderColor : [
-					//경계선 색상
-					'rgba(75, 192, 192, 1)', ],
-					borderWidth : 1
-				//경계선 굵기
-				} ]
+					backgroundColor: [
+						//색상
+						'rgba(75, 192, 192, 1)',
+					],
+					borderColor: [
+						//경계선 색상
+						'rgba(75, 192, 192, 1)',
+					],
+					borderWidth: 1
+					//경계선 굵기
+				}]
 
 			},
-			options : {
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
 						}
-					} ]
+					}]
 				}
 			}
 		});
 
-		
+
 		//=====팝업 달력=====
 		var today = new Date();
 		var picker = tui.DatePicker.createRangePicker({
-			startpicker : {
-				date : today,
-				input : '#startpicker-input',
-				container : '#startpicker-container'
+			startpicker: {
+				date: today,
+				input: '#startpicker-input',
+				container: '#startpicker-container'
 			},
-			endpicker : {
-				date : today,
-				input : '#endpicker-input',
-				container : '#endpicker-container'
+			endpicker: {
+				date: today,
+				input: '#endpicker-input',
+				container: '#endpicker-container'
 			}
 		});
 	</script>
