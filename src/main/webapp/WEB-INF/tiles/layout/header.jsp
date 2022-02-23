@@ -93,7 +93,7 @@
 
 
                      <li class="login-reg"> <a href="login.do">Login</a> | <a href="#">Signup</a> </li>
-                     <li class="login-reg"> <a href="#">Logout</a> | <a href="#">Mypage</a> </li>
+                     <li class="login-reg"> <a href="#">Logout</a> | <a href="mypage.do">Mypage</a> </li>
 
                   </ul>
                </div>
