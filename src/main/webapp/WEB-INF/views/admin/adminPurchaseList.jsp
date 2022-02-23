@@ -178,6 +178,8 @@ h3 {
 
 	</div>
 
+
+
 	<!-- 팝업창 -->
 	<div id="lightInstP" class="col-md-12 white_content"
 		style="text-align: center; height: 800px; top: 70px;">
@@ -294,6 +296,11 @@ h3 {
 			</form>
 		</div>
 	</div>
+	
+	
+	
+	
+	
 	<div id="fadeInstP" class="black_overlay"></div>
 
 
@@ -354,15 +361,14 @@ h3 {
 						}
 					}
 				});
-
+		
+		//=====팝업창=====
 		function openInstP() {
 			document.getElementById('lightInstP').style.display = 'block';
 			document.getElementById('fadeInstP').style.display = 'block';
 		}
 
-		function manageMember() {
-
-		}
+		
 		//=====팝업 달력=====
 
 		var today = new Date();

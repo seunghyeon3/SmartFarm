@@ -179,9 +179,10 @@ input[type="checkbox"]:checked::before {
 	<script src="../resources/js/isotope.min.js"></script>
 	<script src="../resources/js/custom.js"></script>
 	<script
-		src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script
+		src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
+	
 
 	<script type="text/javascript">
 		//=====차트=====
