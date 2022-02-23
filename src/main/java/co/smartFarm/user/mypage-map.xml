@@ -3,5 +3,16 @@
 <mapper namespace="co.smartFarm.user.MypageMapper">
 	<!--NFT 생성버튼을 누를시 NFT테이블에 데이터가 입력되고 
 	 	재배일지 nft생성여부를 업데이트한다.  -->
-
+    <select id="createNft" parameterType="co.smartFarm.auction.NftVO" statementType="CALLABLE">
+        <![CDATA[
+        { call create_nft (
+                #{grow_diary_grow_no},
+                #{mem_email},
+                #{grow_diary_log_rou},
+                #{nft_img},
+                #{grow_diary_grd},
+                #{kit_no}
+            )}
+        ]]>
+    </select>
 </mapper>
