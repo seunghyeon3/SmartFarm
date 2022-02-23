@@ -4,74 +4,73 @@
 	pageEncoding="UTF-8"%>
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="../resources/images/favicon.png">
-<title>ECO HTML</title>
-<!-- CSS FILES START -->
-<link href="../resources/css/custom.css" rel="stylesheet">
-<link href="../resources/css/color.css" rel="stylesheet">
-<link href="../resources/css/responsive.css" rel="stylesheet">
-<link href="../resources/css/owl.carousel.min.css" rel="stylesheet">
-<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="../resources/css/prettyPhoto.css" rel="stylesheet">
-<link href="../resources/css/all.min.css" rel="stylesheet">
-<link href="../resources/css/popup.css" rel="stylesheet">
-<link href="../resources/css/table.css" rel="stylesheet">	
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="../resources/images/favicon.png">
+	<title>ECO HTML</title>
+	<!-- CSS FILES START -->
+	<link href="../resources/css/custom.css" rel="stylesheet">
+	<link href="../resources/css/color.css" rel="stylesheet">
+	<link href="../resources/css/responsive.css" rel="stylesheet">
+	<link href="../resources/css/owl.carousel.min.css" rel="stylesheet">
+	<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../resources/css/prettyPhoto.css" rel="stylesheet">
+	<link href="../resources/css/all.min.css" rel="stylesheet">
+	<link href="../resources/css/popup.css" rel="stylesheet">
+	<link href="../resources/css/table.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 
 
 
-<!-- CSS FILES End -->
-<style type="text/css">
-.radioCss {
-	width: 50px;
-	padding: 20px;
-	font-size: 1.2em;
-}
+	<!-- CSS FILES End -->
+	<style type="text/css">
+		.radioCss {
+			width: 50px;
+			padding: 20px;
+			font-size: 1.2em;
+		}
 
-/*radio 버튼 색상변경 */
-input[type='radio'] {
-	-webkit-appearance: none;
-	width: 16px;
-	height: 16px;
-	border: 1px solid darkgray;
-	border-radius: 50%;
-	outline: none;
-	background: #e6e6e6;
-}
+		/*radio 버튼 색상변경 */
+		input[type='radio'] {
+			-webkit-appearance: none;
+			width: 16px;
+			height: 16px;
+			border: 1px solid darkgray;
+			border-radius: 50%;
+			outline: none;
+			background: #e6e6e6;
+		}
 
-input[type='radio']:before {
-	content: '';
-	display: block;
-	width: 60%;
-	height: 60%;
-	margin: 20% auto;
-	border-radius: 50%;
-}
+		input[type='radio']:before {
+			content: '';
+			display: block;
+			width: 60%;
+			height: 60%;
+			margin: 20% auto;
+			border-radius: 50%;
+		}
 
-input[type='radio']:checked:before {
-	background: #1b5e20;
-}
+		input[type='radio']:checked:before {
+			background: #1b5e20;
+		}
 
-input[type="checkbox"]:checked {
-	background-color: black;
-	border-color: black;
-	color: white;
-}
+		input[type="checkbox"]:checked {
+			background-color: black;
+			border-color: black;
+			color: white;
+		}
 
-input[type="checkbox"]:checked::before {
-	border-radius: 2px;
-	transform: scale(1) translate(-50%, -50%)
-}
+		input[type="checkbox"]:checked::before {
+			border-radius: 2px;
+			transform: scale(1) translate(-50%, -50%)
+		}
 
-.checkList {
-	font-size: 1.2em;
-}
-</style>
+		.checkList {
+			font-size: 1.2em;
+		}
+	</style>
 </head>
 
 <body>
@@ -148,124 +147,122 @@ input[type="checkbox"]:checked::before {
 	<script>
 		//표 출력
 		var grid = new tui.Grid({
-			el : document.getElementById('grid'),
+			el: document.getElementById('grid'),
 
-			scrollX : false,
-			scrollY : false,
-			columns : [ {
-				header : '번호',
-				name : 'number',
-				sortingType : 'desc',
-				sortable : true
+			scrollX: false,
+			scrollY: false,
+			columns: [{
+				header: '번호',
+				name: 'number',
+				sortingType: 'desc',
+				sortable: true
 			}, {
-				header : '이메일',
-				name : 'memEmail'
+				header: '이메일',
+				name: 'memEmail'
 			}, {
-				header : '이름',
-				name : 'memName'
+				header: '이름',
+				name: 'memName'
 			}, {
-				header : '권한',
-				name : 'memAthr',
-				filter : 'select'
+				header: '권한',
+				name: 'memAthr',
+				filter: 'select'
 			}, {
-				header : '첨부파일',
-				name : 'memFmReq'
+				header: '첨부파일',
+				name: 'memFmReq'
 			}, {
-				header : '농부신청',
-				name : 'memAthrReq',
-				 formatter: 'listItemText',
-		          editor: {
-		            type: 'select',
-		            options: {
-		              listItems: [
-		                { text: '승인', value: '1' },
-		                { text: '거절', value: '2' }
-		              ]
-		            }
-		          }
-			}
-			]
+				header: '농부신청',
+				name: 'memAthrReq',
+				formatter: 'listItemText',
+				editor: {
+					type: 'select',
+					options: {
+						listItems: [{
+								text: '승인',
+								value: '1'
+							},
+							{
+								text: '거절',
+								value: '2'
+							}
+						]
+					}
+				}
+			}]
 		});
 
 		// GRID 에 데이터를 입력한다.
-		var gridData = [ {
-			number : '1',
-			memEmail : 'aaa@abc.com',
-			memName : '홍길동',
-			memAthr : '농부',
-			memFmReq : 'null',
-			memAthrReq : '농부'
+		var gridData = [{
+			number: '1',
+			memEmail: 'aaa@abc.com',
+			memName: '홍길동',
+			memAthr: '농부',
+			memFmReq: 'null',
+			memAthrReq: '농부'
 
 		}, {
-			number : '2',
-			memEmail : 'bbb@abc.com',
-			memName : '강길동',
-			memAthr : '일반회원',
-			memFmReq : '농부신청.jsp',
-			memAthrReq : '신청중'
+			number: '2',
+			memEmail: 'bbb@abc.com',
+			memName: '강길동',
+			memAthr: '일반회원',
+			memFmReq: '농부신청.jsp',
+			memAthrReq: '신청중'
 
 		}, {
-			number : '3',
-			memEmail : 'ccc@abc.com',
-			memName : '김길동',
-			memAthr : '일반회원',
-			memFmReq : '농부신청.jsp',
-			memAthrReq : '거절됨'
+			number: '3',
+			memEmail: 'ccc@abc.com',
+			memName: '김길동',
+			memAthr: '일반회원',
+			memFmReq: '농부신청.jsp',
+			memAthrReq: '거절됨'
 
-		} ];
-		
+		}];
 
-		 class CustomTextEditor {
-		      constructor(props) {
-		        const el = document.createElement('input');
-		        const { maxLength } = props.columnInfo.editor.options;
 
-		        el.type = 'text';
-		        el.maxLength = maxLength;
-		        el.value = String(props.value);
+		class CustomTextEditor {
+			constructor(props) {
+				const el = document.createElement('input');
+				const {
+					maxLength
+				} = props.columnInfo.editor.options;
 
-		        this.el = el;
-		      }
+				el.type = 'text';
+				el.maxLength = maxLength;
+				el.value = String(props.value);
 
-		      getElement() {
-		        return this.el;
-		      }
+				this.el = el;
+			}
 
-		      getValue() {
-		        return this.el.value;
-		      }
+			getElement() {
+				return this.el;
+			}
 
-		      mounted() {
-		        this.el.select();
-		      }
+			getValue() {
+				return this.el.value;
+			}
+
+			mounted() {
+				this.el.select();
+			}
 		}
-		 
-		    
-	    grid.on('beforeChange', ev => {
-	        console.log('before change:', ev);
-	      });
-	    
-	      grid.on('afterChange', ev => {
-	        console.log('after change:', ev);
-	      });
-	      
-	      grid.on('dblclick', ev => {
-		      console.log('double clicked!!');
-		    });
-		    
-		   /*  grid.on('focusChange', ev => {
-		        console.log('change focused cell!', ev);
-		      }); */
-		    
-	      grid.resetData(gridData);
-		      
-		  
-		      
-	      
-	      
 
-		    
-		    
+
+		grid.on('beforeChange', ev => {
+			console.log('before change:', ev);
+		});
+
+		grid.on('afterChange', ev => {
+			console.log('after change:', ev);
+		});
+
+		grid.on('dblclick', ev => {
+			console.log('double clicked!!');
+		});
+
+		/*  grid.on('focusChange', ev => {
+		     console.log('change focused cell!', ev);
+		   }); */
+
+		grid.resetData(gridData);
 	</script>
 </body>
 
