@@ -5,13 +5,7 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="images/favicon.png">
-<title>ECO HTML</title>
+<title>노지분야 소개</title>
 <style>
 .about-text {
 	width: 1000px;
@@ -36,15 +30,17 @@
 				<!--About Txt Video Start-->
 				<div class="about-video-section wf100">
 					<div class="container">
+					<h3>노지분야 소개</h3>
 						<div class="row">
 							<div class="about-text">
-								<img src="resources/images/SmartFarm.jpg" alt="내용을 등록 해주세요">
+								<img src="resources/images/${intron[2].intro_img}" alt="내용을 등록 해주세요">
 							</div>
 						</div>
 					</div>
 				</div>
 				<div align="right" class="bt_se">
-						<a class="aboutus" href="introupdateForm.do">수정</a>
+				<a class="aboutus" href="introupdateFormn.do">수정</a>	
+				<a class="aboutus" href="introinsertnForm.do">글쓰기</a>
 				</div>
 			</div>
 		</section>

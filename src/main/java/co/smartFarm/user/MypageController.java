@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -13,8 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.smartFarm.auction.NftVO;
 import co.smartFarm.grow.GrowDiaryMapper;
+import co.smartFarm.grow.GrowDiaryVO;
 
 
 @Controller
@@ -33,9 +38,16 @@ public class MypageController {
 		return "user/mypage";
 	}
 	
+	//nft보유현황
+	@RequestMapping("/nftholdings.do")
+	public String nftholdings() {
+		return "user/nftholdings";
+	}
+	
 	//nft 생성버튼누를시 resources밑에 nft폴더 사진을 이용하여 병합하고 ....
 		@RequestMapping("/nftGeneration.do")
-		public String nftGeneration(HttpServletRequest request) {
+		@ResponseBody
+		public String nftGeneration(@RequestParam(value = "growDiaryNo") int growDiaryNo, HttpServletRequest request, NftVO nft, GrowDiaryVO growDiary) {
 			  try {
 				  
 				  //(Math.random() * (최대값 - 최소값)) + 최소값
@@ -45,20 +57,20 @@ public class MypageController {
 				  //medal은 작물 등급에 따라 분류
 				  String medal = request.getServletContext().getRealPath("resources/nft/Medal/gold.png");
 				  
-				   BufferedImage image1 = ImageIO.read(new File(background));
-				   BufferedImage image2 = ImageIO.read(new File(body));
-				   BufferedImage image3 = ImageIO.read(new File(medal));
+				   BufferedImage backgroundImage = ImageIO.read(new File(background));
+				   BufferedImage bodyImage = ImageIO.read(new File(body));
+				   BufferedImage medalImage = ImageIO.read(new File(medal));
 
-				   int width = image1.getWidth();
-				   int height = image1.getHeight();
+				   int width = backgroundImage.getWidth();
+				   int height = backgroundImage.getHeight();
 
 				   BufferedImage mergedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 				   Graphics2D graphics = (Graphics2D) mergedImage.getGraphics();
 
 				   graphics.setBackground(Color.WHITE);
-				   graphics.drawImage(image1, 0, 0, null);
-				   graphics.drawImage(image2, 0, 0, null);
-				   graphics.drawImage(image3, 0, 0, null);
+				   graphics.drawImage(backgroundImage, 0, 0, null);
+				   graphics.drawImage(bodyImage, 0, 0, null);
+				   graphics.drawImage(medalImage, 0, 0, null);
 				   
 				   //나중에 경로수정, 이름은 uid로 랜덤생성
 				   String uid = UUID.randomUUID().toString();
@@ -67,16 +79,32 @@ public class MypageController {
 				    ImageIO.write(mergedImage, "png", new File(merge));
 				    System.out.println("NFT 생성이 완료되었습니다.");
 				    
-				    //나중에 session member로 수정
-				    String mem = "aaa@abc.com";
-				    System.out.println(growDiaryDao.growDiaryMyList(mem));
+				    growDiary = growDiaryDao.growDiaryNoList(growDiaryNo);
+				    //System.out.println(growDiary);
+				    
+				    nft.setMem_email(growDiary.getMem_email());
+				    nft.setGrow_diary_log_rou(growDiary.getGrow_diary_log_rou());
+				    nft.setNft_img(merge);
+				    nft.setKit_no(growDiary.getKit_no());
+				    nft.setGrow_diary_grd(growDiary.getGrow_diary_grd());
+				    nft.setGrow_diary_grow_no(growDiaryNo);
+				    
+				    mypageDao.createNft(nft);
+				    //생성완료시 nft테이블 insert와 재배일지 생성가능여부 update
+				    //mypageDao.
+				    
 				  } catch (IOException ioe) {
 				   ioe.printStackTrace();
 				  }
-
-			return null;
+			  return null;
 		}
 
-	
+	@RequestMapping("cultivationHistory.do")
+	@ResponseBody
+	public List<GrowDiaryVO> cultivationHistory() {
+	    //나중에 session member로 수정
+	    String mem = "bbb@abc.com";
+	    return growDiaryDao.growDiaryMyList(mem);
+	}
 	
 }

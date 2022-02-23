@@ -1,5 +1,7 @@
 package co.smartFarm.grow;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -11,6 +13,7 @@ public class GrowDiaryVO {
 	private String grow_diary_grd;
 	private String grow_diary_grow_nick;
 	private String plant_name;
-	private String grow_diary_start_day;
+	private Date grow_diary_start_day;
 	private String grow_diary_nft_create_ennc;
+	private int kit_no;
 }

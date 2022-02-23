@@ -3,15 +3,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
-
 <head>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="images/favicon.png">
-<title>ECO HTML</title>
+<title>스마트팜 소개</title>
 <style>
 .about-text {
 	width: 1000px;
@@ -23,30 +17,36 @@
 	width: 100;
 	margin: auto;
 	text-align: center;
+	 
+}
+
+.aboutus {
+	width: 105px;
+	margin: 10;
+	text-align: center;
 }
 </style>
 </head>
 <body>
 	<div class="wrapper">
-		<!--Inner Header End-->
-		<!--About Start-->
 		<section class="wf100 about">
 			<div class="wf100 comment-form">
-				<!--About Txt Video Start-->
 				<div class="about-video-section wf100">
 					<div class="container">
+							<h3>스마트팜 소개</h3>
 						<div class="row">
 							<div class="about-text">
-								<img src="resources/images/SmartFarm.jpg" alt="내용을 등록 해주세요">
+								<img src="resources/images/${intro[0].intro_img}" alt="내용을 등록 해주세요">
 							</div>
 						</div>
 					</div>
 				</div>
-				<div align="right" class="bt_se">
-						<a class="aboutus" href="introupdateForm.do">수정</a>
-				</div>
 			</div>
 		</section>
+		<div align="right" class="bt_se">
+			<a class="aboutus" href="introupdateForm.do">수정</a>	
+			<a class="aboutus" href="introinsertForm.do">글쓰기</a>
+		</div>
 	</div>
 </body>
 </html>

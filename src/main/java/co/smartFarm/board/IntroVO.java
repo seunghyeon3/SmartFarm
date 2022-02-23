@@ -1,14 +1,13 @@
 package co.smartFarm.board;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-@Getter
-@Setter
+@Data
 public class IntroVO {
 	
-	private int introducetion_no;
-	private String introducetion_img;
-	private String introducetion_board_class;
+	private int intro_no;
+	private String intro_img;
+	private String intro_board_class;
 	
 }
