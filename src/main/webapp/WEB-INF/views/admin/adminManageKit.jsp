@@ -21,6 +21,9 @@
 <link href="../resources/css/all.min.css" rel="stylesheet">
 <link href="../resources/css/popup.css" rel="stylesheet">
 <link href="../resources/css/table.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+
 <!-- CSS FILES End -->
 <style type="text/css">
 .radioCss {
@@ -67,8 +70,9 @@ input[type="checkbox"]:checked::before {
 .checkList {
 	font-size: 1.2em;
 }
-.inner{
-	width:150px;
+
+.inner {
+	width: 150px;
 }
 </style>
 </head>
@@ -85,7 +89,7 @@ input[type="checkbox"]:checked::before {
 
 			<div class="projects-grid"></div>
 			<div class="container">
-				<h1>회원관리</h1>
+				<h1>키트 관리</h1>
 
 				<br> <br>
 				<div class="row">
@@ -109,82 +113,11 @@ input[type="checkbox"]:checked::before {
 
 
 
+
+
 					<div class="col-md-12 col-sm-6" style="padding: 20px;">
-						<table class="GeneratedTable">
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>작물이름</th>
-									<th>용도</th>
-									<th>분류</th>
-									<th style="width:150px;">관리</th>
-								</tr>
-
-							</thead>
-							<tbody>
-								<tr>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>
-										<div class="container" style="margin: 0; width:150px; padding:0; margin:0;">
-											<a href="#" class="read-post">올리기</a>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>
-										<div class="container" style="margin: 0; width:150px; padding:0; margin:0;">
-											<a href="#" class="read-post"
-												style="background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>
-										<div class="container" style="margin: 0; width:150px; padding:0; margin:0;">
-											<a href="#" class="read-post"
-												style="background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>
-										<div class="container" style="margin: 0; width:150px; padding:0; margin:0;">
-											<a href="#" class="read-post"
-												style="background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>asdasdf</td>
-									<td>
-										<div class="container inner" style="margin: 0; width:150px; padding:0; margin:0;">
-											<a href="#" class="read-post">올리기</a>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<div id="grid"></div>
 					</div>
-
 
 				</div>
 			</div>
@@ -208,6 +141,84 @@ input[type="checkbox"]:checked::before {
 	<script src="../resources/js/jquery.prettyPhoto.js"></script>
 	<script src="../resources/js/isotope.min.js"></script>
 	<script src="../resources/js/custom.js"></script>
+	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+	<script type="text/javascript">
+		//표 출력
+		var grid = new tui.Grid({
+			el : document.getElementById('grid'),
+			rowHeaders : [ 'rowNum' ],//번호 매기기
+			scrollX : false,
+			scrollY : false,
+			columnOptions : {
+				rowHeight : 50
+			},
+			columns : [ {
+				header : '작물이름',
+				name : 'plantName',
+				sortingType : 'desc',
+				sortable : true
+			}, {
+				header : '용도',
+				name : 'plantPropos',
+				filter : 'select'
+			}, {
+				header : '분류',
+				name : 'plantClass',
+				filter : 'select'
+			}, {
+				header : '관리',
+				name : 'plantManage'
+			} ],
+			columnOptions : {
+				resizable : true
+			}
+
+		});
+
+		// 표 데이터
+		var gridData = [ {
+			plantName : '딸기',
+			plantPropos : '상업용',
+			plantClass : '과일',
+			plantManage : 'N'
+
+		}, {
+			plantName : '오이',
+			plantPropos : '상업용',
+			plantClass : '채소',
+			plantManage : 'Y'
+
+		}, {
+			plantName : '딸기',
+			plantPropos : '취미용',
+			plantClass : '과일',
+			plantManage : 'Y'
+
+		} ];
+
+		//데이터 입력
+		grid.resetData(gridData);
+
+		//표에 버튼 넣기
+		function changeValue() {
+			var table = $('table');
+
+			for (var i = 0; i < gridData.length; i++) {
+				console.log(grid.getValue(i, 'plantManage'));
+				if (grid.getValue(i, 'plantManage') == 'Y') {//내리기
+					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					grid.setValue(i, 'plantManage', input, true);
+
+				} else {//올리기
+					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="width: 80px; height:30px;padding:0 0px 10px 30px;">올리기</a></div>';
+					grid.setValue(i, 'plantManage', input, true);
+				}
+
+			}
+		}
+
+		changeValue();
+	</script>
 </body>
 
 

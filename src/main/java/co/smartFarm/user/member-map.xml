@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.smartFarm.user.MemberMapper">
-	<select id="memberSelectList" resultType="co.smartFarm.user.MemberVO">
-		SELECT * FROM MEMBER
+	<!-- 이메일 중복체크 -->
+	<select id="memberSelectList"
+		parameterType="String"
+		resultType="co.smartFarm.user.MemberVO">
+		SELECT MEM_EMAIL FROM MEMBER
+		WHERE MEM_EMAIL = #{mem_email}
 	</select>
+	
+	
+	
 </mapper>
