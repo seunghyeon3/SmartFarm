@@ -66,13 +66,13 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">재배 홈</a></li>
-                           <li><a href="#">사용법</a> </li>
-                           <li><a href="#">CCTV</a></li>
-                           <li><a href="#">재배관리</a> </li>
-                           <li><a href="#">실시간 정보</a></li>
-                           <li><a href="#">일별 로그</a></li>
-                           <li><a href="#">영농 일지</a></li>
+                           <li><a href="grow.do">재배 홈</a></li>
+                           <li><a href="howTo.do">사용법</a> </li>
+                           <li><a href="cctv.do">CCTV</a></li>
+                           <li><a href="control.do">재배관리</a> </li>
+                           <li><a href="sensor.do">실시간 정보</a></li>
+                           <li><a href="log.do">일별 로그</a></li>
+                           <li><a href="diary.do">영농 일지</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
@@ -91,7 +91,7 @@
                         <a class="cart-icon" href="#" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
                      </li>
                      <li class="login-reg"> <a href="#">Login</a> | <a href="#">Signup</a> </li>
-                     <li class="login-reg"> <a href="#">Logout</a> | <a href="#">Mypage</a> </li>
+                     <li class="login-reg"> <a href="#">Logout</a> | <a href="grow.do">Mypage</a> </li>
                   </ul>
                </div>
             </nav>
