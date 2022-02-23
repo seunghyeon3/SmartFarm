@@ -53,6 +53,12 @@ public class UserController {
 		}
 		return "";
 	}
+	
+	//비밀번호 입력창
+	@RequestMapping("/enterPw.do")
+	public String enterPw() {
+		return "user/enterPw";
+	}
 
 	
 }

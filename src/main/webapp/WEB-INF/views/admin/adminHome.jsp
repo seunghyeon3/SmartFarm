@@ -87,20 +87,20 @@
 
 								<li class="col-md-3" style="float: left;">
 									<div class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
-										style="width: 200px; height: 50px;">
+										style="width: 200px; height: 50px; z-index: 3;" >
 										<input id="startpicker-input" type="text" aria-label="Date" style="z-index: 2;">
 										<span class="tui-ico-date"></span>
-										<div id="startpicker-container" style="margin-left: -1px; z-index: 3;"></div>
+										<div id="startpicker-container" style="margin-left: -1px;"></div>
 									</div>
 								</li>
 								<li class="col-md-3" style="float: left;">
 
 									<div class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
-										style="width: 200px; height: 50px;">
+										style="width: 200px; height: 50px; z-index: 3;">
 										<input id="endpicker-input" type="text" aria-label="Date" style="z-index: 2;">
 										<span class="tui-ico-date"></span>
 
-										<div id="endpicker-container" style="margin-left: -1px; z-index: 3;"></div>
+										<div id="endpicker-container" style="margin-left: -1px;"></div>
 									</div>
 								</li>
 								<li class="col-md-2" style="float: left;"><button class="post-btn"
@@ -177,8 +177,10 @@
 		//=====차트=====
 		var context = document.getElementById('myChart').getContext('2d');
 		var myChart = new Chart(context, {
+			
 			type: 'line', // 차트의 형태 line, pie, bar
 			data: { // 차트에 들어갈 데이터
+				
 				labels: ['1', '2', '3', '4', '5', '6', '7'], //x 축
 				datasets: [{ //데이터
 					label: '총매출', //차트 제목
@@ -229,7 +231,9 @@
 		//=====팝업 달력=====
 		var today = new Date();
 		var picker = tui.DatePicker.createRangePicker({
+			language:'ko',
 			startpicker: {
+				
 				date: today,
 				input: '#startpicker-input',
 				container: '#startpicker-container'
