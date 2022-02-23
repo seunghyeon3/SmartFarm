@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.smartFarm.grow.GrowDiaryMapper">
-
+	
+	<select id="growDiaryNoList" parameterType="int" 
+		resultType="co.smartFarm.grow.GrowDiaryVO">
+			SELECT * FROM GROW_DIARY
+			WHERE GROW_DIARY_GROW_NO = #{growDiaryGrowNo}
+	</select>
+	
 	<!-- 회원이메일을 통한 영농일지 조회 -->
 	<select id="growDiaryMyList" parameterType="String"
 		resultType="co.smartFarm.grow.GrowDiaryVO">
-		SELECT * FROM GROW_DIARY
-		WHERE MEM_EMAIL = #{memEmail}
+			SELECT * FROM GROW_DIARY
+			WHERE MEM_EMAIL = #{memEmail}
 	</select>
 
 </mapper>
