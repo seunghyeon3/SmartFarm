@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>how to grow</title>
 
-
-
 </head>
 <body>
 <script src="https://kit.fontawesome.com/1874543bef.js" crossorigin="anonymous"></script>

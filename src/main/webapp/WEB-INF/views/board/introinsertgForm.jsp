@@ -3,11 +3,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
-
 <head>
 <meta charset="utf-8">
-
-<title>과수분야 수정</title>
+<title>스마트팜 등록</title>
 
 <style>
 .filebox label {
@@ -42,31 +40,35 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.full{
+	display: inline-block;
+	text-align: center;
+
+}
 .filebox{
 	float: right;
 }
+
 </style>
 </head>
 <body>
 	<div class="wrapper">
-		<!--Inner Header End-->
-		<!--About Start-->
 		<section class="contact-page wf100 p80">
             <div class="container">
                <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>수정</h3>
+                     	<h3>등록</h3>
                         <ul class="cform">
                            <!-- 파일업로드 버튼 구성 -->
-                           <div class="filebox">
+                         <div class="filebox"> 
   								<label for="ex_file">사진 업로드</label>
   								<input type="file" id="ex_file">
-						   </div>
+					     </div> 
                            <li class="full">
-                              <input type="submit" value="수정" onclick="location.href='introg.do'"class="fsubmit">
-                          	  <input type="submit" value="취소" onclick="history.back(-1);"class="fsubmit">
+                              <input type="submit" value="등록" onclick="location.href='intro.do'"class="fsubmit">
+                              <input type="submit" value="취소" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
                      </div>
@@ -74,7 +76,6 @@
                </div>
             </div>
          </section>
-	</div>
+         </div>
 </body>
-
 </html>

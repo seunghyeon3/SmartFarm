@@ -27,14 +27,14 @@
                         <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
                         <ul class="dropdown-menu">
                            <li><a href="intro.do">스마트 팜 안내</a></li>
-                           <li><a href="#">과수 분야</a></li>
-                           <li><a href="#">노지 분야</a></li>
+                           <li><a href="introg.do">과수 분야</a></li>
+                           <li><a href="intron.do">노지 분야</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 알림 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">공지사항</a></li>
+                           <li><a href="notice.do">공지사항</a></li>
                            <li><a href="#">자료실</a></li>
                         </ul>
                      </li>

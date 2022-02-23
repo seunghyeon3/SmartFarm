@@ -6,12 +6,7 @@
 
 <head>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="images/favicon.png">
-<title>ECO HTML</title>
+<title>스마트팜 수정</title>
 
 <style>
 .filebox label {
@@ -46,13 +41,18 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.full{
+	display: inline-block;
+	text-align: center;
+
+}
+.filebox{
+	float: right;
+}
 </style>
 </head>
 <body>
 	<div class="wrapper">
-
-		<!--Inner Header End-->
-		<!--About Start-->
 		<section class="contact-page wf100 p80">
             <div class="container">
                <div class="row">
@@ -62,13 +62,13 @@
                         <h3>수정</h3>
                         <ul class="cform">
                            <!-- 파일업로드 버튼 구성 -->
-                           <div class="filebox" style="float: right">
+                           <div class="filebox">
   								<label for="ex_file">사진 업로드</label>
   								<input type="file" id="ex_file">
 						   </div>
-                           
                            <li class="full">
                               <input type="submit" value="수정" onclick="location.href='intro.do'"class="fsubmit">
+                           	  <input type="submit" value="취소" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
                      </div>
@@ -76,17 +76,7 @@
                </div>
             </div>
          </section>
-
-
-			<!--   JS Files Start  -->
-			<script src="js/jquery-3.3.1.min.js"></script>
-			<script src="js/jquery-migrate-1.4.1.min.js"></script>
-			<script src="js/popper.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/owl.carousel.min.js"></script>
-			<script src="js/jquery.prettyPhoto.js"></script>
-			<script src="js/slick.min.js"></script>
-			<script src="js/custom.js"></script>
+         </div>
 </body>
 
 </html>
