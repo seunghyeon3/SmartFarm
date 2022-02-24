@@ -1,22 +1,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <html>
 <meta charset="UTF-8">
 <head>
 <title>마이페이지</title>
 <link rel="stylesheet"
-	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-<link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
+   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+   crossorigin="anonymous"></script>
 <style>
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 	<section class="wf100 p80 blog">
 		<div class="causes-listing">
 			<div class="container">
@@ -240,5 +239,6 @@
 			}
 		});
 	</script>
+
 </body>
 </html>

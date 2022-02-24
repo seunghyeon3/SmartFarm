@@ -1,16 +1,22 @@
 package co.smartFarm.board;
 
+import java.io.File;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class IntroController {
 	@Autowired 
 	private IntroMapper introDao;
+	private File target;
 	
 	@RequestMapping(value = "/intro.do")  //스마트팜 소개
 	public String intro(Model model) {
@@ -31,9 +37,28 @@ public class IntroController {
 	 
 	 
 	@RequestMapping(value = "/introupdateForm.do") //스마트팜 소개 수정페이지
-	public String introupdate() {
+	public String introupdateForm() {
 		return "board/introupdateForm";
 	}
+	
+	//스마트팜 소개 수정페이지
+	@RequestMapping(value = "/introupdate.do", method=RequestMethod.GET) 
+	public String introupdate(MultipartFile file,ModelAndView mv, String uploadPath) {
+		 //경로 생성
+        if ( ! new File(uploadPath).exists()) {
+            new File(uploadPath).mkdirs();
+        }
+        //파일 복사
+        try {
+            FileCopyUtils.copy(file.getBytes(), target);
+            mv.addObject("file", file);
+        } catch(Exception e) {
+            e.printStackTrace();
+            mv.addObject("file", "error");
+        }
+		return "board/introupdate";
+	}
+	
 	@RequestMapping(value = "/introg.do") //과수분야 소개 페이지
 	public String introg(Model model) {
 		model.addAttribute("introg", introDao.introSelectList());

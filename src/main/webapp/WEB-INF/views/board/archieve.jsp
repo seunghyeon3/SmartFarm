@@ -1,14 +1,14 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-
 <head>
-   <meta charset="UTF-8">
-   <title>공지사항 메인 페이지</title>
+<meta charset="UTF-8">
+   <title>자료실 페이지</title>
+   <!-- 게시판 리스트 출력 하는 부분 -->
+   <link rel="stylesheet"
+	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
     <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script> 
-
 <style>
 .filebox label {
   display: inline-block;
@@ -62,10 +62,10 @@
    <section class="shop wf100 p80">
       <div class="container">
          <div class="row" id="prolist">
-          	<h3>공지 사항</h3>
+          	<h3>자료실</h3>
             <div class="col-md-12">
                        <div id="grid"></div> <!-- grid 불러오기 -->
-               <a href="noticeinsert.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
+               <a href="archieveinsert.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
             </div>
          </div>
          <div class="row">
@@ -75,7 +75,7 @@
                      <ul class="pagination">
                         <li class="page-item"> <a class="page-link" href="#" aria-label="Previous"> <i
                                  class="fas fa-angle-left"></i> </a> </li>
-                        <li class="page-item active"><a class="page-link" href="noticea.do">1</a></li>
+                        <li class="page-item active"><a class="page-link" href="archieve.do">1</a></li>
                         <li class="page-item"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <i
@@ -103,35 +103,35 @@
 			scrollY : false,
 			columns : [{
 	              header: '번호',
-	              name: 'notice_no',
+	              name: 'archieve_no',
 	            },{
 	              header: '제목',
-	              name: 'notice_title',
+	              name: 'archieve_title',
 	            },{
 	              header: '내용',
-	              name: 'notice_con',
+	              name: 'archieve_con',
 	            },{
 	               header: '조회',
-	               name: 'notice_hit',
+	               name: 'archieve_hit',
 	            },{
 	               header: '등록일',
-	               name: 'notice_day',
+	               name: 'archieve_day',
 	            },{
 	               header: '첨부파일',
-	               name: 'notice_img',
+	               name: 'archieve_img',
 	            },{
 	                header: '작성자',
-	                name: 'notice_name',
+	                name: 'mem_name',
 	             }]
 		});
 
 		// GRID 에 데이터를 입력
-		var gridData = ${notice};	
+		var gridData = ${archieve};	
 		grid.resetData(gridData);
 		
 		grid.on('click', (ev) => {
-			  if (ev.columnName === 'notice_title') {
-				  location.href='noticeselect.do?notice_no='+gridData[ev.rowKey].notice_no
+			  if (ev.columnName === 'archieve_title') {
+				  location.href='archieveselect.do?archieve_no='+gridData[ev.rowKey].archieve_no
 			  }
 			});
  </script>

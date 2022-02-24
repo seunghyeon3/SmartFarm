@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>how to grow</title>
+<title></title>
 </head>
 <body>
 <script src="https://kit.fontawesome.com/1874543bef.js" crossorigin="anonymous"></script>
@@ -18,16 +18,15 @@
 
 
 						<!--재배 키트 목록 시작-->
-						<div class="blog-single-content">
+						<div class="blog-single-content" style="overflow: auto; white-space: nowrap;">
 							<ul class="post-meta">
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
-								<li class="tags" style="font-size: 25px;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">Plant</a></li>
+							
+								<c:forEach items="${kitList}" var="grow">
+								
+								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">${grow.kit_no }</a></li>
+								
+								</c:forEach>
+								
 							</ul>
 						</div>
 						<!--재배 키트 목록 종료-->

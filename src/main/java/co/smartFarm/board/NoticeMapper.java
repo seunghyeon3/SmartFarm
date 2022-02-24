@@ -3,7 +3,7 @@ package co.smartFarm.board;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-
+//2
 public interface NoticeMapper {
 	
 	List<NoticeVO> noticeSelectList();
@@ -14,7 +14,7 @@ public interface NoticeMapper {
 	int noticeUpdate(NoticeVO notice);
 	
 	int noticeHitUpdate(int notice_no); 
-	int noticeIdUpdate(int notice_no); 
+	int noticeNoUpdate(int notice_no); 
 	List<NoticeVO> noticeSearch(@Param("key")String key, @Param("val") String val);
 	
 
