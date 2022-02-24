@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.smartFarm.board.NoticeVO"></mapper>
+<mapper namespace="co.smartFarm.board.NoticeMapper">
+<!-- 전체리스트 -->
+<select id="noticeSelectList" resultType="co.smartFarm.board.NoticeVO">
+ SELECT * FROM NOTICE
+</select>
+<!-- 단건조회 -->
+<select id="noticeSelect" resultType="co.smartFarm.board.NoticeVO"
+parameterType="int">
+SELECT * FROM NOTICE WHERE NOTICE_NO = #{notice_no}
+</select>
+</mapper>
+<!-- 1 -->

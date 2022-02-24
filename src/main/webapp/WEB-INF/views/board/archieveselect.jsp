@@ -4,7 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 상세페이지</title>
+<title>자료실 상세페이지</title>
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+    <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script> 
 </head>
 <style>
 .filebox label {
@@ -47,33 +50,33 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>상세페이지</h3>
+                        <h3>자료실 상세페이지</h3>
+                        <div id="grid"></div> <!-- grid 불러오기 -->
                         <ul class="cform">
+         
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목">
-                              
+                                ${archieve.archieve_title}
                            </li>
                             <li class="full">
-                              <input type="text" class="form-control" placeholder="작성자"></textarea>
+                                 ${archieve.mem_name}
                            </li><li class="full">
-                              <input type="text" class="form-control"  placeholder="등록일"></textarea>
+                              ${archieve.archieve_day}
                            </li>
                            <li class="full">
-                              <textarea class="textarea-control" placeholder="내용"></textarea>
+                                ${archieve.archieve_con}
                            </li>
                            <li class="full">
-                             <label for="ex_file">사진 업로드</label>
- 							 <input type="file" id="ex_file">
+                              ${archieve.archieve_img}
                            </li>
                            <li class="full">
-                           	   <input type="submit" value="수정하지" onclick="location.href='notice.do'" class="fsubmit">
-                               <input type="submit" value="삭제하기" onclick="location.href='notice.do'"class="fsubmit">
+ 								 <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${archieve.archieve_no}'" class="fsubmit">
+                               <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
                      </div>
                   </div>
                </div>
             </div>
-         </section>
+         </section>    
 </body>
 </html>
