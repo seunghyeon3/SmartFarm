@@ -12,15 +12,6 @@
 <link rel="icon" href="resources/images/favicon.png">
 <title>ECO HTML</title>
 <!-- CSS FILES START -->
-<link href="../resources/css/custom.css" rel="stylesheet">
-<link href="../resources/css/color.css" rel="stylesheet">
-<link href="../resources/css/responsive.css" rel="stylesheet">
-<link href="../resources/css/owl.carousel.min.css" rel="stylesheet">
-<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="../resources/css/prettyPhoto.css" rel="stylesheet">
-<link href="../resources/css/all.min.css" rel="stylesheet">
-<link href="../resources/css/popup.css" rel="stylesheet">
-<link href="../resources/css/table.css" rel="stylesheet">
 
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
 	
@@ -316,14 +307,6 @@ h3 {
 
 
 	<!--   JS Files Start  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	<script src="../resources/js/jquery-migrate-1.4.1.min.js"></script>
-	<script src="../resources/js/popper.min.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<script src="../resources/js/owl.carousel.min.js"></script>
-	<script src="../resources/js/jquery.prettyPhoto.js"></script>
-	<script src="../resources/js/isotope.min.js"></script>
-	<script src="../resources/js/custom.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script
