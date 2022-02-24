@@ -8,6 +8,8 @@
    <meta charset="UTF-8">
    <title>공지사항 메인 페이지</title>
    <!-- 게시판 리스트 출력 하는 부분 --> 
+   <link rel="stylesheet"
+	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 <style>
 .filebox label {
   display: inline-block;
