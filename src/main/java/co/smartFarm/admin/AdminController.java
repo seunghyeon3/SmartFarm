@@ -65,7 +65,7 @@ public class AdminController {
 		}
 
 		String returnStr = map.writeValueAsString(memberList);
-
+		System.out.println(returnStr);
 		model.addAttribute("memberSelectList", returnStr);
 
 		return "admin/adminManageMember";

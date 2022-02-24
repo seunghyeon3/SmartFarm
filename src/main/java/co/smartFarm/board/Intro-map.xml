@@ -5,11 +5,13 @@
  <select id="introSelectList" resultType="co.smartFarm.board.IntroVO">
  SELECT * FROM INTRO
  </select>
-<!-- 등록 -->
- <!-- insert id="introInsert"parameterType="co.smartFarm.board.IntroVO">
- <selectKey keyProperty="intro_img" resultType="int" order="BEFORE">
- SELECT 
- </selectKey>
- </insert>  -->
+<!-- 수정 -->
+<!--  <update id="noticeUpdate" parameterType="co.movie.prj.notice.service.NoticeVO">
+UPDATE INTRO 
+ SET
+ INTRO_BOARD_CLASS = #{intro_board_class}
+ INTRO_IMG = #{intro_img}
+ WHERE INTRO_NO = #{intro_no}
+</update> -->
 
 </mapper>
