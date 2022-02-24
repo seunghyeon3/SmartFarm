@@ -7,4 +7,5 @@ public interface GrowDiaryMapper {
 	List<GrowDiaryVO> growDiaryMyList(String memEmail);
 	
 	GrowDiaryVO growDiaryNoList(int growDiaryGrowNo);
+	
 }

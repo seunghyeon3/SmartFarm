@@ -1,10 +1,13 @@
 package co.smartFarm.grow;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,10 +16,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 public class GrowController {
@@ -49,22 +52,41 @@ public class GrowController {
 
 //	cctv 모니터링 페이지
 	@RequestMapping(value = "/cctv.do", method = RequestMethod.GET)
-	public String cctv(Locale locale, Model model) {
+	public String cctv(Locale locale, Model model, HttpSession session) {
+		
+//		테스트용
+		session.setAttribute("email", "aaa@abc.com");
+		
+//		키트 목록 출력
+		model.addAttribute("kitList", mapG.growComList(session.getAttribute("email").toString()));
+		System.out.println(model);
 
 		return "grow/cctv";
 	}
 
 //	재배 관리 페이지
 	@RequestMapping(value = "/control.do", method = RequestMethod.GET)
-	public String control(Locale locale, Model model) {
-
+	public String control(Locale locale, Model model, HttpSession session) {
+		
+//		테스트용
+		session.setAttribute("email", "aaa@abc.com");
+		
+//		키트 목록 출력
+		model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
+		System.out.println(model);
 		return "grow/control";
 	}
 
 //	실시간 정보 페이지
 	@RequestMapping(value = "/sensor.do", method = RequestMethod.GET)
-	public String sensor(Locale locale, Model model) {
-
+	public String sensor(Locale locale, Model model, HttpSession session) {
+		
+//		테스트용
+		session.setAttribute("email", "aaa@abc.com");
+		
+//		키트 목록 출력
+		model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
+		System.out.println(model);
 		return "grow/sensor";
 	}
 
@@ -114,6 +136,7 @@ public class GrowController {
 //		로그
 		System.out.println(test);
 
+//		텍스트 내용 읽기
 		Path path = Paths.get(test);
 		List<String> lines = java.nio.file.Files.readAllLines(path);
 		
@@ -125,12 +148,28 @@ public class GrowController {
 
 //	영농 일지 페이지
 	@RequestMapping(value = "/diary.do", method = RequestMethod.GET)
-	public String diary(Locale locale, Model model) {
+	public String diary(Locale locale, Model model, HttpSession session) {
 
-		model.addAttribute("test", mapGD.growDiaryMyList("aaa@abc.com"));
-		System.out.println(mapGD.growDiaryMyList("aaa@abc.com"));
+//		테스트용
+		session.setAttribute("email", "bbb@abc.com");
+		
+//		영농 일지 출력
+		model.addAttribute("diary", mapGD.growDiaryMyList(session.getAttribute("email").toString()));
+		System.out.println(mapGD.growDiaryMyList(session.getAttribute("email").toString()));
 
 		return "grow/diary";
+	}
+	
+//	영농일지 내용 출력
+	@RequestMapping("/diaryBody.do")
+	@ResponseBody
+	public List<String> diaryBody(String route) throws Exception {
+		System.out.println(route);
+
+		Path path = Paths.get(route);
+		List<String> lines = java.nio.file.Files.readAllLines(path);
+		
+		return lines;
 	}
 
 }

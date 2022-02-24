@@ -19,18 +19,16 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12">
 
-
 						<!--재배 키트 목록 시작-->
 						<div class="blog-single-content" style="overflow: auto; white-space: nowrap;">
 							<ul class="post-meta">
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">딸기키트(딸기)</a></li>
+							
+								<c:forEach items="${kitList}" var="grow">
+								
+								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">${grow.kit_no }</a></li>
+								
+								</c:forEach>
+								
 							</ul>
 						</div>
 						<!--재배 키트 목록 종료-->
@@ -54,6 +52,7 @@
 						<div style="display: block;">
 							<div>
 								<ul class="check-list" style="margin-top: 20px;">
+									<li><strong>자동 재배   </strong><input type="checkbox"> </li>
 									<li><strong>키트 이름:</strong><input type="text"></li>
 									<li><strong>작물 이름:</strong><input type="text"></li>
 									<li><strong>온도:</strong><input type="text"></li>
