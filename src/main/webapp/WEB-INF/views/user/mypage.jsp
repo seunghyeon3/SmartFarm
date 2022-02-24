@@ -8,6 +8,8 @@
 <title>마이페이지</title>
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
@@ -21,11 +23,12 @@
 				<h1>마이페이지</h1>
 				<br>
 				<h2>&lt; 판매현황 &gt;</h2>
-				<br><br>
-				
+				<br>
+				<br>
+
 				<div class="row">
 					<!-- 차트 출력 -->
-					
+
 					<div class="col-lg-9 col-md-8">
 						<canvas id="myChart" style="z-index: 1;"></canvas>
 					</div>
@@ -60,6 +63,10 @@
 			</div>
 		</div>
 	</section>
+	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script> 
+	<script src="resources/js/GrowDiary.js"></script>
+	<script type="text/javascript"
+		src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -70,6 +77,7 @@
 		function editMember() {
 			document.getElementById('light').style.display = 'block';
 			document.getElementById('fade').style.display = 'block';
+			document.getElementById('content').innerHTML = "";
 
 		}
 
@@ -84,17 +92,21 @@
 			//표 출력
 			var grid = new tui.Grid({
 				el : document.getElementById('content'),
-				rowHeaders : [ 'rowNum' ],//번호 매기기
+				rowHeight : 73,
+				rowWidth : 'auto',
+				rowHeaders : [ {
+					type : 'rowNum',
+					width : 80,
+					height : 73,
+					align : 'center',
+					valign : 'bottom'
+				} ],//번호 매기기
 				scrollX : false,
 				scrollY : false,
-				columnOptions : {
-					rowHeight : 50
-				},
 				columns : [ {
 					header : '작물이름',
 					name : 'plant_name',
-					sortingType : 'desc',
-					sortable : true
+					filter : 'select'
 				}, {
 					header : '품질',
 					name : 'grow_diary_grd',
@@ -102,13 +114,15 @@
 				}, {
 					header : '점수',
 					name : 'grow_diary_point',
-					filter : 'select',
 				}, {
 					header : 'NFT생성여부',
-					name : 'grow_diary_nft_create_ennc'
+					name : 'grow_diary_nft_create_ennc',
+					sortable: true,
+				    sortingType: 'desc'
 				} ],
-				columnOptions : {
-					resizable : true
+				pageOptions : {
+					useClient : true,
+					perPage : 5
 				}
 			});
 
@@ -127,7 +141,8 @@
 										'grow_diary_nft_create_ennc') == 'Y') {
 									console.log(data[i]);
 									var growDiary = data[i];
-									var input = `<div class="container" style="text-aline:center;"><a href="javascript:nftGeneration('\${data[i].grow_diary_grow_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">생성가능</a></div>`;
+									var input = `<div class="container" style="text-aline:center;">
+									<a id=createNft data-no=data[i].grow_diary_grow_no href="javascript:nftGeneration('\${data[i].grow_diary_grow_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">생성가능</a></div>`;
 
 									grid.setValue(i,
 											'grow_diary_nft_create_ennc',
@@ -148,16 +163,19 @@
 		function purchaseHistory() {
 			document.getElementById('light').style.display = 'block';
 			document.getElementById('fade').style.display = 'block';
+			document.getElementById('content').innerHTML = "";
 		}
 		/* ----------농부신청현황---------- */
 		function farmerApplicationStatus() {
 			document.getElementById('light').style.display = 'block';
 			document.getElementById('fade').style.display = 'block';
+			document.getElementById('content').innerHTML = "";
 		}
 		/* ----------회원탈퇴---------- */
 		function withdrawal() {
 			document.getElementById('light').style.display = 'block';
 			document.getElementById('fade').style.display = 'block';
+			document.getElementById('content').innerHTML = "";
 		}
 
 		function nftGeneration(growDiary) {

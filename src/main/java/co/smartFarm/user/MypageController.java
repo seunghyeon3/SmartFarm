@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.smartFarm.auction.NftMapper;
 import co.smartFarm.auction.NftVO;
 import co.smartFarm.grow.GrowDiaryMapper;
 import co.smartFarm.grow.GrowDiaryVO;
@@ -31,6 +33,8 @@ public class MypageController {
 	@Autowired
 	private GrowDiaryMapper growDiaryDao;
 	
+	@Autowired
+	private NftMapper nftDao;
 	//마이페이지 경로
 	@RequestMapping("/mypage.do")
 	public String mypage() {
@@ -38,9 +42,11 @@ public class MypageController {
 		return "user/mypage";
 	}
 	
-	//nft보유현황
+	//nft보유현황 페이지 mem 나중에 session으로 받아오기
 	@RequestMapping("/nftholdings.do")
-	public String nftholdings() {
+	public String nftholdings(Model model) {
+		String mem = "bbb@abc.com";
+		model.addAttribute("nftList", nftDao.selectNftMyList(mem));
 		return "user/nftholdings";
 	}
 	
@@ -49,13 +55,24 @@ public class MypageController {
 		@ResponseBody
 		public String nftGeneration(@RequestParam(value = "growDiaryNo") int growDiaryNo, HttpServletRequest request, NftVO nft, GrowDiaryVO growDiary) {
 			  try {
+				  growDiary = growDiaryDao.growDiaryNoList(growDiaryNo);
 				  
 				  //(Math.random() * (최대값 - 최소값)) + 최소값
 				  String background = request.getServletContext().getRealPath("resources/nft/Background/back"+(int)((Math.random()*11)+1)+".png");
 				  String body = request.getServletContext().getRealPath("resources/nft/Body/tomcat"+(int)((Math.random()*15)+1)+".png");
 				  
+				  String medal = "";
 				  //medal은 작물 등급에 따라 분류
-				  String medal = request.getServletContext().getRealPath("resources/nft/Medal/gold.png");
+				  System.out.println(growDiary.getGrow_diary_grd());
+				  if (growDiary.getGrow_diary_grd().equals("최상")) {
+					  medal = request.getServletContext().getRealPath("resources/nft/Medal/gold.png");
+				  } else if (growDiary.getGrow_diary_grd().equals("상")) {
+					  medal = request.getServletContext().getRealPath("resources/nft/Medal/silver.png");
+				  } else if (growDiary.getGrow_diary_grd().equals("중")){
+					  medal = request.getServletContext().getRealPath("resources/nft/Medal/bronze.png");
+				  } else {
+					  medal = request.getServletContext().getRealPath("resources/nft/Medal/fail.png");
+				  }
 				  
 				   BufferedImage backgroundImage = ImageIO.read(new File(background));
 				   BufferedImage bodyImage = ImageIO.read(new File(body));
@@ -79,12 +96,9 @@ public class MypageController {
 				    ImageIO.write(mergedImage, "png", new File(merge));
 				    System.out.println("NFT 생성이 완료되었습니다.");
 				    
-				    growDiary = growDiaryDao.growDiaryNoList(growDiaryNo);
-				    //System.out.println(growDiary);
-				    
 				    nft.setMem_email(growDiary.getMem_email());
 				    nft.setGrow_diary_log_rou(growDiary.getGrow_diary_log_rou());
-				    nft.setNft_img(merge);
+				    nft.setNft_img("merge"+uid+".png");
 				    nft.setKit_no(growDiary.getKit_no());
 				    nft.setGrow_diary_grd(growDiary.getGrow_diary_grd());
 				    nft.setGrow_diary_grow_no(growDiaryNo);
