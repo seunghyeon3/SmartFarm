@@ -15,7 +15,6 @@
 </style>
 </head>
 <body>
-<<<<<<< HEAD
 	<section class="wf100 p80 blog">
 		<div class="causes-listing">
 			<div class="container">
