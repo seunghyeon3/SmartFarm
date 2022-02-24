@@ -12,18 +12,9 @@
 <meta name="author" content="">
 <link rel="icon" href="../resources/images/favicon.png">
 <title>ECO HTML</title>
-<!-- CSS FILES START -->
-<link href="../resources/css/custom.css" rel="stylesheet">
-<link href="../resources/css/color.css" rel="stylesheet">
-<link href="../resources/css/responsive.css" rel="stylesheet">
-<link href="../resources/css/owl.carousel.min.css" rel="stylesheet">
-<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="../resources/css/prettyPhoto.css" rel="stylesheet">
-<link href="../resources/css/all.min.css" rel="stylesheet">
-<link href="../resources/css/popup.css" rel="stylesheet">
-<link href="../resources/css/table.css" rel="stylesheet">
+
 <link rel="stylesheet"
-	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" /> 
 
 
 
@@ -162,26 +153,25 @@ input[type="checkbox"]:checked::before {
 	<div id="fadeInstP" class="black_overlay"></div>
 
 
-	<!--   JS Files Start  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	<script src="../resources/js/jquery-migrate-1.4.1.min.js"></script>
-	<script src="../resources/js/popper.min.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<script src="../resources/js/owl.carousel.min.js"></script>
-	<script src="../resources/js/jquery.prettyPhoto.js"></script>
-	<script src="../resources/js/isotope.min.js"></script>
-	<script src="../resources/js/custom.js"></script>
-	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 
+	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script>
+	
+		// GRID 에 데이터를 입력
+		const gridData = ${memberSelectList};
+
 		//표 출력
-		var grid = new tui.Grid({
+		const grid = new tui.Grid({
+			
+			
+			el : document.getElementById('grid'),
+			data : gridData,
+			rowHeaders : [ 'rowNum' ],//번호 매기기
 			rowHeight : 'auto',
 			rowWidth : 'auto',
-			el : document.getElementById('grid'),
-			rowHeaders : [ 'rowNum' ],//번호 매기기
 			scrollX : false,
 			scrollY : false,
+			
 			columns : [ {
 				header : '이메일',
 				name : 'mem_email'
@@ -203,10 +193,8 @@ input[type="checkbox"]:checked::before {
 			} ]
 		});
 
-		// GRID 에 데이터를 입력
-		var gridData = ${memberSelectList};
-
-		grid.resetData(gridData);
+	
+		
 
 		//클릭하면 팝업창 띄우기
 		grid.on('dblclick', (ev) => {
