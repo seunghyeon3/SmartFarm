@@ -158,14 +158,6 @@
 	</div>
 
 	<!--   JS Files Start  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	<script src="../resources/js/jquery-migrate-1.4.1.min.js"></script>
-	<script src="../resources/js/popper.min.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<script src="../resources/js/owl.carousel.min.js"></script>
-	<script src="../resources/js/jquery.prettyPhoto.js"></script>
-	<script src="../resources/js/isotope.min.js"></script>
-	<script src="../resources/js/custom.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>

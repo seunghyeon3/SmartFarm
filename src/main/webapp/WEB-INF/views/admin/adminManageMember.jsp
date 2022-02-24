@@ -13,17 +13,7 @@
 <link rel="icon" href="../resources/images/favicon.png">
 <title>ECO HTML</title>
 <!-- CSS FILES START -->
-<link href="../resources/css/custom.css" rel="stylesheet">
-<link href="../resources/css/color.css" rel="stylesheet">
-<link href="../resources/css/responsive.css" rel="stylesheet">
-<link href="../resources/css/owl.carousel.min.css" rel="stylesheet">
-<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="../resources/css/prettyPhoto.css" rel="stylesheet">
-<link href="../resources/css/all.min.css" rel="stylesheet">
-<link href="../resources/css/popup.css" rel="stylesheet">
-<link href="../resources/css/table.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+
 
 
 
@@ -163,22 +153,14 @@ input[type="checkbox"]:checked::before {
 
 
 	<!--   JS Files Start  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	<script src="../resources/js/jquery-migrate-1.4.1.min.js"></script>
-	<script src="../resources/js/popper.min.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<script src="../resources/js/owl.carousel.min.js"></script>
-	<script src="../resources/js/jquery.prettyPhoto.js"></script>
-	<script src="../resources/js/isotope.min.js"></script>
-	<script src="../resources/js/custom.js"></script>
-	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+
 
 	<script>
 		//표 출력
 		var grid = new tui.Grid({
 			rowHeight : 'auto',
 			rowWidth : 'auto',
-			el : document.getElementById('grid'),
+			el : document.getElementById('grid'),			 
 			rowHeaders : [ 'rowNum' ],//번호 매기기
 			scrollX : false,
 			scrollY : false,
@@ -204,7 +186,7 @@ input[type="checkbox"]:checked::before {
 		});
 
 		// GRID 에 데이터를 입력
-		var gridData = ${memberSelectList};
+		var gridData = ${memberSelectList}
 
 		grid.resetData(gridData);
 
@@ -237,11 +219,13 @@ input[type="checkbox"]:checked::before {
 				
 				$('#lightInstP').append(
 						$('<div>').attr("id", "inner").append(
-								$('<img>', {'src':'../resources/images/'+grid.getValue(ev.rowKey, "mem_fm_req")})
+								 /* $('<img>', {'src':${pageContext.request.contextPath}'/resources/images/'+grid.getValue(ev.rowKey, "mem_fm_req")}) */
+								  $('<img>', {'src':'${pageContext.request.contextPath}/resources/images/loadingicon.gif'}) 
 								).append(input)
 							);
 			}
-			
+			//농부신청 클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
 		});//on dblclick
 		
 		

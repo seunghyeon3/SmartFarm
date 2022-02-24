@@ -41,7 +41,7 @@
                         </div>
                      </div>
                      <div class="col-lg-3 col-md-6 col-sm-6">
-                          <img src="/resources/images/smartfarm.png" alt="사진이 엄서용" style="width: 200px">
+                          <img src="https://media1.giphy.com/media/l1J9yYblNRmcHXNok/giphy.gif?cid=ecf05e47vzqiqpqp4axb33ff0druao7l8xe339rc7etnf518&rid=giphy.gif&ct=g" alt="사진이 엄서용" style="width: 400px">
                        </div>
                   </div>
                </div>

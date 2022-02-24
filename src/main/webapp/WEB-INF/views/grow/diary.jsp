@@ -31,9 +31,9 @@
 	
 						<div style="display: inline-block; width: 20%;">
 							<ol id="diary" style="margin-top: 20px;">
-							    <c:forEach items="${test}" var="test">
+							    <c:forEach items="${diary}" var="diary">
 							
-								<li><strong>${test.grow_diary_grow_nick }</strong></li>
+								<li data-route=${diary.grow_diary_log_rou }><strong>${diary.grow_diary_grow_nick }</strong></li>
 								</c:forEach>
 
 							</ol>
@@ -57,13 +57,21 @@
 <script type="text/javascript">
 
 $("#diary").on("click", "li", function(event){ 
-	console.log("test")
-	
-	$("#log").empty();
-	
-	for(var i=0; i<10; i++) {
-		$("#log").append("<li>New li tag</li>");
-	}
+	console.log(event.target.dataset.route);
+	$.ajax({
+		url: 'diaryBody.do',
+		type: 'post',
+		data: {"route" : event.target.dataset.route},
+		success: function(result) {
+        	console.log(result);
+
+			$("#log").empty();
+			for(i=0; i<result.length; i++) {
+				$("#log").append("<li>" + result[i] + "</li>")
+			}
+		}
+	})
+
 }) 
 
 </script>

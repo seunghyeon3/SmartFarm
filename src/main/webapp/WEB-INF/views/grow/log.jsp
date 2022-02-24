@@ -91,7 +91,9 @@ $("#daily").on("click", "li", function(event){
         data: {"file" : event.target.innerText},
         success: function(result) {
             $("#log").empty();
-            $("#log").append("<li>" + result + "</li>");
+			for(i=0; i<result.length; i++) {
+         	   $("#log").append("<li>" + result[i] + "</li>");
+			}
         }
     })	
 }) 
