@@ -12,7 +12,6 @@
 <meta name="author" content="">
 <link rel="icon" href="../resources/images/favicon.png">
 <title>ECO HTML</title>
-<!-- CSS FILES START -->
 
 
 
@@ -152,18 +151,27 @@ input[type="checkbox"]:checked::before {
 	<div id="fadeInstP" class="black_overlay"></div>
 
 
-	<!--   JS Files Start  -->
 
 
+	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script>
+	
+		// GRID 에 데이터를 입력
+		const gridData = ${memberSelectList};
+
 		//표 출력
+
 		var grid = new tui.Grid({
 			rowHeight : 'auto',
 			rowWidth : 'auto',
 			el : document.getElementById('grid'),			 
+
 			rowHeaders : [ 'rowNum' ],//번호 매기기
+			rowHeight : 'auto',
+			rowWidth : 'auto',
 			scrollX : false,
 			scrollY : false,
+			
 			columns : [ {
 				header : '이메일',
 				name : 'mem_email'
@@ -184,6 +192,7 @@ input[type="checkbox"]:checked::before {
 
 			} ]
 		});
+
 
 		// GRID 에 데이터를 입력
 		var gridData = ${memberSelectList}
