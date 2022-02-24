@@ -2,10 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.smartFarm.grow.GrowMapper">
 
-	<!-- 회원이메일을 통한 영농일지 조회 -->
+	<!-- 회원의 키트 조회 -->
 	<select id="growList" parameterType="String" resultType="co.smartFarm.grow.GrowVO">
 		SELECT DISTINCT KIT_NO FROM PUR_HIS
 		WHERE MEM_EMAIL = #{memEmail}
 	</select>
+	
+	<!-- 회원의 상업용 키트 조회 -->
+	<select id="growComList" parameterType="String" resultType="co.smartFarm.grow.GrowVO">
+		SELECT P.KIT_NO FROM PUR_HIS P, KIT K 
+		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL = #{memEmail} AND K.KIT_PRPOS='상업용'
+	</select>
+
 
 </mapper>
