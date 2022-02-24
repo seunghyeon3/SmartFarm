@@ -18,7 +18,6 @@
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body style="background: url(resources/images/aboutbg.jpg) no-repeat #fff; background-size: cover;">
-
 <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
                <a class="navbar-brand" href="index-2.html"><img src="<c:url value='/resources/images/h2logo.png' />" alt=""></a>

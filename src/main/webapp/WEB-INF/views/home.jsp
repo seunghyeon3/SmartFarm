@@ -20,7 +20,7 @@
 <body style="background: url('resources/images/aboutbg.jpg') no-repeat #fff; background-size: cover;">
 <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
-               <a class="navbar-brand" href="index-2.html"><img src="resources/images/h2logo.png" alt=""></a>
+               <a class="navbar-brand" href="index-2.html"><img src="<c:url value='/resources/images/h2logo.png' />" alt=""></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
@@ -28,14 +28,14 @@
                         <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
                         <ul class="dropdown-menu">
                            <li><a href="intro.do">스마트 팜 안내</a></li>
-                           <li><a href="#">과수 분야</a></li>
-                           <li><a href="#">노지 분야</a></li>
+                           <li><a href="introg.do">과수 분야</a></li>
+                           <li><a href="intron.do">노지 분야</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 알림 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">공지사항</a></li>
+                           <li><a href="notice.do">공지사항</a></li>
                            <li><a href="#">자료실</a></li>
                         </ul>
                      </li>
@@ -65,23 +65,23 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">재배 홈</a></li>
-                           <li><a href="#">사용법</a> </li>
-                           <li><a href="#">CCTV</a></li>
-                           <li><a href="#">재배관리</a> </li>
-                           <li><a href="#">실시간 정보</a></li>
-                           <li><a href="#">일별 로그</a></li>
-                           <li><a href="#">영농 일지</a></li>
+                           <li><a href="grow.do">재배 홈</a></li>
+                           <li><a href="howTo.do">사용법</a> </li>
+                           <li><a href="cctv.do">CCTV</a></li>
+                           <li><a href="control.do">재배관리</a> </li>
+                           <li><a href="sensor.do">실시간 정보</a></li>
+                           <li><a href="log.do">일별 로그</a></li>
+                           <li><a href="diary.do">영농 일지</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">매출</a> </li>
-                           <li><a href="#">키트 구매 현황</a> </li>
-                           <li><a href="#">회원관리</a> </li>
-                           <li><a href="#">작물관리</a> </li>
-                           <li><a href="#">NFT 현황 조회</a> </li>
+                           <li><a href="admin/adminHome.do">매출</a> </li>
+                           <li><a href="admin/adminPurchaseList.do">키트 구매 현황</a> </li>
+                           <li><a href="admin/adminManagemember.do ">회원관리</a> </li>
+                           <li><a href="admin/adminManageKit.do">작물관리</a> </li>
+                           <li><a href="admin/adminManageNFT.do">NFT 현황 조회</a> </li>
                         </ul>
                      </li>
                   </ul>
@@ -89,12 +89,15 @@
                      <li class="dropdown">
                         <a class="cart-icon" href="#" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
                      </li>
-                     <li class="login-reg"> <a href="#">Login</a> | <a href="#">Signup</a> </li>
-                     <li class="login-reg"> <a href="#">Logout</a> | <a href="#">Mypage</a> </li>
+
+
+                     <li class="login-reg"> <a href="login.do">Login</a> | <a href="#">Signup</a> </li>
+                     <li class="login-reg"> <a href="#">Logout</a> | <a href="mypage.do">Mypage</a> </li>
+
                   </ul>
                </div>
             </nav>
-         </header>  
+         </header> 
          <!-- 각자 페이지에 맞게 추가 해아함 -->    
          <section class="wf100 p100 inner-header">
             <div class="container" id="menu">
