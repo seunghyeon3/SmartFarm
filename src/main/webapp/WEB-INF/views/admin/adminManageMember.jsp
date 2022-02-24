@@ -13,8 +13,6 @@
 <link rel="icon" href="../resources/images/favicon.png">
 <title>ECO HTML</title>
 
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" /> 
 
 
 
@@ -154,6 +152,7 @@ input[type="checkbox"]:checked::before {
 
 
 
+
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script>
 	
@@ -161,11 +160,12 @@ input[type="checkbox"]:checked::before {
 		const gridData = ${memberSelectList};
 
 		//표 출력
-		const grid = new tui.Grid({
-			
-			
-			el : document.getElementById('grid'),
-			data : gridData,
+
+		var grid = new tui.Grid({
+			rowHeight : 'auto',
+			rowWidth : 'auto',
+			el : document.getElementById('grid'),			 
+
 			rowHeaders : [ 'rowNum' ],//번호 매기기
 			rowHeight : 'auto',
 			rowWidth : 'auto',
@@ -193,8 +193,11 @@ input[type="checkbox"]:checked::before {
 			} ]
 		});
 
-	
-		
+
+		// GRID 에 데이터를 입력
+		var gridData = ${memberSelectList}
+
+		grid.resetData(gridData);
 
 		//클릭하면 팝업창 띄우기
 		grid.on('dblclick', (ev) => {
@@ -225,11 +228,13 @@ input[type="checkbox"]:checked::before {
 				
 				$('#lightInstP').append(
 						$('<div>').attr("id", "inner").append(
-								$('<img>', {'src':'../resources/images/'+grid.getValue(ev.rowKey, "mem_fm_req")})
+								 /* $('<img>', {'src':${pageContext.request.contextPath}'/resources/images/'+grid.getValue(ev.rowKey, "mem_fm_req")}) */
+								  $('<img>', {'src':'${pageContext.request.contextPath}/resources/images/loadingicon.gif'}) 
 								).append(input)
 							);
 			}
-			
+			//농부신청 클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
 		});//on dblclick
 		
 		

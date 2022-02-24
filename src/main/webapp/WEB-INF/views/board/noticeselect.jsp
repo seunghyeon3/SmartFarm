@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 상세페이지</title>
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+    <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script> 
 </head>
 <style>
 .filebox label {
@@ -50,23 +53,22 @@
                         <h3>상세페이지</h3>
                         <ul class="cform">
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목">
-                              
+                                ${notice.notice_title}
                            </li>
                             <li class="full">
-                              <input type="text" class="form-control" placeholder="작성자"></textarea>
+                                 ${notice.notice_name}
                            </li><li class="full">
-                              <input type="text" class="form-control"  placeholder="등록일"></textarea>
+                              ${notice.notice_day}
                            </li>
                            <li class="full">
-                              <textarea class="textarea-control" placeholder="내용"></textarea>
+                                ${notice.notice_con}
                            </li>
                            <li class="full">
-                              <textarea class="form-control" placeholder="첨부파일"></textarea>
+                              ${notice.notice_img}
                            </li>
                            <li class="full">
- 								 <input type="submit" value="수정하기" onclick="location.href='noticeupdateForm.do'" class="fsubmit">
-                               <input type="submit" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
+ 								 <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit">
+                               <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
                      </div>
@@ -74,5 +76,6 @@
                </div>
             </div>
          </section>
+        
 </body>
 </html>
