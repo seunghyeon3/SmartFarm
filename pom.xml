@@ -197,6 +197,21 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- 메일 api -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.4</version>
+		</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.5.2</version>
+</dependency>
 	</dependencies>
 	<build>
 		<plugins>

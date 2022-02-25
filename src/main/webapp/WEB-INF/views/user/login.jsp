@@ -35,6 +35,7 @@
 								<input type="password" id="mem_pw" name="mem_pw"class="form-control"
 									placeholder="비밀번호" required>
 							</div>
+							
 							<div class="input-group form-check">
 								<a href="#" class="fp">아이디 찾기</a> <a href="#" class="fp">비밀번호
 									찾기</a> <a href="#" class="fp">회원가입</a>
