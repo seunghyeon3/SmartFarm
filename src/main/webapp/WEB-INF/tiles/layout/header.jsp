@@ -47,7 +47,7 @@
                         <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 알림 </a>
                         <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
-                           <li><a href="#">자료실</a></li>
+                           <li><a href="${pageContext.request.contextPath}/archieve.do">자료실</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
