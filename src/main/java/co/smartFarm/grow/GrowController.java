@@ -40,7 +40,7 @@ public class GrowController {
 		model.addAttribute(mapG.growList(session.getAttribute("email").toString()));
 		System.out.println(model);
 
-		return "grow/grow";
+		return "grow/growhome";
 	}
 
 //	키트 사용법 페이지

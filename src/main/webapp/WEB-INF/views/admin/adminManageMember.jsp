@@ -156,9 +156,6 @@ input[type="checkbox"]:checked::before {
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script>
 	
-		// GRID 에 데이터를 입력
-		const gridData = ${memberSelectList};
-
 		//표 출력
 
 		var grid = new tui.Grid({
@@ -232,9 +229,9 @@ input[type="checkbox"]:checked::before {
 								  $('<img>', {'src':'${pageContext.request.contextPath}/resources/images/loadingicon.gif'}) 
 								).append(input)
 							);
+			window.scrollTo(0,0);
 			}
 			//농부신청 클릭시 페이지 최상단으로 이동.
-			window.scrollTo(0,0);
 		});//on dblclick
 		
 		
