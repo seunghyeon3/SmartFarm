@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
    <title>자료실 페이지</title>
    <!-- 게시판 리스트 출력 하는 부분 -->
-   <link rel="stylesheet"
-	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+   
     <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script> 
 <style>
 .filebox label {
@@ -53,6 +52,7 @@
 </style>
 </head>
 <body>
+${archieve}
    <div class="container p80">
       <div class="col-lg-9 col-md-8 side-widget">       
       </div>
@@ -65,7 +65,7 @@
           	<h3>자료실</h3>
             <div class="col-md-12">
                        <div id="grid"></div> <!-- grid 불러오기 -->
-               <a href="archieveinsert.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
+               <a href="archieveinsertForm.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
             </div>
          </div>
          <div class="row">

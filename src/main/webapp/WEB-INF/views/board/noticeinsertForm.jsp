@@ -4,10 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자료실 상세페이지</title>
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-    <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script> 
+<title>Insert title here</title>
 </head>
 <style>
 .filebox label {
@@ -50,34 +47,26 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>자료실 상세페이지</h3>
-                        <div id="grid"></div> <!-- grid 불러오기 -->
+                        <h3>글쓰기</h3>
                         <ul class="cform">
-         
                            <li class="full">
-                                ${archieve.archieve_title}
+                              <input type="text" class="form-control" placeholder="제목">
                            </li>
+                           <div class="filebox" style="float: right">
+  								<label for="ex_file">사진 업로드</label>
+  								<input type="file" id="ex_file">
+						   </div>
                             <li class="full">
-                                 ${archieve.mem_name}
-                           </li><li class="full">
-                              ${archieve.archieve_day}
+                              <textarea class="textarea-control" placeholder="내용"></textarea>
                            </li>
                            <li class="full">
-                                ${archieve.archieve_con}
-                           </li>
-                           <li class="full">
-                          	<img src="c:/Temp/${archieve.archieve_img}">
-                           </li>
-                           <li class="full">
- 								 <%-- <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${archieve.archieve_no}'" class="fsubmit"> --%>
- 								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
-                               <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
+                              <input type="submit" value="등록" onclick="location.href='archieve.do'" class="fsubmit">
                            </li>
                         </ul>
                      </div>
                   </div>
                </div>
             </div>
-         </section>    
+         </section>
 </body>
 </html>
