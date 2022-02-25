@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,6 @@ public class MypageController {
 	//마이페이지 경로
 	@RequestMapping("/mypage.do")
 	public String mypage() {
-		
 		return "user/mypage";
 	}
 	
@@ -53,8 +53,11 @@ public class MypageController {
 	//nft 생성버튼누를시 resources밑에 nft폴더 사진을 이용하여 병합하고 ....
 		@RequestMapping("/nftGeneration.do")
 		@ResponseBody
-		public String nftGeneration(@RequestParam(value = "growDiaryNo") int growDiaryNo, HttpServletRequest request, NftVO nft, GrowDiaryVO growDiary) {
-			  try {
+		public int nftGeneration(@RequestParam(value = "growDiaryNo") int growDiaryNo, 
+											HttpServletRequest request, NftVO nft, GrowDiaryVO growDiary, HttpSession session) throws InterruptedException {
+			//로딩 2초 테스트 
+			Thread.sleep(300);  
+			try {
 				  growDiary = growDiaryDao.growDiaryNoList(growDiaryNo);
 				  
 				  //(Math.random() * (최대값 - 최소값)) + 최소값
@@ -103,22 +106,23 @@ public class MypageController {
 				    nft.setGrow_diary_grd(growDiary.getGrow_diary_grd());
 				    nft.setGrow_diary_grow_no(growDiaryNo);
 				    
-				    mypageDao.createNft(nft);
 				    //생성완료시 nft테이블 insert와 재배일지 생성가능여부 update
-				    //mypageDao.
+				    mypageDao.createNft(nft);
 				    
 				  } catch (IOException ioe) {
 				   ioe.printStackTrace();
 				  }
-			  return null;
+			  return mypageDao.noNft();
+			  
 		}
 
+	//재배내역 팝업창 클릭시 회원 재배내역 표출
 	@RequestMapping("cultivationHistory.do")
 	@ResponseBody
-	public List<GrowDiaryVO> cultivationHistory() {
-	    //나중에 session member로 수정
-	    String mem = "bbb@abc.com";
-	    return growDiaryDao.growDiaryMyList(mem);
+	public List<GrowDiaryVO> cultivationHistory(HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
+	    return growDiaryDao.growDiaryMyList(memEmail);
 	}
 	
 }

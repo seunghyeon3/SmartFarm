@@ -1,7 +1,7 @@
+<%@page import="co.smartFarm.user.MemberVO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <html>
 <meta charset="UTF-8">
 <head>
@@ -9,8 +9,8 @@
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.js"
-   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-   crossorigin="anonymous"></script>
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
 <style>
 </style>
 </head>
@@ -21,8 +21,7 @@
 				<h1>마이페이지</h1>
 				<br>
 				<h2>&lt; 판매현황 &gt;</h2>
-				<br>
-				<br>
+				<br> <br>
 
 				<div class="row">
 					<!-- 차트 출력 -->
@@ -50,9 +49,7 @@
 						</div>
 					</div>
 					<div id="light" class="col-md-12 white_content">
-						팝업창 <a href="javascript:void(0)"
-							onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close
-						</a> <br> <br>
+						팝업창 <a href="javascript:void(0)" onclick="exitPopup()" onkeyup="escExit(event)" style="float:right">Close </a> <br> <br>
 						<div id="content">123</div>
 					</div>
 					<div id="123"></div>
@@ -61,7 +58,8 @@
 			</div>
 		</div>
 	</section>
-	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script> 
+	<script
+		src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
 	<script src="resources/js/GrowDiary.js"></script>
 	<script type="text/javascript"
 		src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
@@ -70,23 +68,67 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 	<script>
-		/* ----------팝업창---------- */
-		/* ----------회원정보수정---------- */
-		function editMember() {
-			document.getElementById('light').style.display = 'block';
-			document.getElementById('fade').style.display = 'block';
-			document.getElementById('content').innerHTML = "";
 
+		/* ----------팝업 esc로 닫기 ( 미 완 성 )---------- */
+		function escExit(e){
+			console.log("123")
+            if (e.keyCode == "27") {
+                alert("esc");
+    			document.getElementById('light').style.display='none';
+    			document.getElementById('fade').style.display='none';
+			}
 		}
-
-		/* ----------재배내역---------- */
-		function cultivationHistory() {
-			document.getElementById('light').style.display = 'block';
+		
+		/* ----------팝업 로딩생성---------- */
+		function createLoading(){
 			document.getElementById('fade').style.display = 'block';
+			document.getElementById('fade').innerHTML = "";
+			document.getElementById('fade').classList.add("loading");
+			var img = document.createElement("img");
+			img.setAttribute("src","resources/images/loadingicon.gif");
+			img.setAttribute("alt","로딩중입니다");
+			img.setAttribute("class","mx-auto d-block");
+			document.getElementById('fade').appendChild(img);
+		}
+	
+		/* ----------팝업 생성---------- */
+		function createPopup(){
+			document.getElementById('light').style.display = 'block';
 			document.getElementById('content').classList
 					.add("blog-single-content");
 			document.getElementById('content').innerHTML = "";
-
+		}
+		
+		/* ----------팝업 창닫기---------- */
+		function exitPopup(){
+			document.getElementById('light').style.display='none';
+			document.getElementById('fade').style.display='none';
+		}
+		
+		/* ----------회원정보수정---------- */
+		function editMember() {
+			//클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
+			
+			//로딩창
+			createLoading();
+			
+			//팝업
+			createPopup();
+			
+			//로딩끄기
+			document.getElementById('fade').style.display = 'none';
+		}
+		
+		/* ----------재배내역---------- */
+		function cultivationHistory() {
+			//클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
+			//로딩창
+			createLoading();
+			//팝업
+			createPopup();
+			
 			//표 출력
 			var grid = new tui.Grid({
 				el : document.getElementById('content'),
@@ -124,68 +166,102 @@
 				}
 			});
 
-			$
-					.ajax({
+			$.ajax({
 						type : "POST",
 						url : "cultivationHistory.do",
 						success : function(data) {
 							//데이터 입력
-							console.log(data);
+							//console.log(data);
 							grid.resetData(data);
 
 							//생성가능여부 가능할때 버튼생성 
 							for (var i = 0; i < data.length; i++) {
 								if (grid.getValue(i,
 										'grow_diary_nft_create_ennc') == 'Y') {
-									console.log(data[i]);
+									//console.log(data[i]);
 									var growDiary = data[i];
 									var input = `<div class="container" style="text-aline:center;">
-									<a id=createNft data-no=data[i].grow_diary_grow_no href="javascript:nftGeneration('\${data[i].grow_diary_grow_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">생성가능</a></div>`;
+									<a id=createNft data-no=\${data[i].grow_diary_grow_no} href="javascript:nftGeneration('\${data[i].grow_diary_grow_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">생성가능</a></div>`;
 
 									grid.setValue(i,
 											'grow_diary_nft_create_ennc',
 											input, true);
 								} else {
-									console.log("123")
+									//console.log("123")
 									var input = '생성됨';
 									grid.setValue(i,
 											'grow_diary_nft_create_ennc',
 											input, true);
 								}
-							}
+								}
+							document.getElementById('fade').style.display = 'none';
 						} //success
 					});
 
 		}
 		/* ----------구매내역---------- */
 		function purchaseHistory() {
-			document.getElementById('light').style.display = 'block';
-			document.getElementById('fade').style.display = 'block';
-			document.getElementById('content').innerHTML = "";
+			//클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
+			
+			//로딩창
+			createLoading();
+			
+			//팝업
+			createPopup();
+			
+			//로딩끄기
+			document.getElementById('fade').style.display = 'none';
 		}
 		/* ----------농부신청현황---------- */
 		function farmerApplicationStatus() {
-			document.getElementById('light').style.display = 'block';
-			document.getElementById('fade').style.display = 'block';
-			document.getElementById('content').innerHTML = "";
+			//클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
+			
+			//로딩창
+			createLoading();
+			
+			//팝업
+			createPopup();
+			
+			//로딩끄기
+			document.getElementById('fade').style.display = 'none';
 		}
 		/* ----------회원탈퇴---------- */
 		function withdrawal() {
-			document.getElementById('light').style.display = 'block';
-			document.getElementById('fade').style.display = 'block';
-			document.getElementById('content').innerHTML = "";
+			//클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
+			
+			//로딩창
+			createLoading();
+			
+			//팝업
+			createPopup();
+			
+			//로딩끄기
+			document.getElementById('fade').style.display = 'none';
 		}
 
 		function nftGeneration(growDiary) {
-			console.log(growDiary);
+			//로딩창
+			createLoading();
+			//console.log(growDiary);
 			$.ajax({
 				url : "nftGeneration.do",
 				data : {
 					"growDiaryNo" : growDiary
 				}
-			}).done(function(data) {
+			}).done(function(nftNo) {
+				//console.log(nftNo);
 				cultivationHistory();
+				document.getElementById('fade').style.display = 'none';
+				// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
+				// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
+				GrowDiary.methods.createGrowDiaryNft('${member.mem_email}', nftNo)
+				.send({from: account, })
+				.then(function(result){console.log(result);})
 			});
+			
 
 		}
 
@@ -238,6 +314,6 @@
 			}
 		});
 	</script>
-
+	
 </body>
 </html>
