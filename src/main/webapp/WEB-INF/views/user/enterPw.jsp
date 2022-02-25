@@ -35,7 +35,7 @@
 							</div>
 							
 							<div class="input-group">
-								<button class="login-btn">입력</button>
+								<button class="login-btn" type="submit">입력</button>
 							</div>
 						</form>
 						

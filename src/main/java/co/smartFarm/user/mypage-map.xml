@@ -15,4 +15,8 @@
             )}
         ]]>
     </select>
+    
+    <select id="noNft" resultType="int">
+    	SELECT MAX(NFT_NO) FROM NFT
+    </select>
 </mapper>

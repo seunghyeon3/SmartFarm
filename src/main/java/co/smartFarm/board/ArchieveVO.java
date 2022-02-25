@@ -1,7 +1,9 @@
 package co.smartFarm.board;
 
 import lombok.Data;
+import lombok.ToString;
 @Data
+@ToString
 public class ArchieveVO {
 	
 	private int archieve_no;
