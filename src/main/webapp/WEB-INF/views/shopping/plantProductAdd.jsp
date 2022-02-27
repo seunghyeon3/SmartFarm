@@ -131,7 +131,7 @@
          		
          		/* if(index >= 0){
          			
-         			var max = parseInt( ${selectMemList[index].plant_ivy} ); 
+         			var max = parseInt( ${selectMemList[0].plant_ivy} ); 
          			alert(max);
          			//console.log(  ${selectMemList[index].plant_ivy} );
          			
