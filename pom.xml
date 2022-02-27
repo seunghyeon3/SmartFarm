@@ -204,14 +204,17 @@
 			<artifactId>commons-email</artifactId>
 			<version>1.4</version>
 		</dependency>
+
+		<!-- 메일 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.4</version>
+		</dependency>
+
 		
 		
-		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
-<dependency>
-    <groupId>com.sun.mail</groupId>
-    <artifactId>javax.mail</artifactId>
-    <version>1.5.2</version>
-</dependency>
 	</dependencies>
 	<build>
 		<plugins>

@@ -8,5 +8,6 @@ public interface MemberMapper {
 	int memberReqAccept(String memEmail);
 	MemberVO loginCheck (MemberVO memberVo);
 	int memberInsert(MemberVO memberVo);
+	int memberUpdatePw(MemberVO memberVo);
 	
 }

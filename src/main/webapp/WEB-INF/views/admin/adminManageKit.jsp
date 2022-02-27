@@ -1,4 +1,5 @@
 <!doctype html>
+<%@page import="jdk.jfr.Percentage"%>
 <html lang="en">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -92,6 +93,7 @@ input[type="checkbox"]:checked::before {
 								<select class="form-control" style="width: 120px; float: left">
 									<option>이름</option>
 									<option>이메일</option>
+									
 								</select> <input type="search" class="form-control" placeholder="검색"
 									style="margin: 0 10px; width: 380px; float: left;">
 								<button>

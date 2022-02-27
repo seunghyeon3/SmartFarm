@@ -71,7 +71,7 @@
 				if(result == '0'){
 					toastr.error('유효하지 않은 이메일입니다');
 				} else {
-					toastr.success('사용가능한 이메일 입니다');
+					toastr.success('임시비밀번호가 메일로 발송되었습니다');
 				}
 				
 			});
