@@ -82,7 +82,7 @@
 
 					<!-- 팝업 달력 -->
 					<div class="col-md-12 comment-form">
-						<form action="">
+						<!-- <form action=""> -->
 							<ul class="col-md-12" style="display: inline-block;">
 
 								<li class="col-md-3" style="float: left;">
@@ -103,11 +103,11 @@
 										<div id="endpicker-container" style="margin-left: -1px;"></div>
 									</div>
 								</li>
-								<li class="col-md-2" style="float: left;"><button class="post-btn"
+								<li class="col-md-2" style="float: left;"><button id="searchBtn" onclick="searchFnc();" class="post-btn"
 										style="width: 100px; height: 50px;">검색</button></li>
 							</ul>
 
-						</form>
+						<!-- </form> -->
 
 					</div>
 
@@ -236,6 +236,16 @@
 				container: '#endpicker-container'
 			}
 		});
+		
+		//날짜 검색 함수
+		function searchFnc() {
+			var startDate = $("#startpicker-input").val();
+			var endDate = $("#endpicker-input").val();
+			
+			console.log(startDate +" : "+endDate)
+		} 
+		
+		
 	</script>
 
 

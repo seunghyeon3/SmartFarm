@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +43,7 @@
 }
 </style>
 <body>
+
 <section class="contact-page wf100 p80">
             <div class="container">
                <div class="row">
@@ -48,33 +51,107 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>작물 판매 등록</h3>
-                        <ul class="cform">
-                           <li class="full">
-                              <input type="text" class="form-control" placeholder="제목">
-                           </li>
-                           <li class="half pr-15">
-                              <input type="text" class="form-control" placeholder="가격">
-                           </li>
-                           <li class="half pl-15">
-                              <input type="text" class="form-control" placeholder="수량">
-                           </li>
-                            <li class="full">
-                              <textarea class="textarea-control" placeholder="내용"></textarea>
-                           </li>
-                           <!-- 파일업로드 버튼 구성 -->
-                           <div class="filebox" style="float: right">
-  								<label for="ex_file">사진 업로드</label>
-  								<input type="file" id="ex_file">
-						   </div>
-                           
-                           <li class="full">
-                              <input type="submit" value="등록" class="fsubmit">
-                           </li>
-                        </ul>
+                        <form action="" onsubmit="return check();">
+	                        <ul class="cform">
+	                       	   <li class="full">
+	                       	   		<select class=" full form-control" id="plant_no" name="plant_no" onchange="myFunction(this)">
+	                       	   			<option value="-1">작물목록</option>
+		                       	   		<c:forEach var="list" items="${selectMemList}">
+											<option value="${list.plant_no }"> 작물 종류 : ${list.plant_name } | 등급 : ${list.plant_grd } | 재고 : ${list.plant_ivy } | 총 재배량 : ${list.plant_tot_grow_amnt }</option>
+										</c:forEach>
+									</select>
+	                       	   </li>
+	                           <li class="full">
+	                              <input type="text" id="plant_sale_title" name="plant_sale_title" class="form-control" placeholder="제목" oninvalid="toastr.error('제목을 입력해주세요')" >
+	                           </li>
+	                           <li class="half pr-15">
+	                              <input type="number" id="plant_sale_price" name="plant_sale_price" class="form-control" placeholder="가격"  min="0" oninvalid="toastr.error('가격을 입력해주세요')"  >
+	                           </li>
+	                           <li class="half pl-15">
+	                              <input type="number" id="plant_count" name="plant_count" class="form-control" placeholder="수량"  min="0" oninput="countCheck()" oninvalid="toastr.error('수량을 입력해주세요')" >
+	                           </li>
+	                            <li class="full">
+	                              <textarea class="textarea-control" id="plant_sale_con" name="plant_sale_con" placeholder="내용" oninvalid="toastr.error('내용을 입력해주세요')" ></textarea>
+	                           </li>
+	                           <!-- 파일업로드 버튼 구성 -->
+	                           <li>
+		                           <div class="filebox" style="float: right">
+		  								<label for="ex_file">사진 업로드</label>
+		  								<input type="file" id="ex_file">
+								   </div>
+							   </li>
+		                        <input type="text" id="mem_email" name="mem_email" value="${member.mem_email }">
+		                        <input type="text" id="mem_name" name="mem_name" value="${member.mem_name }">
+		                        <input type="text" id="plant_sale_whet" name="plant_sale_whet" value="N">
+                        		
+	                           <li class="full">
+	                              <input type="submit" value="등록" class="fsubmit">
+	                           </li>
+	                        </ul>
+	                       </form>
                      </div>
                   </div>
                </div>
             </div>
          </section>
+         
+         <script type="text/javascript">
+         	var list = [];
+	         $(document).ready(function () {
+	      		
+	         	for (var i = 0; i < 1; i++) {
+					list.push( ${selectMemList[i]} );
+				}
+			});
+         	
+         	
+         	
+         	// ===== 폼 넘기기 전에 확인할 목록 =====
+         	function check() {
+         		//작물 입력 안한 경우
+				var plant_no = $("#plant_no").val();
+				if(plant_no === '-1'){
+					toastr.error('판매할 작물을 입력해주세요');
+					return false;	
+				}
+				
+				return true;
+			}
+         
+         	// ===== 작물 개수가 수량보다 많은 경우 =====
+         	function countCheck() {
+         		
+				var plant_count = $("#plant_count").val();
+         		var index = $("#plant_no option").index($("#plant_no option:selected")) -1 ;
+
+         		//console.log(typeof(plant_count));
+         		console.log(${selectMemList[index]})
+         		console.log(index);
+         		
+         		
+         		/* if(index >= 0){
+         			
+         			var max = parseInt( ${selectMemList[0].plant_ivy} ); 
+         			alert(max);
+         			//console.log(  ${selectMemList[index].plant_ivy} );
+         			
+         			if(plant_count > max){
+    					toastr.error('재고보다 많은 수량을 판매할 수 없습니다');
+    					return false;
+    				}
+         			
+         		} */
+         		
+				return true;
+			}
+         	
+         	function myFunction(e){
+         		var index = $("#plant_no option").index($("#plant_no option:selected")) -1 ;
+				console.log("인덱스! == "+index);
+         		
+         		console.log("이벤트 ! == "+e);
+         	}
+         </script>
+         
 </body>
 </html>
