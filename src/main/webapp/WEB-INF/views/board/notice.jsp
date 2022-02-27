@@ -65,7 +65,7 @@
           	<h3>공지 사항</h3>
             <div class="col-md-12">
                        <div id="grid"></div> <!-- grid 불러오기 -->
-               <a href="noticeinsert.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
+               <a href="noticeinsertForm.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
             </div>
          </div>
          <div class="row">

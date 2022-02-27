@@ -71,19 +71,8 @@ var abi = [
 
 //var GrowDiaryContract = web3.eth.contract(abi)
 
-var contractAddress = "0x17703228683A680eE60D11bdA25D2f7473CD6c74"; /* our contract address on Ethereum after deploying */
+var contractAddress = "0xaDFAD26CC1176585C6A0029AECd030817326ad9C"; /* our contract address on Ethereum after deploying */
 
 var GrowDiary = new web3.eth.Contract(abi, contractAddress);//GrowDiaryContract.at(contractAddress)
 // `GrowDiary`는 우리 컨트랙트의 public 함수와 이벤트에 접근할 수 있다.
-
-// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:
-$("#createNft").click(function(e) {
-	//var name = $("#nameInput").val()
-	// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
-	var memEmail = "bbb@abc.com";
-	var nftNo = 1;
-	GrowDiary.methods.createGrowDiaryNft(memEmail, nftNo)
-	.send({from: account, })
-	.then(function(result){console.log(result);})
-})
 

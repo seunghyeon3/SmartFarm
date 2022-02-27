@@ -9,5 +9,6 @@ public interface MypageMapper {
 	// 재배일지 테이블 nft생성여부를 업데이트한다.
 	List<NftVO> createNft(NftVO nft);
 	
-	
+	// NFT 생성버튼 누르고 createNft 완료될 시 nftNo 가져오기
+	int noNft();
 }

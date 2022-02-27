@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ArchieveMapper {
-	List<IntroVO> archieveSelectList();
+	List<ArchieveVO> archieveSelectList();
 	ArchieveVO archieveSelect(int archieve_no);
 	ArchieveVO archieveSelect(ArchieveVO archieve);
 	int archieveInsert(ArchieveVO archieve);

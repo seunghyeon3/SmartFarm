@@ -40,6 +40,11 @@
 			#{mem_tel})
 
 	</insert>
+	<update id="memberUpdatePw" parameterType="co.smartFarm.user.MemberVO">
+		UPDATE MEMBER
+		SET MEM_PW = #{mem_pw}
+		WHERE MEM_EMAIL =#{mem_email}
+	</update>
 
 
 </mapper>
