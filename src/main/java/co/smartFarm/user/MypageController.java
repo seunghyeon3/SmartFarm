@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,13 +51,18 @@ public class MypageController {
 		return "user/nftholdings";
 	}
 	
+	//nft보유현황 페이지에서 경매버튼 클릭시 경매 등록페이지로 이동
+	@RequestMapping("/aucnInsertForm.do")
+	public String nftAucnInsertForm(@RequestParam (value="nftNo") int nftNo ,Model model) {
+		model.addAttribute("nftVo",nftDao.selectMyNft(nftNo));
+		return "auction/aucnInsertForm";
+	}
+	
 	//nft 생성버튼누를시 resources밑에 nft폴더 사진을 이용하여 병합하고 ....
 		@RequestMapping("/nftGeneration.do")
 		@ResponseBody
 		public int nftGeneration(@RequestParam(value = "growDiaryNo") int growDiaryNo, 
 											HttpServletRequest request, NftVO nft, GrowDiaryVO growDiary, HttpSession session) throws InterruptedException {
-			//로딩 2초 테스트 
-			Thread.sleep(300);  
 			try {
 				  growDiary = growDiaryDao.growDiaryNoList(growDiaryNo);
 				  
@@ -92,9 +98,12 @@ public class MypageController {
 				   graphics.drawImage(bodyImage, 0, 0, null);
 				   graphics.drawImage(medalImage, 0, 0, null);
 				   
-				   //나중에 경로수정, 이름은 uid로 랜덤생성
+				   //이름은 uid로 랜덤생성
 				   String uid = UUID.randomUUID().toString();
+				   //머지이미지 나중에 서버경로로 바꾸기 지금은 git 저장 경로
 				   String merge = "D:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
+				   //집경로
+				   //String merge = "C:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
 				   //String merge = request.getServletContext().getRealPath("resources/nft/merge/mergeImage.png");
 				    ImageIO.write(mergedImage, "png", new File(merge));
 				    System.out.println("NFT 생성이 완료되었습니다.");
