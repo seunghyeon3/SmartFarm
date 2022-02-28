@@ -9,6 +9,7 @@
 		WHERE MEM_EMAIL = #{mem_email}
 	</select>
 
+	 <!-- 로그인 -->
 	<select id="loginCheck"
 		parameterType="co.smartFarm.user.MemberVO"
 		resultType="co.smartFarm.user.MemberVO">
@@ -17,20 +18,14 @@
 		WHERE MEM_EMAIL = #{mem_email}
 
 	</select>
-
+	
+	<!-- 전체 회원 조회 -->
 	<select id="memberSelectList"
 		resultType="co.smartFarm.user.MemberVO">
 		SELECT * FROM MEMBER
 	</select>
 
-	<update id="memberReqAccept" parameterType="String">
-
-		UPDATE MEMBER
-		SET MEM_ATHR = 'B2'
-		WHERE MEM_EMAIL = #{mem_email}
-
-	</update>
-
+	<!-- 회원가입 -->
 	<insert id="memberInsert"
 		parameterType="co.smartFarm.user.MemberVO">
 		INSERT INTO MEMBER(MEM_EMAIL, MEM_PW, MEM_ADDR,
@@ -38,13 +33,34 @@
 		VALUES(#{mem_email},
 			#{mem_pw}, #{mem_addr}, #{mem_det_addr}, #{mem_name}, 'B1',
 			#{mem_tel})
-
 	</insert>
+	
+	<!-- 비밀번호 수정 -->
 	<update id="memberUpdatePw" parameterType="co.smartFarm.user.MemberVO">
 		UPDATE MEMBER
 		SET MEM_PW = #{mem_pw}
 		WHERE MEM_EMAIL =#{mem_email}
 	</update>
+	
+	<!-- 농부 승인-승인 -->
+	<update id="memberAcceptAthr" parameterType="String">
+		UPDATE MEMBER
+		SET MEM_ATHR = 'B2'
+		WHERE MEM_EMAIL = #{mem_email}
+	</update>
+	
+	<!-- 농부 승인-거절 -->
+	<update id="memberRejectAthr" parameterType="String">
+		UPDATE MEMBER
+		SET MEM_FM_REQ = 'Reject'
+		WHERE MEM_EMAIL = #{mem_email}
+	</update>
 
-
+	<select id="memberSelectKeyList" resultType="co.smartFarm.user.MemberVO">
+		SELECT * FROM MEMBER
+		<if test="key == ''"> WHERE 1 = 1</if>
+		<if test="key == 'mem_email'">WHERE MEM_EMAIL LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'mem_name'">WHERE MEM_NAME LIKE '%' || #{val} || '%'</if>
+	</select>
+	
 </mapper>

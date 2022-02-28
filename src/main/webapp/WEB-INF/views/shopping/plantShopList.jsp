@@ -7,6 +7,7 @@
 <head>
    <meta charset="UTF-8">
    <title>Home</title>
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -15,10 +16,12 @@
 
          <!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
          <div class="single-post-tags">
+         	<a href="javascript:divisionList(product)">전체</a>
             <a href="javascript:divisionList(product)">상업용</a>
             <a href="javascript:divisionList(habbit)">취미용</a>
          </div>
       </div>
+      
 
       <!-- 검색 버튼 추가 -->
       <div class="col-lg-3 col-md-4 side-search">
@@ -30,7 +33,19 @@
    <section class="shop wf100 p80">
       <div class="container">
          <div class="row" id="prolist">	
-         
+         	<!-- 판매 리스트 출력 시작 -->
+         		<c:forEach items="${plantSaleList}" var="list">
+                  <div class="col-lg-3 col-sm-6">
+                     <div class="product-box">
+                        <div class="pro-thumb"> <a href="#">장바구니 추가</a> <img src="resources/images/shop/pro1.jpg" alt=""></div>
+                        <div class="pro-txt">
+                           <h6><a href="#">${list.plant_sale_title}</a></h6>
+                           <p class="pro-price"> ${list.plant_sale_price }</p>
+                        </div>
+                     </div>
+                  </div>
+                </c:forEach>
+         <!-- 판매 리스트 출력 끝 -->
             <div class="col-md-12">
                <a href="plantProductAdd.do" class="view-more" style="color: white; cursor: pointer;">작물등록버튼</a>
             </div>
@@ -55,8 +70,11 @@
          </div>
       </div>
    </section>
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
    <script type="text/javascript">
-   //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
+   	/* //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
       $.ajax({
          url: '',
          method: 'get',
@@ -66,7 +84,8 @@
          error: function () {
             console.log(err);
          }
-      })
+      }) */
+      
      // 검색 창에 자동완성 기능
       fetch(
             "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101"
@@ -77,6 +96,7 @@
          .then(result =>
             showAuto(result)
          );
+   	
      // 자동완성 기능 함수
       function showAuto(lists) {
          var arr = [];
@@ -108,7 +128,7 @@
          });
       }
 
-      //판매 리스트 출력하는 함수
+      /* //판매 리스트 출력하는 함수
       function showList(lists){
          var prolist = $('#prolist');
             var firstDiv = $('<div>').addClass('col-lg-3', 'col-sm-6');
@@ -132,7 +152,7 @@
                   })
                )
             )
-      }
+      } */
 
    </script>
 
