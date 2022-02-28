@@ -8,43 +8,46 @@
 <meta charset="UTF-8">
 <title>NFT 보유현황</title>
 <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-      integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+	integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
-.team-box:after{
-	background : none;
+@import
+	url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap")
+	;
+
+.team-box:after {
+	background: none;
 }
+
 .team-box .team-info ul {
 	opacity: 0.7;
 }
 
 }
 .w-btn {
-    position: relative;
-    border: none;
-    display: inline-block;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-family: "paybooc-Light", sans-serif;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
-    opacity: 0.5;
+	position: relative;
+	border: none;
+	display: inline-block;
+	padding: 15px 30px;
+	border-radius: 15px;
+	font-family: "paybooc-Light", sans-serif;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	opacity: 0.5;
 }
 
 .w-btn:hover {
-    letter-spacing: 2px;
-    transform: scale(1.2);
-    cursor: pointer;
-    opacity: 0.5;
+	letter-spacing: 2px;
+	transform: scale(1.2);
+	cursor: pointer;
+	opacity: 0.5;
 }
 
 .w-btn:active {
-    transform: scale(1.5);
+	transform: scale(1.5);
 }
-
 
 @keyframes gradient1 {
     0% {
@@ -57,7 +60,6 @@
         background-position: 0% 50%;
     }
 }
-
 @keyframes gradient2 {
     0% {
         background-position: 100% 50%;
@@ -69,7 +71,6 @@
         background-position: 100% 50%;
     }
 }
-
 @keyframes ring {
     0% {
         width: 30px;
@@ -82,7 +83,6 @@
         opacity: 0;
     }
 }
-
 .w-btn-neon2 {
     position: relative;
     border: none;
@@ -101,11 +101,9 @@
     transition: 0.3s;
     opacity: 0.5;
 }
-
 .w-btn-neon2:hover {
     transform: scale(1.2);
 }
-
 .w-btn-neon2:hover::after {
     content: "";
     width: 30px;
@@ -121,7 +119,14 @@
     animation: ring 1.5s infinite;
 }
 
-
+/* div 드래그 x */
+.white_content{
+-ms-user-select:none;
+-moz-user-select:-moz-none;
+-khtml-user-select:none;
+-webkit-user-select:none;
+user-select:none;
+}
 </style>
 </head>
 <body>
@@ -141,33 +146,80 @@
 								<ul class="w-btn-neon2">
 									<li><a href="javascript:void(0)"
 										onclick="pointCheck('${nft.grow_diary_grd }')">점수</a></li>
-									<li><a href="#">일지</a></li>
-									<li><a href="#">경매</a></li>
+									<li><a href="javascript:void(0)" onclick="growDiary()">일지</a></li>
+									<li><a href="aucnInsertForm.do?nftNo=${nft.nft_no}">경매</a></li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 				<!--Team Box End-->
-				
+				<div id="light" class="col-md-12 white_content">
+					팝업창 <a href="javascript:void(0)" onclick="exitPopup()"
+						onkeyup="escExit(event)" style="float: right">Close </a> <br>
+					<br>
+					<div id="content">123</div>
+				</div>
+				<div id="123"></div>
+				<div id="fade" class="black_overlay"></div>
 			</div>
 		</div>
 	</div>
-		<script
-	      src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-	      integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-	      crossorigin="anonymous" referrerpolicy="no-referrer">
-		</script>
-	      
-      <script>
-      toastr.options.positionClass = "toast-top-center";
-      function pointCheck(nftGrd){
-    	  // 작물 점수
-    	  console.log(nftGrd.parentNode);
-    	  
-    	  
-    	  toastr.info("해당 NFT의 등급은 "+nftGrd+" 등급입니다"); 
-      }
-      </script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+		integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer">
+		
+	</script>
+
+	<script>
+		/* ----------팝업 로딩생성---------- */
+		function createLoading() {
+			document.getElementById('fade').style.display = 'block';
+			document.getElementById('fade').innerHTML = "";
+			document.getElementById('fade').classList.add("loading");
+			var img = document.createElement("img");
+			img.setAttribute("src", "resources/images/loadingicon.gif");
+			img.setAttribute("alt", "로딩중입니다");
+			img.setAttribute("class", "mx-auto d-block");
+			document.getElementById('fade').appendChild(img);
+		}
+
+		/* ----------팝업 생성---------- */
+		function createPopup() {
+			document.getElementById('light').style.display = 'block';
+			document.getElementById('content').classList
+					.add("blog-single-content");
+			//document.getElementById('content').innerHTML = "";
+		}
+
+		/* ----------팝업 창닫기---------- */
+		function exitPopup() {
+			document.getElementById('light').style.display = 'none';
+			document.getElementById('fade').style.display = 'none';
+		}
+
+		toastr.options.positionClass = "toast-top-center";
+		function pointCheck(nftGrd) {
+			// 작물 점수
+			console.log(nftGrd.parentNode);
+
+			toastr.info("해당 NFT의 등급은 " + nftGrd + " 등급입니다");
+		}
+
+		function growDiary() {
+			//클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0, 0);
+
+			//로딩창
+			createLoading();
+
+			//팝업
+			createPopup();
+	
+			//로딩끄기
+			document.getElementById('fade').style.display = 'none';
+		}
+	</script>
 </body>
 </html>
