@@ -60,17 +60,20 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                      	<h3>등록</h3>
+                     	<form action="introinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
+ 
                            <!-- 파일업로드 버튼 구성 -->
                          <div class="filebox"> 
   								<label for="ex_file">사진 업로드</label>
-  								<input type="file" id="ex_file">
+  								<input type="file" id="ex_file" name="introfile" value=${intro.intro_img}>
 					     </div> 
                            <li class="full">
-                              <input type="submit" value="등록" onclick="location.href='intro.do'"class="fsubmit">
+                              <input type="submit" value="등록" class="fsubmit">
                               <input type="submit" value="취소" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
+                        </form>
                      </div>
                   </div>
                </div>

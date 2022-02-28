@@ -3,15 +3,27 @@
 <mapper namespace="co.smartFarm.board.IntroMapper">
  <!-- 전체리스트 -->
  <select id="introSelectList" resultType="co.smartFarm.board.IntroVO">
- SELECT * FROM INTRO
+ SELECT * FROM INTRO ORDER BY INTRO_NO ASC
  </select>
+<!-- 글쓰기 -->
+<insert id="introInsert" parameterType="co.smartFarm.board.IntroVO">
+<selectKey keyProperty="intro_no" resultType="co.smartFarm.board.IntroVO" order="BEFORE">
+SELECT NVL(MAX(INTRO_NO) + 1, 1 ) AS INTRO_NO FROM INTRO
+</selectKey>
+INSERT INTO INTRO(INTRO_NO,INTRO_IMG,
+INTRO_BOARD_CLASS)
+VALUES(#{intro_no}, #{intro_img}, #{intro_board_class})
+</insert>
+<!-- 단건조회 -->
+<select id="introSelect" resultType="co.smartFarm.board.IntroVO"
+parameterType="int">
+SELECT * FROM INTRO WHERE INTRO_NO = #{intro_no}
 <!-- 수정 -->
-<!--  <update id="noticeUpdate" parameterType="co.movie.prj.notice.service.NoticeVO">
-UPDATE INTRO 
- SET
- INTRO_BOARD_CLASS = #{intro_board_class}
- INTRO_IMG = #{intro_img}
- WHERE INTRO_NO = #{intro_no}
-</update> -->
-
+<update id="introUpdate" parameterType="co.smartFarm.board.IntroVO">
+UPDATE INTRO
+SET
+INTRO_IMG = #{intro_img},
+INTRO_BOARD_CLASS = #{intro_board_class}
+WHERE INTRO_NO = #{intro_no}
+</update>
 </mapper>

@@ -63,7 +63,7 @@
                         <!-- 파일업로드 버튼 구성 -->
                         <div class="filebox">
                         <form action="introupdate.do" method="post"  enctype="multipart/form-data">
-                        	<span>${intro[0].intro_img}</span>
+                        	<span>${intro[2].intro_img}</span>
  							<label for="ex_file">사진 업로드</label>
  							<input type="file" id="ex_file">
 					    </div>

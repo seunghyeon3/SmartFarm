@@ -3,7 +3,7 @@
 <mapper namespace="co.smartFarm.board.ArchieveMapper">
 <!-- 전체리스트 -->
 <select id="archieveSelectList" resultType="co.smartFarm.board.ArchieveVO">
- SELECT * FROM ARCHIEVE
+ SELECT * FROM ARCHIEVE ORDER BY ARCHIEVE_NO ASC
 </select>
 <!-- 단건조회 -->
 <select id="archieveSelect" resultType="co.smartFarm.board.ArchieveVO"
@@ -29,4 +29,11 @@ ARCHIEVE_CON, ARCHIEVE_IMG, MEM_NAME)
 VALUES(#{archieve_no}, #{archieve_title}, #{archieve_con}, #{archieve_img}, #{mem_name})
 </insert>
 <!-- 삭제 -->
+<delete id="archieveDelete" parameterType="co.smartFarm.board.ArchieveVO">
+   DELETE FROM ARCHIEVE WHERE ARCHIEVE_NO =#{archieve_no}
+</delete>
+<!-- 조회수 업데이트 -->
+<update id="archieveHitUpdate" parameterType="int">
+      UPDATE ARCHIEVE SET ARCHIEVE_HIT = ARCHIEVE_HIT + 1 WHERE ARCHIEVE_NO = #{archieve_no}
+</update>
 </mapper>
