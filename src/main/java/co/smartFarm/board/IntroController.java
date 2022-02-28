@@ -25,7 +25,7 @@ public class IntroController {
 	// 스마트팜 소개
 	@RequestMapping(value = "/intro.do") 
 	public String intro(Model model) {
-		model.addAttribute("intro", introDao.introInsert);
+		model.addAttribute("intro", introDao.introInsert(null));
 		//System.out.println(introDao.introSelectList().toString());
 		return "board/intro";
 	}

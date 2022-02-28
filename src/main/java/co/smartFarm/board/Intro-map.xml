@@ -18,6 +18,7 @@ VALUES(#{intro_no}, #{intro_img}, #{intro_board_class})
 <select id="introSelect" resultType="co.smartFarm.board.IntroVO"
 parameterType="int">
 SELECT * FROM INTRO WHERE INTRO_NO = #{intro_no}
+</select>
 <!-- 수정 -->
 <update id="introUpdate" parameterType="co.smartFarm.board.IntroVO">
 UPDATE INTRO
