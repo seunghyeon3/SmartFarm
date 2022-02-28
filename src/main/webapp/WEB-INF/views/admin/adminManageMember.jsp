@@ -82,27 +82,26 @@ input[type="checkbox"]:checked::before {
 
 				<br> <br>
 				<div class="row">
-					<div class="col-md-6 col-sm-6">
+					 <div class="col-md-6 col-sm-6">
 
-						<div class="single-post-tags wf50" style="float: left;">
+						<!--<div class="single-post-tags wf50" style="float: left;">
 							<a href="#">전체</a>&nbsp;&nbsp;&nbsp; <a href="#">농부</a>&nbsp;&nbsp;&nbsp;
 							<a href="#">일반회원</a> &nbsp;&nbsp;&nbsp; <a href="#">농부신청</a>
-						</div>
-					</div>
+						</div>-->
+					</div> 
 
 					<div class="col-md-6 col-sm-1">
-
 						<div class="side-search">
-							<form>
-								<select class="form-control" style="width: 120px; float: left">
-									<option>이름</option>
-									<option>이메일</option>
-								</select> <input type="search" class="form-control" placeholder="검색"
+							<!-- <form action="adminMemSearch.do" method="post"> -->
+								<select class="form-control" id="key" name="key" style="width: 120px; float: left">
+									<option value="mem_name">이름</option>
+									<option value="mem_email">이메일</option>
+								</select> <input  type="search" id="val" name="val" class="form-control" placeholder="검색"
 									style="margin: 0 10px; width: 380px; float: left;">
-								<button>
+								<button onclick="searchFnc()" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
-							</form>
+							<!-- </form> -->
 						</div>
 					</div>
 
@@ -154,11 +153,9 @@ input[type="checkbox"]:checked::before {
 
 
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+	<script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
 	<script>
 	
-		// GRID 에 데이터를 입력
-		const gridData = ${memberSelectList};
-
 		//표 출력
 
 		var grid = new tui.Grid({
@@ -190,7 +187,12 @@ input[type="checkbox"]:checked::before {
 				name : 'mem_fm_result',
 				filter : 'select'
 
-			} ]
+			} ],
+			/* pageOptions: {
+		        useClient: true,
+		        perPage: 5
+		     } */
+		
 		});
 
 
@@ -202,12 +204,12 @@ input[type="checkbox"]:checked::before {
 		//클릭하면 팝업창 띄우기
 		grid.on('dblclick', (ev) => {
 			
-			console.log(grid.getValue(ev.rowKey, "mem_fm_req"));
-			console.log(!(grid.getValue(ev.rowKey, "mem_fm_req") == "거절됨") && !(grid.getValue(ev.rowKey, "mem_fm_req") === null))
+			//console.log(grid.getValue(ev.rowKey, "mem_fm_req"));
+			 //console.log(!(grid.getValue(ev.rowKey, "mem_fm_req") == "거절됨") && !(grid.getValue(ev.rowKey, "mem_fm_req") === null))
 			
-			if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "거절됨") && !(grid.getValue(ev.rowKey, "mem_fm_req") === null)){
+			if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "거절됨") && !(grid.getValue(ev.rowKey, "mem_fm_req") === null) && !(grid.getValue(ev.rowKey, "mem_athr") == "농부")){
 			  
-				console.log(ev);
+				//console.log(ev);
 				document.getElementById('lightInstP').style.display = 'block';
 				document.getElementById('fadeInstP').style.display = 'block';
 				document.getElementById('inner').remove();
@@ -219,7 +221,7 @@ input[type="checkbox"]:checked::before {
 				+ '<div class="single-post-tags" style="padding:0;margin:0">'
 				+ '<a onclick="accept(this)" id="'
 				+ grid.getValue(ev.rowKey, "mem_email")
-				+ '" style="background-color:#66bb6a;color:#ffffff;" >승인</a>&nbsp; <a href="#" id="'
+				+ '" style="background-color:#66bb6a;color:#ffffff;" >승인</a>&nbsp; <a onclick="reject(this)" id="'
 				+ grid.getValue(ev.rowKey, "mem_email")
 				+ '" style="background-color:#e11f3e;color:#ffffff;">거절</a>'
 				+ '</div>'
@@ -232,21 +234,65 @@ input[type="checkbox"]:checked::before {
 								  $('<img>', {'src':'${pageContext.request.contextPath}/resources/images/loadingicon.gif'}) 
 								).append(input)
 							);
+				window.scrollTo(0, 0);
+			
 			}
 			//농부신청 클릭시 페이지 최상단으로 이동.
-			window.scrollTo(0,0);
 		});//on dblclick
 		
-		
-
-		
-
-		
-		
+		// 농부승인 - 승인
 		function accept(e) {
+			
 			console.log(e.id);
-			fetch("")
+			
+			var data = JSON.stringify({mem_email : e.id});
+			
+			fetch("adminRequstAccept.do",
+					{
+						method:'POST',
+						
+						body: data
+					})
+					location.reload();
 		}
+		
+		//농부승인 - 거절
+		function reject(e) {
+			
+			console.log(e.id);
+			
+			var data = JSON.stringify({mem_email : e.id});
+			
+			fetch("adminRequstReject.do",
+					{
+						method:'POST',
+						
+						body: data
+					})
+					location.reload();
+			
+		}
+		
+		// ===== 검색 =====
+		function searchFnc() {
+			var searchKey = $("#key option:selected").val();
+			var searchVal = $("#val").val();
+			console.log(searchKey + " : " + searchVal);
+			data = JSON.stringify({key : searchKey, val : searchVal});
+			fetch("adminMemSearch.do",
+					{
+						method:'POST',
+						body : data
+							
+					})
+				.then(response => response.json())
+				.then(function (result) {
+					//console.log(result);
+					grid.resetData(result);
+				})
+			
+		}
+		
 	</script>
 </body>
 

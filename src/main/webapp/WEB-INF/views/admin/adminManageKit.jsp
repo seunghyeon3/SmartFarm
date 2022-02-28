@@ -1,4 +1,5 @@
 <!doctype html>
+<%@page import="jdk.jfr.Percentage"%>
 <html lang="en">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -92,6 +93,7 @@ input[type="checkbox"]:checked::before {
 								<select class="form-control" style="width: 120px; float: left">
 									<option>이름</option>
 									<option>이메일</option>
+									
 								</select> <input type="search" class="form-control" placeholder="검색"
 									style="margin: 0 10px; width: 380px; float: left;">
 								<button>
@@ -137,20 +139,20 @@ input[type="checkbox"]:checked::before {
 			},
 			columns : [ {
 				header : '작물이름',
-				name : 'plantName',
+				name : 'kit_name',
 				sortingType : 'desc',
 				sortable : true
 			}, {
 				header : '용도',
-				name : 'plantPropos',
+				name : 'kit_propos',
 				filter : 'select'
 			}, {
 				header : '분류',
-				name : 'plantClass',
+				name : 'kit_plant_class',
 				filter : 'select'
 			}, {
 				header : '관리',
-				name : 'plantManage',
+				name : 'kit_sale_whet',
 				width: '155'
 
 			} ],
@@ -162,24 +164,25 @@ input[type="checkbox"]:checked::before {
 
 		// 표 데이터
 		var gridData = [ {
-			plantName : '딸기',
-			plantPropos : '상업용',
-			plantClass : '과일',
-			plantManage : 'N'
+			kit_name : '딸기',
+			kit_propos : '상업용',
+			kit_plant_class : '과일',
+			kit_sale_whet : 'N'
 
 		}, {
-			plantName : '오이',
-			plantPropos : '상업용',
-			plantClass : '채소',
-			plantManage : 'Y'
+			kit_name : '오이',
+			kit_propos : '상업용',
+			kit_plant_class : '채소',
+			kit_sale_whet : 'Y'
 
 		}, {
-			plantName : '딸기',
-			plantPropos : '취미용',
-			plantClass : '과일',
-			plantManage : 'Y'
+			kit_name : '딸기',
+			kit_propos : '취미용',
+			kit_plant_class : '과일',
+			kit_sale_whet : 'Y'
 
 		} ];
+		
 
 		//데이터 입력
 		grid.resetData(gridData);
@@ -189,15 +192,15 @@ input[type="checkbox"]:checked::before {
 			var table = $('table');
 
 			for (var i = 0; i < gridData.length; i++) {
-				console.log(grid.getValue(i, 'plantManage'));
+				console.log(grid.getValue(i, 'kit_sale_whet'));
 				
-				if (grid.getValue(i, 'plantManage') == 'Y') {//내리기
-					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
-					grid.setValue(i, 'plantManage', input, true);
+				if (grid.getValue(i, 'kit_sale_whet') == 'Y') {// 내리기
+					var input = '<div class="container" style="text-aline:center;"> <a onclick="" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					grid.setValue(i, 'kit_sale_whet', input, true);
 
-				} else {//올리기
-					var input = '<div class="container" style="text-aline:center;"> <a href="#" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
-					grid.setValue(i, 'plantManage', input, true);
+				} else { //올리기
+					var input = '<div class="container" style="text-aline:center;"> <a onclick="" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+					grid.setValue(i, 'kit_sale_whet', input, true);
 				}
 
 			}
