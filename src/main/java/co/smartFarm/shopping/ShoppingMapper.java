@@ -2,10 +2,9 @@ package co.smartFarm.shopping;
 
 import java.util.List;
 
-import co.smartFarm.user.MemberVO;
-
-
+//plant_sale Mapper
 public interface ShoppingMapper {
-	List<ShoppingVO> selectMemShoppingList(MemberVO memberVo);
-	
+
+	int plantSaleInsert(ShoppingVO shoppingVo);
+	List<ShoppingVO> plantSaleSelectList();
 }

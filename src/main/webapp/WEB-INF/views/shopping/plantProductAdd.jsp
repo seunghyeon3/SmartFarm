@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +45,7 @@
 </style>
 <body>
 
+
 <section class="contact-page wf100 p80">
             <div class="container">
                <div class="row">
@@ -51,10 +53,10 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>작물 판매 등록</h3>
-                        <form action="" onsubmit="return check();">
+                        <form action="plantSaleInsert.do" onsubmit="return check();" method="post">
 	                        <ul class="cform">
 	                       	   <li class="full">
-	                       	   		<select class=" full form-control" id="plant_no" name="plant_no" onchange="myFunction(this)">
+	                       	   		<select class=" full form-control" id="plant_no" name="plant_no" onchange="selectFnc(this)">
 	                       	   			<option value="-1">작물목록</option>
 		                       	   		<c:forEach var="list" items="${selectMemList}">
 											<option value="${list.plant_no }"> 작물 종류 : ${list.plant_name } | 등급 : ${list.plant_grd } | 재고 : ${list.plant_ivy } | 총 재배량 : ${list.plant_tot_grow_amnt }</option>
@@ -80,9 +82,9 @@
 		  								<input type="file" id="ex_file">
 								   </div>
 							   </li>
-		                        <input type="text" id="mem_email" name="mem_email" value="${member.mem_email }">
+		                        <input type="text" id="mem_email" name="mem_email" value="${member.mem_email}">
 		                        <input type="text" id="mem_name" name="mem_name" value="${member.mem_name }">
-		                        <input type="text" id="plant_sale_whet" name="plant_sale_whet" value="N">
+		                        <input type="text" id="plant_sale_plant_class" name="plant_sale_plant_class">
                         		
 	                           <li class="full">
 	                              <input type="submit" value="등록" class="fsubmit">
@@ -96,13 +98,6 @@
          </section>
          
          <script type="text/javascript">
-         	var list = [];
-	         $(document).ready(function () {
-	      		
-	         	for (var i = 0; i < 1; i++) {
-					list.push( ${selectMemList[i]} );
-				}
-			});
          	
          	
          	
@@ -118,39 +113,41 @@
 				return true;
 			}
          
-         	// ===== 작물 개수가 수량보다 많은 경우 =====
+         	// ===== 입력한 작물 개수가 수량보다 많은 경우 =====
          	function countCheck() {
+         		var list = ${selectMemScript}
          		
 				var plant_count = $("#plant_count").val();
          		var index = $("#plant_no option").index($("#plant_no option:selected")) -1 ;
-
-         		//console.log(typeof(plant_count));
-         		console.log(${selectMemList[index]})
-         		console.log(index);
+	
          		
-         		
-         		/* if(index >= 0){
+         		if(index >= 0){
+         			var max = Number(list[index].plant_ivy);
+         			//alert(max);
          			
-         			var max = parseInt( ${selectMemList[0].plant_ivy} ); 
-         			alert(max);
-         			//console.log(  ${selectMemList[index].plant_ivy} );
          			
          			if(plant_count > max){
     					toastr.error('재고보다 많은 수량을 판매할 수 없습니다');
+    					$("#plant_count").val('');
     					return false;
     				}
+         			return true;
          			
-         		} */
+         		}
          		
 				return true;
 			}
          	
-         	function myFunction(e){
+         	function selectFnc(e) {
+         		var list = ${selectMemScript}
          		var index = $("#plant_no option").index($("#plant_no option:selected")) -1 ;
-				console.log("인덱스! == "+index);
          		
-         		console.log("이벤트 ! == "+e);
-         	}
+         		var plant_sale_plant_class = list[index].plant_class
+         		$("#plant_sale_plant_class").val(plant_sale_plant_class);
+			}
+         	
+         	
+         	
          </script>
          
 </body>
