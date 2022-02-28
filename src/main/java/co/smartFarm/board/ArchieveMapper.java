@@ -15,7 +15,7 @@ public interface ArchieveMapper {
 	int archieveHitUpdate(int archive_no);
 	int archieveNoUpdate(int archive_no);
 	List<ArchieveVO> archieveSearch(@Param("key")String key, @Param("val")String val);
-	String writeValueAsString(List<IntroVO> archieveSelectList);
+	String writeValueAsString(List<ArchieveVO> archieveSelectList);
 	
 	
 		

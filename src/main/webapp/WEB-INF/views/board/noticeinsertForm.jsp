@@ -48,21 +48,23 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>글쓰기</h3>
+                        <form action="noticeinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목">
+                              <input type="text" class="form-control" placeholder="제목" name="notice_title" value=${notice.notice_title}>
                            </li>
                            <div class="filebox" style="float: right">
   								<label for="ex_file">사진 업로드</label>
-  								<input type="file" id="ex_file">
+  								<input type="file" id="ex_file" name="noticefile">
 						   </div>
                             <li class="full">
-                              <textarea class="textarea-control" placeholder="내용"></textarea>
+                              <textarea class="textarea-control" placeholder="내용"  name="notice_con">${notice.notice_con}</textarea>
                            </li>
                            <li class="full">
-                              <input type="submit" value="등록" onclick="location.href='archieve.do'" class="fsubmit">
+                              <input type="submit" value="등록" class="fsubmit">
                            </li>
                         </ul>
+                        </form>
                      </div>
                   </div>
                </div>

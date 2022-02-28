@@ -47,29 +47,21 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>상세페이지</h3>
-                        <ul class="cform">
-                           <li class="full">
-                              <input type="text" class="form-control" placeholder="제목">
-                              
-                           </li>
-                            <li class="full">
-                              <input type="text" class="form-control" placeholder="작성자"></textarea>
-                           </li><li class="full">
-                              <input type="text" class="form-control"  placeholder="등록일"></textarea>
-                           </li>
-                           <li class="full">
-                              <textarea class="textarea-control" placeholder="내용"></textarea>
-                           </li>
-                           <li class="full">
-                             <label for="ex_file">사진 업로드</label>
- 							 <input type="file" id="ex_file">
-                           </li>
-                           <li class="full">
-                           	   <input type="submit" value="수정하지" onclick="location.href='notice.do'" class="fsubmit">
-                               <input type="submit" value="삭제하기" onclick="location.href='notice.do'"class="fsubmit">
-                           </li>
-                        </ul>
+                        <h3>수정페이지</h3>
+                        <form action="noticeupdate.do" method="post"
+                     enctype="multipart/form-data">
+                     <ul class="cform">
+                        <li class="full"><input type='hidden' name="notice_no"value=${notice.notice_no}> 
+                        <input type="text"class="form-control" placeholder="제목" name="notice_title"value=${notice.notice_title}></li>
+                        <div class="filebox" style="float: right"><label for="ex_file">사진 업로드</label> <input type="file"id="ex_file" name="noticefile">
+                        </div>
+                        <li class="full"><textarea class="textarea-control"placeholder="내용" name="notice_con">${notice.notice_con}</textarea>
+                        </li>
+                        <li class="full"><input type="submit" value="확인" onclick="location.href=noticeupdate.do" class="fsubmit">
+                                    <input type=button value="삭제" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
+                        </li>
+                     </ul>
+                  	</form>
                      </div>
                   </div>
                </div>

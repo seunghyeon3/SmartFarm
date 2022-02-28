@@ -51,7 +51,6 @@
                         <form action="archieveinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
                            <li class="full">
-                 
                               <input type="text" class="form-control" placeholder="제목" name="archieve_title" value=${archieve.archieve_title}>
                            </li>
                            <div class="filebox" style="float: right">

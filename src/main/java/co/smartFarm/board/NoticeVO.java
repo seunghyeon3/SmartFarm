@@ -10,6 +10,6 @@ public class NoticeVO {
 	private int notice_hit;
 	private String notice_day;
 	private String notice_img;
-	private String notice_name;
+	private String mem_name;
 	
 }
