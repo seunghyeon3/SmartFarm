@@ -1,7 +1,11 @@
 package co.smartFarm.user;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -13,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,7 +59,7 @@ public class UserController {
 
 				} else if (resultVo.getMem_athr().equals("B2")) {// 농부인 경우 : 관리 페이지로 이동
 					System.out.println("농부 로그인");
-					return "grow/grow";
+					return "grow/growhome";
 
 				} else {// 일반회원인 경우 : 홈으로 이동
 					System.out.println("일반회원 로그인");
@@ -79,7 +84,12 @@ public class UserController {
 	// ===== 회원가입 =====
 	// 회원가입창으로 이동
 	@RequestMapping("/register.do")
-	public String register() {
+	public String register(Model model) throws IOException {
+		String test ="C:\\Users\\yisse\\Desktop\\개인정보동의.txt";
+		Path path = Paths.get(test);
+		List<String> lines = java.nio.file.Files.readAllLines(path);
+		model.addAttribute("pInfo",lines);
+		//System.out.println(lines);
 		return "user/register";
 	}
 
@@ -97,18 +107,41 @@ public class UserController {
 	// 이메일 체크
 	@RequestMapping("/memberEmailCheck.do")
 	@ResponseBody
-	public String memberEmailCheck(@RequestBody MemberVO memberVO) {
-		System.out.println(memberVO.getMem_email());
-		MemberVO memberVo = memberDao.emailCheck(memberVO);
+	public String memberEmailCheck(@RequestBody String req, HttpSession session) {
+		System.out.println(req);
+		JSONObject object = new JSONObject(req);
 
-		if (memberVo == null) {
-			System.out.println("사용가능");
+		MemberVO memberVo = new MemberVO();
+		memberVo.setMem_email(object.getString("mem_email"));
 
-			return "1";
+		System.out.println(memberVo.getMem_email());
+		memberVo = memberDao.emailCheck(memberVo);
 
-		} else {
-			System.out.println("사용 불가능");
-			return "0";
+		if (memberVo == null) { // 리턴되는 값 X
+			if (object.getString("menu").equals("homePage")) {
+
+				System.out.println("홈페이지 사용가능");
+				return "1";
+				
+			} else {
+				
+				System.out.println("카카오톡 로그인 회원가입");
+				return "1";
+			}
+
+		} else { //리턴값 있는 경우
+			
+			if (object.getString("menu").equals("homePage")) {
+
+				System.out.println("사용 불가능");
+				return "0";
+				
+			} else {
+				
+				session.setAttribute("member", memberVo);
+				System.out.println("카카오톡 계정으로 로그인 시키기");
+				return "0";
+			}
 
 		}
 	}
@@ -230,11 +263,11 @@ public class UserController {
 			message.setSentDate(new Date());
 			Transport.send(message);
 			System.out.println("Success Message Send");
-			
-			//임시 비밀번호로 회원의 비밀번호 설정하기
+
+			// 임시 비밀번호로 회원의 비밀번호 설정하기
 			memberVo.setMem_pw(tmpPwd);
 			memberDao.memberUpdatePw(memberVo);
-			
+
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			return false;
@@ -256,7 +289,7 @@ public class UserController {
 			idx = sr.nextInt(len); // 강력한 난수를 발생시키기 위해 SecureRandom을 사용한다.
 			sb.append(charSet[idx]);
 		}
-		
+
 		return sb.toString();
 	}
 
