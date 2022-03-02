@@ -1,4 +1,4 @@
-package co.smartFarm.kti.kitServiceImpl;
+package co.smartFarm.kit.kitServiceImpl;
 
 import java.util.List;
 
