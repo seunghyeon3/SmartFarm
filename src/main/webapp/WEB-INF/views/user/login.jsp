@@ -45,6 +45,14 @@
 								<button class="login-btn" type="submit">로그인</button>
 							</div>
 						</form>
+						<ul>
+							<li onclick="kakaoLogin();"><a href="javascript:void(0)">
+									<span>카카오 로그인</span>
+							</a></li>
+							<li onclick="kakaoLogout();"><a href="javascript:void(0)">
+									<span>카카오 로그아웃</span>
+							</a></li>
+						</ul>
 
 
 
@@ -52,15 +60,87 @@
 				</div>
 			</div>
 		</div>
-		
-		
-		
+
+
+
 	</section>
 	<!--Causes End-->
 
 
-
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
+	
+	
+		//=====카카오 로그인=====
+		Kakao.init('3a47d674ba79e60fad431786545dae12'); //발급받은 키 중 javascript키를 사용해준다.
+		console.log(Kakao.isInitialized()); // sdk초기화여부판단
+		//카카오로그인
+		function kakaoLogin() {
+			Kakao.Auth.login({
+				success : function(response) {
+					Kakao.API.request({
+						url : '/v2/user/me',
+						success : function(response) {
+							
+							console.log(response.kakao_account.email)
+							
+							checkEmail(response.kakao_account.email);
+						},
+						fail : function(error) {
+							console.log(error)
+						},
+					})
+				},
+				fail : function(error) {
+					console.log(error)
+				},
+			})
+		}
+		//카카오로그아웃  
+		function kakaoLogout() {
+			if (Kakao.Auth.getAccessToken()) {
+				Kakao.API.request({
+					url : '/v1/user/unlink',
+					success : function(response) {
+						console.log(response)
+					},
+					fail : function(error) {
+						console.log(error)
+					},
+				})
+				Kakao.Auth.setAccessToken(undefined)
+			}
+		}
+		
+		
+		// 카카오 로그인 후 회원가입 여부 알아보기
+		function checkEmail(mem_email) {
+			console.log(mem_email)
+			var menu = "kakao";
+			var data = JSON.stringify({ mem_email: mem_email, menu: menu });
+			
+			fetch("memberEmailCheck.do",
+					{ method:'post',
+				 	headers: {
+					    'Content-Type': 'application/json;charset=utf-8'
+					  },
+					  body: data
+					  
+				}).then(response => response.json())
+				.then(function(result) {
+					console.log(result)
+					if(result == '0'){ //이미 사용중
+						console.log("리턴값 있으니까 로그인 시키기");
+						
+						location.href ="home.do";
+						
+					} else {// 값 사용가능
+						console.log("없으니까 회원가입 이동");
+						location.href ="register.do?mem_email="+mem_email;
+					}
+				});
+		}
+
 		//=====로그인 체크 함수=====
 		function check() {
 			//값 불러오기

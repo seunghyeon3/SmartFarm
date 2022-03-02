@@ -50,13 +50,13 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>상세페이지</h3>
+                        <h3>공지사항</h3>
                         <ul class="cform">
                            <li class="full">
                                 ${notice.notice_title}
                            </li>
                             <li class="full">
-                                 ${notice.notice_name}
+                                 ${notice.mem_name}
                            </li><li class="full">
                               ${notice.notice_day}
                            </li>
@@ -64,7 +64,7 @@
                                 ${notice.notice_con}
                            </li>
                            <li class="full">
-                              ${notice.notice_img}
+                              <img src="c:/Temp/${notice.notice_img}">
                            </li>
                            <li class="full">
  								 <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit">

@@ -55,29 +55,7 @@
 									
 									<!--보유 키트 리스트 시작-->
 									<div class="event-list-box">
-										<ul class="event-meta" style="margin-top: 10px;">
-											<li><strong>키트 이름:</strong><h5>${grow.kit_no }</h5></li>
-											<li><strong>작물 이름:</strong><h5>딸기</h5></li>
-										</ul>
-										<div class="event-txt" style="width: 83%; padding: 0;">
-											<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
-												<ul class="funds">
-													<li class="text-left">재배 시작일<strong>2022년 02월 20일 09:30am</strong></li>
-													<li class="text-center">진행률<strong>33%</strong></li>
-													<li class="text-right">예상 종료일<strong>2022년 03월 03일 09:30am</strong></li>
-												</ul>
-												<div class="progress">
-													<div class="progress-bar" role="progressbar"
-														style="width: 33%" aria-valuenow="55" aria-valuemin="0"
-														aria-valuemax="100"></div>
-												</div>
-												<div style="float: right;">
-												<a href="#" class="dn-btn">재배 관리</a>
-												<a href="#" class="dn-btn">실시간 정보</a>
-												<a href="#" class="dn-btn">일별 로그</a>
-												</div>
-											</div>
-										</div>
+
 									</div>
 									<!--보유 키트 리스트 종료-->
 									
@@ -111,8 +89,67 @@
 		</div>
 	</section>
 	<!--본문 종료-->
+ 	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
+     
+ 
+	<script type="text/javascript">
 	
+		let list = [];
+		<c:forEach var="growList" items="${growVOList}" varStatus="status">
+		list.push("${growList}");
+		</c:forEach>
+
+	    $(function () {
+	    	/* console.log(list); */
+	        let container = $('#pagination');
+	        container.pagination({
+	            dataSource: list,
+	            callback: function (data, pagination) {
+/* 	            	
+	                var dataHtml = '<ul class="lastest-products">';
+
+	                $.each(data, function (index, item) {
+	                    dataHtml += '<li><img src="resources/images/flp1.jpg" alt=""><strong><a href="#">' + item.free_title + '</a></strong><span class="pdate"><i class="fas fa-calendar-alt"></i>29 September, 2018</span>';
+	                });
+
+	                dataHtml += '</ul>';
+
+	                $("#data-container").html(dataHtml);
+	                 */
+					var dataHtml =  '<ul class="event-meta" style="margin-top: 10px;">';
+					
+					$.each(data, function (index, item) {
+						dataHtml = '<li><strong>키트 이름:</strong><h5>' + ${grow.kit_no } + '</h5></li><li><strong>작물 이름:</strong><h5>딸기</h5></li>
+					})
+					</ul>
+					<div class="event-txt" style="width: 83%; padding: 0;">
+						<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
+							<ul class="funds">
+								<li class="text-left">재배 시작일<strong>2022년 02월 20일 09:30am</strong></li>
+								<li class="text-center">진행률<strong>33%</strong></li>
+								<li class="text-right">예상 종료일<strong>2022년 03월 03일 09:30am</strong></li>
+							</ul>
+							<div class="progress">
+								<div class="progress-bar" role="progressbar"
+									style="width: 33%" aria-valuenow="55" aria-valuemin="0"
+									aria-valuemax="100"></div>
+							</div>
+							<div style="float: right;">
+							<a href="#" class="dn-btn">재배 관리</a>
+							<a href="#" class="dn-btn">실시간 정보</a>
+							<a href="#" class="dn-btn">일별 로그</a>
+							</div>
+						</div>
+					</div>
+	            },
+	            pageSize: 8
+	        })
+	    })
 	
+	</script>
 
 
 </body>

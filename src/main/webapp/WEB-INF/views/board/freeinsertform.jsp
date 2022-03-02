@@ -6,40 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<style>
-.filebox label {
-  display: inline-block;
-  padding: .5em .75em;
-  color: #fff;
-  font-size: inherit;
-  line-height: normal;
-  vertical-align: middle;
-  background-color: #5cb85c;
-  cursor: pointer;
-  border: 1px solid #4cae4c;
-  border-radius: .25em;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s;
-}
 
-.filebox label:hover {
-  background-color: #6ed36e;
-}
-
-.filebox label:active {
-  background-color: #367c36;
-}
-
-.filebox input[type="file"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-</style>
 <body>
 <section class="contact-page wf100 p80">
             <div class="container">
@@ -51,6 +18,7 @@
                         <form action="archieveinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
                            <li class="full">
+                 
                               <input type="text" class="form-control" placeholder="제목" name="archieve_title" value=${archieve.archieve_title}>
                            </li>
                            <div class="filebox" style="float: right">
@@ -70,5 +38,6 @@
                </div>
             </div>
          </section>
+         
 </body>
 </html>
