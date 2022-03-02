@@ -8,6 +8,12 @@
 		WHERE MEM_EMAIL = #{memEmail}
 	</select>
 	
+		<!-- 회원의 키트 조회 -->
+	<select id="orderNumber" parameterType="String" resultType="co.smartFarm.grow.GrowVO">
+		SELECT DISTINCT PUR_HIS_ORDER_NO FROM PUR_HIS
+		WHERE MEM_EMAIL = #{memEmail}
+	</select>
+	
 	<!-- 회원의 상업용 키트 조회 -->
 	<select id="growComList" parameterType="String" resultType="co.smartFarm.grow.GrowVO">
 		SELECT P.KIT_NO FROM PUR_HIS P, KIT K 

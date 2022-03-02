@@ -17,6 +17,7 @@ public class GrowVO {
 	
 //	보유키트 조회를 위한 컬럼
 	private int kit_no;
+	private int pur_his_order_no;
 	
 	
 

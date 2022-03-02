@@ -14,7 +14,7 @@
 	<logger name="jdbc.connection">
 		<level value="debug" />
 	</logger>
-	<logger name="jdbc.resultsetable">
+	<logger name="jdbc.resultsettable">
 		<level value="debug" />
 	</logger>	
 	<logger name="jdbc.audit">
