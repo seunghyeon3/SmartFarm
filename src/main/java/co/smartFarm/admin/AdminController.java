@@ -1,10 +1,8 @@
 package co.smartFarm.admin;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-<<<<<<< HEAD
-=======
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
->>>>>>> 9c6533964d280ff5b8c6321f0bcc53fb92c1efbc
 
 import co.smartFarm.shopping.KitMapper;
 import co.smartFarm.shopping.KitVO;
@@ -31,11 +24,6 @@ import co.smartFarm.user.MemberVO;
 
 @Controller
 public class AdminController {
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> 9c6533964d280ff5b8c6321f0bcc53fb92c1efbc
 	@Autowired
 	MemberMapper memberDao;
 
