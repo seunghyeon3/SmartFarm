@@ -199,7 +199,7 @@ input[type="checkbox"]:checked::before {
 					grid.setValue(i, 'kit_sale_whet', input, true);
 
 				} else { //올리기
-					var input = '<div class="container" style="text-aline:center;"> <a onclick="" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a onclick="" class="read-post" style="color:white;width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 				}
 
