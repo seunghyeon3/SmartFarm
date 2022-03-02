@@ -158,7 +158,7 @@
 					header : 'NFT생성여부',
 					name : 'grow_diary_nft_create_ennc',
 					sortable: true,
-				    sortingType: 'desc'
+				    sortingType: 'asc'
 				} ],
 				pageOptions : {
 					useClient : true,
@@ -194,7 +194,10 @@
 											input, true);
 								}
 								}
-							document.getElementById('fade').style.display = 'none';
+								document.getElementById('fade').style.display = 'none';
+
+
+							
 						} //success
 					});
 
@@ -251,7 +254,7 @@
 				data : {
 					"growDiaryNo" : growDiary
 				}
-			}).done(function(nftNo) {
+			}).done(setTimeout(function(nftNo) {
 				//console.log(nftNo);
 				cultivationHistory();
 				document.getElementById('fade').style.display = 'none';
@@ -260,7 +263,7 @@
 				GrowDiary.methods.createGrowDiaryNft('${member.mem_email}', nftNo)
 				.send({from: account, })
 				.then(function(result){console.log(result);})
-			});
+			},5000));
 			
 
 		}

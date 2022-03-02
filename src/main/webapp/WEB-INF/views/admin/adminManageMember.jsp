@@ -149,9 +149,6 @@ input[type="checkbox"]:checked::before {
 
 	<div id="fadeInstP" class="black_overlay"></div>
 
-
-
-
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
 	<script>

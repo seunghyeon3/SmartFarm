@@ -87,12 +87,12 @@
 					<div class="col-md-4 col-sm-1">
 
 						<div class="side-search">
-							<form>
-								<input type="search" class="form-control" placeholder="검색" style="margin: 0 10px;">
-								<button>
-									<i class="fas fa-search"></i>
-								</button>
-							</form>
+							
+							<!--<input type="search" class="form-control" placeholder="검색" style="margin: 0 10px;">
+							<button>
+								<i class="fas fa-search"></i>
+							</button>
+							-->
 						</div>
 					</div>
 

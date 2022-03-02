@@ -50,10 +50,8 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>자료실 상세페이지</h3>
-                        <div id="grid"></div> <!-- grid 불러오기 -->
+                        <h3>자료실</h3>
                         <ul class="cform">
-         
                            <li class="full">
                                 ${archieve.archieve_title}
                            </li>
@@ -69,7 +67,6 @@
                           	<img src="c:/Temp/${archieve.archieve_img}">
                            </li>
                            <li class="full">
- 								 <%-- <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${archieve.archieve_no}'" class="fsubmit"> --%>
  								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>

@@ -72,8 +72,8 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 고객지원 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">QnA</a></li>
-                           <li><a href="#">FAQ</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/qna.do">QnA</a></li>
+                           <li><a href="${pageContext.request.contextPath}/faq.do">FAQ</a> </li>
 
                          </ul>  
                      </li>

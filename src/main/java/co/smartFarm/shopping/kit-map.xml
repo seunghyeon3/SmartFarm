@@ -11,6 +11,19 @@
 		SELECT * FROM KIT
 		WHERE KIT_NO = #{kit_no}
 	</select>
-
+	
+	<update id="kitUpdateWhet" parameterType="co.smartFarm.shopping.KitVO">
+		UPDATE KIT
+		SET KIT_SALE_WHET = #{kit_sale_whet}
+		WHERE KIT_NO = #{kit_no}
+	</update>
+	
+	<select id="kitSelectOne"
+		resultType="co.smartFarm.shopping.KitVO"
+		parameterType="String">
+		SELECT * 
+		FROM KIT
+		WHERE KIT_NAME LIKE '%' || #{kit_name} || '%'
+	</select>
 
 </mapper>

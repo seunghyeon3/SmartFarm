@@ -1,8 +1,11 @@
 package co.smartFarm.admin;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+<<<<<<< HEAD
+=======
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+>>>>>>> 9c6533964d280ff5b8c6321f0bcc53fb92c1efbc
 
 import co.smartFarm.shopping.KitMapper;
 import co.smartFarm.shopping.KitVO;
@@ -22,10 +31,14 @@ import co.smartFarm.user.MemberVO;
 
 @Controller
 public class AdminController {
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 9c6533964d280ff5b8c6321f0bcc53fb92c1efbc
 	@Autowired
 	MemberMapper memberDao;
-	
+
 	@Autowired
 	KitMapper kitDao;
 
@@ -122,12 +135,27 @@ public class AdminController {
 	// ===== 키트 관리 페이지 이동 =====
 	@RequestMapping("/admin/adminManageKit.do")
 	public String adminManageKit(Model model) {
-		List<KitVO> list =  kitDao.kitSelectList();
-		JSONObject object = new JSONObject(list);
-		
-		model.addAttribute("kitList", object);
-		System.out.println(object);
-		
+		List<KitVO> list = kitDao.kitSelectList();
+		System.out.println(list);
+		System.out.println(list.get(0).getKit_no());
+		System.out.println(list.get(0).getKit_name());
+
+		JSONArray jarray = new JSONArray();
+
+		for (KitVO li : list) {
+			JSONObject object = new JSONObject();
+			object.put("kit_no", li.getKit_no());
+			object.put("kit_name", li.getKit_name());
+			object.put("kit_prpos", li.getKit_prpos());
+			object.put("kit_plant_class", li.getKit_plant_class());
+			object.put("kit_sale_whet", li.getKit_sale_whet());
+			object.put("kit_hit", li.getKit_hit());
+			object.put("kit_sale_count", li.getKit_sale_count());
+			jarray.put(object);
+		}
+
+		model.addAttribute("kitSelectList", jarray);
+
 		return "admin/adminManageKit";
 
 	}
@@ -154,14 +182,58 @@ public class AdminController {
 	public List<MemberVO> adminMemSearch(@RequestBody String req) {
 
 		JSONObject object = new JSONObject(req);
-		
+
 		String key = object.getString("key");
 		String val = object.getString("val");
-		System.out.println("req === " + req);
-		System.out.println("key === " + key);
-		System.out.println("val === " + val);
 
 		return memberDao.memberSelectKeyList(key, val);
+	}
+
+	// ===== 올리기 내리기 =====
+	@PostMapping("/admin/adminKitSaleWhet.do")
+	@ResponseBody
+	public String adminKitSaleWhet(@RequestBody String req) {
+
+		JSONObject object = new JSONObject(req);
+
+		KitVO kitVo = new KitVO();
+		kitVo.setKit_no(object.getInt("kit_no"));
+		kitVo.setKit_sale_whet(object.getString("kit_sale_whet"));
+
+		System.out.println("kit_no === " + kitVo.getKit_no());
+		System.out.println("kit_whet == " + kitVo.getKit_sale_whet());
+		int result = kitDao.kitUpdateWhet(kitVo);
+		if (result > 0) {
+			return "1";
+		}
+		return "0";
+	}
+
+	// ===== 키트 이름 검색 =====
+	@PostMapping(value= "/admin/adminKitSearch.do",produces = "text/plain; charset=UTF-8")
+	@ResponseBody
+	public String adminKitSearch(@RequestParam("kit_name") String kit_name) {
+			
+		List<KitVO> list = kitDao.kitSelectOne(kit_name);
+		System.out.println(kit_name);
+		System.out.println(list);
+		System.out.println("결과 확인! =="+ list.get(0).getKit_name());
+		
+		JSONArray jArray = new JSONArray();
+		if (list.size() > 0) {
+			for (KitVO li : list) {
+				JSONObject object = new JSONObject();
+				object.put("kit_no", li.getKit_no());
+				object.put("kit_name", li.getKit_name());
+				System.out.println(li.getKit_name());
+				object.put("kit_prpos", li.getKit_prpos());
+				object.put("kit_plant_class", li.getKit_plant_class());
+				object.put("kit_sale_whet", li.getKit_sale_whet());
+				jArray.put(object);
+			}
+			return jArray.toString();
+		}
+		return null;
 	}
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.board.IntroMapper">
+ <!-- 전체리스트 -->
+ <select id="introSelectList" resultType="co.smartFarm.board.IntroVO">
+ SELECT * FROM INTRO
+ </select>
+<!-- 수정 -->
+<!--  <update id="noticeUpdate" parameterType="co.movie.prj.notice.service.NoticeVO">
+UPDATE INTRO 
+ SET
+ INTRO_BOARD_CLASS = #{intro_board_class}
+ INTRO_IMG = #{intro_img}
+ WHERE INTRO_NO = #{intro_no}
+</update> -->
+
+</mapper>
