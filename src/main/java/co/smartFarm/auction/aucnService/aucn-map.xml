@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.auction.aucnService.AucnMapper">
+	<!-- 경매 전체 조회 -->
+	<select id="aucnList" resultType="co.smartFarm.auction.aucnService.AucnVO">
+	    SELECT A.AUCN_NO, A.AUCN_TITLE,A.AUCN_CON,
+				A.MEM_NAME, A.AUCN_START_TIME, A.FIRST_BID, A.NOW_BID, A.NOW_BID_MEM_EMAIL,
+				A.AUCN_WHET, A.MEM_EMAIL, A.NFT_NO, N.NFT_IMG
+	    FROM NFT N JOIN AUCN A
+	    ON(N.NFT_NO = A.NFT_NO)
+	</select>
+	<!-- SYSDATE 로 비교하여 설정시간부터 하루가 지나지 않은 경매 품목만 출력 -->
+	<select id="aucnEnable" resultType="co.smartFarm.auction.aucnService.AucnVO">
+		SELECT * 
+			FROM(
+			    SELECT A.AUCN_NO, A.AUCN_TITLE,A. AUCN_CON,
+						A.MEM_NAME, A.AUCN_START_TIME, A.FIRST_BID, A.NOW_BID, A.NOW_BID_MEM_EMAIL,
+						A.AUCN_WHET, A.MEM_EMAIL, A.NFT_NO, N.NFT_IMG,
+			            CASE 
+			            WHEN <![CDATA[TO_DATE(AUCN_START_TIME, 'YYYY-MM-DD HH24:MI') < SYSDATE+ 9/24]]>  
+			            AND <![CDATA[SYSDATE+9/24 < TO_DATE(AUCN_START_TIME, 'YYYY-MM-DD HH24:MI')+1]]>
+			            THEN 'AUCNON'
+			            ELSE 'AUCNOFF'
+			            END AS AUCN_STATUS
+			    FROM NFT N JOIN AUCN A
+			    ON(N.NFT_NO = A.NFT_NO)
+			    ) 
+			WHERE AUCN_STATUS = 'AUCNON';
+	</select>
+	<select id="aucnSelect" parameterType="int"
+		 resultType="co.smartFarm.auction.aucnService.AucnVO">
+		SELECT A.AUCN_NO, A.AUCN_TITLE,A.AUCN_CON,
+            A.MEM_NAME, A.AUCN_START_TIME, A.FIRST_BID, A.NOW_BID, A.NOW_BID_MEM_EMAIL,
+            A.AUCN_WHET, A.MEM_EMAIL, A.NFT_NO, N.NFT_IMG, K.KIT_PRPOS, K.KIT_PLANT_NAME
+	    FROM NFT N JOIN AUCN A
+	    ON(N.NFT_NO = A.NFT_NO)
+	    AND AUCN_NO = #{aucn_no}
+	    JOIN KIT K
+	    ON (K.KIT_NO = N.KIT_NO)
+	</select>
+	<insert id="aucnInsert" parameterType="co.smartFarm.auction.aucnService.AucnVO">
+		<selectKey keyProperty="aucn_no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(AUCN_NO)+1,1) AS AUCN_NO FROM AUCN
+		</selectKey>
+			INSERT INTO AUCN(AUCN_NO, AUCN_TITLE, AUCN_CON,
+			MEM_NAME, AUCN_START_TIME, FIRST_BID, NOW_BID, NOW_BID_MEM_EMAIL,
+			AUCN_WHET, MEM_EMAIL, NFT_NO)
+			VALUES(#{aucn_no}, #{aucn_title}, #{aucn_con}, #{mem_name},
+			#{aucn_start_time}, #{first_bid}, #{now_bid}, #{now_bid_mem_email},
+			#{aucn_whet}, #{mem_email}, #{nft_no})
+	</insert>
+	
+</mapper>

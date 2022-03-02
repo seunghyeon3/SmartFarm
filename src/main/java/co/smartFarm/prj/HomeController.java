@@ -14,10 +14,4 @@ public class HomeController {
 
 		return "home";
 	}
-	
-	@RequestMapping("/test.do")
-	public String test() {
-		return "auction/test";
-	}
-
 }

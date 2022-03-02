@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.smartFarm.auction.AucnMapper">
-	<select id="aucnList" resultType="co.smartFarm.auction.AucnVO">
+	<select id="aucnList" resultType="co.smartFarm.auction.aucnService.AucnVO">
 	    SELECT A.AUCN_NO, A.AUCN_TITLE,A.AUCN_CON,
 				A.MEM_NAME, A.AUCN_START_TIME, A.FIRST_BID, A.NOW_BID, A.NOW_BID_MEM_EMAIL,
 				A.AUCN_WHET, A.MEM_EMAIL, A.NFT_NO, N.NFT_IMG
 	    FROM NFT N JOIN AUCN A
 	    ON(N.NFT_NO = A.NFT_NO)
 	</select>
-	<insert id="aucnInsert" parameterType="co.smartFarm.auction.AucnVO">
+	<insert id="aucnInsert" parameterType="co.smartFarm.auction.aucnService.AucnVO">
 		<selectKey keyProperty="aucn_no" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(AUCN_NO)+1,1) AS AUCN_NO FROM AUCN
 		</selectKey>

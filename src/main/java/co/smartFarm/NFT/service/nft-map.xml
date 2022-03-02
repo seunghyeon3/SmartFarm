@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.NFT.service.NftMapper">
+	<select id="selectNftMyList" parameterType="String" resultType="co.smartFarm.NFT.service.NftVO">
+		SELECT * FROM NFT WHERE MEM_EMAIL = #{memEmail} 
+	</select>
+	
+	<select id="selectMyNft" parameterType="int" resultType="co.smartFarm.NFT.service.NftVO">
+		SELECT * FROM NFT WHERE NFT_NO = #{nftNo}
+	</select>
+	
+	<!-- 220302 PSH Mypage-map -> NFT-map 구분 작업 -->
+		<!--NFT 생성버튼을 누를시 NFT테이블에 데이터가 입력되고 
+	 	재배일지 nft생성여부를 업데이트한다.  -->
+    <select id="createNft" parameterType="co.smartFarm.NFT.service.NftVO" statementType="CALLABLE">
+        <![CDATA[
+        { call create_nft (
+                #{grow_diary_grow_no},
+                #{mem_email},
+                #{grow_diary_log_rou},
+                #{nft_img},
+                #{grow_diary_grd},
+                #{kit_no}
+            )}
+        ]]>
+    </select>
+    
+    	<!-- 220302 PSH Mypage-map -> NFT-map 구분 작업 -->
+    <select id="noNft" resultType="int">
+    	SELECT NVL(MAX(NFT_NO)+1,1) AS NFT_NO FROM NFT
+    </select>
+</mapper>

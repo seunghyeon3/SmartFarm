@@ -17,18 +17,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import co.smartFarm.shopping.KitMapper;
-import co.smartFarm.shopping.KitVO;
-import co.smartFarm.user.MemberMapper;
-import co.smartFarm.user.MemberVO;
+import co.smartFarm.kit.kitService.KitMapper;
+import co.smartFarm.kit.kitService.KitService;
+import co.smartFarm.kit.kitService.KitVO;
+import co.smartFarm.user.memberService.MemberMapper;
+import co.smartFarm.user.memberService.MemberService;
+import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
+
 public class AdminController {
 	@Autowired
-	MemberMapper memberDao;
+	//220302 PSH MemberMapper -> MemberService로 수정
+	MemberService memberDao;
 
 	@Autowired
-	KitMapper kitDao;
+	//220302 PSH KitMapper -> kitService로 수정
+	KitService kitDao;
 
 	// ===== 매출 페이지 이동 =====
 	@RequestMapping("/admin/adminHome.do")

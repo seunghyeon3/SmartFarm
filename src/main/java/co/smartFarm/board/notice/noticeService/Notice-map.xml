@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.board.notice.noticeService.NoticeMapper">
+<!-- 전체리스트 -->
+<select id="noticeSelectList" resultType="co.smartFarm.board.notice.noticeService.NoticeVO">
+ SELECT * FROM NOTICE
+</select>
+<!-- 단건조회 -->
+<select id="noticeSelect" resultType="co.smartFarm.board.notice.noticeService.NoticeVO"
+parameterType="int">
+SELECT * FROM NOTICE WHERE NOTICE_NO = #{notice_no}
+</select>
+<!-- 수정 -->
+<update id="noticeUpdate" parameterType="co.smartFarm.board.notice.noticeService.NoticeVO">
+UPDATE NOTICE
+SET
+NOTICE_TITLE = #{notice_title},
+NOTICE_CON = #{notice_con},
+NOTICE_IMG = #{notice_img}
+WHERE NOTICE_NO = #{notice_no}
+</update>
+<!-- 글쓰기 -->
+<insert id="noticeInsert" parameterType="co.smartFarm.board.notice.noticeService.NoticeVO">
+<selectKey keyProperty="notice_no" resultType="co.smartFarm.board.NoticeVO" order="BEFORE">
+SELECT NVL(MAX(NOTICE_NO) + 1, 1 ) AS NOTICE_NO FROM NOTICE
+</selectKey>
+INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,
+NOTICE_CON, NOTICE_IMG, MEM_NAME)
+VALUES(#{notice_no}, #{notice_title}, #{notice_con}, #{notice_img}, #{mem_name})
+</insert>
+<!-- 삭제 -->
+<delete id="noticeDelete" parameterType="co.smartFarm.board.notice.noticeService.NoticeVO">
+   DELETE FROM NOTICE WHERE NOTICE_NO =#{notice_no}
+</delete>
+<!-- 조회수 업데이트 -->
+<update id="noticeHitUpdate" parameterType="int">
+      UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT + 1 WHERE NOTICE_NO = #{notice_no}
+</update>
+</mapper>
+

@@ -11,19 +11,14 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="jdbc.connection">
-		<level value="debug" />
-	</logger>
+
 	<logger name="jdbc.resultsettable">
 		<level value="debug" />
 	</logger>	
-	<logger name="jdbc.resultset">
-		<level value="info" />
+
+	<logger name="jdbc.sqlonly">
+		<level value="debug" />
 	</logger>	
-	<logger name="jdbc.audit">
-		<level value="warn" />
-	</logger>
-	
 	<logger name="co.smartFarm.*">
 		<level value="debug" />
 	</logger>

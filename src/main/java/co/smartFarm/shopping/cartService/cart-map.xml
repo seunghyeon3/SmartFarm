@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.shopping.cartService.CartMapper">
+	<select id="cartSelectList"
+		resultType="co.smartFarm.shopping.cartService.CartVO"
+		parameterType="co.smartFarm.shopping.cartService.CartVO">
+		SELECT CART_SALE_COUNT, CART_PRICE,
+		CASE WHEN CART_PLANT_NO IS NOT NULL THEN 'P'||CART_PLANT_NO
+		WHEN CART_KIT_NO IS NOT NULL THEN 'K'||CART_KIT_NO
+		END CART_OPTION, MEM_EMAIL, CART_DAY, CART_SALE_COUNT*CART_PRICE AS CART_SUM
+		FROM CART
+		WHERE MEM_EMAIL = #{mem_email}
+	</select>
+
+</mapper>
