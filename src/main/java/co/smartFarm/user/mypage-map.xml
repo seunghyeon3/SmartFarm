@@ -17,6 +17,6 @@
     </select>
     
     <select id="noNft" resultType="int">
-    	SELECT MAX(NFT_NO) FROM NFT
+    	SELECT NVL(MAX(NFT_NO)+1,1) AS NFT_NO FROM NFT
     </select>
 </mapper>

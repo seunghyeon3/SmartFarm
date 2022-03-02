@@ -17,8 +17,11 @@
 	<logger name="jdbc.resultsettable">
 		<level value="debug" />
 	</logger>	
+	<logger name="jdbc.resultset">
+		<level value="info" />
+	</logger>	
 	<logger name="jdbc.audit">
-		<level value="debug" />
+		<level value="warn" />
 	</logger>
 	
 	<logger name="co.smartFarm.*">

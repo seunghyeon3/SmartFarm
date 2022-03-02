@@ -2,9 +2,9 @@ const $ = elem => document.querySelector(elem);
 
 const countdown = function(_config) {
   const tarDate = $(_config.target).getAttribute('data-date').split('-');
-  const day = parseInt(tarDate[0]);
+  const day = parseInt(tarDate[2]);
   const month = parseInt(tarDate[1]);
-  const year = parseInt(tarDate[2]);
+  const year = parseInt(tarDate[0]);
   let tarTime = $(_config.target).getAttribute('data-time');
   let tarhour, tarmin;
 
@@ -41,6 +41,7 @@ const countdown = function(_config) {
     const distance = countDownDate - now;
 
     // Time calculations for days, hours, minutes and seconds
+    // day에 1더함으로써 지정된 시간보다 하루 더 카운트한다
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
