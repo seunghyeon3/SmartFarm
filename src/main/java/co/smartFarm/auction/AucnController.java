@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.smartFarm.user.MemberVO;
 
@@ -13,11 +14,14 @@ import co.smartFarm.user.MemberVO;
 public class AucnController {
 	
 	@Autowired
-	AucnMapper aucnDao;
+	private AucnMapper aucnDao;
+	@Autowired
+	private NftMapper nftDao;
 	
 	@RequestMapping("/aucnMain.do")
 	public String aucnMain(Model model) {
 		model.addAttribute("aucnList", aucnDao.aucnList());
+		
 		return "auction/aucnMain";
 	}
 
@@ -26,8 +30,14 @@ public class AucnController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		aucn.setMem_name(member.getMem_name());
 		aucn.setMem_email(member.getMem_email());
-		System.out.println(aucn);
 		aucnDao.aucnInsert(aucn);
 	    return "redirect:nftholdings.do";
 }
+	
+	@RequestMapping("/aucnDetail.do")
+	public String aucnDetail(@RequestParam(value="aucnNo") int aucnNo, AucnVO aucn, Model model) {
+		aucn = aucnDao.aucnSelect(aucnNo);
+		model.addAttribute("aucnSelect", aucn);
+		return "auction/aucnDetail";
+	}
 }

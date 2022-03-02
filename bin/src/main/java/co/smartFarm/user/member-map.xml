@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.user.MemberMapper">
+	<!-- 이메일 중복체크 -->
+	<select id="emailCheck" parameterType="co.smartFarm.user.MemberVO"
+		resultType="co.smartFarm.user.MemberVO">
+		SELECT * FROM MEMBER
+		WHERE MEM_EMAIL = #{mem_email}
+	</select>
+
+	 <!-- 로그인 -->
+	<select id="loginCheck"
+		parameterType="co.smartFarm.user.MemberVO"
+		resultType="co.smartFarm.user.MemberVO">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_EMAIL = #{mem_email}
+
+	</select>
+	
+	<!-- 전체 회원 조회 -->
+	<select id="memberSelectList"
+		resultType="co.smartFarm.user.MemberVO">
+		SELECT * FROM MEMBER
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="memberInsert"
+		parameterType="co.smartFarm.user.MemberVO">
+		INSERT INTO MEMBER(MEM_EMAIL, MEM_PW, MEM_ADDR,
+			MEM_DET_ADDR, MEM_NAME, MEM_ATHR, MEM_TEL)
+		VALUES(#{mem_email},
+			#{mem_pw}, #{mem_addr}, #{mem_det_addr}, #{mem_name}, 'B1',
+			#{mem_tel})
+	</insert>
+	
+	<!-- 비밀번호 수정 -->
+	<update id="memberUpdatePw" parameterType="co.smartFarm.user.MemberVO">
+		UPDATE MEMBER
+		SET MEM_PW = #{mem_pw}
+		WHERE MEM_EMAIL =#{mem_email}
+	</update>
+	
+	<!-- 농부 승인-승인 -->
+	<update id="memberAcceptAthr" parameterType="String">
+		UPDATE MEMBER
+		SET MEM_ATHR = 'B2'
+		WHERE MEM_EMAIL = #{mem_email}
+	</update>
+	
+	<!-- 농부 승인-거절 -->
+	<update id="memberRejectAthr" parameterType="String">
+		UPDATE MEMBER
+		SET MEM_FM_REQ = 'Reject'
+		WHERE MEM_EMAIL = #{mem_email}
+	</update>
+
+	<select id="memberSelectKeyList" resultType="co.smartFarm.user.MemberVO">
+		SELECT * FROM MEMBER
+		<if test="key == ''"> WHERE 1 = 1</if>
+		<if test="key == 'mem_email'">WHERE MEM_EMAIL LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'mem_name'">WHERE MEM_NAME LIKE '%' || #{val} || '%'</if>
+	</select>
+	
+</mapper>

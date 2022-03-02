@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+%>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -67,14 +72,14 @@
 	                              <textarea class="textarea-control" id="aucn_con" name="aucn_con" placeholder="내용" oninvalid="toastr.error('내용을 입력해주세요')" ></textarea>
 	                           </li>
 	                           <li class="half pr-15">
-	                              <input type="number" id="aucn_first_bid" name="aucn_first_bid" class="form-control" placeholder="경매시작금액  [ eth ]" oninvalid="toastr.error('날짜를 입력해주세요')" >
+	                              <input type="number" step="0.1" id="first_bid" name="first_bid" class="form-control" placeholder="경매시작금액  [ eth ]" oninvalid="toastr.error('금액을 입력해주세요')" >
 	                           </li>
 	                           <li class="half pr-15">
 	                          	<div class="filebox" >
 		  							경매 시작 시간 설정 
 								</div>
 	                           	  <div id="aucn_start_time" style="text-align:center;"></div>
-	                              <input type="hidden" id="aucn_start_time" name="aucn_start_time" class="form-control" oninvalid="toastr.error('날짜를 입력해주세요')" >
+	                              <input type="hidden" id="aucn_start_time" name="aucn_start_time" class="form-control" value="<%= sf.format(nowTime) %>"	 >
 	                           </li>
 	                            
 	                           <li class="full">
