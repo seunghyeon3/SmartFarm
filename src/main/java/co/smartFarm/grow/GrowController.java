@@ -1,16 +1,16 @@
 package co.smartFarm.grow;
 
-import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 
 @Controller
 public class GrowController {
+
+	private static final int String = 0;
 
 	@Autowired
 	GrowDiaryMapper mapGD;
@@ -171,5 +175,49 @@ public class GrowController {
 		
 		return lines;
 	}
+	
+	@RequestMapping(value = "/testURL.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String test(HttpServletRequest request, HttpSession session) {
+		
+		session.setAttribute("email", "aaa@abc.com");
+
+		String email = session.getAttribute("email").toString();
+		
+		List<GrowVO> test = mapG.orderNumber(email);
+		
+		Gson gson = new Gson();
+		
+		List<String> resultTest = gson.fromJson(request.getParameter(Integer.toString(test.get(0).getPur_his_order_no())), List.class);
+		
+		System.out.println(resultTest.get(0));
+		
+		System.out.println(request.getParameter(Integer.toString(test.get(0).getPur_his_order_no())));	
+		
+		String logRoute = "D:\\" + email + ".txt";
+		
+		try {
+			File file = new File(logRoute);
+			
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			
+			FileWriter fileWriter = new FileWriter(file, true);
+			PrintWriter writer = new PrintWriter(fileWriter);
+			
+			writer.println(resultTest.get(0).toString());
+			
+			writer.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "log-updated";
+	}
+	
+	
 
 }
