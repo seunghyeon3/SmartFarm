@@ -1,13 +1,14 @@
-package co.smartFarm.board.archieve.archieveServiceImpl;
+package co.smartFarm.board.Archieve.archieveServiceImpl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.smartFarm.board.archieve.archieveService.ArchieveMapper;
-import co.smartFarm.board.archieve.archieveService.ArchieveService;
-import co.smartFarm.board.archieve.archieveService.ArchieveVO;
+import co.smartFarm.board.Archieve.archieveService.ArchieveMapper;
+import co.smartFarm.board.Archieve.archieveService.ArchieveService;
+import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
+
 
 @Repository("archieveDao")
 public class ArchieveServiceImpl implements ArchieveService{

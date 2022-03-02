@@ -21,7 +21,7 @@ WHERE NOTICE_NO = #{notice_no}
 </update>
 <!-- 글쓰기 -->
 <insert id="noticeInsert" parameterType="co.smartFarm.board.notice.noticeService.NoticeVO">
-<selectKey keyProperty="notice_no" resultType="co.smartFarm.board.NoticeVO" order="BEFORE">
+<selectKey keyProperty="notice_no" resultType="co.smartFarm.board.notice.noticeService.NoticeVO" order="BEFORE">
 SELECT NVL(MAX(NOTICE_NO) + 1, 1 ) AS NOTICE_NO FROM NOTICE
 </selectKey>
 INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,

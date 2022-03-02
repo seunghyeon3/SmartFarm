@@ -1,8 +1,9 @@
-package co.smartFarm.board.archieve.archieveService;
+package co.smartFarm.board.Archieve.archieveService;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
 
 public interface ArchieveMapper {
 	List<ArchieveVO> archieveSelectList();

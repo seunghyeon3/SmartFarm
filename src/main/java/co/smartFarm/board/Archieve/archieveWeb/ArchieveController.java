@@ -1,4 +1,4 @@
-package co.smartFarm.board.archieve.archieveWeb;
+package co.smartFarm.board.Archieve.archieveWeb;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import co.smartFarm.board.archieve.archieveService.ArchieveService;
-import co.smartFarm.board.archieve.archieveService.ArchieveVO;
+import co.smartFarm.board.Archieve.archieveService.ArchieveService;
+import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 
 
 @Controller

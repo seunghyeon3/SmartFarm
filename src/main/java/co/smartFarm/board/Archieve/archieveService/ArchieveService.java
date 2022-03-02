@@ -1,4 +1,4 @@
-package co.smartFarm.board.archieve.archieveService;
+package co.smartFarm.board.Archieve.archieveService;
 
 import java.util.List;
 

@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.smartFarm.board.archieve.archieveService.ArchieveMapper">
 <!-- 전체리스트 -->
-<select id="archieveSelectList" resultType="co.smartFarm.board.archieve.archieveService.ArchieveVO">
+<select id="archieveSelectList" resultType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
  SELECT * FROM ARCHIEVE ORDER BY ARCHIEVE_NO ASC
 </select>
 <!-- 단건조회 -->
-<select id="archieveSelect" resultType="co.smartFarm.board.archieve.archieveService.ArchieveVO"
-parameterType="co.smartFarm.board.archieve.archieveService.ArchieveVO">
+<select id="archieveSelect" resultType="co.smartFarm.board.Archieve.archieveService.ArchieveVO"
+parameterType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
 SELECT * FROM ARCHIEVE WHERE ARCHIEVE_NO = #{archieve_no}
 </select>
 <!-- 수정 -->
-<update id="archieveUpdate" parameterType="co.smartFarm.board.archieve.archieveService.ArchieveVO">
+<update id="archieveUpdate" parameterType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
 UPDATE ARCHIEVE
 SET
 ARCHIEVE_TITLE = #{archieve_title},
@@ -20,7 +20,7 @@ ARCHIEVE_IMG = #{archieve_img}
 WHERE ARCHIEVE_NO = #{archieve_no}
 </update>
 <!-- 글쓰기 -->
-<insert id="archieveInsert" parameterType="co.smartFarm.board.archieve.archieveService.ArchieveVO">
+<insert id="archieveInsert" parameterType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
 <selectKey keyProperty="archieve_no" resultType="co.smartFarm.board.Archieve.archieveService.ArchieveVO" order="BEFORE">
 SELECT NVL(MAX(ARCHIEVE_NO) + 1, 1 ) AS ARCHIEVE_NO FROM ARCHIEVE
 </selectKey>
@@ -29,7 +29,7 @@ ARCHIEVE_CON, ARCHIEVE_IMG, MEM_NAME)
 VALUES(#{archieve_no}, #{archieve_title}, #{archieve_con}, #{archieve_img}, #{mem_name})
 </insert>
 <!-- 삭제 -->
-<delete id="archieveDelete" parameterType="co.smartFarm.board.archieve.archieveService.ArchieveVO">
+<delete id="archieveDelete" parameterType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
    DELETE FROM ARCHIEVE WHERE ARCHIEVE_NO =#{archieve_no}
 </delete>
 <!-- 조회수 업데이트 -->
