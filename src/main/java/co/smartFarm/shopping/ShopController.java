@@ -105,9 +105,10 @@ public class ShopController {
 	@RequestMapping("/kitProductDetail.do")
 	public String kitProductDetail(@Param("kit_no") String kit_no, Model model) {
 
-		KitVO kitVo = kitDao.kitSelectOne(Integer.parseInt(kit_no));
-		System.out.println(kitVo);
-		model.addAttribute("kitSelectOne", kitVo);
+		/*
+		 * KitVO kitVo = kitDao.kitSelectOne(Integer.parseInt(kit_no));
+		 * System.out.println(kitVo); model.addAttribute("kitSelectOne", kitVo);
+		 */
 		return "shopping/kitProductDetail";
 	}
 
