@@ -18,4 +18,8 @@ public class AucnVO {
 	private int nft_no;
 	//경매메인페이지를 위한 nft 사진
 	private String nft_img;
+	//경매디테일페이지를 위한 kit 용도
+	private String kit_prpos;
+	//경매디테일페이지를 위한 kit 작물 이름
+	private String kit_plant_name;
 }
