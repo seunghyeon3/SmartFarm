@@ -89,17 +89,14 @@ input[type="checkbox"]:checked::before {
 					<div class="col-md-6 col-sm-1">
 
 						<div class="side-search">
-							<form>
-								<select class="form-control" style="width: 120px; float: left">
-									<option>이름</option>
-									<option>이메일</option>
-									
-								</select> <input type="search" class="form-control" placeholder="검색"
-									style="margin: 0 10px; width: 380px; float: left;">
-								<button>
-									<i class="fas fa-search"></i>
-								</button>
-							</form>
+
+							<input type="search" id="searchKit" class="form-control"
+								placeholder="키트 이름을 입력하세요"
+								style="margin: 0 10px; width: 380px; float: left;">
+							<button onclick="searchKit()">
+								<i class="fas fa-search"></i>
+							</button>
+
 						</div>
 					</div>
 
@@ -138,22 +135,46 @@ input[type="checkbox"]:checked::before {
 				rowHeight : 50
 			},
 			columns : [ {
-				header : '작물이름',
+				header : '키트 번호',
+				name : 'kit_no',
+				sortingType : 'asc',
+				sortable : true,
+				display : false
+			}, {
+				header : '키트 이름',
 				name : 'kit_name',
 				sortingType : 'desc',
 				sortable : true
 			}, {
 				header : '용도',
-				name : 'kit_propos',
+				name : 'kit_prpos',
 				filter : 'select'
-			}, {
+			},
+			
+			{
 				header : '분류',
 				name : 'kit_plant_class',
 				filter : 'select'
-			}, {
+			}, 
+			
+			{
+				header:'조회수',
+				name : 'kit_hit',
+				sortingType : 'desc',
+				sortable : true
+				
+			},
+			{
+				header:'판매수',
+				name : 'kit_sale_count',
+				sortingType : 'desc',
+				sortable : true
+				
+			},
+			{
 				header : '관리',
 				name : 'kit_sale_whet',
-				width: '155'
+				width : '155'
 
 			} ],
 			columnOptions : {
@@ -163,43 +184,26 @@ input[type="checkbox"]:checked::before {
 		});
 
 		// 표 데이터
-		var gridData = [ {
-			kit_name : '딸기',
-			kit_propos : '상업용',
-			kit_plant_class : '과일',
-			kit_sale_whet : 'N'
-
-		}, {
-			kit_name : '오이',
-			kit_propos : '상업용',
-			kit_plant_class : '채소',
-			kit_sale_whet : 'Y'
-
-		}, {
-			kit_name : '딸기',
-			kit_propos : '취미용',
-			kit_plant_class : '과일',
-			kit_sale_whet : 'Y'
-
-		} ];
-		
+		var gridData = ${kitSelectList};
 
 		//데이터 입력
 		grid.resetData(gridData);
-
+		grid.hideColumn('kit_no', 'kit_no');
+		
+		
 		//표에 버튼 넣기
 		function changeValue() {
 			var table = $('table');
 
 			for (var i = 0; i < gridData.length; i++) {
 				console.log(grid.getValue(i, 'kit_sale_whet'));
-				
+
 				if (grid.getValue(i, 'kit_sale_whet') == 'Y') {// 내리기
-					var input = '<div class="container" style="text-aline:center;"> <a onclick="" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="cancle(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 
 				} else { //올리기
-					var input = '<div class="container" style="text-aline:center;"> <a onclick="" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 				}
 
@@ -207,7 +211,67 @@ input[type="checkbox"]:checked::before {
 		}
 
 		changeValue();
-		
+
+		// Kit 판매 올리기 내리기
+		function enroll(e) { // Y
+			console.log("올리기!===");
+			var id = e.id;//whet
+			var key = e.dataset.key;//키트 번호 찾기 위한 rowKey
+			
+			kitSaleWhet(id, key);
+			location.reload();
+		}
+
+		function cancle(e) { // N
+			console.log("내리기!===");
+			
+			var id = e.id;//whet
+			var key = e.dataset.key;//키트 번호 찾기 위한 rowKey
+			
+			kitSaleWhet(id, key);
+			location.reload();
+			
+		}
+
+		function kitSaleWhet(id, key) {
+			console.log("값 나오는지 확인! === " + id);
+			console.log(key);//id
+			key = key*1;
+			console.log(typeof key)
+			var kit_no = grid.getValue(key, 'kit_no');
+			console.log(kit_no);
+			var data = JSON.stringify({kit_no : kit_no, kit_sale_whet: id});
+			fetch("adminKitSaleWhet.do",
+					{
+						method:'post',
+						body: data 
+					})
+					.then(response => response.json())
+					.then(function (result) {
+						console.log(result.val());
+					})
+			 
+		}
+		function searchKit() {
+			var search = $("#searchKit").val();
+			
+			$.ajax({
+				type:'post',
+				url:"adminKitSearch.do",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+					"kit_name": search
+					}
+				
+			}).done( function (result) {
+				console.log(result);
+				var res = JSON.parse(result);
+				console.log(res);
+				grid.resetData(res);
+				changeValue();
+			} )
+			
+		}
 	</script>
 </body>
 
