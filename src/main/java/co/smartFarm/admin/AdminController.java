@@ -1,9 +1,8 @@
 package co.smartFarm.admin;
 
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import co.smartFarm.shopping.KitMapper;
 import co.smartFarm.shopping.KitVO;
@@ -29,7 +24,6 @@ import co.smartFarm.user.MemberVO;
 
 @Controller
 public class AdminController {
-
 	@Autowired
 	MemberMapper memberDao;
 
@@ -95,23 +89,24 @@ public class AdminController {
 	// 농부 등록 - 승인
 	@PostMapping("/admin/adminRequstAccept.do")
 	@ResponseBody
-	public String adminRequstAccept(@RequestBody String mem_email) {
+	public String adminRequstAccept(@RequestBody Map<String, String> map) {
 
-		System.out.println("=====");
-		System.out.println(mem_email);
-
-		JSONObject object = new JSONObject(mem_email);
-		mem_email = object.getString("mem_email");
-		System.out.println(mem_email);
+		/*
+		 * System.out.println("====="); System.out.println(mem_email);
+		 * 
+		 * JSONObject object = new JSONObject(mem_email); mem_email =
+		 * object.getString("mem_email");
+		 */
+		String mem_email = (String)map.get("mem_email");
 		int result = memberDao.memberAcceptAthr(mem_email);
-		return null;
+		return null;//승인된 값 넘기기 ex 200번 
 
 	}
 
 	// 농부 등록 - 거절
 	@PostMapping("/admin/adminRequstReject.do")
 	@ResponseBody
-	public String adminRequstReject(@RequestBody String mem_email) {
+	public String adminRequstReject(@RequestBody String mem_email) {//stringify 안하고 쓰기!
 
 		System.out.println("=====");
 		System.out.println(mem_email);
