@@ -45,6 +45,7 @@ public class GrowController {
 		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute(mapG.growList(session.getAttribute("email").toString()));
+		System.out.println(session.getAttribute("email").toString());
 		model.addAttribute(growDao.growList(session.getAttribute("email").toString()));
 		System.out.println(model);
 
@@ -180,9 +181,10 @@ public class GrowController {
 		return lines;
 	}
 	
-	@RequestMapping(value = "/testURL.do", method = RequestMethod.POST)
+//	키트에서 로그전송
+	@RequestMapping(value = "/logger.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String test(HttpServletRequest request, HttpSession session) {
+	public String logger(HttpServletRequest request, HttpSession session) {
 		
 		session.setAttribute("email", "aaa@abc.com");
 
@@ -212,6 +214,7 @@ public class GrowController {
 			FileWriter fileWriter = new FileWriter(file, true);
 			PrintWriter writer = new PrintWriter(fileWriter);
 			
+			
 			writer.println(resultTest.get(0).toString());
 			
 			writer.close();
@@ -220,6 +223,21 @@ public class GrowController {
 			e.printStackTrace();
 		}
 		
+		
+		return "log-updated";
+	}
+	
+	@RequestMapping(value = "/testURL.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String test(HttpServletRequest request) {
+		
+		Gson gson = new Gson();
+		
+		List<String> resultTest = gson.fromJson(request.getParameter("1"), List.class);
+		
+		System.out.println(resultTest.get(0));
+		System.out.println(resultTest.get(1));
+		System.out.println(resultTest.get(2));
 		
 		return "log-updated";
 	}
