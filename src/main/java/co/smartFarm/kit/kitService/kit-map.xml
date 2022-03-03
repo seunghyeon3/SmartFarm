@@ -6,11 +6,11 @@
 		SELECT * FROM KIT
 	</select>
 	
-	<!-- <select id="kitSelectOne" parameterType="int"
-		resultType="co.smartFarm.shopping.KitVO">
+	 <select id="kitSelectOneByNo" parameterType="int"
+		resultType="co.smartFarm.kit.kitService.KitVO">
 		SELECT * FROM KIT
 		WHERE KIT_NO = #{kit_no}
-	</select> -->
+	</select> 
 	
 	<update id="kitUpdateWhet" parameterType="co.smartFarm.kit.kitService.KitVO">
 		UPDATE KIT

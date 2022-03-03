@@ -29,4 +29,13 @@
     <select id="noNft" resultType="int">
     	SELECT NVL(MAX(NFT_NO)+1,1) AS NFT_NO FROM NFT
     </select>
+    
+    <select id="adminNftSelectList" resultType="co.smartFarm.NFT.service.NftVO">
+		SELECT N.KIT_NO, K.KIT_PLANT_CLASS, N.GROW_DIARY_GRD, K.KIT_NAME,
+			COUNT(*) AS KIT_SUM
+		FROM NFT N LEFT JOIN KIT K
+		ON N.KIT_NO = K.KIT_NO
+		GROUP BY N.KIT_NO, N.GROW_DIARY_GRD, K.KIT_NAME, K.KIT_PLANT_CLASS
+		ORDER BY 5 DESC
+    </select>
 </mapper>
