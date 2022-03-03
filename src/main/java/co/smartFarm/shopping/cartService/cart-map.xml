@@ -4,12 +4,35 @@
 	<select id="cartSelectList"
 		resultType="co.smartFarm.shopping.cartService.CartVO"
 		parameterType="co.smartFarm.shopping.cartService.CartVO">
-		SELECT CART_SALE_COUNT, CART_PRICE,
-		CASE WHEN CART_PLANT_NO IS NOT NULL THEN 'P'||CART_PLANT_NO
-		WHEN CART_KIT_NO IS NOT NULL THEN 'K'||CART_KIT_NO
-		END CART_OPTION, MEM_EMAIL, CART_DAY, CART_SALE_COUNT*CART_PRICE AS CART_SUM
-		FROM CART
-		WHERE MEM_EMAIL = #{mem_email}
+		WITH
+		FIND_CART AS(
+		    SELECT *
+		    FROM CART
+		    WHERE MEM_EMAIL = #{mem_email}
+		)
+        SELECT CASE WHEN CART_PLANT_NO IS NOT NULL THEN  (SELECT PLANT_NAME FROM PLANT WHERE PLANT_NO= CART_PLANT_NO)
+      	        WHEN CART_KIT_NO IS NOT NULL THEN (SELECT KIT_NAME FROM KIT WHERE KIT_NO = CART_KIT_NO)
+     	        END CART_DETAIL, 
+  	   	    CASE WHEN CART_PLANT_NO IS NOT NULL THEN 'P'|| CART_PLANT_NO
+      	    WHEN CART_KIT_NO IS NOT NULL THEN 'K'|| CART_KIT_NO
+      	    END  CART_OPTION,
+       	    CART_SALE_COUNT, CART_PRICE,
+            MEM_EMAIL, CART_DAY, CART_SALE_COUNT * CART_PRICE AS CART_SUM
+		FROM FIND_CART 
+	</select>
+	
+	<select id="insertCart" 
+		parameterType="co.smartFarm.shopping.cartService.CartVO" statementType="CALLABLE">
+		 <![CDATA[
+		 	{call insert_cart (
+		 		#{mem_email},
+		 		#{cart_sale_count},
+				#{cart_price},
+				#{cart_plant_no},
+				#{cart_kit_no},
+				#{cart_day}
+		 	)}
+		 ]]>
 	</select>
 
 </mapper>

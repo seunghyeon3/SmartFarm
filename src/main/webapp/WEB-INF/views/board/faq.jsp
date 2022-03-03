@@ -90,35 +90,69 @@
               <!-- 4 --> 
       <script>
 		//표 출력
-		var grid = new tui.Grid({
-			rowHeight : 'auto',
-			rowWidth : 'auto',
-			el : document.getElementById('grid'),
-			rowHeaders : [ 'rowNum' ],//번호 매기기
-			scrollX : false,
-			scrollY : false,
-			columns : [{
-	              header: '번호',
-	              name: 'faq_no',
-	              
-	            },{
-	              header: '제목',
-	              name: 'faq_title',
-	            },{
-	              header: '내용',
-	              name: 'notice_con',
-	            }]
-		});
+	const grid = new tui.Grid({
+	  rowHeight : 'auto',
+	  rowWidth : 'auto',
+      el: document.getElementById('grid'),
+      data: ${faq},
+      rowHeaders: ['checkbox'],
+      bodyHeight: 500,
+      treeColumnOptions: {
+    	    name: 'faq_title',
+    	    useCascadingCheckbox: true,
+    	    indentWidth:22
+    	  },
+      columns: [
+        {
+          header: '번호',
+          name: 'faq_no',
+          width: 300
+        },
+        {
+          header: '제목',
+          name: 'faq_title'
+        },
+        
+      ]
+    });
 
-		// GRID 에 데이터를 입력
-		var gridData = ${faq};	
-		grid.resetData(gridData);
-		
-		grid.on('click', (ev) => {
-			  if (ev.columnName === 'faq_title') {
-				  location.href='faqselect.do?faq_no='+gridData[ev.rowKey].faq_no
-			  }
-			});
+    grid.on('click', ev => {
+      const { rowKey } = ev;
+      const descendantRows = grid.getDescendantRows(rowKey);
+
+      console.log('rowKey: ' + rowKey);
+      console.log('descendantRows: ' + descendantRows);
+
+      if (!descendantRows.length) {
+    	  grid.appendRow(
+	          {
+	        	
+	            name: 'faq.faq_title',
+	            
+	            _children: [
+	          	{   
+	          		name: 'faq.faq_con'
+	          	},
+	           {
+	             name: 'faq.faq_con',
+	            _children: []
+	           }
+	               ]
+	              },
+	                
+	          { parentRowKey: rowKey }
+	        );
+	      }
+    });
+   
+    grid.on('expand', (ev) => {
+    	  const {rowKey} = ev;
+    	  const descendantRows = grid.getDescendantRows(rowKey);
+
+    	  console.log('rowKey: ' + rowKey);
+    	  console.log('descendantRows: ' + descendantRows);
+    	});
+  
  </script>
    </body>
 </html>

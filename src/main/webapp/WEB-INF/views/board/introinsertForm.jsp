@@ -62,7 +62,7 @@
                      	<h3>등록</h3>
                      	<form action="introinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
- 
+ 						<input type="hidden" name="intro_board_class" value="intro3">	
                            <!-- 파일업로드 버튼 구성 -->
                          <div class="filebox"> 
   								<label for="ex_file">사진 업로드</label>

@@ -42,6 +42,14 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+ul>li>p{
+	border: 2px solid #e1e1e1;
+	background: #fafafa;
+	color: #555555;
+	height: auto;
+	line-height: 49px;
+	padding: 0 20px;
+}
 </style>
 <body>
 <section class="contact-page wf100 p80">
@@ -52,20 +60,21 @@
                      <div class="contact-form mb60">
                         <h3>자료실</h3>
                         <ul class="cform">
+                           <li class="half pr-15">
+                               <p>제목: ${archieve.archieve_title}</p>
+                           </li>
+                           <li class="half pr-15">
+                              <p>날짜: ${archieve.archieve_day}</p>
+                           </li>
                            <li class="full">
-                                ${archieve.archieve_title}
+                               <p>내용: ${archieve.archieve_con}</p>
+                           </li>
+                           <li class="full">
+                          	<img src="resources/images/${archieve.archieve_img}"onError="this.style.visibility='hidden'">
                            </li>
                             <li class="full">
-                                 ${archieve.mem_name}
-                           </li><li class="full">
-                              ${archieve.archieve_day}
-                           </li>
-                           <li class="full">
-                                ${archieve.archieve_con}
-                           </li>
-                           <li class="full">
-                          	<img src="c:/Temp/${archieve.archieve_img}">
-                           </li>
+                             <a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a>
+                            </li>
                            <li class="full">
  								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">

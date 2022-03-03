@@ -26,7 +26,7 @@ public class IntroServiceImpl implements IntroService{
 	}
 
 	@Override
-	public IntroVO introSelect(IntroVO intro) {
+	public List<IntroVO> introSelect(IntroVO intro) {
 		return map.introSelect(intro);
 	}
 
@@ -42,7 +42,7 @@ public class IntroServiceImpl implements IntroService{
 
 	@Override
 	public int introUpdate(IntroVO intro) {
-		return map.introDelete(intro);
+		return map.introUpdate(intro);
 	}
 
 	@Override

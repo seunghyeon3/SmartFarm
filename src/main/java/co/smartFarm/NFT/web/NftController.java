@@ -22,6 +22,7 @@ import co.smartFarm.NFT.service.NftService;
 import co.smartFarm.NFT.service.NftVO;
 import co.smartFarm.grow.growDiaryService.GrowDiaryService;
 import co.smartFarm.grow.growDiaryService.GrowDiaryVO;
+import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 //220302 MypageController -> NFTController로 구분 작업
@@ -36,9 +37,10 @@ public class NftController {
 	
 	//nft보유현황 페이지 mem 나중에 session으로 받아오기
 		@RequestMapping("/nftholdings.do")
-		public String nftholdings(Model model) {
-			String mem = "bbb@abc.com";
-			model.addAttribute("nftList", nftDao.selectNftMyList(mem));
+		public String nftholdings(Model model, HttpSession session) {
+			MemberVO member = (MemberVO) session.getAttribute("member");
+			String memEmail = member.getMem_email();
+			model.addAttribute("nftList", nftDao.selectNftMyList(memEmail));
 			return "user/nftholdings";
 		}
 		
@@ -52,7 +54,7 @@ public class NftController {
 						  
 						  //(Math.random() * (최대값 - 최소값)) + 최소값
 						  String background = request.getServletContext().getRealPath("resources/nft/Background/back"+(int)((Math.random()*11)+1)+".png");
-						  String body = request.getServletContext().getRealPath("resources/nft/Body/tomcat"+(int)((Math.random()*15)+1)+".png");
+						  String body = request.getServletContext().getRealPath("resources/nft/Body/tomcat"+(int)((Math.random()*31)+1)+".png");
 						  
 						  String medal = "";
 						  //medal은 작물 등급에 따라 분류

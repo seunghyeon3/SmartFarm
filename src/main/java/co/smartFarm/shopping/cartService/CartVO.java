@@ -17,4 +17,6 @@ public class CartVO {
 	private String cart_option;
 	//장바구니 총액을 위한 변수
 	private int cart_sum;
+	//장바구니에서 키트이름이나 작물이름을 조회하기 위한 변수
+	private String cart_detail;
 }

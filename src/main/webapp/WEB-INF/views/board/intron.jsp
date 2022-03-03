@@ -22,28 +22,24 @@
 </head>
 <body>
 	<div class="wrapper">
-		
-		<!--Inner Header End-->
-		<!--About Start-->
 		<section class="wf100 about">
 			<div class="wf100 comment-form">
-				<!--About Txt Video Start-->
 				<div class="about-video-section wf100">
 					<div class="container">
 					<h3>노지분야 소개</h3>
 						<div class="row">
 							<div class="about-text">
-								<img src="resources/images/${intron[2].intro_img}" alt="내용을 등록 해주세요">
+								<img src="resources/images/${intron[0].intro_img}" alt="내용을 등록 해주세요">
 							</div>
 						</div>
 					</div>
 				</div>
+				</div>
+		</section>
 				<div align="right" class="bt_se">
-				<a class="aboutus" href="introupdateFormn.do">수정</a>	
-				<a class="aboutus" href="introinsertnForm.do">글쓰기</a>
+				<a class="aboutus" href="introupdateFormn.do?intro_no=${intron[0].intro_no }&intro_img=${intron[0].intro_img}">수정</a>	
+				<a class="aboutus" href="introninsertForm.do">글쓰기</a>
 				</div>
 			</div>
-		</section>
-	</div>
 </body>
 </html>

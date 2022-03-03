@@ -20,4 +20,10 @@ public class CartServiceImpl implements CartService{
 		return map.cartSelectList(cartVo);
 	}
 
+	@Override
+	public Integer insertCart(CartVO cartVo) {
+		System.out.println(cartVo.toString());
+		return map.cartInsert(cartVo);
+	}
+
 }

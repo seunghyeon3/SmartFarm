@@ -52,7 +52,7 @@
 </style>
 </head>
 <body>
-${archieve}
+<%-- ${archieve} --%>
    <div class="container p80">
       <div class="col-lg-9 col-md-8 side-widget">       
       </div>
@@ -108,9 +108,6 @@ ${archieve}
 	              header: '제목',
 	              name: 'archieve_title',
 	            },{
-	              header: '내용',
-	              name: 'archieve_con',
-	            },{
 	               header: '조회',
 	               name: 'archieve_hit',
 	            },{
@@ -119,10 +116,10 @@ ${archieve}
 	            },{
 	               header: '첨부파일',
 	               name: 'archieve_img',
-	            },{
-	                header: '작성자',
-	                name: 'mem_name',
-	             }]
+	               formatter(object){	            	  
+	            	   return object.value != null ? 'Y' : 'N';
+	               }
+	            },]
 		});
 
 		// GRID 에 데이터를 입력
