@@ -42,9 +42,9 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="${pageContext.request.contextPath}/intro.do">스마트 팜 안내</a></li>
-                           <li><a href="${pageContext.request.contextPath}/introg.do">과수 분야</a></li>
-                           <li><a href="${pageContext.request.contextPath}/intron.do">노지 분야</a></li>
+                           <li><a href="${pageContext.request.contextPath}/intro.do?intro_board_class=intro3">스마트 팜 안내</a></li>
+                           <li><a href="${pageContext.request.contextPath}/introg.do?intro_board_class=intro2">과수 분야</a></li>
+                           <li><a href="${pageContext.request.contextPath}/intron.do?intro_board_class=intro1">노지 분야</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
@@ -59,6 +59,12 @@
                         <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/plantShopList.do">작물 판매</a></li>
                            <li><a href="#">키트 판매</a></li>
+                        </ul>
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 경매 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#">NFT 경매</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">

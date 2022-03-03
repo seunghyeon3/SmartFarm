@@ -17,4 +17,7 @@ public interface NftService {
 	//220302 PSH MypageService -> NFTMapper 구분 작업
 	// NFT 생성버튼 누르고 createNft 완료될 시 nftNo 가져오기
 	int noNft();
+	
+	//admin에서 nft 조회하기
+	List<NftVO> adminNftSelectList();
 }

@@ -70,7 +70,7 @@
 	                              <input type="number" id="plant_sale_price" name="plant_sale_price" class="form-control" placeholder="가격"  min="0" oninvalid="toastr.error('가격을 입력해주세요')"  >
 	                           </li>
 	                           <li class="half pl-15">
-	                              <input type="number" id="plant_count" name="plant_count" class="form-control" placeholder="수량"  min="0" oninput="countCheck()" oninvalid="toastr.error('수량을 입력해주세요')" >
+	                              <input type="number" id="plant_count" name="plant_count" class="form-control" placeholder="수량"  min="1" oninput="countCheck()" oninvalid="toastr.error('수량을 입력해주세요')" >
 	                           </li>
 	                            <li class="full">
 	                              <textarea class="textarea-control" id="plant_sale_con" name="plant_sale_con" placeholder="내용" oninvalid="toastr.error('내용을 입력해주세요')" ></textarea>

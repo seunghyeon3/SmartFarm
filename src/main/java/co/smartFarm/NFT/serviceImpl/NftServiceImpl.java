@@ -36,6 +36,11 @@ public class NftServiceImpl implements NftService{
 	public int noNft() {
 		return map.noNft();
 	}
+
+	@Override
+	public List<NftVO> adminNftSelectList() {
+		return map.adminNftSelectList();
+	}
 	
 	
 }

@@ -93,9 +93,11 @@ input[type="number"] {
 					<div class="col-md-8 col-sm-6"></div>
 					<div class="col-md-4 col-sm-6">
 
-						<input type="button" value="선택주문" name="Add to Cart"
+						<input type="button" id="select" onclick="buy(this)" value="선택주문"
+							name="Add to Cart"
 							style="padding: 10px 30px; margin-right: 25px; margin-left: 50px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a; border-radius: 5px; cursor: pointer">
-						<input type="button" value="전체주문" name="Add to Cart"
+						<input type="button" id="all" onclick="buy(this)" value="전체주문"
+							name="Add to Cart"
 							style="padding: 10px 30px; background-color: #66bb6a; color: #f8f9fa; border: 1px solid #66bb6a; border-radius: 5px; cursor: pointer">
 
 					</div>
@@ -227,6 +229,33 @@ input[type="number"] {
 			
 		}
 		
+		//선택주문, 전체주문 
+		function buy(e) {
+			console.log(e.id);
+			var check = e.id; //all 인지 select 인지 구분하기 위한 변수
+			var checkArr = [];
+			
+			if(check === 'all') { //전체주문인 경우
+				grid.finishEditing();
+				grid.checkAll();
+			}
+			
+			checkArr = grid.getCheckedRows();
+			
+			//price, sum, count를 String에서 Number 형식으로 변환
+			for(var i = 0; i < checkArr.length;i++){
+				
+				var cartSum = (checkArr[i].cart_sum).replaceAll(",","");
+				checkArr[i].cart_sum = parseInt(cartSum);
+				
+				var cartPrice = (checkArr[i].cart_price).replaceAll(",","");
+				checkArr[i].cart_price = parseInt(cartPrice);
+				
+				
+				checkArr[i].cart_sale_count = parseInt(checkArr[i].cart_sale_count);
+			}
+			console.log(checkArr);
+		}
 	   
 	</script>
 

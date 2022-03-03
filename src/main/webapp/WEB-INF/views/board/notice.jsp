@@ -108,9 +108,6 @@
 	              header: '제목',
 	              name: 'notice_title',
 	            },{
-	              header: '내용',
-	              name: 'notice_con',
-	            },{
 	               header: '조회',
 	               name: 'notice_hit',
 	            },{
@@ -119,10 +116,10 @@
 	            },{
 	               header: '첨부파일',
 	               name: 'notice_img',
-	            },{
-	                header: '작성자',
-	                name: 'notice_name',
-	             }]
+	               formatter(object){	            	  
+	            	   return object.value != null ? 'Y' : 'N';
+	               }
+	            },]
 		});
 
 		// GRID 에 데이터를 입력

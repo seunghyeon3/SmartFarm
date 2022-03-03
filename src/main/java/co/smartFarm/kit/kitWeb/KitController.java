@@ -16,30 +16,30 @@ public class KitController {
 
 	@Autowired
 	private KitService kitDao;
-	
+
 	// 키트 전체조회
-	//220302 PSH shoppingController -> kitController 구분 작업
-		@RequestMapping("/kitShopList.do")
-		public String kitShopList(Model model) {
+	// 220302 PSH shoppingController -> kitController 구분 작업
+	@RequestMapping("/kitShopList.do")
+	public String kitShopList(Model model) {
 
-			List<KitVO> list = kitDao.kitSelectList();
+		List<KitVO> list = kitDao.kitSelectList();
 
-			// System.out.println(list);
+		// System.out.println(list);
 
-			model.addAttribute("kitSelectList", list);
+		model.addAttribute("kitSelectList", list);
 
-			return "shopping/kitShopList";
-		}
+		return "shopping/kitShopList";
+	}
 
 	// 키트 상세조회
-	//220302 PSH shoppingController -> kitController 구분 작업
-		@RequestMapping("/kitProductDetail.do")
-		public String kitProductDetail(@Param("kit_no") String kit_no, Model model) {
+	// 220302 PSH shoppingController -> kitController 구분 작업
+	@RequestMapping("/kitProductDetail.do")
+	public String kitProductDetail(@Param("kit_no") String kit_no, Model model) {
 
-			/*
-			 * KitVO kitVo = kitDao.kitSelectOne(Integer.parseInt(kit_no));
-			 * System.out.println(kitVo); model.addAttribute("kitSelectOne", kitVo);
-			 */
-			return "shopping/kitProductDetail";
-		}
+		KitVO kitVo = kitDao.kitSelectOneByNo(Integer.parseInt(kit_no));
+		System.out.println(kitVo);
+		model.addAttribute("kitSelectOne", kitVo);
+
+		return "shopping/kitProductDetail";
+	}
 }
