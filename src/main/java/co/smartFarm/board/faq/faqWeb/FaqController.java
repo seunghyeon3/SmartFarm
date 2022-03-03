@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 import co.smartFarm.board.faq.faqService.FaqService;
 import co.smartFarm.board.faq.faqService.FaqVO;
 
@@ -29,14 +30,15 @@ public class FaqController {
 	      return "board/faq";
 	   }
 	// FAQ 글쓰기 Form
-	 @RequestMapping(value = "/faqForm.do")
+	 @RequestMapping(value = "/faqinsertForm.do")
 	   public String faqInsert() {
 	      return "board/faqinsertForm";
 	   }
 	 
 	// FAQ 글쓰기
 	 @RequestMapping(value = "/faqinsert.do")
-	 public String archieveInsert(FaqVO faq, Model model) {
+	 public String faqInsert(FaqVO faq, Model model) {
+		  System.out.println(faq.getFaq_title());
 		  faqDao.faqInsert(faq);
 	      model.addAttribute("faq", faqDao.faqSelectList());
 	      return "redirect:/faq.do";

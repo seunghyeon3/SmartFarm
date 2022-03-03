@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 public interface IntroMapper {
 	List<IntroVO> introSelectList();
 	IntroVO introinsertSelect(int Intro_no);
-	IntroVO introSelect(IntroVO intro);
+	List<IntroVO> introSelect(IntroVO intro);
 	int introInsert(IntroVO intro);
 	int introDelete(IntroVO intro);
 	int introUpdate(IntroVO intro);

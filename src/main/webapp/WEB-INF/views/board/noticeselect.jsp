@@ -42,6 +42,15 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+ul>li>p{
+	border: 2px solid #e1e1e1;
+	background: #fafafa;
+	color: #555555;
+	height: auto;
+	line-height: 49px;
+	padding: 0 20px;
+}
 </style>
 <body>
 <section class="contact-page wf100 p80">
@@ -52,22 +61,23 @@
                      <div class="contact-form mb60">
                         <h3>공지사항</h3>
                         <ul class="cform">
-                           <li class="full">
-                                ${notice.notice_title}
+                           <li class="half pr-15">
+                               <p>제목: ${notice.notice_title}</p>
                            </li>
+                           <li class="half pr-15">
+                               <p>날짜: ${notice.notice_day}</p>
+                           </li>
+                           <li class="full">
+                               <p>내용: ${notice.notice_con}</p>
+                           </li>
+                           <li class="full">
+                             <img src="download.do?img=${notice.notice_img}"onError="this.style.visibility='hidden'">
+                            </li>
                             <li class="full">
-                                 ${notice.mem_name}
-                           </li><li class="full">
-                              ${notice.notice_day}
-                           </li>
+                             <a href="download.do?img=${notice.notice_img}">${notice.notice_img}</a>
+                            </li>
                            <li class="full">
-                                ${notice.notice_con}
-                           </li>
-                           <li class="full">
-                              <img src="c:/Temp/${notice.notice_img}">
-                           </li>
-                           <li class="full">
- 								 <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit">
+ 							   <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit"> 
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>

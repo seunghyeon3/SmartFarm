@@ -36,7 +36,7 @@
 							<h3>스마트팜 소개</h3>
 						<div class="row">
 							<div class="about-text">
-								<img src="resources/images/${intro[1].intro_img}" alt="내용을 등록 해주세요">
+								<img src="resources/images/${intro[0].intro_img}" alt="내용을 등록 해주세요">
 							</div>
 						</div>
 					</div>
@@ -44,7 +44,7 @@
 			</div>
 		</section>
 		<div align="right" class="bt_se">
-			<a class="aboutus" href="introupdateForm.do">수정</a>	
+			<a class="aboutus" href="introupdateForm.do?intro_no=${intro[0].intro_no }&intro_img=${intro[0].intro_img}">수정</a>	
 			<a class="aboutus" href="introinsertForm.do">글쓰기</a>
 		</div>
 	</div>

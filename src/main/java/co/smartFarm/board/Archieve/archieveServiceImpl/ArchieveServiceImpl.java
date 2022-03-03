@@ -44,7 +44,7 @@ public class ArchieveServiceImpl implements ArchieveService{
 	@Override
 	//220302 해당부분 쓰는거 맞는지 재확인
 	public int archieveUpdate(ArchieveVO archieve) {
-		return map.archieveHitUpdate(0);
+		return map.archieveUpdate(archieve);
 	}
 
 	@Override

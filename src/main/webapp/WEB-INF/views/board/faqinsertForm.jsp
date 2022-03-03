@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!doctype html>
-<html lang="en">
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8">
-<title>스마트팜 등록</title>
-
+<meta charset="UTF-8">
+<title>FAQ 등록페이지</title>
+</head>
 <style>
 .filebox label {
   display: inline-block;
@@ -40,37 +39,25 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-.full{
-	display: inline-block;
-	text-align: center;
-
-}
-.filebox{
-	float: right;
-}
-
 </style>
-</head>
 <body>
-	<div class="wrapper">
-		<section class="contact-page wf100 p80">
+<section class="contact-page wf100 p80">
             <div class="container">
                <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                     	<h3>등록</h3>
-                     	<form action="introinsert.do" method="post" enctype="multipart/form-data">
+                        <h3>글쓰기</h3>
+                        <form action="faqinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
- 						<input type="hidden" name="intro_board_class" value="intro3">	
-                           <!-- 파일업로드 버튼 구성 -->
-                         <div class="filebox"> 
-  								<label for="ex_file">사진 업로드</label>
-  								<input type="file" id="ex_file" name="introfile" value=${intro.intro_img}>
-					     </div> 
                            <li class="full">
-                              <input type="submit" value="등록" class="fsubmit">
-                              <input type="submit" value="취소" onclick="history.back(-1);"class="fsubmit">
+                              <input type="text" class="form-control" placeholder="제목" name="faq_title" value=${faq.faq_title}>
+                           </li>
+                            <li class="full">
+                              <textarea class="textarea-control" placeholder="내용" name="faq_con">${faq.faq_con}</textarea>
+                           </li>
+                           <li class="full">
+                              <input type="submit" value="등록"  class="fsubmit">
                            </li>
                         </ul>
                         </form>
@@ -79,7 +66,5 @@
                </div>
             </div>
          </section>
-         </div>
 </body>
-
 </html>

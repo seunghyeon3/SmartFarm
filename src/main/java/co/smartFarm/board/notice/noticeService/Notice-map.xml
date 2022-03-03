@@ -3,7 +3,7 @@
 <mapper namespace="co.smartFarm.board.notice.noticeService.NoticeMapper">
 <!-- 전체리스트 -->
 <select id="noticeSelectList" resultType="co.smartFarm.board.notice.noticeService.NoticeVO">
- SELECT * FROM NOTICE
+ SELECT * FROM NOTICE ORDER BY NOTICE_NO ASC
 </select>
 <!-- 단건조회 -->
 <select id="noticeSelect" resultType="co.smartFarm.board.notice.noticeService.NoticeVO"

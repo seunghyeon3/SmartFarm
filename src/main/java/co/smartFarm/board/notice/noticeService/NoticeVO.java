@@ -1,5 +1,7 @@
 package co.smartFarm.board.notice.noticeService;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
