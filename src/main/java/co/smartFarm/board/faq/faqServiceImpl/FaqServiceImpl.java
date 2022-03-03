@@ -27,38 +27,32 @@ public class FaqServiceImpl implements FaqService{
 
 	@Override
 	public FaqVO faqSelect(FaqVO faq) {
-		// TODO Auto-generated method stub
-		return null;
+		return map.faqSelect(faq);
 	}
 
 	@Override
 	public int faqInsert(FaqVO faq) {
-		// TODO Auto-generated method stub
-		return 0;
+		return map.faqInsert(faq);
 	}
 
 	@Override
 	public int faqDelete(FaqVO faq) {
-		// TODO Auto-generated method stub
-		return 0;
+		return map.faqDelete(faq);
 	}
 
 	@Override
 	public int faqUpdate(FaqVO faq) {
-		// TODO Auto-generated method stub
-		return 0;
+		return map.faqUpdate(faq);
 	}
 
 	@Override
 	public List<FaqVO> faqSearch(String key, String val) {
-		// TODO Auto-generated method stub
-		return null;
+		return map.faqSearch(key, val);
 	}
 
 	@Override
 	public String writeValueAsString(List<IntroVO> faqSelectList) {
-		// TODO Auto-generated method stub
-		return null;
+		return map.writeValueAsString(faqSelectList);
 	}
 
 }

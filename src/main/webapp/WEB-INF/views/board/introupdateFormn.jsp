@@ -58,14 +58,19 @@
                         <ul class="cform">
                            <!-- 파일업로드 버튼 구성 -->
                            <div class="filebox">
-  								<label for="ex_file">사진 업로드</label>
-  								<input type="file" id="ex_file">
+                           <form action="intronupdate.do" method="post" enctype="multipart/form-data">
+                              <input type="hidden" name="intro_no" value="${intron.intro_no }">
+  								 <img src="resources/images/${intron.intro_img}" alt="내용을 등록 해주세요">
+  								 <span>${intron.intro_img}</span> 
+  								 <label for="ex_file">사진 업로드</label>
+  								 <input type="file" id="ex_file" name="introfile">
 						   </div>
                            <li class="full">
                               <input type="submit" value="수정" onclick="location.href='intron.do'"class="fsubmit">
-                           	  <input type="submit" value="취소" onclick="history.back(-1);"class="fsubmit">
+                           	  <input type="button" value="취소" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
+                        </form>
                      </div>
                   </div>
                </div>

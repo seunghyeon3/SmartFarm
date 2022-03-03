@@ -8,9 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import co.smartFarm.NFT.service.NftMapper;
 import co.smartFarm.NFT.service.NftService;
-import co.smartFarm.auction.aucnService.AucnMapper;
 import co.smartFarm.auction.aucnService.AucnService;
 import co.smartFarm.auction.aucnService.AucnVO;
 import co.smartFarm.user.memberService.MemberVO;
