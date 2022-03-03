@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
+import co.smartFarm.NFT.service.NftService;
+import co.smartFarm.NFT.service.NftVO;
 import co.smartFarm.kit.kitService.KitMapper;
 import co.smartFarm.kit.kitService.KitService;
 import co.smartFarm.kit.kitService.KitVO;
@@ -28,12 +31,15 @@ import co.smartFarm.user.memberService.MemberVO;
 
 public class AdminController {
 	@Autowired
-	//220302 PSH MemberMapper -> MemberService로 수정
+	// 220302 PSH MemberMapper -> MemberService로 수정
 	MemberService memberDao;
 
 	@Autowired
-	//220302 PSH KitMapper -> kitService로 수정
+	// 220302 PSH KitMapper -> kitService로 수정
 	KitService kitDao;
+
+	@Autowired
+	NftService nftDao;
 
 	// ===== 매출 페이지 이동 =====
 	@RequestMapping("/admin/adminHome.do")
@@ -102,16 +108,16 @@ public class AdminController {
 		 * JSONObject object = new JSONObject(mem_email); mem_email =
 		 * object.getString("mem_email");
 		 */
-		String mem_email = (String)map.get("mem_email");
+		String mem_email = (String) map.get("mem_email");
 		int result = memberDao.memberAcceptAthr(mem_email);
-		return null;//승인된 값 넘기기 ex 200번 
+		return null;// 승인된 값 넘기기 ex 200번
 
 	}
 
 	// 농부 등록 - 거절
 	@PostMapping("/admin/adminRequstReject.do")
 	@ResponseBody
-	public String adminRequstReject(@RequestBody String mem_email) {//stringify 안하고 쓰기!
+	public String adminRequstReject(@RequestBody String mem_email) {// stringify 안하고 쓰기!
 
 		System.out.println("=====");
 		System.out.println(mem_email);
@@ -155,8 +161,11 @@ public class AdminController {
 
 	// ===== NFT 관리 페이지 이동 =====
 	@RequestMapping("/admin/adminManageNFT.do")
-	public String adminManageNFT() {
-
+	public String adminManageNFT(Model model) {
+		List<NftVO> list = nftDao.adminNftSelectList();
+		String json = new Gson().toJson(list);
+		model.addAttribute("nftSelectList", json);
+		
 		return "admin/adminManageNFT";
 
 	}
@@ -203,15 +212,15 @@ public class AdminController {
 	}
 
 	// ===== 키트 이름 검색 =====
-	@PostMapping(value= "/admin/adminKitSearch.do",produces = "text/plain; charset=UTF-8")
+	@PostMapping(value = "/admin/adminKitSearch.do", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String adminKitSearch(@RequestParam("kit_name") String kit_name) {
-			
+
 		List<KitVO> list = kitDao.kitSelectOne(kit_name);
 		System.out.println(kit_name);
 		System.out.println(list);
-		System.out.println("결과 확인! =="+ list.get(0).getKit_name());
-		
+		System.out.println("결과 확인! ==" + list.get(0).getKit_name());
+
 		JSONArray jArray = new JSONArray();
 		if (list.size() > 0) {
 			for (KitVO li : list) {

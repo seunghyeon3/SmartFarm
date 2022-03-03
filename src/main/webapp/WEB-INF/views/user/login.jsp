@@ -45,16 +45,16 @@
 								<button class="login-btn" type="submit">로그인</button>
 							</div>
 						</form>
-						<ul>
-							<li onclick="kakaoLogin();"><a href="javascript:void(0)">
-									<span>카카오 로그인</span>
+						<ul style="list-style:none;">
+							<li onclick="kakaoLogin();">  <a href="javascript:void(0)">
+									<img alt="카카오 로그인" src="resources/images/login/kakao_login_medium.png">
 							</a></li>
+							
+							<!-- 추후수정 작업 끝나면 카카오 로그아웃 없애도 됨 -->
 							<li onclick="kakaoLogout();"><a href="javascript:void(0)">
 									<span>카카오 로그아웃</span>
 							</a></li>
 						</ul>
-
-
 
 					</div>
 				</div>

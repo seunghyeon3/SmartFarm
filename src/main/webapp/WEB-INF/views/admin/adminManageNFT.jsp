@@ -123,26 +123,22 @@
 			el: document.getElementById('grid'),
 			scrollX: false,
 			scrollY: false,
+			rowHeaders : [ 'rowNum' ],//번호 매기기
 			columns: [{
-					header: '번호',
-					name: 'number',
-					sortingType: 'desc',
-					sortable: true
-				}, {
-					header: '작물이름',
-					name: 'plantName',
+					header: '키트이름',
+					name: 'kit_name',
 					filter: 'select'
 				}, {
 					header: '작물종류',
-					name: 'plantClass',
+					name: 'kit_plant_class',
 					filter: 'select'
 				}, {
 					header: '등급',
-					name: 'plantGrd',
+					name: 'grow_diary_grd',
 					filter: 'select'
 				}, {
 					header: '개수',
-					name: 'count',
+					name: 'kit_sum',
 					sortingType: 'desc',
 					sortable: true
 				}
@@ -151,26 +147,7 @@
 		});
 
 		// GRID 에 데이터를 입력한다.
-		var arrData = [{
-			number: '1',
-			plantName: '딸기',
-			plantClass: '과일',
-			plantGrd: '상',
-			count: '3'
-		}, {
-			number: '2',
-			plantName: '딸기',
-			plantClass: '과일',
-			plantGrd: '중',
-			count: '5'
-		}, {
-			number: '3',
-			plantName: '오이',
-			plantClass: '채소',
-			plantGrd: '상',
-			count: 2
-		}];
-
+		var arrData = ${nftSelectList};
 		grid.resetData(arrData);
 	</script>
 
