@@ -1,6 +1,8 @@
 const $ = elem => document.querySelector(elem);
 
 const countdown = function(_config) {
+  var flag = 0;
+  //var temp = "";
   const tarDate = $(_config.target).getAttribute('data-date').split('-');
   const day = parseInt(tarDate[2]);
   const month = parseInt(tarDate[1]);
@@ -33,8 +35,10 @@ const countdown = function(_config) {
   $(_config.target+' .min .word').innerHTML = _config.minWord;
   $(_config.target+' .sec .word').innerHTML = _config.secWord; 
 
+
   const updateTime = () => {
     // Get todays date and time
+    
     const now = new Date().getTime();
 
     // Find the distance between now an the count down date
@@ -48,19 +52,33 @@ const countdown = function(_config) {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     requestAnimationFrame(updateTime);
+    // If the count down is over, write some text
+    if (distance < 0) {
+    	//console.log($(_config.target));
+     $(_config.target).innerHTML = "경매가 종료되었습니다.";
+     flag = 1;
+    // temp = "빙구";
+     return;
+    }
 
     $(_config.target+' .day .num').innerHTML = addZero(days);
     $(_config.target+' .hour .num').innerHTML = addZero(hours);
     $(_config.target+' .min .num').innerHTML = addZero(minutes);
     $(_config.target+' .sec .num').innerHTML = addZero(seconds);
 
-    // If the count down is over, write some text
-    if (distance < 0) {
-      $(".countdown").innerHTML = "EXPIRED";
-    }
+    if(flag ==1){
+  		return;
+  	}
+  	//console.log(temp);
+    
   }
-
-  updateTime();
+  
+ 	updateTime();
+ 	 
+ 	if(flag ==1){
+ // console.log(temp);
+  	return;
+  	}
 }
 
 const addZero = (x) => (x < 10 && x >= 0) ? "0"+x : x;
