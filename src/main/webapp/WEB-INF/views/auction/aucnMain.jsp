@@ -1,12 +1,6 @@
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Date"%>
-<%
-   Date nowTime = new Date();
-	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-%>    
 <html>
 <head>
 <title>aucn</title>
@@ -19,19 +13,14 @@
             <div class="row">
                <!--Blog Small Post Start-->
 
-               <c:forEach items="${aucnList }" var="aucn">
-                  <fmt:parseDate value="${aucn.aucn_start_time}" var="aucnStart"
+               <c:forEach items="${aucnEnable }" var="aucn">
+                 <%--  <fmt:parseDate value="${aucn.aucn_start_time}" var="aucnStart"
                      pattern="yyyy-MM-dd HH:mm" />
-                  <fmt:parseDate value="<%= sf.format(nowTime) %>" var="timeNow"
-                     pattern="yyyy-MM-dd HH:mm" />   
-                  <%-- <fmt:formatDate value="${aucnStart }" var="aucnStartTime" pattern="yyyy-MM-dd" />  --%>
                   <jsp:useBean id="aucnStartTime" class="java.util.Date" />
                   <jsp:setProperty name="aucnStartTime" property="time"
-                     value="${aucnStart.time + 86400000}" />
-                  <fmt:formatDate value="${aucnStartTime }" var="aucnEnd"
-                     pattern="yyyy-MM-dd" />
-                  <c:choose>
-                  <c:when test="${aucnStart.time le timeNow.time }">
+                     value="${aucnStart.time + 86400000}" /> --%>
+    <%--               <fmt:parseDate value="${aucn.aucn_start_time }" var="aucnEnd"
+                     pattern="yyyy-MM-dd" /> --%>
                         <div class="col-lg-3 col-md-4 col-sm-6">
                            <div class="blog-post">
                               <div class="blog-thumb">
@@ -43,7 +32,7 @@
                                     <li><a href="#"><i class="fas fa-clock"> 남은시간</i></a>
 
                                        <div class="countdown" id="countdown${aucn.aucn_no }"
-                                          data-date="${aucnEnd }"
+                                          data-date="${aucn.aucn_start_time.substring(0,10) }"
                                           data-time="${aucn.aucn_start_time.substring(aucn.aucn_start_time.length()-5,aucn.aucn_start_time.length())}">
                                           <div class="sec" style="float: right;">
                                              <span class="num"></span><span class="word"></span>
@@ -62,13 +51,11 @@
                                     <li><i class="fas fa-money-bill"></i>현재
                                           최고 입찰가 : ${aucn.now_bid }</li>
                                  </ul>
-                                 <a href="aucnDetail.do?aucnNo=${aucn.aucn_no}" class="read-post" style="float: right">경매</a>
+                                 <a href="javascript:void(0)" onclick="aucnDetail(${aucn.aucn_no})" class="read-post" style="float: right">경매</a>
                               </div>
 
                            </div>
                         </div>
-                        </c:when>
-                        </c:choose>
                </c:forEach>
                <!--Blog Small Post End-->
             </div>
@@ -108,6 +95,23 @@
             minWord : ' 분',
             secWord : ' 초'
          });
+      }
+      console.log(efcc_countdown);
+      
+      function aucnDetail(aucnNo){
+    	  var countdownId = "countdown"+aucnNo ;
+    	  //console.log(countdownId);
+    	  var countdownDisable = document.getElementById(countdownId);
+    	  console.log(countdownDisable);
+    	  console.log(countdownDisable.innerText)
+    	   if(countdownDisable.innerText == "경매가 종료되었습니다."){
+    		  alert("까비 좀 늦었음 ^^");
+    		  location.reload();
+    		  //toastr.warning("까비 좀 늦었음 ^^");
+    	  }
+    	  else {
+    		  location.href="aucnDetail.do?aucnNo="+aucnNo;
+    	  } 
       }
    </script>
 

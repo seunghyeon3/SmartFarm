@@ -23,7 +23,7 @@ public class AucnController {
 	
 	@RequestMapping("/aucnMain.do")
 	public String aucnMain(Model model) {
-		model.addAttribute("aucnList", aucnDao.aucnList());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 		
 		return "auction/aucnMain";
 	}

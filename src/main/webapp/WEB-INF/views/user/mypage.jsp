@@ -254,16 +254,18 @@
 				data : {
 					"growDiaryNo" : growDiary
 				}
-			}).done(setTimeout(function(nftNo) {
-				//console.log(nftNo);
-				cultivationHistory();
-				document.getElementById('fade').style.display = 'none';
-				// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
-				// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
-				GrowDiary.methods.createGrowDiaryNft('${member.mem_email}', nftNo)
-				.send({from: account, })
-				.then(function(result){console.log(result);})
-			},5000));
+			}).done(function(nftNo) {
+				console.log(nftNo);
+				setTimeout( function(){
+					cultivationHistory();
+					document.getElementById('fade').style.display = 'none';
+					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
+					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
+					GrowDiary.methods.createGrowDiaryNft('${member.mem_email}', nftNo)
+					.send({from: account, })
+					.then(function(result){console.log(result);})	
+				},5000);
+			});
 			
 
 		}

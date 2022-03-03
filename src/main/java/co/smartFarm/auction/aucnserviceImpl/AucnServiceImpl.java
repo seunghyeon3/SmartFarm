@@ -32,7 +32,7 @@ public class AucnServiceImpl implements AucnService{
 
 	@Override
 	public List<AucnVO> aucnEnable() {
-		return aucnEnable();
+		return map.aucnEnable();
 	}
 
 	
