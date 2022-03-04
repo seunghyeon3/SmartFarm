@@ -253,10 +253,15 @@ input[type="number"] {
 				
 				
 				checkArr[i].cart_sale_count = parseInt(checkArr[i].cart_sale_count);
-			}
+			}//for
+			
+			console.log(JSON.stringify(checkArr))
+			localStorage.setItem("payList", JSON.stringify(checkArr));
+			location.href = "pay.do"
 			console.log(checkArr);
+			
 		}
-	   
+	 
 	</script>
 
 

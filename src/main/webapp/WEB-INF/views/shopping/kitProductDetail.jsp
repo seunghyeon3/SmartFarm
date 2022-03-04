@@ -38,7 +38,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					<div class="contact-form mb60">
 						<ul class="cform">
 							<li class="full">
-								<h3>${kitSelectOne.kit_name }</h3>
+								<h3>${kitSelectOne.kit_name}</h3>
 								<hr>
 							</li>
 							<li class="full">
@@ -51,8 +51,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 									</div>
 									<div class="col-md-2"
 										style="float: left; margin: 0; padding-left: 0px; padding-right: 0px;">
-										<input type="number" id="kitCount" min="0" value="1"
-											class="form-control">
+										<input type="number" id="cartCount" min="1" value="1"
+											class="form-control" readonly>
 									</div>
 									<div class="col-md-2" style="float: left; margin-left: 0px;">
 										<a onclick="changeNum(this)" id="plus" class="view-more"
@@ -60,12 +60,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 									</div>
 								</div>
 							</li>
-							<li class="full" id="price">
-								
-							</li>
+							<li class="full" id="price"></li>
 							<li class="full"><a href="plantProductAdd.do"
 								class="view-more" style="color: white; cursor: pointer;">구매</a>
-								<a href="plantProductAdd.do" class="view-more"
+								<a onclick="insertCart()" class="view-more"
 								style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
 							</li>
 						</ul>
@@ -78,32 +76,39 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	</section>
 	<script type="text/javascript">
 
+	//페이지 로드되면 가격에 콤마 넣기
 	$(document).ready(function () {
 		$("#price").empty();
 		$("#price").append($("<h5>").text( "가격 : "+ (parseInt(${kitSelectOne.kit_price } * 1)).toLocaleString('ko-KR') ),
 				$("<br>"), $("<hr>") );
-		
 	})
 	
+	//======버튼 누르면 내역 바뀜======
 	function changeNum(e) {
-		
-		//console.log(e.id);
-		var kitCount = parseInt($("#kitCount").val());
+		var cartCount = parseInt($("#cartCount").val());
 		
 		var num = 0;
 		
-		if(e.id === "minus" && kitCount > 0){
+		if(e.id === "minus" && cartCount > 1){
 			num = -1;
 		}else if(e.id==="plus") {
 			num = 1;
 		}
 		
-		$("#kitCount").val(kitCount + num);
+		$("#cartCount").val(cartCount + num);
 		
 		$("#price").empty();
-		$("#price").append($("<h5>").text( "가격 : "+ (parseInt(${kitSelectOne.kit_price }*(kitCount + num))).toLocaleString('ko-KR') ),
+		$("#price").append($("<h5>").text( "가격 : "+ (parseInt(${kitSelectOne.kit_price }*(cartCount + num))).toLocaleString('ko-KR') ),
 				$("<br>"), $("<hr>") );
-		console.log( "가격 : "+ (parseInt(${kitSelectOne.kit_price }*(kitCount + num))) );
+		console.log( "가격 : "+ (parseInt(${kitSelectOne.kit_price }*(cartCount + num))) );
+	}
+	
+	function insertCart() {
+		var link = "cartInsert.do?cart_kit_no=${kitSelectOne.kit_no }&cart_price=${kitSelectOne.kit_price}&cart_sale_count=";
+		var cartSaleCount = $("#cartCount").val();
+		console.log(link + cartSaleCount);	
+		location.href = link + cartSaleCount;
+		
 	}
 		</script>
 </body>

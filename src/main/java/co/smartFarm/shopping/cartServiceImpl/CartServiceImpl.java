@@ -21,7 +21,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public Integer insertCart(CartVO cartVo) {
+	public Integer cartInsert(CartVO cartVo) {
 		System.out.println(cartVo.toString());
 		return map.cartInsert(cartVo);
 	}
