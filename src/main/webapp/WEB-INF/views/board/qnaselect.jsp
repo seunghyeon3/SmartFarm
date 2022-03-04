@@ -58,25 +58,25 @@ ul>li>p{
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>자료실</h3>
+                        <h3>QNA</h3>
                         <ul class="cform">
                            <li class="half pr-15">
-                               <p>제목: ${archieve.archieve_title}</p>
+                               <p>제목: ${qna.qna_title}</p>
                            </li>
                            <li class="half pr-15">
-                              <p>날짜: ${archieve.archieve_day}</p>
+                              <p>날짜: ${qna.qna_day}</p>
                            </li>
                            <li class="full">
-                               <p>내용: ${archieve.archieve_con}</p>
+                               <p>내용: ${qna.qna_con}</p>
                            </li>
                            <li class="full">
-                          	<img src="resources/images/${archieve.archieve_img}"onError="this.style.visibility='hidden'">
+                          	<img src="resources/images/${qna.qna_phy_rou}"onError="this.style.visibility='hidden'">
                            </li>
                             <li class="full">
-                            <p><a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a></p>
+                            <p><a href="downloada.do?rou=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a></p>
                             </li>
                            <li class="full">
- 								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
+ 								 <input type="button" value="수정하기" onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'" class="fsubmit">
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>

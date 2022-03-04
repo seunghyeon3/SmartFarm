@@ -160,7 +160,6 @@ public class GrowController {
 //		텍스트 내용 읽기
 		Path path = Paths.get(test);
 		List<String> lines = java.nio.file.Files.readAllLines(path);
-		
 //		로그
 		System.out.println(lines);
 		

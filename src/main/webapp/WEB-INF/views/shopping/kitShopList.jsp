@@ -16,12 +16,12 @@
 
          <!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
          <div class="single-post-tags">
-         	<a href="javascript:divisionList(product)">전체</a>
+            <a href="javascript:divisionList(product)">전체</a>
             <a href="javascript:divisionList(product)">상업용</a>
             <a href="javascript:divisionList(habbit)">취미용</a>
          </div>
       </div>
-      
+
 
       <!-- 검색 버튼 추가 -->
       <div class="col-lg-3 col-md-4 side-search">
@@ -32,20 +32,25 @@
 
    <section class="shop wf100 p80">
       <div class="container">
-         <div class="row" id="prolist">	
-         	<!-- 판매 리스트 출력 시작 -->
-         		<c:forEach items="${kitSelectList}" var="list">
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product-box">
-                        <div class="pro-thumb"> <a href="#">장바구니 추가</a> <img src="resources/images/shop/pro1.jpg" alt=""></div>
-                        <div class="pro-txt">
-                           <h6><a href="kitProductDetail.do?kit_no=${list.kit_no }">${list.kit_name}</a></h6>
-                           <p class="pro-price"> ${list.kit_price }</p>
-                        </div>
+         <div class="row" id="prolist">
+            <!-- 판매 리스트 출력 시작 -->
+            <c:forEach items="${kitSelectList}" var="list">
+               <div class="col-lg-3 col-sm-6">
+                  <div class="product-box">
+
+
+                     <div class="pro-thumb"> <a onclick="insertCart(this)"
+                           href="cartInsert.do?cart_kit_no=${list.kit_no }&cart_price=${list.kit_price}&cart_sale_count=1">장바구니
+                           추가</a> <img src="resources/images/shop/pro1.jpg" alt=""></div>
+                     <div class="pro-txt">
+                        <p style="margin:0;">(${list.kit_prpos})</p>
+                        <h6><a href="kitProductDetail.do?kit_no=${list.kit_no }"> ${list.kit_name}</a></h6>
+                        <p class="pro-price"> ${list.kit_price }</p>
                      </div>
                   </div>
-                </c:forEach>
-         <!-- 판매 리스트 출력 끝 -->
+               </div>
+            </c:forEach>
+            <!-- 판매 리스트 출력 끝 -->
             <div class="col-md-12">
                <a href="plantProductAdd.do" class="view-more" style="color: white; cursor: pointer;">키트 등록 버튼</a>
             </div>
@@ -71,10 +76,10 @@
       </div>
    </section>
    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
    <script type="text/javascript">
-   	/* //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
+      /* //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
       $.ajax({
          url: '',
          method: 'get',
@@ -85,8 +90,8 @@
             console.log(err);
          }
       }) */
-      
-     // 검색 창에 자동완성 기능
+
+      // 검색 창에 자동완성 기능
       fetch(
             "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101"
          )
@@ -96,8 +101,8 @@
          .then(result =>
             showAuto(result)
          );
-   	
-     // 자동완성 기능 함수
+
+      // 자동완성 기능 함수
       function showAuto(lists) {
          var arr = [];
          for (index in lists.boxOfficeResult.dailyBoxOfficeList) {
@@ -114,7 +119,7 @@
             }
          });
       };
-      
+
       //상업, 취미용 리스트 출력 함수
       function divisionList(id) {
          $.ajax({
@@ -126,6 +131,12 @@
             $('#prolist').empty();
             showList(result);
          });
+      }
+
+      // ===== 장바구니 추가 =====
+      function insertCart(e) {
+         e.preventDefault();
+         console.log(e)
       }
 
       /* //판매 리스트 출력하는 함수
@@ -153,7 +164,6 @@
                )
             )
       } */
-
    </script>
 
 </body>
