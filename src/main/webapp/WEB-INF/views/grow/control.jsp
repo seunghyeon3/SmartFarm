@@ -53,7 +53,7 @@
 							<div>
 								<ul class="check-list" style="margin-top: 20px;">
 									<li><strong>자동 재배   </strong><input type="checkbox"> </li>
-									<li><strong>키트 이름:</strong><input type="text"></li>
+									<li><strong>키트 고유 번호:</strong><input type="text"></li>
 									<li><strong>작물 이름:</strong><input type="text"></li>
 									<li><strong>온도:</strong><input type="text"></li>
 									<li><strong>습도:</strong><input type="text"></li>

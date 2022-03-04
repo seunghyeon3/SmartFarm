@@ -191,15 +191,15 @@ public class GrowController {
 		
 		//220302 PSH mapG -> growDao로 수정
 		//List<GrowVO> test = mapG.orderNumber(email);
-		List<GrowVO> test = growDao.orderNumber(email);
+		List<GrowVO> oNum = growDao.orderNumber(email);
 		
 		Gson gson = new Gson();
 		
-		List<String> resultTest = gson.fromJson(request.getParameter(Integer.toString(test.get(0).getPur_his_order_no())), List.class);
+		List<String> resultTest = gson.fromJson(request.getParameter(Integer.toString(oNum.get(0).getPur_his_order_no())), List.class);
 		
 		System.out.println(resultTest.get(0));
 		
-		System.out.println(request.getParameter(Integer.toString(test.get(0).getPur_his_order_no())));	
+		System.out.println(request.getParameter(Integer.toString(oNum.get(0).getPur_his_order_no())));	
 		
 		String logRoute = "D:\\" + email + ".txt";
 		
@@ -213,8 +213,11 @@ public class GrowController {
 			FileWriter fileWriter = new FileWriter(file, true);
 			PrintWriter writer = new PrintWriter(fileWriter);
 			
-			
-			writer.println(resultTest.get(0).toString());
+			for(int i=0; i<resultTest.size(); i++) {
+				System.out.println(resultTest.get(i));
+				writer.println(resultTest.get(i).toString());
+			}
+//			writer.println(resultTest.get(0).toString());
 			
 			writer.close();
 			
@@ -234,9 +237,9 @@ public class GrowController {
 		
 		List<String> resultTest = gson.fromJson(request.getParameter("1"), List.class);
 		
-		System.out.println(resultTest.get(0));
-		System.out.println(resultTest.get(1));
-		System.out.println(resultTest.get(2));
+		for(int i=0; i<resultTest.size(); i++) {
+			System.out.println(resultTest.get(i));
+		}
 		
 		return "log-updated";
 	}

@@ -30,5 +30,10 @@ public class GrowServiceImpl implements GrowService{
 	public List<GrowVO> orderNumber(String memEmail) {
 		return map.orderNumber(memEmail);
 	}
+	
+	@Override
+	public List<GrowVO> growListing(String memEmail) {
+		return map.growListing(memEmail);
+	}
 
 }

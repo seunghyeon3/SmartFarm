@@ -19,6 +19,12 @@
 		SELECT P.KIT_NO FROM PUR_HIS P, KIT K 
 		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL = #{memEmail} AND K.KIT_PRPOS='상업용'
 	</select>
+	
+	<select id="growListing" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
+		SELECT P.PUR_HIS_ORDER_NO, P.KIT_NO, K.KIT_NAME, K.KIT_PRPOS, K.KIT_PLANT_NAME 
+		FROM PUR_HIS P, KIT K 
+		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL=#{memEmail};
+	</select>
 
 
 </mapper>
