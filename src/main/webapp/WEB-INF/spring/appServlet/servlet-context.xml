@@ -5,7 +5,7 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
-	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
 		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
@@ -51,12 +51,20 @@
 		</beans:property>
 	</beans:bean>
 
+	<!-- Controller가 처리하지 못하는 요청은 WAS에게 처리하도록 해주는 설정 -->
+	<default-servlet-handler />
+	
+	<!-- 웹 소켓 서버로 사용할 클래스의 bean을 생성 -->
+	<beans:bean class="co.smartFarm.auction.aucnWeb.SocketHandler" id="myHandler" />
+	
+	<!-- 웹 소켓 서버와 URL을 매핑 -->
 	<websocket:handlers>
-		<websocket:mapping handler="chattingHandler" path="http://localhost:8080/prj/aucnDetail.do?aucnNo=1"/>
-		<websocket:sockjs websocket-enabled="true" />
+		<websocket:mapping handler="myHandler" path="/websocket/broadcast.do"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="co.smartFarm.auction.aucnWeb.HandShakeInterceptor"/>
+		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
-	<beans:bean class="co.smartFarm.auction.aucnWeb.ChattingHandler" id="chattingHandler" />
 
 	<context:component-scan base-package="co.smartFarm.*" />
 </beans:beans>
