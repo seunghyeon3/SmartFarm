@@ -62,6 +62,7 @@
              <!-- grid 불러오기 -->
                        <div id="grid"></div>
                <a href="faqinsertForm.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
+               <a href="javascript:void(0)" onclick="deleteCheck()" class="view-more" style="color: white; cursor: pointer;">삭제</a>
             </div>
          </div>
          <div class="row">
@@ -90,12 +91,32 @@
               <!-- 4 --> 
       <script>
 		//표 출력
+		
+	const faqData = [ 
+		<c:forEach var="values" items="${faq}"  varStatus="status" >  //foreach for문 
+
+			 { 
+				faq_no : '${values.faq_no}' ,     //번호
+				faq_title : '${values.faq_title}' ,   //제목
+			    _children : [ 						//자식 안에 번호 내용
+			      { 
+			    	 faq_no : '${values.faq_no}' ,
+			        faq_title : '${values.faq_con}'
+			      } ,
+			      
+			    ] 
+			  }  
+
+			  <c:if test="${status.last ne ture}" >,</c:if>  
+		</c:forEach>
+	];
 	const grid = new tui.Grid({
 	  rowHeight : 'auto',
 	  rowWidth : 'auto',
       el: document.getElementById('grid'),
-      data: ${faq},
-      rowHeaders: ['checkbox'],
+      //data: ${faq},
+      data : faqData,
+  rowHeaders: ['checkbox'], 
       bodyHeight: 500,
       treeColumnOptions: {
     	    name: 'faq_title',
@@ -103,11 +124,11 @@
     	    indentWidth:22
     	  },
       columns: [
-        {
+        /* {
           header: '번호',
           name: 'faq_no',
           width: 300
-        },
+        }, */
         {
           header: '제목',
           name: 'faq_title'
@@ -115,44 +136,48 @@
         
       ]
     });
+	
+/* 	// 표 데이터
+	var gridData = ${faq_no};
 
-    grid.on('click', ev => {
-      const { rowKey } = ev;
-      const descendantRows = grid.getDescendantRows(rowKey);
+	//데이터 입력
+	grid.resetData(gridData);
+	grid.hideColumn('faq_no', 'faq_no');
+	
+	
+	//표에 버튼 넣기
+	function changeValue() {
+		var table = $('table');
 
-      console.log('rowKey: ' + rowKey);
-      console.log('descendantRows: ' + descendantRows);
+		for (var i = 0; i < gridData.length; i++) {
+			console.log(grid.getValue(i, 'kit_sale_whet'));
 
-      if (!descendantRows.length) {
-    	  grid.appendRow(
-	          {
-	        	
-	            name: 'faq.faq_title',
-	            
-	            _children: [
-	          	{   
-	          		name: 'faq.faq_con'
-	          	},
-	           {
-	             name: 'faq.faq_con',
-	            _children: []
-	           }
-	               ]
-	              },
-	                
-	          { parentRowKey: rowKey }
-	        );
-	      }
-    });
-   
-    grid.on('expand', (ev) => {
-    	  const {rowKey} = ev;
-    	  const descendantRows = grid.getDescendantRows(rowKey);
+			if (grid.getValue(i, 'kit_sale_whet') == 'Y') {// 내리기
+				var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="cancle(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+				grid.setValue(i, 'kit_sale_whet', input, true);
 
-    	  console.log('rowKey: ' + rowKey);
-    	  console.log('descendantRows: ' + descendantRows);
-    	});
-  
+			} else { //올리기
+
+				var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+
+				grid.setValue(i, 'kit_sale_whet', input, true);
+			}
+
+		}
+	} */
+
+	
+	 function deleteCheck(){
+		var checkArr = [];
+		checkArr = grid.getCheckedRows();
+		var checkLength = checkArr.length;
+		alert("삭제하시겠습니까");
+		var testNo = checkArr[0].faq_no;
+		console.log(checkArr[0].faq_no);
+		
+		location.href="faqdelete.do?faq_no="+testNo;
+	
+	} 
  </script>
    </body>
 </html>

@@ -64,7 +64,7 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 경매 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">NFT 경매</a></li>
+                           <li><a href="${pageContext.request.contextPath}/aucnMain.do">NFT 경매</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">

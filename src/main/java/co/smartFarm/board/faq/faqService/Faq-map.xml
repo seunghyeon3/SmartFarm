@@ -3,12 +3,12 @@
 <mapper namespace="co.smartFarm.board.faq.faqService.FaqMapper">
 <!-- 전체리스트 -->
  <select id="faqSelectList" resultType="co.smartFarm.board.faq.faqService.FaqVO">
- SELECT * FROM FAQ ORDER BY FAQ_NO ASC
+SELECT REPLACE(FAQ_CON,CHR(13) || CHR(10),'') FAQ_CON, FAQ_NO,FAQ_TITLE FROM FAQ <!--다시 수정 -->
  </select>
  <!-- 단건조회 -->
  <select id="faqinsertSelect" resultType="co.smartFarm.board.faq.faqService.FaqVO"
  parameterType="co.smartFarm.board.faq.faqService.FaqVO">
- SELECT # FROM FAQ WHERE FAQ_NO = #{FAQ_NO}
+ SELECT * FROM FAQ WHERE FAQ_NO = #{FAQ_NO}
  </select>
  <!-- 수정 -->
  <update id="faqUpdate" parameterType="co.smartFarm.board.faq.faqService.FaqVO">
