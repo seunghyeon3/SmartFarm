@@ -9,4 +9,6 @@ public interface GrowMapper {
 	List<GrowVO> growComList(String memEmail);
 	
 	List<GrowVO> orderNumber(String memEmail);
+	
+	List<GrowVO> growListing(String memEmail);
 }

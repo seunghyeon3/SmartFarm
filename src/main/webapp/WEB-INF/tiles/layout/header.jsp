@@ -70,7 +70,7 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">자유 게시판</a></li>
+                           <li><a href="/free.do">자유 게시판</a></li>
                            <li><a href="#">이용 후기</a> </li>
                            
                         </ul>
