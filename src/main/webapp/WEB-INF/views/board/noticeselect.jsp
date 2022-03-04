@@ -74,7 +74,7 @@ ul>li>p{
                              <img src="download.do?img=${notice.notice_img}"onError="this.style.visibility='hidden'">
                             </li>
                             <li class="full">
-                             <a href="download.do?img=${notice.notice_img}">${notice.notice_img}</a>
+                             <p><a href="download.do?img=${notice.notice_img}">${notice.notice_img}</a></p>
                             </li>
                            <li class="full">
  							   <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit"> 
