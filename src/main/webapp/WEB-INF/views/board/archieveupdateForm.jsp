@@ -54,12 +54,12 @@
                      <ul class="cform">
                         <li class="full"><input type='hidden' name="archieve_no"value=${archieve.archieve_no}> 
                         <input type="text"class="form-control" placeholder="제목" name="archieve_title"value=${archieve.archieve_title}></li>
-                        <div class="filebox" style="float: right"><label for="ex_file">사진 업로드</label> <input type="file"id="ex_file" name="archievefile">
+                        <div class="filebox" style="float: right"><label for="ex_file">사진 업로드</label><input type="file"id="ex_file" name="archievefile">
                         </div>
                         <li class="full"><textarea class="textarea-control"placeholder="내용" name="archieve_con">${archieve.archieve_con}</textarea>
                         </li>
                         <li class="full"><input type="submit" value="확인" onclick="location.href=archieveupdate.do" class="fsubmit">
-                                    <input type=button value="삭제" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
+                                         <input type=button value="삭제" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
                         </li>
                      </ul>
                   </form>

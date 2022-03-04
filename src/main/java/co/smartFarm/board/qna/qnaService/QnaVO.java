@@ -5,14 +5,14 @@ import lombok.Data;
 @Data
 public class QnaVO {
 
-	private int qna_no;
-	private String qna_open_whet;
-	private String qna_title;
-	private String qna_con;
-	private String qna_name;
-	private int qna_hit;
-	private String qna_day;
-	private String qna_ori_rou;
-	private String qna_pht_rou;
-	private String mem_email;
+	private int qna_no; //번호 
+	private String qna_open_whet; //공개 비공개
+	private String qna_title; //제목
+	private String qna_con; //내용
+	private String mem_name; //작성자
+	private int qna_hit; //조회수
+	private String qna_day;//일식
+	private String qna_ori_rou;//원본경로
+	private String qna_phy_rou;//물리경로
+	private String mem_email;//이메일
 }

@@ -44,7 +44,7 @@ public class NoticeController {
 
 	// 공지사항 상세페이지
 	@RequestMapping(value = "/noticeselect.do")
-	public String archieveselect(NoticeVO notice, Model model) {
+	public String noticeselect(NoticeVO notice, Model model) {
 		noticeDao.noticeHitUpdate(notice.getNotice_no());
 		model.addAttribute("notice", noticeDao.noticeSelect(notice));
 		return "board/noticeselect";

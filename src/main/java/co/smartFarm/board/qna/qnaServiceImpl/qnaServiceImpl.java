@@ -22,55 +22,55 @@ public class qnaServiceImpl implements QnaService{
 
 	@Override
 	public QnaVO qnaSelect(int qna_no) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return map.qnaSelect(qna_no);
 	}
 
 	@Override
 	public QnaVO qnaSelect(QnaVO qna) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return map.qnaSelect(qna);
 	}
 
 	@Override
 	public int qnaInsert(QnaVO qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return map.qnaInsert(qna);
 	}
 
 	@Override
 	public int qnaDelete(QnaVO qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return map.qnaDelete(qna);
 	}
 
 	@Override
 	public int qnaUpdate(QnaVO qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return map.qnaUpdate(qna);
 	}
 
 	@Override
 	public int qnaHitUpdate(int qna_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return map.qnaHitUpdate(qna_no);
 	}
 
 	@Override
 	public int qnaNoUpdate(int qna_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return map.qnaNoUpdate(qna_no);
 	}
+	
+	
 
 	@Override
 	public List<QnaVO> qnaSearch(String key, String val) {
-		// TODO Auto-generated method stub
-		return null;
+		return map.qnaSearch(key, val);
 	}
 
 	@Override
 	public String writeValueAsString(List<QnaVO> qnaSelectList) {
-		// TODO Auto-generated method stub
-		return null;
+		return map.writeValueAsString(qnaSelectList);
 	}
 }
