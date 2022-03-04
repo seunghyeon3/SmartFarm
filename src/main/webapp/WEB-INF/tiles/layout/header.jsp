@@ -58,7 +58,7 @@
                         <a class="nav-link dropdown-toggle" href="plantShopList.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 판매 </a>
                         <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/plantShopList.do">작물 판매</a></li>
-                           <li><a href="#">키트 판매</a></li>
+                           <li><a href="${pageContext.request.contextPath}/kitShopList.do">키트 판매</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
@@ -101,19 +101,19 @@
                            <li><a href="${pageContext.request.contextPath}/admin/adminHome.do">매출</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminPurchaseList.do">키트 구매 현황</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageMember.do ">회원관리</a> </li>
-                           <li><a href="${pageContext.request.contextPath}/admin/adminManageKit.do">작물관리</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/admin/adminManageKit.do">키트관리</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 현황 조회</a> </li>
                         </ul>
                      </li>
                   </ul>
                   <ul class="topnav-right">
                      <li class="dropdown">
-                        <a class="cart-icon" href="#" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
+                        <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
                      </li>
 
 
-                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="#">Signup</a> </li>
-                     <li class="login-reg"> <a href="#">Logout</a> | <a href="mypage.do">Mypage</a> </li>
+                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
+                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="mypage.do">Mypage</a> </li>
 
                   </ul>
                </div>

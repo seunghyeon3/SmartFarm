@@ -110,6 +110,13 @@ public class MemberController {
 		}
 
 	}
+	
+	//===== 로그아웃 =====
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate(); //세션의 모든 속성을 삭제
+		return "home";
+	}
 
 	// ===== 회원가입 =====
 	// 회원가입창으로 이동
