@@ -202,6 +202,7 @@ input[type="number"] {
 		var gridData = payList
 
 		grid.resetData(gridData);
+		
 
 		// 판매가와 총액에 콤마 찍기
 		function setMoney() {
@@ -219,38 +220,41 @@ input[type="number"] {
 
 		}
 		setMoney();
-
+		
+		console.log(payList);
 		// ===== 결제하기 ===== 
 		//가맹점 식별코드를 이용하여 IMP 객체를 초기화하기
 		var IMP = window.IMP; // 생략 가능
 	    IMP.init("imp58588362"); // 예: imp00000000
-	    
+	  	
 		function requestPay() {
-	    	/* console.log(payList)
-	    	//구매품목이 여러개인 경우 "list[0] 외 list.length 건"으로 설정
+	    	
+	    	console.log(payList);
+	    	
+	    	// 구매품목이 여러개인 경우 "list[0].cart_detail 외 list.length 건"으로 설정
 			var pur_name = payList[0].cart_detail; //구매품목 이름
 			if( payList.length > 1){
 				pur_name = payList[0].cart_detail +" 외 " + payList.length + "건";
 			} 
-			console.log(pur_name);	
 			
-			console.log(new Date().getTime());	
+			// 결제 정보
 			var pur_his_recv = $("#pur_his_recv").val();//구매자 이름
 			var pur_his_tel = $("#pur_his_tel").val();//전화번호
 			var pur_his_addr = $("#mem_addr").val() + $("#mem_det_addr").val();// 구매자 주소 
 			var pur_postcode = $("mem_addr1").val();//우편번호
-			var pur_his_price = grid.getSummaryValues('cart_sum').filtered.sum;
+			var pur_his_price = grid.getSummaryValues('cart_sum').filtered.sum; //구매가격 
 			console.log("총액"+pur_his_price);
-			var uid = "ORD20180131" + new Date().getTime()
-		 */
-	        // IMP.request_pay(param, callback) 결제창 호출
-	       /*  IMP.request_pay({ // param
+			var uid = "ORD20180131" + new Date().getTime();
+			var mem_email = payList[0].mem_email; //이메일
+		 
+	        // IMP.request_pay(param, callback);// 결제창 호출
+	        IMP.request_pay({ // param
 	            pg: "inicis",
 	            pay_method: "card",
 	            merchant_uid: uid, // uid
 	            name: pur_name, //구매품목
-	            amount: 0, //총액 추후수정 0->pur_his_price
-	            buyer_email: "gildong@gmail.com", // 구매자 이메일
+	            amount: 1000, //총액  추후수정 pur_his_price
+	            buyer_email: mem_email, // 구매자 이메일
 	            buyer_name: pur_his_recv, // 구매자 이름
 	            buyer_tel: pur_his_tel, // 구매자 전화번호
 	            buyer_addr: pur_his_addr,  //구매자 주소
@@ -259,20 +263,41 @@ input[type="number"] {
 	        function (rsp) { // callback
 	        	
 	            if (rsp.success) {
-	                
+	            	console.log(rsp)
 	            	console.log(rsp.success)
 	                // 결제 성공 시 로직,
-	                
+	            	insertPurHis(rsp);
+	            	
 	               
 	            } else {
 	            	console.log(rsp);
-	               
+	                toastr.error('결제에 실패했습니다. 다시 시도해주세요')
 	                // 결제 실패 시 로직,
 	                
 	            }
-	        }); */
+	        }); 
 	      }
 		
+		//===== 결제 완료 후 결제 내역을 cart에서 삭제하고 pur_his에 insert 하기 =====
+		function insertPurHis(purHis) {
+			
+			 payList.push(purHis);//결제 완료 후 결제 정보 받아서 payList에 넣기
+			 
+			 console.log("결과 확인 !!! === ");
+			 console.log(payList);
+			 
+			 $.ajax({
+				method: 'post',
+				url: "insertPurHis.do",
+				traditional: true,
+				data : JSON.stringify(payList),
+				contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				success: function (res) {
+					console.log(res);
+			       }
+			});
+		}
 
 		//=====주소 api=====
 		var element_layer = document.getElementById('layer');
@@ -348,9 +373,6 @@ input[type="number"] {
 		
 		
 	</script>
-
-
 </body>
-
 
 </html>
