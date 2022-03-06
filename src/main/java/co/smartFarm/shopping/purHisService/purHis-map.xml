@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.shopping.purHisService.PurHisMapper">
+   <select id="purHisInsert" 
+   	parameterType="co.smartFarm.shopping.purHisService.PurHisVO"
+   	statementType="CALLABLE">
+        <![CDATA[
+            {call insert_pur_his(
+               #{mem_email},
+               #{kit_no},
+               #{plant_sale_no},
+               #{pur_his_recv},
+               #{pur_his_tel},
+               #{pur_his_addr},
+               #{pur_his_sale_count},
+               #{pur_his_price}
+            )}
+         ]]>
+       
+   </select>
+</mapper>
