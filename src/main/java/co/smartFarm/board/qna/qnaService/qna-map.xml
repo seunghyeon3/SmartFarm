@@ -37,4 +37,11 @@ WHERE QNA_NO = #{qna_no}
 <update id="qnaHitUpdate" parameterType="int">
       UPDATE QNA SET QNA_HIT = QNA_HIT + 1 WHERE QNA_NO = #{qna_no}
 </update>
+<!-- 검색 -->
+	<select id="qnaSearch" resultType="co.smartFarm.board.qna.qnaService.QnaVO">
+		SELECT * FROM QNA
+		<if test="key == ''"> WHERE 1 = 1</if>
+		<if test="key == 'qna_no'">WHERE QNA_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'mem_name'">WHERE MEM_NAME LIKE '%' || #{val} || '%'</if>
+	</select>
  </mapper>

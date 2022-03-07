@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 import co.smartFarm.board.notice.noticeService.NoticeMapper;
 import co.smartFarm.board.notice.noticeService.NoticeService;
 import co.smartFarm.board.notice.noticeService.NoticeVO;
@@ -58,7 +59,10 @@ public class NoticeServiceImpl implements NoticeService{
 	public List<NoticeVO> noticeSearch(String key, String val) {
 		return map.noticeSearch(key, val);
 	}
-
+	@Override
+	public String writeValueAsString(List<NoticeVO> noticeSelectList) {
+		return map.writeValueAsString(noticeSelectList());
+	} 
 	
 	
 }

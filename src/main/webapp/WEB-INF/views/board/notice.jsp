@@ -50,9 +50,13 @@
 .filebox{
 	float: right;
 }
+.form-control{
+	float: right;
+}
 </style>
 </head>
 <body>
+
    <div class="container p80">
       <div class="col-lg-9 col-md-8 side-widget">       
       </div>
@@ -63,6 +67,18 @@
       <div class="container">
          <div class="row" id="prolist">
           	<h3>공지 사항</h3>
+          	 	<div class="side-search">
+							<!--<form action="noticeSearch.do" method="post"> -->
+								<select class="form-control" id="key" name="key" style="width: 120px; float: left">
+									<option value="notice_no">번호</option>
+									<option value="notice_title">제목</option>
+								</select> <input  type="search" id="val" name="val" class="form-control" placeholder="검색"
+									style="margin: 0 10px; width: 380px; float: left;">
+								<button onclick="searchFnc()" type="submit">
+									<i class="fas fa-search"></i>
+								</button>
+							<!-- </form> -->
+						</div>
             <div class="col-md-12">
                        <div id="grid"></div> <!-- grid 불러오기 -->
                <a href="noticeinsertForm.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
@@ -131,6 +147,24 @@
 				  location.href='noticeselect.do?notice_no='+gridData[ev.rowKey].notice_no
 			  }
 			});
+		// ===== 검색 =====
+		function searchFnc() {
+			var searchKey = $("#key option:selected").val();
+			var searchVal = $("#val").val();
+			console.log(searchKey + " : " + searchVal);
+			data = JSON.stringify({key : searchKey, val : searchVal});
+			fetch("noticeSearch.do",
+					{
+						method:'POST',
+						body : data
+							
+					})
+				.then(response => response.json())
+				.then(function (result) {
+					//console.log(result);
+					grid.resetData(result);
+				})
+		}
  </script>
    </body>
 </html>

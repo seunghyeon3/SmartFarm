@@ -31,4 +31,12 @@ VALUES(#{faq_no}, #{faq_title}, #{faq_con})
 <delete id="faqDelete" parameterType="co.smartFarm.board.faq.faqService.FaqVO">
    DELETE FROM FAQ WHERE FAQ_NO =#{faq_no}
 </delete>
+<!-- 검색 -->
+	<select id="faqSearch" resultType="co.smartFarm.board.faq.faqService.FaqVO">
+		SELECT * FROM FAQ
+		<if test="key == ''"> WHERE 1 = 1</if>
+		<if test="key == 'faq_no'">WHERE FAQ_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'faq_title'">WHERE FAQ_TITLE LIKE '%' || #{val} || '%'</if>
+			
+	</select>
  </mapper>

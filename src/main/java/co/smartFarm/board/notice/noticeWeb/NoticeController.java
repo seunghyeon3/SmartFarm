@@ -8,18 +8,23 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 //3
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 import co.smartFarm.board.notice.noticeService.NoticeService;
 import co.smartFarm.board.notice.noticeService.NoticeVO;
 
@@ -142,4 +147,16 @@ public class NoticeController {
 	      System.out.println(notice_no);
 	      return "board/notice";
 	   }
+	// 검색 
+		@PostMapping(value = "noticeSearch.do")
+		@ResponseBody
+		public List<NoticeVO> noticeSearch(@RequestBody String req) {
+
+			JSONObject object = new JSONObject(req);
+
+			String key = object.getString("key");
+			String val = object.getString("val");
+
+			return noticeDao.noticeSearch(key, val);
+		}
 }
