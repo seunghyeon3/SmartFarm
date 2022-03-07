@@ -219,7 +219,6 @@ input[type="checkbox"]:checked::before {
 			console.log("올리기!===");
 			var id = e.id;//whet
 			var key = e.dataset.key;//키트 번호 찾기 위한 rowKey
-			
 			kitSaleWhet(id, key);
 			location.reload();
 		}
@@ -229,7 +228,6 @@ input[type="checkbox"]:checked::before {
 			
 			var id = e.id;//whet
 			var key = e.dataset.key;//키트 번호 찾기 위한 rowKey
-			
 			kitSaleWhet(id, key);
 			location.reload();
 			
@@ -254,6 +252,9 @@ input[type="checkbox"]:checked::before {
 					})
 			 
 		}
+		
+		
+		
 		function searchKit() {
 			var search = $("#searchKit").val();
 			

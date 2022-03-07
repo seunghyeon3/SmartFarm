@@ -169,10 +169,8 @@
 		//=====차트=====
 		var context = document.getElementById('myChart').getContext('2d');
 		var myChart = new Chart(context, {
-			
 			type: 'line', // 차트의 형태 line, pie, bar
 			data: { // 차트에 들어갈 데이터
-				
 				labels: ['1', '2', '3', '4', '5', '6', '7'], //x 축
 				datasets: [{ //데이터
 					label: '총매출', //차트 제목
@@ -239,10 +237,16 @@
 		
 		//날짜 검색 함수
 		function searchFnc() {
-			var startDate = $("#startpicker-input").val();
-			var endDate = $("#endpicker-input").val();
 			
-			console.log(startDate +" : "+endDate)
+			//두 날짜 차이 구하기
+			var start = $("#startpicker-input").val().split("-");
+			var end = $("#endpicker-input").val().split("-");
+			
+			var startDate = new Date(start[0], start[1], start[2]);
+			var endDate = new Date(end[0], end[1], end[2]);
+			var divDay = 24 * 60 * 60 * 1000;
+			var getDate = parseInt( (endDate - startDate) / divDay );
+			console.log(getDate);
 		} 
 		
 		

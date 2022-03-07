@@ -15,13 +15,13 @@
 
 <!-- CSS FILES End -->
 <style type="text/css">
-.radioCss {
+/* .radioCss {
 	width: 50px;
 	padding: 20px;
 	font-size: 1.2em;
 }
 
-/*radio 버튼 색상변경 */
+/*radio 버튼 색상변경 
 input[type='radio'] {
 	-webkit-appearance: none;
 	width: 16px;
@@ -69,6 +69,15 @@ input[type="number"] {
 
 .inner {
 	width: 150px;
+} */
+.delBtn {
+	padding: 3px 20px;
+	background-color: #f53738;
+	color: #f8f9fa;
+	border: 1px solid #f53738;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 20px;
 }
 </style>
 </head>
@@ -123,16 +132,16 @@ input[type="number"] {
 
 	<script>
 		// GRID 를 생성한다.
-		   class CustomTextEditor {
-      constructor(props) {
-        const el = document.createElement('input');
-        const { min } = props.columnInfo.editor.options;
+		class CustomTextEditor {
+	      	constructor(props) {
+	        const el = document.createElement('input');
+	        const { min } = props.columnInfo.editor.options;
+	
+	        el.type = 'number';
+	        el.min = min;
+	        el.value = String(props.value);
 
-        el.type = 'number';
-        el.min = min;
-        el.value = String(props.value);
-
-        this.el = el;
+       	 this.el = el;
       }
 
       
@@ -149,13 +158,14 @@ input[type="number"] {
       }
     }
 		
+		var gridData = ${cartSelectList}
 		
 		var grid = new tui.Grid({
 			el : document.getElementById('grid'),
 			scrollX : false,
 			scrollY : false,
 			rowHeaders : [ 'checkbox' ],
-			
+			minBodyHeight : 40 * gridData.length,
 			columns : [ {
 				header : '상품정보(사진 + 이름 링크달기)',
 				name : 'cart_detail'
@@ -189,10 +199,7 @@ input[type="number"] {
 		
 		// GRID 에 데이터를 입력한다.
 		
-		var gridData = ${cartSelectList}
 		
-		  
-
 		grid.resetData(gridData);
 
 		// 판매가와 총액에 콤마 찍기
@@ -203,19 +210,51 @@ input[type="number"] {
 				var price = parseInt(grid.getValue(i, 'cart_price')).toLocaleString('ko-KR');
 				grid.setValue(i, 'cart_price', price, true);
 				var sum = parseInt(grid.getValue(i, 'cart_sum')).toLocaleString('ko-KR');
-				grid.setValue(i, 'cart_sum', sum, true);
-				
-			}
-			
+				grid.setValue(i, 'cart_sum', sum, true);	
+			}	
 		}
 		setMoney();
 		
-		//삭제버튼 넣기
-		function setDelete() {
-			var input = '<div class="container" style="text-aline:center;"> <a onclick="" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
-			//grid.setValue(1, 'cart_option', input, true);
+		//삭제 버튼 만들기
+		function createDelBtn() {
+			for (var i = 0; i < gridData.length; i++) {
+				
+				var input = '<button type="button" class="delBtn" data-key='+i+' id="'+grid.getValue(i, 'cart_option')+'" onclick ="delCart(this)"> 삭제 </button>'
+				grid.setValue(i, 'cart_option', input, true);
+			}
 		}
-		setDelete();
+		
+		createDelBtn();
+		
+		// ===== 장바구니에서 삭제하기 ===== 
+		function delCart(e) {
+			
+			console.log(e.id);
+			console.log(e.dataset.key);
+			
+			var cartDetail = e.id; //plant kit 번호 받아오기
+			var key = e.dataset.key;//rowKey 받아오기
+			// console.log(grid.getRow(key));
+			var url="cartDelete.do?cart_detail="+cartDetail;
+			
+			$.ajax({
+				method : 'get',
+				url : url,
+				/* data : {"cart_detail" : cartDetail}, */
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success: function (res) {
+					if(res ==='1'){
+						toastr.success('삭제되었습니다');
+					}else{
+						toastr.error('오류가 발생했습니다. 다시 시도해주세요');
+					}
+					location.reload();
+				}
+				
+				
+			});
+			
+		}		
 		
 		//input의 값이 변화되면 cart_sum을 변화시켜주는 함수
 		function changePrice(e) {
