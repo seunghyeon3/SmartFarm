@@ -36,4 +36,11 @@ VALUES(#{archieve_no}, #{archieve_title}, #{archieve_con}, #{archieve_img}, #{me
 <update id="archieveHitUpdate" parameterType="int">
       UPDATE ARCHIEVE SET ARCHIEVE_HIT = ARCHIEVE_HIT + 1 WHERE ARCHIEVE_NO = #{archieve_no}
 </update>
+<!-- 검색 -->
+	<select id="archieveSearch" resultType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
+		SELECT * FROM ARCHIEVE
+		<if test="key == ''"> WHERE 1 = 1</if>
+		<if test="key == 'archieve_no'">WHERE ARCHIEVE_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'archieve_title'">WHERE ARCHIEVE_TITLE LIKE '%' || #{val} || '%'</if>
+	</select>
 </mapper>

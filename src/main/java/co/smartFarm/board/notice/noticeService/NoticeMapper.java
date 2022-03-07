@@ -3,6 +3,8 @@ package co.smartFarm.board.notice.noticeService;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 //
 public interface NoticeMapper {
 	
@@ -16,6 +18,6 @@ public interface NoticeMapper {
 	int noticeHitUpdate(int notice_no); 
 	int noticeNoUpdate(int notice_no); 
 	List<NoticeVO> noticeSearch(@Param("key")String key, @Param("val") String val);
-	
+	String writeValueAsString(List<NoticeVO> noticeSelectList);
 
 }

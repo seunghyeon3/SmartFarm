@@ -1,5 +1,9 @@
 package co.smartFarm.admin;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,10 +24,10 @@ import com.google.gson.Gson;
 
 import co.smartFarm.NFT.service.NftService;
 import co.smartFarm.NFT.service.NftVO;
-import co.smartFarm.kit.kitService.KitMapper;
 import co.smartFarm.kit.kitService.KitService;
 import co.smartFarm.kit.kitService.KitVO;
-import co.smartFarm.user.memberService.MemberMapper;
+import co.smartFarm.shopping.purHisService.PurHisService;
+import co.smartFarm.shopping.purHisService.PurHisVO;
 import co.smartFarm.user.memberService.MemberService;
 import co.smartFarm.user.memberService.MemberVO;
 
@@ -41,10 +45,33 @@ public class AdminController {
 	@Autowired
 	NftService nftDao;
 
+	@Autowired
+	PurHisService purHisDao;
+
 	// ===== 매출 페이지 이동 =====
 	@RequestMapping("/admin/adminHome.do")
-	public String adminHome() {
+	public String adminHome(Model model) {
 
+		// 기본적으로 화면에 한달 전 부터 현재까지의 내역을 출력함
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+		String endDate = df.format(cal.getTime());// 현재 시간
+		System.out.println("현재시간 === " + endDate);
+
+		cal.add(Calendar.MONTH, -1);
+		String startDate = df.format(cal.getTime());// 한달 전
+		System.out.println("한달 전 === " + startDate);
+
+		PurHisVO purHisVo = new PurHisVO();
+		purHisVo.setEnd_date("2022-03-07");
+		purHisVo.setStart_date("2022-02-07");
+
+		//List<PurHisVO> list = purHisDao.adminPurHisSelectList(purHisVo);
+		//model.addAttribute("purHisSelectList", list);
+		//System.out.println(list.toString());
 		return "admin/adminHome";
 
 	}
@@ -79,10 +106,9 @@ public class AdminController {
 					if (memberList.get(i).getMem_fm_req().equals("Reject")) {
 						memberList.get(i).setMem_fm_req("거절됨");
 						memberList.get(i).setMem_fm_result("거절됨");
-
 					} else {
-
 						memberList.get(i).setMem_fm_result("신청중");
+						
 					}
 				}
 
@@ -165,7 +191,7 @@ public class AdminController {
 		List<NftVO> list = nftDao.adminNftSelectList();
 		String json = new Gson().toJson(list);
 		model.addAttribute("nftSelectList", json);
-		
+
 		return "admin/adminManageNFT";
 
 	}
