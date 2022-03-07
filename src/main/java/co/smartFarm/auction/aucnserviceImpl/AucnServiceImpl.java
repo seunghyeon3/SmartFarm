@@ -35,5 +35,10 @@ public class AucnServiceImpl implements AucnService{
 		return map.aucnEnable();
 	}
 
+	@Override
+	public Integer aucnBid(AucnVO aucn) {
+		return map.aucnBid(aucn);
+	}
+
 	
 }

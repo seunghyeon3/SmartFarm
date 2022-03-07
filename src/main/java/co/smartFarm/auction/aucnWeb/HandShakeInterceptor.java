@@ -21,10 +21,6 @@ public class HandShakeInterceptor extends HttpSessionHandshakeInterceptor{
 		 // 위의 파라미터 중, attributes 에 값을 저장하면 웹소켓 핸들러 클래스의 WebSocketSession에 전달된다
 			 ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request; 
 			 HttpServletRequest req = ssreq.getServletRequest(); 
-			 MemberVO member = (MemberVO) req.getSession().getAttribute("member");
-			 if(member!=null) {
-				 attributes.put("member", member);
-			 }
 			 return super.beforeHandshake(request, response, wsHandler, attributes); 
 	 } 
 	 @Override
