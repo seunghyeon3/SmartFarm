@@ -18,7 +18,13 @@ public class GrowVO {
 //	보유키트 조회를 위한 컬럼
 	private int kit_no;
 	private int pur_his_order_no;
-	
+	private String pur_his_kit_address;
+	private String grow_status;
+	private int kit_grow_day;
+	private String kit_plant_name;
+	private String kit_prpos;
+	private int percent;
+	private String end_estimate;
 	
 
 }

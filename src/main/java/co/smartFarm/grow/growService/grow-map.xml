@@ -4,7 +4,7 @@
 
 	<!-- 회원의 키트 조회 -->
 	<select id="growList" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
-		SELECT DISTINCT KIT_NO FROM PUR_HIS
+		SELECT DISTINCT KIT_NO, PUR_HIS_KIT_ADDRESS FROM PUR_HIS
 		WHERE MEM_EMAIL = #{memEmail}
 	</select>
 	
@@ -21,10 +21,19 @@
 	</select>
 	
 	<select id="growListing" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
-		SELECT P.PUR_HIS_ORDER_NO, P.KIT_NO, K.KIT_NAME, K.KIT_PRPOS, K.KIT_PLANT_NAME 
+		SELECT P.PUR_HIS_ORDER_NO, P.KIT_NO, P.PUR_HIS_KIT_ADDRESS, P.GROW_STATUS, K.KIT_NAME, K.KIT_PRPOS, K.KIT_PLANT_NAME, K.KIT_GROW_DAY 
 		FROM PUR_HIS P, KIT K 
-		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL=#{memEmail};
+		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL=#{memEmail}
 	</select>
-
+	
+	<update id="addressUpdate" parameterType="hashmap">
+		UPDATE PUR_HIS SET PUR_HIS_KIT_ADDRESS = #{ip} WHERE PUR_HIS_ORDER_NO = #{no}
+	</update>
+	
+	<update id="statusUpdate" parameterType="hashmap">
+		UPDATE PUR_HIS SET GROW_STATUS = #{status} WHERE PUR_HIS_ORDER_NO = #{no}
+	</update>
+	
+	
 
 </mapper>
