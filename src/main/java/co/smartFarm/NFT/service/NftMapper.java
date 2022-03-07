@@ -21,4 +21,5 @@ public interface NftMapper {
 	
 	//admin에서 nft 조회하기
 	List<NftVO> adminNftSelectList();
+	
 }
