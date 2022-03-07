@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
+
 public interface NoticeService {
 
 	List<NoticeVO> noticeSelectList();
@@ -16,6 +18,6 @@ public interface NoticeService {
 	int noticeHitUpdate(int notice_no); 
 	int noticeNoUpdate(int notice_no); 
 	List<NoticeVO> noticeSearch(@Param("key")String key, @Param("val") String val);
-	
+	String writeValueAsString(List<NoticeVO> noticeSelectList);
 
 }

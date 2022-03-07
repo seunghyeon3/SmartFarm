@@ -53,8 +53,8 @@
                         <td class="form-inline">
     					<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
     					<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;
+						
 						</td>
- 
                            <li class="full">
                               <input type="text" class="form-control" placeholder="제목" name="qna_title" value=${qna.qna_title}>
                            </li>
@@ -76,5 +76,6 @@
             </div>
          </section>
          
+ 
 </body>
 </html>

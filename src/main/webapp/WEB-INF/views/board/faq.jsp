@@ -58,6 +58,18 @@
       <div class="container">
          <div class="row" id="prolist">
           	<h3>FAQ</h3>
+          		<div class="side-search">
+							<!--<form action="noticeSearch.do" method="post"> -->
+								<select class="form-control" id="key" name="key" style="width: 120px; float: left">
+									<option value="faq_no">번호</option>
+									<option value="faq_title">제목</option>
+								</select> <input  type="search" id="val" name="val" class="form-control" placeholder="검색"
+									style="margin: 0 10px; width: 380px; float: left;">
+								<button onclick="searchFnc()" type="submit">
+									<i class="fas fa-search"></i>
+								</button>
+							<!-- </form> -->
+						</div>
             <div class="col-md-12">
              <!-- grid 불러오기 -->
                        <div id="grid"></div>
@@ -177,7 +189,24 @@
 		
 		location.href="faqdelete.do?faq_no="+testNo;
 	
-	} 
+	}
+	function searchFnc() {
+		var searchKey = $("#key option:selected").val();
+		var searchVal = $("#val").val();
+		console.log(searchKey + " : " + searchVal);
+		data = JSON.stringify({key : searchKey, val : searchVal});
+		fetch("faqSearch.do",
+				{
+					method:'POST',
+					body : data
+						
+				})
+			.then(response => response.json())
+			.then(function (result) {
+				//console.log(result);
+				grid.resetData(result);
+			})
+	}
  </script>
    </body>
 </html>
