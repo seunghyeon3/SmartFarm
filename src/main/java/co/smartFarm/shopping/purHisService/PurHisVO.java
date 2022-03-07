@@ -18,4 +18,13 @@ public class PurHisVO {
 	private String pur_his_revw_write;
 	private Date pur_his_pur_day;
 	private String pur_his_state;
+
+	// admin 페이지에서 매출을 표시하기 위한 컬럼
+	private int pur_count; // 구매수
+	private int plant_sum; // 작물 판매 금액
+	private int kit_sum; // 키트 판매 금액
+	private int pur_sum; // 전체 판매 금액
+	private String start_date;
+	private String end_date; // 일자 받아오기
+	
 }

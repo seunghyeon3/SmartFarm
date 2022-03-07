@@ -60,6 +60,28 @@ public class CartController {
 
 	}
 
+	// ===== 장바구니에서 삭제하기 =====
+	@GetMapping("/cartDelete.do")
+	@ResponseBody
+	public String cartDelete(CartVO cartVo, HttpSession session) {
+	
+		MemberVO memberVo = (MemberVO) session.getAttribute("member");
+		cartVo.setMem_email(memberVo.getMem_email());
+		if (cartVo.getCart_detail().contains("P")) {// 작물인 경우
+			int plantNo = Integer.parseInt(cartVo.getCart_detail().substring(1));
+			cartVo.setCart_plant_no(plantNo);
+		} else {
+			int kitNo = Integer.parseInt(cartVo.getCart_detail().substring(1));
+			cartVo.setCart_kit_no(kitNo);
+		}
+		System.out.println(cartVo.toString());
+		int result = cartDao.cartDelete(cartVo);
+		if(result == 1) {
+			return "1";
+		}
+		return "0";
+	}
+
 	// ===== 결제창 호출 =====
 	@GetMapping(value = "/pay.do", produces = "application/text;charset=utf8")
 	public String pay() {

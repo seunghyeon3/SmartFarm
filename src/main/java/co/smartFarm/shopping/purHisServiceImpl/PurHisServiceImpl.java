@@ -20,4 +20,10 @@ public class PurHisServiceImpl implements PurHisService{
 		
 		return map.purHisInsert(purHisVo);
 	}
+
+	@Override
+	public List<PurHisVO> adminPurHisSelectList(PurHisVO purHisVo) {
+		
+		return map.adminPurHisSelectList(purHisVo);
+	}
 }

@@ -33,5 +33,14 @@
 		 	)}
 		 ]]>
 	</select>
+	
+	<delete id="cartDelete" 
+		parameterType="co.smartFarm.shopping.cartService.CartVO">
+		
+		DELETE CART
+		WHERE MEM_EMAIL = #{mem_email}
+		AND CART_KIT_NO = #{cart_kit_no} AND CART_PLANT_NO = #{cart_plant_no}
+		
+	</delete>
 
 </mapper>

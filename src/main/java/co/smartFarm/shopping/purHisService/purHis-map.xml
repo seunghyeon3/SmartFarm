@@ -18,4 +18,34 @@
          ]]>
        
    </select>
+   
+   <select id="adminPurHisSelectList" 
+   		parameterType="co.smartFarm.shopping.purHisService.PurHisVO"
+   		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+   		
+   		SELECT 
+		    PUR_HIS_PUR_DAY, 
+		    PUR_COUNT AS PLANT_SALE_NO,
+		    SUM(PLANT_SUM) OVER(ORDER BY PUR_HIS_PUR_DAY) AS PLANT_SUM,
+		    SUM(KIT_SUM) OVER(ORDER BY PUR_HIS_PUR_DAY) AS KIT_SUM,
+		    SUM(PUR_SUM) OVER(ORDER BY PUR_HIS_PUR_DAY) AS PUR_SUM
+		    
+		FROM
+		    (SELECT    
+			    ROUND ( ( PUR_HIS_PUR_DAY - TO_DATE( #{start_date}, 'YYYY-MM-DD') ) / 7, 0 ) + 1 AS NUM,
+		        MIN( PUR_HIS_PUR_DAY ) AS PUR_HIS_PUR_DAY, 
+		        COUNT(PUR_HIS_PRICE) PUR_COUNT,  
+		        SUM(DECODE( KIT_NO, 0, PUR_HIS_PRICE, 0 )) KIT_SUM, 
+		        SUM(DECODE( PLANT_SALE_NO, 0, PUR_HIS_PRICE, 0 )) PLANT_SUM,
+		        SUM(PUR_HIS_PRICE) PUR_SUM
+		          
+		    FROM PUR_HIS
+		    WHERE PUR_HIS_PUR_DAY BETWEEN TO_DATE(  #{start_date}, 'YYYY-MM-DD') AND TO_DATE(  #{end_date}, 'YYYY-MM-DD') 
+		    GROUP BY ROUND( ( PUR_HIS_PUR_DAY - TO_DATE(  #{start_date}, 'YYYY-MM-DD')) / 7, 0 ) + 1 
+		    ORDER BY 1)
+		   
+		 
+		    
+   </select>
+   
 </mapper>
