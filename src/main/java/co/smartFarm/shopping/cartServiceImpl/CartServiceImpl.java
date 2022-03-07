@@ -26,4 +26,9 @@ public class CartServiceImpl implements CartService{
 		return map.cartInsert(cartVo);
 	}
 
+	@Override
+	public int cartDelete(CartVO cartVo) {
+		return map.cartDelete(cartVo);
+	}
+
 }

@@ -50,4 +50,13 @@
 			#{aucn_whet}, #{mem_email}, #{nft_no})
 	</insert>
 	
+	<select id="aucnBid" parameterType="co.smartFarm.auction.aucnService.AucnVO" statementType="CALLABLE">
+        <![CDATA[
+        { call aucn_bid (
+                #{now_bid_mem_email},
+                #{now_bid},
+                #{aucn_no}
+            )}
+        ]]>
+    </select>
 </mapper>

@@ -97,6 +97,27 @@
          $(document).ready( function () {
              $('#aucn_start_time').dateTimePicker();
          })
+         
+         function timerFunc(func, dateTime){
+			//ex) timerFunc(function(){console.log('test');},'20210108144740');
+		    //시간은 24시간을 기준으로 입력하여야 합니다.
+		    var year = Number(dateTime.substring(0,4));
+		    var month = Number(dateTime.substring(4,6));
+		    var day = Number(dateTime.substring(6,8));
+		    var time = Number(dateTime.substring(8,10));
+		    var minute = Number(dateTime.substring(10,12));
+		    var second = Number(dateTime.substring(12,14));
+		     
+		    var oprDate = new Date(year, month-1, day, time, minute, second); //동작을 원하는 시간의 Date 객체를 생성합니다.
+		    var nowDate = new Date();                                         //현재 날짜와 시간을 확인
+		     
+		    var timer = oprDate.getTime() - nowDate.getTime(); //동작시간의 밀리세컨과 현재시간의 밀리세컨의 차이를 계산합니다.
+		    if(timer < 0){ //타이머가 0보다 작으면 함수를 종료합니다.
+		       return;
+		    }else{
+		       setTimeout(func, timer);
+		    }
+		}
          </script>
 </body>
 </html>

@@ -33,6 +33,7 @@ public class AucnController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		aucn.setMem_name(member.getMem_name());
 		aucn.setMem_email(member.getMem_email());
+		aucn.setNow_bid(aucn.getFirst_bid());
 		aucnDao.aucnInsert(aucn);
 	    return "redirect:nftholdings.do";
 }
@@ -41,6 +42,7 @@ public class AucnController {
 	public String aucnDetail(@RequestParam(value="aucnNo") int aucnNo, AucnVO aucn, Model model) {
 		aucn = aucnDao.aucnSelect(aucnNo);
 		model.addAttribute("aucnSelect", aucn);
+		
 		return "auction/aucnDetail";
 	}
 	

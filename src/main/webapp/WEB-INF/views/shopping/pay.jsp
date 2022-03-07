@@ -11,64 +11,52 @@
 <meta name="author" content="">
 <link rel="icon" href="../resources/images/favicon.png">
 <title>ECO HTML</title>
-<!-- CSS FILES START -->
 
-<!-- CSS FILES End -->
+
 <style type="text/css">
-.radioCss {
-	width: 50px;
-	padding: 20px;
-	font-size: 1.2em;
+/* 테이블 css */
+table {
+	width: 100%;
+	border-top: 1px solid #aaaaaa;
+	border-collapse: collapse;
+	background-color: white;
+	
 }
 
-/*radio 버튼 색상변경 */
-input[type='radio'] {
-	-webkit-appearance: none;
-	width: 16px;
-	height: 16px;
-	border: 1px solid darkgray;
-	border-radius: 50%;
-	outline: none;
-	background: #e6e6e6;
-}
-
-input[type='radio']:before {
-	content: '';
-	display: block;
-	width: 60%;
-	height: 60%;
-	margin: 20% auto;
-	border-radius: 50%;
-}
-
-input[type='radio']:checked:before {
-	background: #1b5e20;
-}
-
-input[type="checkbox"]:checked {
-	background-color: black;
-	border-color: black;
-	color: white;
-}
-
-input[type="checkbox"]:checked::before {
-	border-radius: 2px;
-	transform: scale(1) translate(-50%, -50%)
-}
-
-input[type="number"] {
-	height: 60%;
-	width: 90%;
-	padding: 6px 7px;
-	border: solid 1px #ddd;
-}
-
-.checkList {
-	font-size: 1.2em;
-}
-
-.inner {
+th {
 	width: 150px;
+	text-align: center;
+	background-color: #f4f4f4;
+}
+
+th, td {
+	border-bottom: 1px solid #aaaaaa;
+	border-left: 1px solid #aaaaaa;
+	padding: 10px;
+}
+
+th:first-child, td:first-child {
+	border-left: none;
+}
+
+/* input 테두리 지우기 */
+input {
+	/* border: none; */
+	border-right: 0px;
+	border-top: 0px;
+	border-left: 0px;
+	/* border-bottom:1px; */
+	border-width: thin; border-color: #555555;
+}
+
+#findAddBtn {
+	padding: 3px 20px;
+	background-color: #66bb6a;
+	color: #f8f9fa;
+	border: 1px solid #66bb6a;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 20px;
 }
 </style>
 </head>
@@ -89,10 +77,11 @@ input[type="number"] {
 
 				<br> <br>
 				<div class="row">
-					<div class="col-md-12 col-sm-6" style="padding: 20px;margin-bottom:20px;">
+					<div class="col-md-12 col-sm-6"
+						style="padding: 20px; margin-bottom: 20px;">
 						<h3>배송정보</h3>
 						<br>
-						<table>
+						<table style="width:60%;">
 							<tr>
 								<th>이름</th>
 								<td><input type="text" id="pur_his_recv"></td>
@@ -103,21 +92,24 @@ input[type="number"] {
 							</tr>
 							<tr>
 								<th>우편번호</th>
-								<td><input type="text" id="mem_addr1" style="width:100px;"> <button type="button" onclick="findAddr()" class="fsubmit">우편번호
-									찾기</button></td>
+								<td><input type="text" id="mem_addr1" style="width: 100px;">
+									<button type="button" id="findAddBtn" onclick="findAddr()">우편번호
+										찾기</button></td>
 							</tr>
 							<tr>
 								<th>주소</th>
-								<td><input type="text" id="mem_addr2"></td>
-								
+								<td><input type="text" id="mem_addr2" style="width:90%;"></td>
+
 							</tr>
 							<tr>
 								<th>상세주소</th>
-								<td><input type="text" id="mem_addr3"><input type="text" id="mem_addr"><input type="text" id="mem_det_addr"></td>
+								<td><input type="hidden" id="mem_addr3"><input
+									type="hidden" id="mem_addr"><input type="text"
+									id="mem_det_addr" style="width:90%;"></td>
 							</tr>
 						</table>
 					</div>
-					
+
 					<!-- toast ui grid -->
 					<div class="col-md-12 col-sm-6" style="padding: 20px;">
 						<h3>주문상품</h3>
@@ -125,14 +117,14 @@ input[type="number"] {
 						<div id="gridInfo"></div>
 					</div>
 
-					<!-- 선택주문 전체주문 -->
-					<div class="col-md-8 col-sm-3"></div>
-					<div class="col-md-4 col-sm-6">
+					<!-- 결제 취소 버튼 -->
+					<div class="col-md-8 col-sm-3" id="showSum"></div>
+					<div class="col-md-4 col-sm-3">
 
 						<input type="button" id="select" onclick="requestPay()" value="결제"
 							name="Add to Cart"
 							style="padding: 10px 30px; margin-right: 25px; margin-left: 50px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a; border-radius: 5px; cursor: pointer">
-						<input type="button" id="all" onclick="" value="취소"
+						<input type="button" id="all" onclick="history.back()" value="취소"
 							name="Add to Cart"
 							style="padding: 10px 30px; background-color: #66bb6a; color: #f8f9fa; border: 1px solid #66bb6a; border-radius: 5px; cursor: pointer">
 
@@ -155,23 +147,24 @@ input[type="number"] {
 			onclick="closeFrm()" alt="닫기 버튼">
 	</div>
 
-	<!--   JS Files Start  -->
+	<!--   TOAST UI GRID js  -->
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+
 	<!-- 아임포트 결제 -->
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 	<script>
 		//console.log(localStorage.getItem("payList"));
 		var payList = JSON.parse(localStorage.getItem("payList"));
-		//console.log(payList);
-		// GRID 를 생성한다.
 
-		// 주문 정보 grid
+		// ===== toast ui GRID =====
 		var grid = new tui.Grid(
 				{
 					el : document.getElementById('gridInfo'),
 					scrollX : false,
 					scrollY : false,
-
+					minBodyHeight : 40 * payList.length,
 					columns : [ {
 						header : '상품정보(사진 + 이름 링크달기)',
 						name : 'cart_detail'
@@ -190,89 +183,125 @@ input[type="number"] {
 						position : 'bottom', // or 'top'
 						columnContent : {
 							cart_sum : {
-								template : function(valueMap) {
-									return `총액: {valueMap.sum}or grid.getSummaryValues('cart_sum') <br>AVG: ${valueMap.avg.toFixed(2)}`;
+								template : function(summary) {
+									var sum = getSum().toLocaleString('ko-KR');
+									if($("#showSum") != null){
+										$("#showSum").empty();
+									}
+									$("#showSum").append($("<h3>").text("총액 : " + sum));
+									return '총액 : '+ sum;
 								}
 							}
 						}
 					}
 				});
 
-		// GRID 에 데이터를 입력한다.
+		// GRID 에 데이터를 입력하기
 		var gridData = payList
-
 		grid.resetData(gridData);
-
+		var bodyHeight = payList.length * 17;
+		grid.setBodyHeight(30);
+		
 		// 판매가와 총액에 콤마 찍기
 		function setMoney() {
-
+			
 			for (var i = 0; i < gridData.length; i++) {
-
 				var price = parseInt(grid.getValue(i, 'cart_price'))
 						.toLocaleString('ko-KR');
 				grid.setValue(i, 'cart_price', price, true);
 				var sum = parseInt(grid.getValue(i, 'cart_sum'))
 						.toLocaleString('ko-KR');
 				grid.setValue(i, 'cart_sum', sum, true);
-
-			}
+			} 
 
 		}
 		setMoney();
 
+		// ===== 총액 구하기 =====
+		function getSum() {
+			var sum = 0;
+			for (var i=0;i<payList.length;i++){
+				sum += payList[i].cart_sum;
+			}
+			return sum;
+		}
+
 		// ===== 결제하기 ===== 
 		//가맹점 식별코드를 이용하여 IMP 객체를 초기화하기
 		var IMP = window.IMP; // 생략 가능
-	    IMP.init("imp58588362"); // 예: imp00000000
-	    
+		IMP.init("imp58588362"); // 예: imp00000000
+
 		function requestPay() {
-	    	/* console.log(payList)
-	    	//구매품목이 여러개인 경우 "list[0] 외 list.length 건"으로 설정
+
+			console.log(payList);
+
+			// 구매품목이 여러개인 경우 "list[0].cart_detail 외 list.length 건"으로 설정
 			var pur_name = payList[0].cart_detail; //구매품목 이름
-			if( payList.length > 1){
-				pur_name = payList[0].cart_detail +" 외 " + payList.length + "건";
-			} 
-			console.log(pur_name);	
-			
-			console.log(new Date().getTime());	
+			if (payList.length > 1) {
+				pur_name = payList[0].cart_detail + " 외 " + payList.length
+						+ "건";
+			}
+
+			// 결제 정보
 			var pur_his_recv = $("#pur_his_recv").val();//구매자 이름
 			var pur_his_tel = $("#pur_his_tel").val();//전화번호
 			var pur_his_addr = $("#mem_addr").val() + $("#mem_det_addr").val();// 구매자 주소 
 			var pur_postcode = $("mem_addr1").val();//우편번호
-			var pur_his_price = grid.getSummaryValues('cart_sum').filtered.sum;
-			console.log("총액"+pur_his_price);
-			var uid = "ORD20180131" + new Date().getTime()
-		 */
-	        // IMP.request_pay(param, callback) 결제창 호출
-	       /*  IMP.request_pay({ // param
-	            pg: "inicis",
-	            pay_method: "card",
-	            merchant_uid: uid, // uid
-	            name: pur_name, //구매품목
-	            amount: 0, //총액 추후수정 0->pur_his_price
-	            buyer_email: "gildong@gmail.com", // 구매자 이메일
-	            buyer_name: pur_his_recv, // 구매자 이름
-	            buyer_tel: pur_his_tel, // 구매자 전화번호
-	            buyer_addr: pur_his_addr,  //구매자 주소
-	            buyer_postcode: pur_postcode //구매자 우편번호
-	        }, 
-	        function (rsp) { // callback
-	        	
-	            if (rsp.success) {
-	                
-	            	console.log(rsp.success)
-	                // 결제 성공 시 로직,
-	                
-	               
-	            } else {
-	            	console.log(rsp);
-	               
-	                // 결제 실패 시 로직,
-	                
-	            }
-	        }); */
-	      }
-		
+			var pur_his_price = getSum(); //구매가격 
+			console.log("총액" + pur_his_price);
+			var uid = "ORD20180131" + new Date().getTime();
+			var mem_email = payList[0].mem_email; //이메일
+
+			// IMP.request_pay(param, callback);// 결제창 호출
+			IMP.request_pay({ // param
+				pg : "inicis",
+				pay_method : "card",
+				merchant_uid : uid, // uid
+				name : pur_name, //구매품목
+				amount : 1000, //총액  추후수정 pur_his_price
+				buyer_email : mem_email, // 구매자 이메일
+				buyer_name : pur_his_recv, // 구매자 이름
+				buyer_tel : pur_his_tel, // 구매자 전화번호
+				buyer_addr : pur_his_addr, //구매자 주소
+				buyer_postcode : pur_postcode
+			//구매자 우편번호
+			}, function(rsp) { // callback
+
+				if (rsp.success) { // 결제 성공 시 로직
+
+					console.log(rsp)
+					console.log(rsp.success)
+					//결제 후 pur_his에 insert하기
+					insertPurHis(rsp);
+
+				} else { // 결제 실패 시 로직
+
+					console.log(rsp);
+					toastr.error('결제에 실패했습니다. 다시 시도해주세요');
+
+				}
+			});
+		}
+
+		//===== 결제 완료 후 결제 내역을 cart에서 삭제하고 pur_his에 insert 하기 =====
+		function insertPurHis(purHis) {
+
+			payList.push(purHis);//결제 완료 후 결제 정보 받아서 payList에 넣기
+
+			$.ajax({
+				method : 'post',
+				url : "insertPurHis.do",
+				traditional : true,
+				data : JSON.stringify(payList),
+				contentType : "application/json; charset=utf-8",
+				dataType : 'json',
+				success : function(res) {
+					if(alert('결제가 완료되었습니다.')){
+						location.href= "home.do";
+					}
+				}
+			});
+		}
 
 		//=====주소 api=====
 		var element_layer = document.getElementById('layer');
@@ -345,12 +374,7 @@ input[type="number"] {
 						}
 					}).open();
 		}
-		
-		
 	</script>
-
-
 </body>
-
 
 </html>

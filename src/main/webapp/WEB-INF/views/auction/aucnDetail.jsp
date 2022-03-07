@@ -54,6 +54,86 @@
 	letter-spacing: 0.1em;
 	font-size: 24px;
 }
+
+.white_content {
+	background-color: #222222;
+	background: repeating-linear-gradient(45deg, #2b2b2b 0%, #2b2b2b 10%, #222222 0%,
+		#222222 50%) 0/15px 15px;
+}
+
+.neonText {
+	text-align: center;
+	font-size: 7em;
+	margin-bottom: 0;
+	margin-top: 0;
+	line-height: 1;
+	text-decoration: none;
+	color: #fff;
+	font-family: "Press Start 2P";
+	animation: neon 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {from { text-shadow:0010px#fff, 0020px#fff, 0030px#fff, 0040px#b6ff00,
+	0070px#b6ff00, 0080px#b6ff00, 00100px#b6ff00, 00150px#b6ff00;
+	
+}
+
+to {
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px
+		#b6ff00, 0 0 35px #b6ff00, 0 0 40px #b6ff00, 0 0 50px #b6ff00, 0 0
+		75px #b6ff00;
+}
+
+}
+
+.button{
+  position:relative;
+  display:inline-block;
+  margin:20px;
+}
+
+.button a{
+  color:white;
+  font-family:Helvetica, sans-serif;
+  font-weight:bold;
+  font-size:36px;
+  text-align: center;
+  text-decoration:none;
+  background-color:#FFA12B;
+  display:block;
+  position:relative;
+  padding:20px 40px;
+  
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-shadow: 0px 1px 0px #000;
+  filter: dropshadow(color=#000, offx=0px, offy=1px);
+  
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.button a:active{
+  top:10px;
+  background-color:#F78900;
+  
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+}
+
+.button:after{
+  content:"";
+  height:100%;
+  width:100%;
+  padding:4px;
+  position: absolute;
+  bottom:-15px;
+  left:-
 </style>
 </head>
 <body>
@@ -96,11 +176,10 @@
 							<br> <br>
 
 							<div class="share-post wf100">
-								<strong>최저 입찰 가격 : ${aucnSelect.first_bid } eth</strong>
+								<strong style="height: 66px; font-size: 18pt;">최저 입찰 가격 : ${aucnSelect.first_bid } eth</strong>
 							</div>
 							<div class="share-post wf100">
-								<input id="aucnBidWindow" rows="3" cols="20"
-									readonly="readonly"/>
+								<input id="aucnBidWindow" style="height: 66px; font-size: 18pt;" readonly="readonly" />
 							</div>
 							<div>
 								<a href="javascript:void(0)"
@@ -108,7 +187,7 @@
 									class="contact-team">입찰하기</a>
 							</div>
 							<fieldset>
-								
+
 								<br />
 							</fieldset>
 						</div>
@@ -117,16 +196,28 @@
 						팝업창 <a href="javascript:void(0)" onclick="exitPopup()"
 							onkeyup="escExit(event)" style="float: right">Close </a> <br>
 						<br>
-						<div id="content"></div>
-						<textarea id="popupBidWindow" rows="3" cols="20"
-							readonly="readonly"></textarea>
-						<!-- 	<input id="inputMessage" type="text" /> <input
-									type="submit" value="send" onclick="send()" /> -->
-						<input type="number" step="0.1" min="0"
-							oninput="countCheck(this.val)" id="inputMessage" size="30"
-							onkeypress="if(event.keyCode==13){webSocketSendChat();}"
-							placeholder="입찰금액입력" /> <input type="button" id="btnSend"
-							value="입찰하기" onclick="webSocketSendChat()" />
+						<div id="content">
+							<div class="col-md-12" style="text-align: center;">
+								<h1 class="neonText">NFT</h1>
+								<h1 class="neonText">AUCTION</h1>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="col-md-12" style="text-align: center;">
+								<input id="popupBidWindow" readonly="readonly"
+									style="height: 66px; font-size: 18pt" /> <input type="number"
+									step="0.1" min="0" id="inputMessage" size="30"
+									onkeypress="if(event.keyCode==13){countCheck();}"
+									placeholder="입찰금액입력" style="height: 66px; font-size: 18pt; text-align:center;" /> <br>
+								<br>
+								<div class="button">
+									<a href="javascript:void(0)" onclick="countCheck()">입찰하기</a>
+								</div>
+							</div>
+						</div>
+
 					</div>
 
 					<div id="123"></div>
@@ -136,6 +227,10 @@
 		</div>
 	</section>
 
+	<!-- <script
+		src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js">
+	</script>
+	<script src="resources/js/NFTAuction.js"></script> -->
 	<script type="text/javascript" src="resources/js/countdown.js"></script>
 
 	<!-- 웹소켓 기능 -->
@@ -143,9 +238,9 @@
 		var aucnBidWindow = document.getElementById("aucnBidWindow");
 		var popupBidWindow = document.getElementById("popupBidWindow"); 
 		//일반경로 localhost 
-		//var webSocket = new WebSocket('ws://localhost/prj/websocket/broadcast.do');
+		var webSocket = new WebSocket('ws://localhost/prj/websocket/broadcast.do');
 		//ip경로 다중 경로 테스트할 시 ip 주소로 테스트
-		var webSocket = new WebSocket('ws://192.168.0.35/prj/websocket/broadcast.do');
+		//var webSocket = new WebSocket('ws://192.168.0.11/prj/websocket/broadcast.do');
 		var btnSend = document.getElementById('btnSend'); 
 		var inputBid = document.getElementById('inputMessage'); 
 		
@@ -159,17 +254,25 @@
 			onMessage(event) 
 		};
 		function onMessage(event) {
+				var location = event.data.indexOf('.');
+				var cutAucnNo = event.data.substring(location+2, event.data.length);
+				var cutBid = event.data.substring(0,location+2);
+				var modelAucnNo = ${aucnSelect.aucn_no};
+				if(cutAucnNo == modelAucnNo.toString())
+				{
 				aucnBidWindow.innerHTML = "";
-				aucnBidWindow.value = "현재 최고 금액 : " + event.data + " eth";
-				aucnBidWindow.setAttribute('data-bid', event.data);
+				aucnBidWindow.value = "현재 최고 금액 : " + cutBid + " eth";
+				aucnBidWindow.setAttribute('data-bid', cutBid);
 				popupBidWindow.innerHTML = "";
-				popupBidWindow.value = "현재 최고 금액 : " + event.data + " eth";
-				popupBidWindow.setAttribute('data-bid', event.data);
+				popupBidWindow.value = "현재 최고 금액 : " + cutBid + " eth";
+				popupBidWindow.setAttribute('data-bid', cutBid);
+				}
 		}
 		function onOpen(event) {
 			//현재 최고금액 뿌려주기 
-			aucnBidWindow.value = "연결 성공\n";
-			popupBidWindow.value = "연결 성공\n"; 
+			aucnBidWindow.value = "현재 최고 금액 : ${aucnSelect.now_bid } eth";
+			popupBidWindow.value = "현재 최고 금액 : ${aucnSelect.now_bid } eth"; 
+			popupBidWindow.setAttribute('data-bid', ${aucnSelect.now_bid });
 		}
 		function onError(event) {
 			console.log(event); 
@@ -179,7 +282,13 @@
 			//aucnBidWindow.value = "현재 최고 금액 : " + inputBid.value + " eth";
 			//popupBidWindow.value = "현재 최고 금액 : " + inputBid.value + " eth";
 			// 입찰하기 버튼이나 엔터 누를시 소켓 서버로 입력값을 던짐
-			webSocket.send(inputBid.value); 
+			
+ 			var inputBid ={
+					 bid: document.getElementById("inputMessage").value,
+					 id: '${member.mem_email}',
+					 aucn: '${aucnSelect.aucn_no }'
+					 };
+			webSocket.send(JSON.stringify(inputBid)); 
 			inputBid.value = ""; 
 			
 			
@@ -214,7 +323,6 @@
 		document.getElementById('light').style.display = 'block';
 		document.getElementById('content').classList
 				.add("blog-single-content");
-		document.getElementById('content').innerHTML = "";
 	}
 	
 	/* ----------팝업 창닫기---------- */
@@ -253,12 +361,11 @@
 	    		   //toastr.warning('좀만 더 빨리 누르지.. 수고~ ^^');
 	    	  }
 	    	  else {
-	    		  // 입찰할 수 있는 함수호출 (정상 실행)
-	    		  aucnBid();
-	    		  
+	    		  aucnBid()
 	    	  } 
 	      }
-			function aucnBid() {
+			
+		 function aucnBid() {
 				//클릭시 페이지 최상단으로 이동.
 				window.scrollTo(0,0);
 				
@@ -276,7 +383,8 @@
 					 var msg ={
 					 cmd: "message",
 					 tmsg: document.getElementById("inputMessage").value,
-					 id: "로그인계정"
+					 id: '${member.mem_email}',
+					 aucn: '${aucnSelect.aucn_no }'
 					 };
 					 // Send the msg object as a JSON-formatted string.
 					 webSocket.send(JSON.stringify(msg));
@@ -285,19 +393,30 @@
 					 document.getElementById("inputMessae").value ="";
 					}
 			}
-			
+		 
 			//입력값과 최고가 비교하는 함수
-			function countCheck(e) {
+			function countCheck() {
 				var inputAucnBid = parseInt(document.getElementById('inputMessage').value);
-				var aucnBid = parseInt(document.getElementById('aucnBidWindow').dataset.bid);
+				var aucnBid = parseInt(document.getElementById('popupBidWindow').dataset.bid);
 				//console.log(typeof(aucnBid));
 				//지갑잔고
+				console.log(aucnBid > inputAucnBid);
+				console.log(aucnBid);
+				console.log(inputAucnBid);
+				console.log(typeof(aucnBid));
+				console.log(typeof(inputAucnBid));
+				
+				
 				if(aucnBid > inputAucnBid){
-				console.log('좀더 질러봐');
+					alert("현재 최고 금액보다 적습니다.");
+					toastr.error("현재 최고 금액보다 적습니다.");
 				return false;
+				}else if(isNaN(inputAucnBid)==true){
+					alert("금액을 입력하세요.");
+					toastr.error("금액을 입력하세요.");
 				}else{
-				console.log('좋은 금액입니다.')
-				return true;
+					alert('입찰에 성공하였습니다.');
+					webSocketSendChat();
 				}
 			}
 	</script>

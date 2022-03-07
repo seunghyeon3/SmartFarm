@@ -10,12 +10,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.smartFarm.board.Archieve.archieveService.ArchieveService;
 import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
+import co.smartFarm.board.qna.qnaService.QnaVO;
 
 
 
@@ -157,4 +162,16 @@ public class ArchieveController {
       System.out.println(archieve_no);
       return "board/archieve";
    }
+	// 검색 
+	@PostMapping(value = "archieveSearch.do")
+	@ResponseBody
+	public List<ArchieveVO> archieveSearch(@RequestBody String req) {
+
+		JSONObject object = new JSONObject(req);
+
+		String key = object.getString("key");
+		String val = object.getString("val");
+
+		return archieveDao.archieveSearch(key, val);
+	}
 }

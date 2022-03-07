@@ -62,8 +62,6 @@ public class qnaServiceImpl implements QnaService{
 		return map.qnaNoUpdate(qna_no);
 	}
 	
-	
-
 	@Override
 	public List<QnaVO> qnaSearch(String key, String val) {
 		return map.qnaSearch(key, val);

@@ -46,7 +46,7 @@ public class CartController {
 		return "shopping/cartDetail";
 	}
 
-	// ===== 장바구니 추가 ===== 
+	// ===== 장바구니 추가 =====
 	@GetMapping("/cartInsert.do")
 	public String cartInsert(CartVO cartVo, HttpSession session, HttpServletRequest request) {
 		// MemberVO memberVo = (MemberVO)session.getAttribute("member");
@@ -56,19 +56,37 @@ public class CartController {
 		Integer result = cartDao.cartInsert(cartVo);
 		System.out.println("결과 확인 === ! " + result);
 		String referer = request.getHeader("Referer");
-		return "redirect:" + referer; //이전페이지로 가기 
+		return "redirect:" + referer; // 이전페이지로 가기
 
 	}
+
+	// ===== 장바구니에서 삭제하기 =====
+	@GetMapping("/cartDelete.do")
+	@ResponseBody
+	public String cartDelete(CartVO cartVo, HttpSession session) {
 	
+		MemberVO memberVo = (MemberVO) session.getAttribute("member");
+		cartVo.setMem_email(memberVo.getMem_email());
+		if (cartVo.getCart_detail().contains("P")) {// 작물인 경우
+			int plantNo = Integer.parseInt(cartVo.getCart_detail().substring(1));
+			cartVo.setCart_plant_no(plantNo);
+		} else {
+			int kitNo = Integer.parseInt(cartVo.getCart_detail().substring(1));
+			cartVo.setCart_kit_no(kitNo);
+		}
+		System.out.println(cartVo.toString());
+		int result = cartDao.cartDelete(cartVo);
+		if(result == 1) {
+			return "1";
+		}
+		return "0";
+	}
+
 	// ===== 결제창 호출 =====
 	@GetMapping(value = "/pay.do", produces = "application/text;charset=utf8")
 	public String pay() {
 		System.out.println("======= 결제 확인하기");
-//		System.out.println(str);
-//		Gson gson = new Gson();
-//		List<CartVO> cartVo = gson.fromJson(str, List.class);
-//		System.out.println(cartVo.toString());
-//		System.out.println(map.toString());
+
 		return "shopping/pay";
 	}
 
