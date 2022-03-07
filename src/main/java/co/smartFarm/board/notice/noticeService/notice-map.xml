@@ -36,5 +36,12 @@ VALUES(#{notice_no}, #{notice_title}, #{notice_con}, #{notice_img}, #{mem_name})
 <update id="noticeHitUpdate" parameterType="int">
       UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT + 1 WHERE NOTICE_NO = #{notice_no}
 </update>
+<!-- 검색 -->
+	<select id="noticeSearch" resultType="co.smartFarm.board.notice.noticeService.NoticeVO">
+		SELECT * FROM NOTICE
+		<if test="key == ''"> WHERE 1 = 1</if>
+		<if test="key == 'notice_no'">WHERE NOTICE_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'notice_title'">WHERE NOTICE_TITLE LIKE '%' || #{val} || '%'</if>
+	</select>
 </mapper>
 

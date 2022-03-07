@@ -10,12 +10,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +29,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.smartFarm.board.qna.qnaService.QnaService;
 import co.smartFarm.board.qna.qnaService.QnaVO;
+import co.smartFarm.user.memberService.MemberService;
+import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class QnaController {
@@ -148,10 +154,21 @@ public class QnaController {
 	}
 
 	// QNA 조회
-	@RequestMapping(value = "qnahitUpdate/.do")
+	@RequestMapping(value = "qnahitUpdate.do")
 	public String qnaHitUpdate(@RequestParam(value = "qna_no") int qna_no, Model model) {
 		System.out.println(qna_no);
 		return "board/qna";
 	}
+	// ===== 회원 검색 =====
+	@PostMapping(value = "qnaSearch.do")
+	@ResponseBody
+	public List<QnaVO> qnasearch(@RequestBody String req) {
 
+		JSONObject object = new JSONObject(req);
+
+		String key = object.getString("key");
+		String val = object.getString("val");
+
+		return qnaDao.qnaSearch(key, val);
+	}
 }
