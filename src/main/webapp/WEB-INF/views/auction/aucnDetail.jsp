@@ -193,7 +193,7 @@ to {
 						</div>
 					</div>
 					<div id="light" class="col-md-12 white_content">
-						팝업창 <a href="javascript:void(0)" onclick="exitPopup()"
+						 <a href="javascript:void(0)" onclick="exitPopup()"
 							onkeyup="escExit(event)" style="float: right">Close </a> <br>
 						<br>
 						<div id="content">
@@ -212,7 +212,7 @@ to {
 									onkeypress="if(event.keyCode==13){countCheck();}"
 									placeholder="입찰금액입력" style="height: 66px; font-size: 18pt; text-align:center;" /> <br>
 								<br>
-								<div class="button">
+								<div onclick="countCheck()" class="button">
 									<a href="javascript:void(0)" onclick="countCheck()">입찰하기</a>
 								</div>
 							</div>
@@ -407,9 +407,9 @@ to {
 				console.log(typeof(inputAucnBid));
 				
 				
-				if(aucnBid > inputAucnBid){
-					alert("현재 최고 금액보다 적습니다.");
-					toastr.error("현재 최고 금액보다 적습니다.");
+				if(aucnBid >= inputAucnBid){
+					alert("현재 최고 금액보다 높게 지정하세요.");
+					toastr.error("현재 최고 금액보다 높게 지정하세요.");
 				return false;
 				}else if(isNaN(inputAucnBid)==true){
 					alert("금액을 입력하세요.");
