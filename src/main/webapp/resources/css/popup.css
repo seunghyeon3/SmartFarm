@@ -24,6 +24,8 @@
 	opacity: .80;
 	transform: translate(0px, 0px) scale(1, 1); 
 	position: fixed;
+	align-items: center;
+	justify-content: center;
 
 }
 .laading > img{

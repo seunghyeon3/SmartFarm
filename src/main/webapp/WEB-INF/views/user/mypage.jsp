@@ -85,9 +85,7 @@
 			<!-- 220308 PSH loading page 수정 -->
 			/* document.getElementById('fade').style.display = 'block'; */
 			document.getElementById('fade').innerHTML = "";
-			 $('.loading').css({
-        		 'align-items':'center', 'display': 'flex', 'justify-content':'center'
-        	 });
+			document.getElementById('fade').style.display="flex";
 			var img = document.createElement("img");
 			img.setAttribute("src","resources/images/loadingicon.gif");
 			img.setAttribute("alt","로딩중입니다");

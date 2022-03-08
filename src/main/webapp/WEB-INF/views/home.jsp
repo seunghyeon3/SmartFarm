@@ -186,9 +186,7 @@
  		<img src="resources/images/loadingicon.gif" alt="로딩중입니다." class="mx-auto d-block">
  		</div>
          function test(){
-        	 $('#loading').css({
-        		 'align-items':'center', 'display': 'flex', 'justify-content':'center'
-        	 });
+        	document.getElementById('fade').style.display="flex";
          }
          </script> -->
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
