@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 
 import co.smartFarm.auction.aucnService.AucnService;
 import co.smartFarm.auction.aucnService.AucnVO;
+import co.smartFarm.user.memberService.MemberVO;
 
 //@ServerEndPoint
 
@@ -28,7 +29,8 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 	private final Logger logger = LogManager.getLogger(getClass());
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>(); 
-	
+	// 220308 websocket 실시간 알림을 위해 user 정보 넣어두는 곳	
+	private Map<String, WebSocketSession> userSessionsMap = new HashMap<String, WebSocketSession>();
 	
 	
 	@Autowired
@@ -55,6 +57,11 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 			System.out.println(session.getAttributes());
 			System.out.println(session.toString());
 			sessionList.add(session);
+			String user = getEmail(session);
+			if(user != null) {
+				userSessionsMap.put(user, session);
+			}
+			
 			this.logger.info("add session!");
 			
 //			for (WebSocketSession s : sessionList) {
@@ -69,22 +76,37 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception { 
 		super.handleMessage(session, message); 
 
-		JSONObject json2Obj = new JSONObject(message.getPayload().toString());
+			String user = getEmail(session);
+
+			JSONObject json2Obj = new JSONObject(message.getPayload().toString());
 			int aucnNo = json2Obj.getInt("aucn");
 			Double bid = json2Obj.getDouble("bid");
 			String id = json2Obj.getString("id");
 			
-			//json 받아오면 get 으로 키꺼내고 프로시저 aucn_bid를 실행해서 최고입찰가 업데이트
-			AucnVO aucn = new AucnVO();
-			aucn.setAucn_no(aucnNo);
-			aucn.setNow_bid(bid);
-			aucn.setNow_bid_mem_email(id);
-			aucnDao.aucnBid(aucn);
-			
-			String sendBid = bid.toString()+Integer.toString(aucnNo);
-			// 다시 실시간 채팅화면으로 메세지를 던져줌 던질때는 String 형식으로 보냄
-			sendMessage(sendBid);
-		
+			//220308 PSH websocket 실시간 알림 초안 작성
+			//websocket 호출 위치 변경 예정, view 단에서 message 받고 나서 알림창 태그 추가해서 알림 만들어 주면 됨.
+			//참고 사이트 이용해서 마무리 하면 될듯
+			if(id != null) {			
+				//메세지 받을 세션 조회
+				WebSocketSession targetSession = userSessionsMap.get(id);
+				
+				//로그인이 되어 있다면
+				if(targetSession != null) {
+					TextMessage tmpMsg = new TextMessage(Integer.toString(aucnNo));
+					targetSession.sendMessage(tmpMsg);
+				}
+			}else {
+				//json 받아오면 get 으로 키꺼내고 프로시저 aucn_bid를 실행해서 최고입찰가 업데이트
+				AucnVO aucn = new AucnVO();
+				aucn.setAucn_no(aucnNo);
+				aucn.setNow_bid(bid);
+				aucn.setNow_bid_mem_email(id);
+				aucnDao.aucnBid(aucn);
+				
+				String sendBid = bid.toString()+Integer.toString(aucnNo);
+				// 다시 실시간 채팅화면으로 메세지를 던져줌 던질때는 String 형식으로 보냄
+				sendMessage(sendBid);				
+			}
 		
 	} 
 	
@@ -126,4 +148,10 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 			}; 
 			//thread.start(); 
 	} 
+	//220308 PSH http session 에서 member 정보의 email 가져오기
+	private String getEmail(WebSocketSession session) {
+		Map<String, Object> httpSession = session.getAttributes();
+		MemberVO member = (MemberVO)httpSession.get("member");
+		return member.getMem_email() == null ? null : member.getMem_email();
+	}
 }
