@@ -193,7 +193,7 @@
 			<version>2.9.0</version>
 		</dependency>
 
-		
+
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
 			<groupId>org.json</groupId>
@@ -246,11 +246,18 @@
 		<!-- 웹소켓 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-websocket</artifactId>
-		    <version>${org.springframework-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
+		<!-- 엑셀 다운 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.0.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

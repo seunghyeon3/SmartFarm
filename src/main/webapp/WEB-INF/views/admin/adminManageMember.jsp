@@ -184,11 +184,8 @@ input[type="checkbox"]:checked::before {
 				name : 'mem_fm_result',
 				filter : 'select'
 
-			} ],
-			/* pageOptions: {
-		        useClient: true,
-		        perPage: 5
-		     } */
+			} ]
+			
 		
 		});
 
@@ -200,11 +197,10 @@ input[type="checkbox"]:checked::before {
 
 		//클릭하면 팝업창 띄우기
 		grid.on('dblclick', (ev) => {
-			
 			//console.log(grid.getValue(ev.rowKey, "mem_fm_req"));
 			 //console.log(!(grid.getValue(ev.rowKey, "mem_fm_req") == "거절됨") && !(grid.getValue(ev.rowKey, "mem_fm_req") === null))
 			
-			if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "거절됨") && !(grid.getValue(ev.rowKey, "mem_fm_req") === null) && !(grid.getValue(ev.rowKey, "mem_athr") == "농부")){
+			if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "Reject") && !(grid.getValue(ev.rowKey, "mem_fm_req") === ' ') && !(grid.getValue(ev.rowKey, "mem_athr") == "농부")){
 			  
 				//console.log(ev);
 				document.getElementById('lightInstP').style.display = 'block';

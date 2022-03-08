@@ -20,6 +20,12 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
+	
+	<beans:bean id="beanNameViewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0" />
+	</beans:bean>
+
 	<!-- Tiles Resolves views -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -34,8 +40,8 @@
 		in the /WEB-INF/views directory -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/"/>
-		<beans:property name="suffix" value=".jsp"/>
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
 		<!-- order 은 실행 순서 -->
 		<beans:property name="order" value="2" />
 	</beans:bean>
@@ -50,21 +56,35 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
+	
+	
+	<beans:bean id="excelDownloadView" class="co.smartFarm.admin.adminUtil.ExcelDownloadView"/>
+    
+    <beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+    
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    
+    <context:component-scan base-package="com.*" />
+	
 
 	<!-- Controller가 처리하지 못하는 요청은 WAS에게 처리하도록 해주는 설정 -->
 	<default-servlet-handler />
-	
+
 	<!-- 웹 소켓 서버로 사용할 클래스의 bean을 생성 -->
-	<beans:bean class="co.smartFarm.auction.aucnWeb.SocketHandler" id="myHandler" />
-	
+	<beans:bean
+		class="co.smartFarm.auction.aucnWeb.SocketHandler" id="myHandler" />
+
 	<!-- 웹 소켓 서버와 URL을 매핑 -->
 	<websocket:handlers>
-		<websocket:mapping handler="myHandler" path="/websocket/broadcast.do"/>
+		<websocket:mapping handler="myHandler"
+			path="/websocket/broadcast.do" />
 		<websocket:handshake-interceptors>
-			<beans:bean class="co.smartFarm.auction.aucnWeb.HandShakeInterceptor"/>
+			<beans:bean
+				class="co.smartFarm.auction.aucnWeb.HandShakeInterceptor" />
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
-	
 
-	<context:component-scan base-package="co.smartFarm.*" />
+
+	<context:component-scan
+		base-package="co.smartFarm.*" />
 </beans:beans>

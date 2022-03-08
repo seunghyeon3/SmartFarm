@@ -20,7 +20,7 @@
 					<div class="col-lg-12 col-md-12">
 
 						<c:choose>
-							<c:when test="${empty growVOList }">
+							<c:when test="${empty list }">
 							
 								<!--보유 키트가 없을 때 시작-->
 								<div class="event-list-box">
@@ -51,14 +51,68 @@
 								
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${growVOList}" var="grow">
-									
+								<c:forEach items="${list}" var="grow">
+								<c:choose>
+									<c:when test="${not empty grow.grow_status}">
 									<!--보유 키트 리스트 시작-->
 									<div class="event-list-box">
-
+										<ul class="event-meta" style="margin-top: 10px;">
+											<li><strong>키트 번호:</strong><h5>${grow.pur_his_order_no }</h5></li>
+											<li><strong>작물 이름:</strong><h5>${grow.kit_plant_name}<br>(${grow.kit_prpos})</h5></li>
+										</ul>
+										<div class="event-txt" style="width: 83%; padding: 0;">
+											<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
+												<ul class="funds">
+													<li id="startDate" class="text-left">재배 시작일<strong>${grow.grow_status }</strong></li>
+													<li class="text-center">진행률<strong>${grow.percent}%</strong></li>
+													<li class="text-right">예상 종료일<strong>${grow.end_estimate }</strong></li>
+												</ul>
+												<div class="progress">
+													<div class="progress-bar" role="progressbar"
+														style="width: ${grow.percent}%" aria-valuenow="55" aria-valuemin="0"
+														aria-valuemax="100"></div>
+												</div>
+												<div style="float: right;">
+												<a href="#" class="dn-btn">재배 관리</a>
+												<a href="#" class="dn-btn">실시간 정보</a>
+												<a href="#" class="dn-btn">일별 로그</a>
+												</div>
+											</div>
+										</div>
 									</div>
 									<!--보유 키트 리스트 종료-->
-									
+									</c:when>
+ 									
+									<c:otherwise>
+									<!--보유 키트 리스트 시작-->
+									<div class="event-list-box">
+										<ul class="event-meta" style="margin-top: 10px;">
+											<li><strong>키트 번호:</strong><h5>${grow.pur_his_order_no }</h5></li>
+											<li><strong>작물 이름:</strong><h5>${grow.kit_plant_name}<br>(${grow.kit_prpos})</h5></li>
+										</ul>
+										<div class="event-txt" style="width: 83%; padding: 0;">
+											<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
+												<ul class="funds">
+														<li class="text-left">재배 시작일<strong></strong></li>
+														<li class="text-center">진행률<strong>재배를 시작해 주세요</strong></li>
+														<li class="text-right">예상 종료일<strong></strong></li>
+												</ul>
+												<div class="progress">
+													<div class="progress-bar" role="progressbar"
+														style="width: 0%" aria-valuenow="55" aria-valuemin="0"
+														aria-valuemax="100"></div>
+												</div>
+												<div style="float: right;">
+												<a href="#" class="dn-btn">재배 관리</a>
+												<a href="#" class="dn-btn">실시간 정보</a>
+												<a href="#" class="dn-btn">일별 로그</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--보유 키트 리스트 종료-->
+									</c:otherwise>
+							</c:choose>		
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
@@ -66,6 +120,7 @@
 					</div>
 				</div>
 				<!--주 화면 종료-->
+				
 				
 				<!--페이징처리 시작-->
 				<div class="row">
@@ -88,13 +143,18 @@
 			</div>
 		</div>
 	</section>
+	
 	<!--본문 종료-->
  	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
      
- 
+    <script type="text/javascript">
+    
+			
+    </script>
+ <!-- 
 	<script type="text/javascript">
 	
 		let list = [];
@@ -150,7 +210,7 @@
 	    })
 	
 	</script>
-
+ -->
 
 </body>
 </html>

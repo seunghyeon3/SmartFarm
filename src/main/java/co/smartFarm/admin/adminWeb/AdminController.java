@@ -1,12 +1,14 @@
-package co.smartFarm.admin;
+package co.smartFarm.admin.adminWeb;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +27,7 @@ import com.google.gson.Gson;
 
 import co.smartFarm.NFT.service.NftService;
 import co.smartFarm.NFT.service.NftVO;
+import co.smartFarm.admin.adminService.ExcelService;
 import co.smartFarm.kit.kitService.KitService;
 import co.smartFarm.kit.kitService.KitVO;
 import co.smartFarm.shopping.purHisService.PurHisService;
@@ -32,7 +36,6 @@ import co.smartFarm.user.memberService.MemberService;
 import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
-
 public class AdminController {
 	@Autowired
 	// 220302 PSH MemberMapper -> MemberService로 수정
@@ -47,6 +50,9 @@ public class AdminController {
 
 	@Autowired
 	PurHisService purHisDao;
+
+	@Autowired
+	ExcelService excelDao;
 
 	// ===== 매출 페이지 이동 =====
 	@RequestMapping("/admin/adminHome.do")
@@ -69,11 +75,24 @@ public class AdminController {
 		purHisVo.setEnd_date("2022-03-07");
 		purHisVo.setStart_date("2022-02-07");
 
-		//List<PurHisVO> list = purHisDao.adminPurHisSelectList(purHisVo);
-		//model.addAttribute("purHisSelectList", list);
-		//System.out.println(list.toString());
+		// List<PurHisVO> list = purHisDao.adminPurHisSelectList(purHisVo);
+		// model.addAttribute("purHisSelectList", list);
+		// System.out.println(list.toString());
 		return "admin/adminHome";
 
+	}
+
+	// ===== 엑셀 다운로드 =====
+	@RequestMapping(value = "/admin/downloadExcelFile.do", method = RequestMethod.POST)
+	public String downloadExcelFile(Model model, List<String> list) {
+
+		SXSSFWorkbook workbook = excelDao.excelFileDownloadProcess(list);
+
+		model.addAttribute("locale", Locale.KOREA);
+		model.addAttribute("workbook", workbook);
+		model.addAttribute("workbookName", "회원리스트");
+
+		return "excelDownloadView";
 	}
 
 	// ===== 구매현황 리스트 페이지 이동 =====
@@ -89,35 +108,8 @@ public class AdminController {
 	public String adminManageMember(Model model) throws JsonProcessingException {
 
 		List<MemberVO> memberList = memberDao.memberSelectList();
-		ObjectMapper map = new ObjectMapper();
-
-		// 컬럼 값 고치기(B1->일반회원, 신청결과 출력하기)
-		for (int i = 0; i < memberList.size(); i++) {
-			if (memberList.get(i).getMem_athr().equals("B2")) {
-				memberList.get(i).setMem_athr("농부");
-				memberList.get(i).setMem_fm_result("농부");
-			} else {
-				memberList.get(i).setMem_athr("일반회원");
-
-				if (memberList.get(i).getMem_fm_req() == null) {
-					memberList.get(i).setMem_fm_result("일반회원");
-
-				} else {
-					if (memberList.get(i).getMem_fm_req().equals("Reject")) {
-						memberList.get(i).setMem_fm_req("거절됨");
-						memberList.get(i).setMem_fm_result("거절됨");
-					} else {
-						memberList.get(i).setMem_fm_result("신청중");
-						
-					}
-				}
-
-			}
-		}
-
-		String returnStr = map.writeValueAsString(memberList);
-		// System.out.println(returnStr);
-		model.addAttribute("memberSelectList", returnStr);
+		String result = new Gson().toJson(memberList);
+		model.addAttribute("memberSelectList", result);
 
 		return "admin/adminManageMember";
 
