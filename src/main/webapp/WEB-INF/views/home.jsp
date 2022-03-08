@@ -26,7 +26,7 @@
       </style>
 </head>
 <body >
-<header class="header-style-2">
+<header class="header-style-2"><header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
                <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img src="<c:url value='/resources/images/smartlogo.png'/>" alt=""></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
@@ -35,29 +35,35 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="${pageContext.request.contextPath}/intro.do">스마트 팜 안내</a></li>
-                           <li><a href="${pageContext.request.contextPath}/introg.do">과수 분야</a></li>
-                           <li><a href="${pageContext.request.contextPath}/intron.do">노지 분야</a></li>
+                           <li><a href="${pageContext.request.contextPath}/intro.do?intro_board_class=intro3">스마트 팜 안내</a></li>
+                           <li><a href="${pageContext.request.contextPath}/introg.do?intro_board_class=intro2">과수 분야</a></li>
+                           <li><a href="${pageContext.request.contextPath}/intron.do?intro_board_class=intro1">노지 분야</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 알림 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="notice.do">공지사항</a></li>
-                           <li><a href="#">자료실</a></li>
+                           <li><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
+                           <li><a href="${pageContext.request.contextPath}/archieve.do">자료실</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="plantShopList.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 판매 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="plantShopList.do">작물 판매</a></li>
-                           <li><a href="#">키트 판매</a></li>
+                           <li><a href="${pageContext.request.contextPath}/plantShopList.do">작물 판매</a></li>
+                           <li><a href="${pageContext.request.contextPath}/kitShopList.do">키트 판매</a></li>
+                        </ul>
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 경매 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/aucnMain.do">NFT 경매</a></li>
                         </ul>
                      </li>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">자유 게시판</a></li>
+                           <li><a href="/free.do">자유 게시판</a></li>
                            <li><a href="#">이용 후기</a> </li>
                            
                         </ul>
@@ -65,8 +71,8 @@
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 고객지원 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="#">QnA</a></li>
-                           <li><a href="#">FAQ</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/qna.do">QnA</a></li>
+                           <li><a href="${pageContext.request.contextPath}/faq.do">FAQ</a> </li>
 
                          </ul>  
                      </li>
@@ -88,24 +94,24 @@
                            <li><a href="${pageContext.request.contextPath}/admin/adminHome.do">매출</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminPurchaseList.do">키트 구매 현황</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageMember.do ">회원관리</a> </li>
-                           <li><a href="${pageContext.request.contextPath}/admin/adminManageKit.do">작물관리</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/admin/adminManageKit.do">키트관리</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 현황 조회</a> </li>
                         </ul>
                      </li>
                   </ul>
                   <ul class="topnav-right">
                      <li class="dropdown">
-                        <a class="cart-icon" href="#" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
+                        <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
                      </li>
 
 
-                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="#">Signup</a> </li>
-                     <li class="login-reg"> <a href="#">Logout</a> | <a href="mypage.do">Mypage</a> </li>
+                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
+                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="mypage.do">Mypage</a> </li>
 
                   </ul>
                </div>
             </nav>
-         </header>
+         </header> 
          <!-- 각자 페이지에 맞게 추가 해아함 -->    
          <section class="wf100 p100 inner-header">
             <div class="container" id="menu">
