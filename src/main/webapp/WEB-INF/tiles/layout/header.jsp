@@ -235,7 +235,7 @@
                       $("<h3>").append(
                          $("<a>").attr("href", "${pageContext.request.contextPath}/free.do").text("자유 게시판"),
                          $("<span>").text(" | "),   
-                         $("<a>").attr("href", #").text("이용 후기"),
+                         $("<a>").attr("href", "#").text("이용 후기"),
                          )
                    )
          }

@@ -17,4 +17,6 @@ public interface GrowMapper {
 
 	void statusUpdate(Map<String, String> val);
 	
+	void diaryWrite(Map<String, String> val);
+	
 }

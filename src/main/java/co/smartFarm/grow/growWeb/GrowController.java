@@ -309,7 +309,7 @@ public class GrowController {
 		
 		
 		
-		return "log-updated";
+		return "address-updated";
 	}
 	
 	@RequestMapping(value = "/statusUpdate.do", method = RequestMethod.POST)
@@ -333,7 +333,35 @@ public class GrowController {
 		
 		
 		
-		return "log-updated";
+		return "status-updated";
+	}
+	
+	@RequestMapping(value = "/diaryWrite.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String diaryWrite(HttpServletRequest request, HttpSession session) {
+		session.setAttribute("email", "aaa@abc.com");
+
+		Gson gson = new Gson();
+		
+		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
+		
+		Map<String, String> map = new HashMap<String, String>();
+
+		for(int i=0; i<resultTest.size(); i++) {
+			System.out.println(resultTest.get(i));
+		}
+		map.put("email", session.getAttribute("email").toString());
+		map.put("log", session.getAttribute("email").toString()+resultTest.get(5)+resultTest.get(3).substring(0, 10)+".txt");
+		map.put("score", resultTest.get(0));
+		map.put("grade", resultTest.get(1));
+		map.put("plant", resultTest.get(2));
+		map.put("sday", resultTest.get(3));
+		map.put("kno", resultTest.get(4));
+
+		System.out.println(map.toString());
+		growDao.diaryWrite(map);
+		
+		return "Diary-updated";
 	}
 	
 	@RequestMapping(value = "/testURL.do", method = RequestMethod.POST)
@@ -349,7 +377,7 @@ public class GrowController {
 		}
 		
 		
-		return "log-updated";
+		return "test succeed";
 	}
 	
 
