@@ -23,15 +23,19 @@
       background-repeat: no-repeat;
       background-color: #fff;
       }
+       #headerfont > li > a{
+      padding: 14px;
+      font-size: 22px;
+      }
       </style>
 </head>
 <body >
-<header class="header-style-2"><header class="header-style-2">
+<header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
-               <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img src="<c:url value='/resources/images/smartlogo.png'/>" alt=""></a>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="max-width: 100%; height: auto;"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
+                  <ul class="navbar-nav mr-auto" id = "headerfont">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
                         <ul class="dropdown-menu">
@@ -54,16 +58,20 @@
                            <li><a href="${pageContext.request.contextPath}/kitShopList.do">키트 판매</a></li>
                         </ul>
                      </li>
+                     <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
+                     <c:if test="${member ne null}">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 경매 </a>
                         <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/aucnMain.do">NFT 경매</a></li>
                         </ul>
                      </li>
+                     </c:if>
+                     
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
                         <ul class="dropdown-menu">
-                           <li><a href="/free.do">자유 게시판</a></li>
+                           <li><a href="${pageContext.request.contextPath}/free.do">자유 게시판</a></li>
                            <li><a href="#">이용 후기</a> </li>
                            
                         </ul>
@@ -76,6 +84,8 @@
 
                          </ul>  
                      </li>
+                       <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
+                     <c:if test="${member ne null }">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
                         <ul class="dropdown-menu">
@@ -88,6 +98,10 @@
                            <li><a href="${pageContext.request.contextPath}/diary.do">영농 일지</a></li>
                         </ul>
                      </li>
+                     </c:if>
+                     
+                       <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
+                        <c:if test="${member.mem_athr eq 'B0' }">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
                         <ul class="dropdown-menu">
@@ -98,16 +112,21 @@
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 현황 조회</a> </li>
                         </ul>
                      </li>
+                     </c:if>
                   </ul>
-                  <ul class="topnav-right">
-                     <li class="dropdown">
-                        <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
-                     </li>
-
-
-                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
-                     <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="mypage.do">Mypage</a> </li>
-
+                       <!-- 220308 PSH session 값에 따라 출력 다르게 함. -->
+                  <ul class="topnav-right"  id="headerfont">
+                     
+					<c:if test="${member eq null}">
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
+					</c:if>
+					
+					<c:if test="${member ne null }">
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="mypage.do">Mypage</a> </li>
+					 <li class="dropdown">
+                        <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown" data-toggle="dropdown" style="padding: 0px;"> <i class="fas fa-shopping-cart"></i></a>
+                     </li>					 
+					</c:if>
                   </ul>
                </div>
             </nav>
@@ -183,7 +202,7 @@
       <script src="${pageContext.request.contextPath}/resources/js/isotope.min.js"></script> 
       <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
          <script type="text/javascript">
-         
+         /* 220308 PSH page 이동 구현 */
          var url = window.location.pathname;
          if(url.substring(0,10) == "${pageContext.request.contextPath}/intro"){
             $("#menuPan").append(

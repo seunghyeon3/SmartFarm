@@ -53,7 +53,8 @@
 						<div id="content">123</div>
 					</div>
 					<div id="123"></div>
-					<div id="fade" class="black_overlay"></div>
+					<!-- 220308 PSH loading page 수정 -->
+					<div id="fade" class="black_overlay loading"></div>
 				</div>
 			</div>
 		</div>
@@ -81,9 +82,12 @@
 		
 		/* ----------팝업 로딩생성---------- */
 		function createLoading(){
-			document.getElementById('fade').style.display = 'block';
+			<!-- 220308 PSH loading page 수정 -->
+			/* document.getElementById('fade').style.display = 'block'; */
 			document.getElementById('fade').innerHTML = "";
-			document.getElementById('fade').classList.add("loading");
+			 $('.loading').css({
+        		 'align-items':'center', 'display': 'flex', 'justify-content':'center'
+        	 });
 			var img = document.createElement("img");
 			img.setAttribute("src","resources/images/loadingicon.gif");
 			img.setAttribute("alt","로딩중입니다");

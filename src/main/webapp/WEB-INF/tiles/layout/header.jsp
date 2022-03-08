@@ -42,6 +42,10 @@
       div[name=settingMenu]>h3>a:hover {
          color: yellow;
       }
+      #headerfont > li > a{
+      padding: 14px;
+      font-size: 22px;
+      }
    </style>
 
 
@@ -51,107 +55,107 @@
 
 <body>
    
-   <header class="header-style-2">
-      <nav class="navbar navbar-expand-lg">
-         <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img
-               src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="width:300px"></a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i
-               class="fas fa-bars"></i> </button>
-         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/intro.do?intro_board_class=intro3">스마트 팜 안내</a>
+  <header class="header-style-2">
+            <nav class="navbar navbar-expand-lg">
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="max-width: 100%; height: auto;"></a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent" >>
+                  <ul class="navbar-nav mr-auto" id = "headerfont">
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/intro.do?intro_board_class=intro3">스마트 팜 안내</a></li>
+                           <li><a href="${pageContext.request.contextPath}/introg.do?intro_board_class=intro2">과수 분야</a></li>
+                           <li><a href="${pageContext.request.contextPath}/intron.do?intro_board_class=intro1">노지 분야</a></li>
+                        </ul>
                      </li>
-                     <li><a href="${pageContext.request.contextPath}/introg.do?intro_board_class=intro2">과수 분야</a></li>
-                     <li><a href="${pageContext.request.contextPath}/intron.do?intro_board_class=intro1">노지 분야</a></li>
-                  </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> 스마트 팜 알림 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
-                     <li><a href="${pageContext.request.contextPath}/archieve.do">자료실</a></li>
-                  </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="plantShopList.do" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> 판매 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/plantShopList.do">작물 판매</a></li>
-                     <li><a href="${pageContext.request.contextPath}/kitShopList.do">키트 판매</a></li>
-                  </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                     aria-expanded="false"> 경매 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/aucnMain.do">NFT 경매</a></li>
-                  </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/free.do">자유 게시판</a></li>
-                     <li><a href="#">이용 후기</a> </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="events-grid.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 알림 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
+                           <li><a href="${pageContext.request.contextPath}/archieve.do">자료실</a></li>
+                        </ul>
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="plantShopList.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 판매 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/plantShopList.do">작물 판매</a></li>
+                           <li><a href="${pageContext.request.contextPath}/kitShopList.do">키트 판매</a></li>
+                        </ul>
+                     </li>
+                     <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
+                     <c:if test="${member ne null}">
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 경매 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/aucnMain.do">NFT 경매</a></li>
+                        </ul>
+                     </li>
+                     </c:if>
+                     
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/free.do">자유 게시판</a></li>
+                           <li><a href="#">이용 후기</a> </li>
+                           
+                        </ul>
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 고객지원 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/qna.do">QnA</a></li>
+                           <li><a href="${pageContext.request.contextPath}/faq.do">FAQ</a> </li>
 
+                         </ul>  
+                     </li>
+                       <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
+                     <c:if test="${member ne null }">
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/grow.do">재배 홈</a></li>
+                           <li><a href="${pageContext.request.contextPath}/howTo.do">사용법</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/cctv.do">CCTV</a></li>
+                           <li><a href="${pageContext.request.contextPath}/control.do">재배관리</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/sensor.do">실시간 정보</a></li>
+                           <li><a href="${pageContext.request.contextPath}/log.do">일별 로그</a></li>
+                           <li><a href="${pageContext.request.contextPath}/diary.do">영농 일지</a></li>
+                        </ul>
+                     </li>
+                     </c:if>
+                     
+                       <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
+                        <c:if test="${member.mem_athr eq 'B0' }">
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/admin/adminHome.do">매출</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/admin/adminPurchaseList.do">키트 구매 현황</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/admin/adminManageMember.do ">회원관리</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/admin/adminManageKit.do">키트관리</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 현황 조회</a> </li>
+                        </ul>
+                     </li>
+                     </c:if>
                   </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                     aria-expanded="false"> 고객지원 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/qna.do">QnA</a></li>
-                     <li><a href="${pageContext.request.contextPath}/faq.do">FAQ</a> </li>
-
+                            <!-- 220308 PSH session 값에 따라 출력 다르게 함. -->
+                  <ul class="topnav-right"  id="headerfont">
+                     
+					<c:if test="${member eq null}">
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
+					</c:if>
+					
+					<c:if test="${member ne null }">
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="mypage.do">Mypage</a> </li>
+					 <li class="dropdown">
+                        <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown" data-toggle="dropdown" style="padding: 0px;"> <i class="fas fa-shopping-cart"></i></a>
+                     </li>					 
+					</c:if>
                   </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/grow.do">재배 홈</a></li>
-                     <li><a href="${pageContext.request.contextPath}/howTo.do">사용법</a> </li>
-                     <li><a href="${pageContext.request.contextPath}/cctv.do">CCTV</a></li>
-                     <li><a href="${pageContext.request.contextPath}/control.do">재배관리</a> </li>
-                     <li><a href="${pageContext.request.contextPath}/sensor.do">실시간 정보</a></li>
-                     <li><a href="${pageContext.request.contextPath}/log.do">일별 로그</a></li>
-                     <li><a href="${pageContext.request.contextPath}/diary.do">영농 일지</a></li>
-                  </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
-                  <ul class="dropdown-menu">
-                     <li><a href="${pageContext.request.contextPath}/admin/adminHome.do">매출</a> </li>
-                     <li><a href="${pageContext.request.contextPath}/admin/adminPurchaseList.do">키트 구매 현황</a> </li>
-                     <li><a href="${pageContext.request.contextPath}/admin/adminManageMember.do ">회원관리</a> </li>
-                     <li><a href="${pageContext.request.contextPath}/admin/adminManageKit.do">키트관리</a> </li>
-                     <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 현황 조회</a> </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul class="topnav-right">
-               <li class="dropdown">
-                  <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button"
-                     id="cartdropdown" data-toggle="dropdown"> <i class="fas fa-shopping-cart"></i></a>
-               </li>
-
-
-               <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a
-                     href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
-               <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a
-                     href="mypage.do">Mypage</a> </li>
-
-            </ul>
-         </div>
-      </nav>
-   </header>
+               </div>
+            </nav>
+         </header> 
    <!-- 각자 페이지에 맞게 추가 해아함 -->
    <section class="wf100 p100 inner-header" style="margin-bottom: 50px">
       <div class="container" id="menuPan" name="settingMenu">
@@ -179,7 +183,7 @@
    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
    <script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
     <script type="text/javascript">
-         
+         /* 220308 PSH page 이동 구현 */
          var url = window.location.pathname;
          if(url.substring(0,10) == "${pageContext.request.contextPath}/intro"){
             $("#menuPan").append(
