@@ -156,7 +156,6 @@ public class MemberController {
 
 		if (memberVo == null) { // 리턴되는 값 X
 			if (object.getString("menu").equals("homePage")) {
-
 				System.out.println("홈페이지 사용가능");
 				return "1";
 				
