@@ -89,5 +89,11 @@ public class GrowServiceImpl implements GrowService{
 	public void statusUpdate(Map<String, String> val) {
 		map.statusUpdate(val);
 	}
+
+	@Override
+	public void diaryWrite(Map<String, String> val) {
+		map.diaryWrite(val);
+	}
+	
 	
 }

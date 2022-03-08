@@ -53,7 +53,7 @@
 							<div>
 								<ul class="check-list" style="margin-top: 20px;">
 									<li><strong>자동 재배:   </strong><input id="auto" type="checkbox"> </li>
-									<li><strong>온도:</strong><input class="value" id="temp" name="temp" type="number"></li>
+									<li><strong>온도:</strong><input class="value" id="temp" name="temp" type="number" min="1"></li>
 									<li><strong>습도:</strong><input class="value" id="hum" name="hum" type="number"></li>
 									<li><strong>하루 중 일사량(시간):</strong><input class="value" id="light" name="light" type="number"></li>
 									<li><strong>하루 중 급액량:</strong><input class="value" id="water" name="water" type="number"></li>

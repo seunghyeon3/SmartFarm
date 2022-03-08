@@ -34,6 +34,14 @@
 		UPDATE PUR_HIS SET GROW_STATUS = #{status} WHERE PUR_HIS_ORDER_NO = #{no}
 	</update>
 	
+	<!-- DB영농일지 등록 -->
+	<insert id="diaryWrite" parameterType="hashmap">
+	<selectKey keyProperty="grow_diary_grow_no" resultType="_int" order="BEFORE">
+		SELECT NVL(MAX(GROW_DIARY_GROW_NO) + 1, 1 ) AS GROW_DIARY_GROW_NO FROM GROW_DIARY
+	</selectKey>
+		INSERT INTO GROW_DIARY(GROW_DIARY_GROW_NO,MEM_EMAIL,
+		GROW_DIARY_LOG_ROU, GROW_DIARY_POINT, GROW_DIARY_GRD, PLANT_NAME, GROW_DIARY_START_DAY, KIT_NO)
+		VALUES(#{grow_diary_grow_no}, #{email}, #{log}, #{score}, #{grade}, #{plant}, #{sday}, #{kno})
+	</insert>
 	
-
 </mapper>
