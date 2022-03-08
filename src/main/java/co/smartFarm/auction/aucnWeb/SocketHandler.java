@@ -73,14 +73,14 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 			int aucnNo = json2Obj.getInt("aucn");
 			Double bid = json2Obj.getDouble("bid");
 			String id = json2Obj.getString("id");
-			//json 받아오면 get 으로 키꺼내고 넣기
+			
+			//json 받아오면 get 으로 키꺼내고 프로시저 aucn_bid를 실행해서 최고입찰가 업데이트
 			AucnVO aucn = new AucnVO();
 			aucn.setAucn_no(aucnNo);
 			aucn.setNow_bid(bid);
 			aucn.setNow_bid_mem_email(id);
 			aucnDao.aucnBid(aucn);
 			
-			//this.logger.info("receive message:"+message.toString()); //json string을 vo로 변환
 			String sendBid = bid.toString()+Integer.toString(aucnNo);
 			// 다시 실시간 채팅화면으로 메세지를 던져줌 던질때는 String 형식으로 보냄
 			sendMessage(sendBid);
