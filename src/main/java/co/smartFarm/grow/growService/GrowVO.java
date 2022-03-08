@@ -26,5 +26,10 @@ public class GrowVO {
 	private int percent;
 	private String end_estimate;
 	
+	private String kit_tp;
+	private String kit_hd;
+	private String kit_sun;
+	private String kit_water;
+	private String kit_pes;
 
 }
