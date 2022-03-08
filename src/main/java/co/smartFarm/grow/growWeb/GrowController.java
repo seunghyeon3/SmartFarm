@@ -6,8 +6,15 @@ import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,7 +44,7 @@ public class GrowController {
 
 //	재배 진행 정보 페이지
 	@RequestMapping(value = "/grow.do", method = RequestMethod.GET)
-	public String grow(Locale locale, Model model, HttpSession session) {
+	public String grow(Locale locale, Model model, HttpSession session) throws ParseException {
 //		테스트용
 		session.setAttribute("email", "aaa@abc.com");
 		
@@ -46,9 +53,60 @@ public class GrowController {
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute(mapG.growList(session.getAttribute("email").toString()));
 		System.out.println(session.getAttribute("email").toString());
-		model.addAttribute(growDao.growList(session.getAttribute("email").toString()));
+		List<GrowVO> voList = growDao.growListing(session.getAttribute("email").toString());
+//		int gd = 0;
+////        Calendar cal = Calendar.getInstance();
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+//		Date currentTime = new Date();
+//		String now;
+//		now = format.format(currentTime);
+//
+//		for(int i = 0; i<voList.size(); i++) {
+//			
+//			if(voList.get(i).getGrow_status()!=null) {
+//				gd = voList.get(i).getKit_grow_day();
+//				String sd = voList.get(i).getGrow_status();
+//				System.out.println(sd);
+//				Date s_date = format.parse(sd);
+//				Date c_date = format.parse(now);
+////				cal.setTime(s_date);
+////				cal.add(Calendar.DATE, gd);
+////				Date e_date = format.parse(format.format(cal.getTime()));
+//				System.out.println(s_date);
+//				System.out.println(c_date);
+////				System.out.println(e_date);
+//		        float diffSec = (c_date.getTime() - s_date.getTime()) / 1000; //초 차이
+//		        System.out.println(diffSec);
+//				int diffDays = Math.round(diffSec*100/(24*60*60*gd)); //일자수 차이
+//				System.out.println(diffDays);
+//				voList.get(i).setPercent(diffDays);
+//			}
+//		}
+		
+		System.out.println(voList.toString());
+		model.addAttribute("list", voList);
+		
 		System.out.println(model);
-
+		
+		
+		
+//		System.out.println(vo.get(2).getPur_his_kit_address());
+//		HttpHeaders headers = new HttpHeaders();
+//		// 파라미터 설정 
+//		MultiValueMap<String, String> params = new LinkedMultiValueMap<>(); 
+//		// params.add("key", "value");
+//		// Request 설정 
+//		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+//		RestTemplate restTemplate = new RestTemplate();
+//		String url = "http://" + vo.get(2).getPur_his_kit_address() + "/checkGrow";
+////		String url = "http://192.168.111.1:81/checkGrow";
+//		System.out.println(url);
+//		String response = restTemplate.getForObject(url, String.class);
+//		System.out.println(response);
+//		
+////		model.addAttribute("no1", response1);
+		
+		
 		return "grow/growhome";
 	}
 
@@ -87,7 +145,8 @@ public class GrowController {
 		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
-		model.addAttribute("kitList", growDao.growList(session.getAttribute("email").toString()));
+		List<GrowVO> voList = growDao.growListing(session.getAttribute("email").toString());
+		model.addAttribute("kitList", voList);
 		System.out.println(model);
 		return "grow/control";
 	}
@@ -229,21 +288,97 @@ public class GrowController {
 		return "log-updated";
 	}
 	
+	@RequestMapping(value = "/addressUpdate.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String addressUpdate(HttpServletRequest request) {
+		
+		Gson gson = new Gson();
+		
+		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
+		
+		Map<String, String> map = new HashMap<String, String>();
+
+		for(int i=0; i<resultTest.size(); i++) {
+			System.out.println(resultTest.get(i));
+		}
+		
+		map.put("no", resultTest.get(0));
+		map.put("ip", resultTest.get(1));
+		
+		growDao.addressUpdate(map);
+		
+		
+		
+		return "address-updated";
+	}
+	
+	@RequestMapping(value = "/statusUpdate.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String statusUpdate(HttpServletRequest request) {
+		
+		Gson gson = new Gson();
+		
+		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
+		
+		Map<String, String> map = new HashMap<String, String>();
+
+		for(int i=0; i<resultTest.size(); i++) {
+			System.out.println(resultTest.get(i));
+		}
+		
+		map.put("no", resultTest.get(0));
+		map.put("status", resultTest.get(1));
+		
+		growDao.statusUpdate(map);
+		
+		
+		
+		return "status-updated";
+	}
+	
+	@RequestMapping(value = "/diaryWrite.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String diaryWrite(HttpServletRequest request, HttpSession session) {
+		session.setAttribute("email", "aaa@abc.com");
+
+		Gson gson = new Gson();
+		
+		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
+		
+		Map<String, String> map = new HashMap<String, String>();
+
+		for(int i=0; i<resultTest.size(); i++) {
+			System.out.println(resultTest.get(i));
+		}
+		map.put("email", session.getAttribute("email").toString());
+		map.put("log", session.getAttribute("email").toString()+resultTest.get(5)+resultTest.get(3).substring(0, 10)+".txt");
+		map.put("score", resultTest.get(0));
+		map.put("grade", resultTest.get(1));
+		map.put("plant", resultTest.get(2));
+		map.put("sday", resultTest.get(3));
+		map.put("kno", resultTest.get(4));
+
+		System.out.println(map.toString());
+		growDao.diaryWrite(map);
+		
+		return "Diary-updated";
+	}
+	
 	@RequestMapping(value = "/testURL.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String test(HttpServletRequest request) {
 		
 		Gson gson = new Gson();
 		
-		List<String> resultTest = gson.fromJson(request.getParameter("1"), List.class);
+		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
 		
 		for(int i=0; i<resultTest.size(); i++) {
 			System.out.println(resultTest.get(i));
 		}
 		
-		return "log-updated";
+		
+		return "test succeed";
 	}
-	
 	
 
 }
