@@ -54,7 +54,7 @@
    <header class="header-style-2">
       <nav class="navbar navbar-expand-lg">
          <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img
-               src="<c:url value='/resources/images/smartlogo.png'/>" alt=""></a>
+               src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="width:300px"></a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i
                class="fas fa-bars"></i> </button>
@@ -178,12 +178,10 @@
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
    <script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
-
-   <script type="text/javascript">
+    <script type="text/javascript">
          
-      document.addEventListener("DOMContentLoaded", function(){
          var url = window.location.pathname;
-         if(url == "/prj/intro.do" || url == "/prj/introg.do" || url == "/prj/intron.do"){
+         if(url.substring(0,10) == "${pageContext.request.contextPath}/intro"){
             $("#menuPan").append(
                $("<h1>").text("스마트 팜 안내"),
                $('<br>'),
@@ -196,18 +194,18 @@
                   )
             )
          }
-         else if(url == "/prj/plantShopList.do" || url == "/prj/archieve.do"){
+         else if(url.substring(0,11) == "${pageContext.request.contextPath}/notice" || url.substring(0,13) == "${pageContext.request.contextPath}/archieve"){
             $("#menuPan").append(
                $("<h1>").text("스마트 팜 알림"),
                $('<br>'),
                $("<h3>").append(
-                  $("<a>").attr("href", "${pageContext.request.contextPath}/notice.do").text("   공지사항"),
+                  $("<a>").attr("href", "${pageContext.request.contextPath}/notice.do").text("공지사항"),
                   $("<span>").text(" | "),   
                   $("<a>").attr("href", "${pageContext.request.contextPath}/archieve.do").text("자료실"),
                   )
             )
          }
-         else if(url == "/prj/notice.do" || url == "kitShopList.do"){
+         else if(url.substring(0,14) == "${pageContext.request.contextPath}/plantShop" || url.substring(0,8) == "${pageContext.request.contextPath}/kit"){
              $("#menuPan").append(
                 $("<h1>").text("판매"),
                 $('<br>'),
@@ -218,17 +216,17 @@
                    )
              )
           }
-         else if(url == "/prj/aucnMain.do"){
+         else if(url.substring(0,9) == "${pageContext.request.contextPath}/aucn"){
              $("#menuPan").append(
                 $("<h1>").text("경매"),
                 $('<br>'),
                 $("<h3>").append(
-                   $("<a>").attr("href", "${pageContext.request.contextPath}/aucnMain.do").text("경매"),
+                   $("<a>").attr("href","${pageContext.request.contextPath}/aucnMain.do").text("경매"),
                    )
              )
           }  
          //220308 PSH 이용후기 수정 예정
-         else if(url == "/prj/free.do" || url == "leeyoung.do"){
+         else if(url.substring(0,9) == "${pageContext.request.contextPath}/free" || url == "leeyoung.do"){
               $("#menuPan").append(
                       $("<h1>").text("커뮤니티"),
                       $('<br>'),
@@ -239,7 +237,7 @@
                          )
                    )
          }
-         else if(url == "/prj/qna.do" || url == "/prj/faq.do"){
+         else if(url.substring(0,8) == "${pageContext.request.contextPath}/qna" || url.substring(0,8) == "${pageContext.request.contextPath}/faq"){
              $("#menuPan").append(
                      $("<h1>").text("고객지원"),
                      $('<br>'),
@@ -250,7 +248,9 @@
                         )
                   )
         }
-         else if(url == "/prj/qna.do" || url == "/prj/faq.do"){
+         else if(url == "${pageContext.request.contextPath}/grow.do" || url == "${pageContext.request.contextPath}/howTo.do" || url == "${pageContext.request.contextPath}/cctv.do" 
+        		 || url == "${pageContext.request.contextPath}/control.do" || url == "${pageContext.request.contextPath}/sensor.do" || url == "${pageContext.request.contextPath}/log.do"
+        		 || url == "${pageContext.request.contextPath}/diary.do"){
              $("#menuPan").append(
                      $("<h1>").text("컨트롤 페이지"),
                      $('<br>'),
@@ -271,8 +271,26 @@
                         $("<span>").text(" | "),   
                         )
                   )
-        }         
-      });
-   </script>
+        } 
+         else if(url.substring(0,10) == "${pageContext.request.contextPath}/admin"){
+             $("#menuPan").append(
+                     $("<h1>").text("관리자 페이지"),
+                     $('<br>'),
+                     $("<h3>").append(
+                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminHome.do").text("매출"),
+                        $("<span>").text(" | "),   
+                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminPurchaseList.do").text("키트 구매 현황"),
+                        $("<span>").text(" | "),
+                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminManageMember.do").text("회원관리"),
+                        $("<span>").text(" | "),
+                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminManageKit.do").text("키트관리"),
+                        $("<span>").text(" | "),
+                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminManageNFT.do").text("NFT 현황 조회"),
+                        $("<span>").text(" | "),
+                        
+                        )
+                  )
+        }
+   </script> 
 </body>
 </html>
