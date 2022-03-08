@@ -416,6 +416,8 @@ to {
 					toastr.error("금액을 입력하세요.");
 				}else{
 					alert('입찰에 성공하였습니다.');
+					//nft 경매 솔리디티 함수 실행
+					
 					webSocketSendChat();
 				}
 			}

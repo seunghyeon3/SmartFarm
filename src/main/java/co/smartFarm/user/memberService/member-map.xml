@@ -22,7 +22,20 @@
 	<!-- 전체 회원 조회 -->
 	<select id="memberSelectList"
 		resultType="co.smartFarm.user.memberService.MemberVO">
-		SELECT * FROM MEMBER
+		SELECT
+		     RPAD(SUBSTR(MEM_EMAIL, 0, 3), LENGTH(MEM_EMAIL), '*') MEM_EMAIL
+		    , RPAD(SUBSTR(MEM_NAME, 0, 1), LENGTH(MEM_NAME) + 1, '*') MEM_NAME
+		    , CASE WHEN  MEM_ATHR = 'B1' THEN '일반회원' 
+		           WHEN MEM_ATHR = 'B2' THEN '농부'
+		           WHEN MEM_ATHR = 'B0' THEN '관리자'
+		    END MEM_ATHR
+		    , NVL(MEM_FM_REQ, ' ') MEM_FM_REQ
+		    , CASE WHEN MEM_ATHR = 'B2' THEN '농부'
+		        WHEN MEM_ATHR ='B1' AND MEM_FM_REQ = 'Reject' THEN '거절됨'
+		        WHEN MEM_ATHR = 'B1' AND MEM_FM_REQ IS NOT NULL THEN '신청중'
+		        ELSE ' '
+		    END MEM_FM_RESULT
+		FROM MEMBER
 	</select>
 
 	<!-- 회원가입 -->
@@ -39,7 +52,7 @@
 	<update id="memberUpdatePw" parameterType="co.smartFarm.user.memberService.MemberVO">
 		UPDATE MEMBER
 		SET MEM_PW = #{mem_pw}
-		WHERE MEM_EMAIL =#{mem_email}
+		WHERE MEM_EMAIL = #{mem_email}
 	</update>
 	
 	<!-- 농부 승인-승인 -->
@@ -56,6 +69,7 @@
 		WHERE MEM_EMAIL = #{mem_email}
 	</update>
 
+	<!-- 회원 조회 -->
 	<select id="memberSelectKeyList" resultType="co.smartFarm.user.memberService.MemberVO">
 		SELECT * FROM MEMBER
 		<if test="key == ''"> WHERE 1 = 1</if>
