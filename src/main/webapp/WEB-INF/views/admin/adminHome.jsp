@@ -143,6 +143,7 @@
 								<li class="w3 np">
 									<form id="form1" name="form1" method="post"
 										enctype="multipart/form-data">
+										<input type="text" id="selectList" name="selectList">
 										<button type="button" class="post-btn"
 											onclick="doExcelDownloadProcess()">엑셀 다운로드</button>
 									</form>
@@ -173,6 +174,64 @@
 
 
 	<script type="text/javascript">
+		// ===== 팝업 달력 =====
+		var today = new Date();
+		var picker = tui.DatePicker.createRangePicker({
+			language : 'ko',
+			startpicker : {
+
+				date : today,
+				input : '#startpicker-input',
+				container : '#startpicker-container'
+			},
+			endpicker : {
+				date : today,
+				input : '#endpicker-input',
+				container : '#endpicker-container'
+			},
+			selectableRanges : [ [ new Date(2017, 3, 1), new Date() ],
+					[ new Date(2017, 3, 1), new Date() ] ]
+
+		});
+		// ===== 엑셀 다운로드 =====
+		function doExcelDownloadProcess() {
+
+			// 체크박스 값 받아와서 jsonArray 생성
+			var start = $("#startpicker-input").val();
+			var end = $("#endpicker-input").val();
+			var checkList = document
+					.querySelectorAll("input[type='checkbox']:checked");
+
+			var excelList = new Array();
+
+			if (checkList.length > 0) { //체크를 하나이상 한 경우
+				for (var i = 0; i < checkList.length; i++) {
+					var chList = new Object();
+					var val = checkList[i].value;
+					chList.menu = val;
+					chList.startDate = start;
+					chList.endDate = end;
+					excelList.push(chList);
+
+				}
+				var list = JSON.stringify(excelList);
+				console.log(excelList);
+				document.getElementById('selectList').value = list;
+				
+				
+
+			} else {//체크를 하나도 안한 경우
+				toastr.error("항목을 하나 이상 체크해주세요");
+
+			}
+
+			var f = document.form1;
+	        f.selectList.value=list;
+			f.action = "downloadExcelFile.do";
+			f.submit();
+
+		}
+
 		//=====차트=====
 		var context = document.getElementById('myChart').getContext('2d');
 		var myChart = new Chart(context, {
@@ -220,23 +279,6 @@
 			}
 		});
 
-		// ===== 팝업 달력 =====
-		var today = new Date();
-		var picker = tui.DatePicker.createRangePicker({
-			language : 'ko',
-			startpicker : {
-
-				date : today,
-				input : '#startpicker-input',
-				container : '#startpicker-container'
-			},
-			endpicker : {
-				date : today,
-				input : '#endpicker-input',
-				container : '#endpicker-container'
-			}
-		});
-
 		// ===== 날짜 검색 함수 =====
 		function searchFnc() {
 
@@ -249,55 +291,6 @@
 			var divDay = 24 * 60 * 60 * 1000;
 			var getDate = parseInt((endDate - startDate) / divDay);
 			console.log(getDate);
-		}
-
-		// ===== 엑셀 다운로드 =====
-		function doExcelDownloadProcess() {
-			/* var f = document.form1;
-			f.action = "downloadExcelFile.do";
-			f.submit(); */
-
-			/* var start = $("#startpicker-input").val();
-			var end = $("#endpicker-input").val();
-
-			var checkList = document
-					.querySelectorAll("input[type='checkbox']:checked");
-
-			excelList.plant = {
-				"startDate" : start,
-				"endDate" : end
-			}
-			excelList.nft = {
-				"startDate" : start,
-				"endDate" : end
-			}
-			excelList.sales = {
-				"startDate" : start,
-				"endDate" : end
-			}
-			excelList.kit = {
-				"startDate" : start,
-				"endDate" : end
-			}
-			excelList.member = {
-				"startDate" : start,
-				"endDate" : end
-			}
-
-			if (checkList.length > 0) {
-				console.log(checkList[0].value);
-
-				var excelList = new Object();
-				for (var i = 0; i < checkList.length; i++) {
-
-					var arr = checkList[i].value
-
-				}
-
-				console.log(excelList);
-			} else {
-				console.log("체크해주세요!")
-			} */
 		}
 	</script>
 
