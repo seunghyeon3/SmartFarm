@@ -70,17 +70,33 @@ ul>li>p{
                                <p>내용: ${qna.qna_con}</p>
                            </li>
                            <li class="full">
-                          	<img src="resources/images/${qna.qna_phy_rou}"onError="this.style.visibility='hidden'">
+                          	<img src="downloadq.do?img=${qna.qna_phy_rou}"onError="this.style.visibility='hidden'">
                            </li>
                             <li class="full">
-                            <p><a href="downloada.do?rou=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a></p>
+                            <a href="downloadq.do?img=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a>
                             </li>
-                           <li class="full">
+                           <li class="half pr-15">
  								 <input type="button" value="수정하기" onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'" class="fsubmit">
+                               </li>
+                               <li class="half pr-15">
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>
+                        <!--Leave a Comment Start-->
+					<div class="wf100 comment-form">
+						<h4>Leave a Comment</h4>
+						<ul>
+							<li class="w3"><input type="text" class="form-control"
+								placeholder="Full Name"></li>
+							<li class="full"><textarea class="form-control"
+									placeholder="Write Comments"></textarea></li>
+							<li class="full">
+								<button class="post-btn">Post Your Comment</button>
+							</li>
+						</ul>
+					</div>
                         </ul>
                      </div>
+                     
                   </div>
                </div>
             </div>
