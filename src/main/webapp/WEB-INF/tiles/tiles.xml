@@ -4,7 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<definition name="my.layout" template="/WEB-INF/tiles/layout/layout.jsp">
-		<put-attribute name="title" value="My WebSite"/>
+		<put-attribute name="title" value="SamrtFarm"/>
 		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
 		<put-attribute name="menu" value=""/>
 		<put-attribute name="body" value=""/>

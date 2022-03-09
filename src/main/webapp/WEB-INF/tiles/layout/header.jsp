@@ -6,7 +6,6 @@
 
 <head>
    <meta charset="UTF-8">
-   <title>Insert title here</title>
    <link href="<c:url value="/resources/css/tui-grid.css" />" rel="stylesheet" />
    <link href="<c:url value="/resources/css/custom.css" />" rel="stylesheet">
    <link href="<c:url value="/resources/css/color.css" />" rel="stylesheet">
@@ -42,6 +41,9 @@
       div[name=settingMenu]>h3>a:hover {
          color: yellow;
       }
+      div[name=settingMenu]>h3>a:active {
+         color: red;
+      }
       #headerfont > li > a{
       padding: 14px;
       font-size: 22px;
@@ -59,7 +61,7 @@
             <nav class="navbar navbar-expand-lg">
                <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="max-width: 100%; height: auto;"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent" >>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                   <ul class="navbar-nav mr-auto" id = "headerfont">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="intro.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 스마트 팜 안내 </a>
@@ -158,7 +160,7 @@
             </nav>
          </header> 
    <!-- 각자 페이지에 맞게 추가 해아함 -->
-   <section class="wf100 p100 inner-header" style="margin-bottom: 50px">
+   <section class="wf100 p100 inner-header" style="margin-bottom: 50px; display: none;" id="topMenu">
       <div class="container" id="menuPan" name="settingMenu">
 
       </div>
@@ -175,6 +177,7 @@
    <script src="${pageContext.request.contextPath}/resources/js/jquery.prettyPhoto.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/isotope.min.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/movePage.js"></script>
 
    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -183,119 +186,10 @@
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
    <script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
+   
     <script type="text/javascript">
-         /* 220308 PSH page 이동 구현 */
-         var url = window.location.pathname;
-         if(url.substring(0,10) == "${pageContext.request.contextPath}/intro"){
-            $("#menuPan").append(
-               $("<h1>").text("스마트 팜 안내"),
-               $('<br>'),
-               $("<h3>").append(
-                  $("<a>").attr("href", "${pageContext.request.contextPath}/intro.do?intro_board_class=intro3").text("스마트 팜 안내"),
-                  $("<span>").text(" | "),   
-                  $("<a>").attr("href", "${pageContext.request.contextPath}/introg.do?intro_board_class=intro2").text("과수 분야"),
-                  $("<span>").text(" | "),
-                  $("<a>").attr("href", "${pageContext.request.contextPath}/intron.do?intro_board_class=intro1").text("노지 분야"),
-                  )
-            )
-         }
-         else if(url.substring(0,11) == "${pageContext.request.contextPath}/notice" || url.substring(0,13) == "${pageContext.request.contextPath}/archieve"){
-            $("#menuPan").append(
-               $("<h1>").text("스마트 팜 알림"),
-               $('<br>'),
-               $("<h3>").append(
-                  $("<a>").attr("href", "${pageContext.request.contextPath}/notice.do").text("공지사항"),
-                  $("<span>").text(" | "),   
-                  $("<a>").attr("href", "${pageContext.request.contextPath}/archieve.do").text("자료실"),
-                  )
-            )
-         }
-         else if(url.substring(0,14) == "${pageContext.request.contextPath}/plantShop" || url.substring(0,8) == "${pageContext.request.contextPath}/kit"){
-             $("#menuPan").append(
-                $("<h1>").text("판매"),
-                $('<br>'),
-                $("<h3>").append(
-                   $("<a>").attr("href", "${pageContext.request.contextPath}/plantShopList.do").text("작물 판매"),
-                   $("<span>").text(" | "),   
-                   $("<a>").attr("href", "${pageContext.request.contextPath}/kitShopList.do").text("키트 판매"),
-                   )
-             )
-          }
-         else if(url.substring(0,9) == "${pageContext.request.contextPath}/aucn"){
-             $("#menuPan").append(
-                $("<h1>").text("경매"),
-                $('<br>'),
-                $("<h3>").append(
-                   $("<a>").attr("href","${pageContext.request.contextPath}/aucnMain.do").text("경매"),
-                   )
-             )
-          }  
-         //220308 PSH 이용후기 수정 예정
-         else if(url.substring(0,9) == "${pageContext.request.contextPath}/free" || url == "leeyoung.do"){
-              $("#menuPan").append(
-                      $("<h1>").text("커뮤니티"),
-                      $('<br>'),
-                      $("<h3>").append(
-                         $("<a>").attr("href", "${pageContext.request.contextPath}/free.do").text("자유 게시판"),
-                         $("<span>").text(" | "),   
-                         $("<a>").attr("href", "#").text("이용 후기"),
-                         )
-                   )
-         }
-         else if(url.substring(0,8) == "${pageContext.request.contextPath}/qna" || url.substring(0,8) == "${pageContext.request.contextPath}/faq"){
-             $("#menuPan").append(
-                     $("<h1>").text("고객지원"),
-                     $('<br>'),
-                     $("<h3>").append(
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/qna.do").text("Qna"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/faq.do").text("FAQ"),
-                        )
-                  )
-        }
-         else if(url == "${pageContext.request.contextPath}/grow.do" || url == "${pageContext.request.contextPath}/howTo.do" || url == "${pageContext.request.contextPath}/cctv.do" 
-        		 || url == "${pageContext.request.contextPath}/control.do" || url == "${pageContext.request.contextPath}/sensor.do" || url == "${pageContext.request.contextPath}/log.do"
-        		 || url == "${pageContext.request.contextPath}/diary.do"){
-             $("#menuPan").append(
-                     $("<h1>").text("컨트롤 페이지"),
-                     $('<br>'),
-                     $("<h3>").append(
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/grow.do").text("재배 홈"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/howTo.do").text("사용 법"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/cctv.do").text("CCTV"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/control.do").text("재배관리"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/sensor.do").text("실시간 정보"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/log.do").text("일별 로그"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/diary.do").text("영농 일지"),
-                        $("<span>").text(" | "),   
-                        )
-                  )
-        } 
-         else if(url.substring(0,10) == "${pageContext.request.contextPath}/admin"){
-             $("#menuPan").append(
-                     $("<h1>").text("관리자 페이지"),
-                     $('<br>'),
-                     $("<h3>").append(
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminHome.do").text("매출"),
-                        $("<span>").text(" | "),   
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminPurchaseList.do").text("키트 구매 현황"),
-                        $("<span>").text(" | "),
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminManageMember.do").text("회원관리"),
-                        $("<span>").text(" | "),
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminManageKit.do").text("키트관리"),
-                        $("<span>").text(" | "),
-                        $("<a>").attr("href", "${pageContext.request.contextPath}/admin/adminManageNFT.do").text("NFT 현황 조회"),
-                        $("<span>").text(" | "),
-                        
-                        )
-                  )
-        }
+    /* 220309 PSH home, header 통합 작업 진행, 외부 js 파일은 movePage.js 참고 */
+    movePage(window.location.pathname, "${pageContext.request.contextPath}")
    </script> 
 </body>
 </html>

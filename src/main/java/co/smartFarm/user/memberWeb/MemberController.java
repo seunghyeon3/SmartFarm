@@ -93,7 +93,7 @@ public class MemberController {
 
 				} else {// 일반회원인 경우 : 홈으로 이동
 					System.out.println("일반회원 로그인");
-					return "home";
+					return "home/home";
 
 				}
 			} else {
@@ -115,7 +115,7 @@ public class MemberController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate(); //세션의 모든 속성을 삭제
-		return "home";
+		return "home/home";
 	}
 
 	// ===== 회원가입 =====
