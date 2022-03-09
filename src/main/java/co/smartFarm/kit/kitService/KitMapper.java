@@ -10,4 +10,6 @@ public interface KitMapper {
 	int kitUpdateWhet(KitVO kitVo);
 	List<KitVO> kitSelectOne(String kitName);
 	List<KitVO> adminKitSelectList();
+	
+	List<KitVO> kitRecommand();
 }

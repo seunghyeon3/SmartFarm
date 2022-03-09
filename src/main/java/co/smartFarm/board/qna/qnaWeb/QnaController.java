@@ -40,6 +40,16 @@ public class QnaController {
 
 //파일 업로드 
 	private static final String FILE_SERVER_PATH = "c:/Temp/";
+	   @RequestMapping("/downloadQ")
+	   public ModelAndView download(@RequestParam HashMap<Object, Object> params, ModelAndView mv) {
+	      String fileName = (String) params.get("fileName");
+	      String fullPath = FILE_SERVER_PATH + "/" + fileName;
+	      File file = new File(fullPath);
+	      
+	      mv.setViewName("downloadView");
+	      mv.addObject("downloadFile", file);
+	      return mv;
+	   }
 	
 //QNA 리스트
 	@RequestMapping(value = "/qna.do")
@@ -59,8 +69,8 @@ public class QnaController {
 	}
 
 	// QNA 다운로드 파일
-	@GetMapping("/downloadQ.do")
-		public void download(HttpServletResponse response, @RequestParam String img) throws Exception {
+	@GetMapping("/downloadq.do")
+		public void downloadq(HttpServletResponse response, @RequestParam String img) throws Exception {
 	        try {
 	        	// 경로에 접근할 때 역슬래시('\') 사용
 	        	String path = "c:\\Temp\\"+img; 

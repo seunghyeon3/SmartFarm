@@ -15,5 +15,7 @@ public interface FreeService {
 	    int freeUpdate(FreeVO free);
 	    int freeNoUpdate(int free_no); 
 	    List<FreeVO> freeSearch(@Param("key")String key, @Param("val") String val);
+	    //220309 PSH 최근 5개 자유게시판 출력을 위해 추가
+	    List<FreeVO> recentlyFree();
 
 }

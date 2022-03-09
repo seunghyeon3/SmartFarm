@@ -38,6 +38,10 @@ public class KitServiceImpl implements KitService{
 	public List<KitVO> adminKitSelectList() {
 		return map.adminKitSelectList();
 	}
+	@Override
+	public List<KitVO> kitRecommand() {
+		return map.kitRecommand();
+	}
 
 	
 }

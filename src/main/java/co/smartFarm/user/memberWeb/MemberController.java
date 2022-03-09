@@ -38,31 +38,30 @@ import co.smartFarm.user.memberService.MemberVO;
 public class MemberController {
 
 	@Autowired
-	//220302 PSH MemberMapper에서 아래 내용오르 수정
+	// 220302 PSH MemberMapper에서 아래 내용오르 수정
 	MemberService memberDao;
-	
+
 	@Autowired
-	//220302 PSH MypageController -> MemberController 구분 작업
+	// 220302 PSH MypageController -> MemberController 구분 작업
 	GrowDiaryService growDiaryDao;
-	
-	//마이페이지 경로
-	//220302 PSH MypageController -> MemberController 구분 작업
-		@RequestMapping("/mypage.do")
-		public String mypage() {
-			return "user/mypage";
-		}
-		
-		
-	//재배내역 팝업창 클릭시 회원 재배내역 표출
-	//220302 PSH MypageController -> MemberController 구분 작업
+
+	// 마이페이지 경로
+	// 220302 PSH MypageController -> MemberController 구분 작업
+	@RequestMapping("/mypage.do")
+	public String mypage() {
+		return "user/mypage";
+	}
+
+	// 재배내역 팝업창 클릭시 회원 재배내역 표출
+	// 220302 PSH MypageController -> MemberController 구분 작업
 	@RequestMapping("cultivationHistory.do")
 	@ResponseBody
 	public List<GrowDiaryVO> cultivationHistory(HttpSession session) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		String memEmail = member.getMem_email();
-	    return growDiaryDao.growDiaryMyList(memEmail);
+		return growDiaryDao.growDiaryMyList(memEmail);
 	}
-	
+
 	// ===== 로그인 =====
 	// 로그인창으로 이동
 	@RequestMapping("/login.do")
@@ -111,11 +110,11 @@ public class MemberController {
 		}
 
 	}
-	
-	//===== 로그아웃 =====
+
+	// ===== 로그아웃 =====
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
-		session.invalidate(); //세션의 모든 속성을 삭제
+		session.invalidate(); // 세션의 모든 속성을 삭제
 		return "home/home";
 	}
 
@@ -123,11 +122,12 @@ public class MemberController {
 	// 회원가입창으로 이동
 	@RequestMapping("/register.do")
 	public String register(Model model, HttpServletRequest request) throws IOException {
-		String test =  request.getServletContext().getRealPath("resources/register/agreement.txt");
+		String test = request.getServletContext().getRealPath("resources/register/agreement.txt");
+
 		Path path = Paths.get(test);
 		List<String> lines = java.nio.file.Files.readAllLines(path);
-		model.addAttribute("pInfo",lines);
-		//System.out.println(lines);
+		model.addAttribute("pInfo", lines);
+		// System.out.println(lines);
 		return "user/register";
 	}
 
@@ -159,22 +159,22 @@ public class MemberController {
 			if (object.getString("menu").equals("homePage")) {
 				System.out.println("홈페이지 사용가능");
 				return "1";
-				
+
 			} else {
-				
+
 				System.out.println("카카오톡 로그인 회원가입");
 				return "1";
 			}
 
-		} else { //리턴값 있는 경우
-			
+		} else { // 리턴값 있는 경우
+
 			if (object.getString("menu").equals("homePage")) {
 
 				System.out.println("사용 불가능");
 				return "0";
-				
+
 			} else {
-				
+
 				session.setAttribute("member", memberVo);
 				System.out.println("카카오톡 계정으로 로그인 시키기");
 				return "0";

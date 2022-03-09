@@ -65,8 +65,11 @@
    
    <section class="shop wf100 p80">
       <div class="container">
+          	<h1>공지 사항</h1>
          <div class="row" id="prolist">
-          	<h3>공지 사항</h3>
+         <div class="col-md-6 col-sm-6">
+         </div> 
+         <div class="col-md-6 col-sm-1">
           	 	<div class="side-search">
 							<!--<form action="noticeSearch.do" method="post"> -->
 								<select class="form-control" id="key" name="key" style="width: 120px; float: left">
@@ -79,11 +82,12 @@
 								</button>
 							<!-- </form> -->
 						</div>
-            <div class="col-md-12">
+						       </div>
+            <div class="col-md-12 col-sm-6" style="padding: 20px;">
                        <div id="grid"></div> <!-- grid 불러오기 -->
                <a href="noticeinsertForm.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
             </div>
-         </div>
+
          <div class="row">
             <div class="col-md-12">
                <div class="gt-pagination">
@@ -102,11 +106,9 @@
             </div>
          </div>
       </div>
+      </div>
    </section>
-   
-   <div>
-
-   </div>
+  
               <!-- 4 --> 
       <script>
 		//표 출력
