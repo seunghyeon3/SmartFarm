@@ -19,5 +19,7 @@ public interface NoticeMapper {
 	int noticeNoUpdate(int notice_no); 
 	List<NoticeVO> noticeSearch(@Param("key")String key, @Param("val") String val);
 	String writeValueAsString(List<NoticeVO> noticeSelectList);
+	
+	List<NoticeVO> recentlyNotice();
 
 }

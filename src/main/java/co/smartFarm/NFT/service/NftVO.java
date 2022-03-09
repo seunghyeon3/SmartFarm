@@ -16,5 +16,6 @@ public class NftVO {
 	private String kit_name;
 	private int kit_sum;
 	private String kit_plant_class;
+	private String kit_prpos;
 	
 }

@@ -19,5 +19,7 @@ public interface NoticeService {
 	int noticeNoUpdate(int notice_no); 
 	List<NoticeVO> noticeSearch(@Param("key")String key, @Param("val") String val);
 	String writeValueAsString(List<NoticeVO> noticeSelectList);
-
+	
+	//220309 PSH 등록이 최신 5개 출력하기 위해 추가	
+	List<NoticeVO> recentlyNotice();
 }

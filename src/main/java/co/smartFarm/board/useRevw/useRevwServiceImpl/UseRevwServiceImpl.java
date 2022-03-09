@@ -25,4 +25,9 @@ public class UseRevwServiceImpl implements UseRevwService{
 		return map.createRevw(useRevw);
 	}
 	
+	@Override	
+	public List<UseRevwVO> recentlyUseRevw() {
+		return map.recentlyUseRevw();
+	}
+	
 }

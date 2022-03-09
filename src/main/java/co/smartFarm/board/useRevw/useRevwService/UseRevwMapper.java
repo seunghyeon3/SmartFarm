@@ -7,4 +7,5 @@ public interface UseRevwMapper {
 	List<UseRevwVO> useRevwList();
 	//이용후기 등록페이지
 	int createRevw(UseRevwVO useRevw);
+	List<UseRevwVO> recentlyUseRevw();
 }

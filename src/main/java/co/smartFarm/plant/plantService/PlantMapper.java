@@ -8,5 +8,7 @@ import co.smartFarm.user.memberService.MemberVO;
 public interface PlantMapper {
 	List<PlantVO> selectMemPlantList(MemberVO memberVo);
 	PlantVO selectPlant(PlantVO plantVo);
+	List<PlantVO> adminSelectPlant();
+	
 
 }

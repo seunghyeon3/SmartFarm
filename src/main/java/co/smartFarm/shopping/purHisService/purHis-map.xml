@@ -23,8 +23,8 @@
    		parameterType="co.smartFarm.shopping.purHisService.PurHisVO"
    		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
 		SELECT
-		    PUR_HIS_PUR_DAY,
-		    PUR_COUNT                   AS PLANT_SALE_NO,
+		    TO_CHAR(PUR_HIS_PUR_DAY, 'yyyy/mm/dd') PUR_HIS_PUR_DAY,
+		    PUR_COUNT                   AS PUR_COUNT,
 		    SUM(PLANT_SUM)
 		    OVER(
 		    ORDER BY PUR_HIS_PUR_DAY)   AS PLANT_SUM,
@@ -54,6 +54,14 @@
 		   
 		 
 		    
+   </select>
+   
+   <select id="purHisPriceSelect" resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+		SELECT DISTINCT SUM(PUR_HIS_PRICE)
+		OVER(PARTITION BY MEM_EMAIL)
+		AS PUR_HIS_PRICE,
+		MEM_EMAIL
+		FROM PUR_HIS
    </select>
    
 </mapper>

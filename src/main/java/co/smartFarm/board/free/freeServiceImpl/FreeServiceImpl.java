@@ -60,6 +60,11 @@ public class FreeServiceImpl implements FreeService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<FreeVO> recentlyFree() {
+		return map.recentlyFree();
+	}
 	
 	
 }
