@@ -20,6 +20,10 @@
 	
 	</select>
 	
+	<select id="adminSelectPlant"
+		resultType="co.smartFarm.plant.plantService.PlantVO">
+		SELECT * FROM PLANT
+	</select>
 
 	
 </mapper>

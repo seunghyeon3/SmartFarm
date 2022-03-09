@@ -38,8 +38,8 @@
 							</div>
 
 							<div class="input-group form-check">
-								<a href="#" class="fp">아이디 찾기</a> <a href="#" class="fp">비밀번호
-									찾기</a> <a href="#" class="fp">회원가입</a>
+								<a href="findEmail.do" class="fp">아이디 찾기</a> <a href="findPw.do" class="fp">비밀번호
+									찾기</a> <a href="register.do" class="fp">회원가입</a>
 							</div>
 							<div class="input-group">
 								<button class="login-btn" type="submit">로그인</button>

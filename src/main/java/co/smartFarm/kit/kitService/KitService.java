@@ -9,4 +9,5 @@ public interface KitService {
 
 	int kitUpdateWhet(KitVO kitVo);
 	List<KitVO> kitSelectOne(String kitName);
+	List<KitVO> adminKitSelectList();
 }

@@ -4,6 +4,7 @@
 	<select id="kitSelectList"
 		resultType="co.smartFarm.kit.kitService.KitVO">
 		SELECT * FROM KIT
+        WHERE KIT_SALE_WHET = 'Y'
 	</select>
 	
 	 <select id="kitSelectOneByNo" parameterType="int"
@@ -24,6 +25,11 @@
 		SELECT * 
 		FROM KIT
 		WHERE KIT_NAME LIKE '%' || #{kit_name} || '%'
+	</select>
+	
+	<select id="adminKitSelectList"
+		resultType="co.smartFarm.kit.kitService.KitVO">
+		SELECT * FROM KIT
 	</select>
 
 </mapper>

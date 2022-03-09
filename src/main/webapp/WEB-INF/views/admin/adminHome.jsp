@@ -14,53 +14,7 @@
 
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-<!-- CSS FILES End -->
-<style type="text/css">
-/* .radioCss {
-			width: 50px;
-			padding: 20px;
-			font-size: 1.2em;
-		}
 
-		/*radio 버튼 색상변경 
-		input[type='radio'] {
-			-webkit-appearance: none;
-			width: 16px;
-			height: 16px;
-			border: 1px solid darkgray;
-			border-radius: 50%;
-			outline: none;
-			background: #e6e6e6;
-		}
-
-		input[type='radio']:before {
-			content: '';
-			display: block;
-			width: 60%;
-			height: 60%;
-			margin: 20% auto;
-			border-radius: 50%;
-		}
-
-		input[type='radio']:checked:before {
-			background: #1b5e20;
-		}
-
-		input[type="checkbox"]:checked {
-			background-color: black;
-			border-color: black;
-			color: white;
-		}
-
-		input[type="checkbox"]:checked::before {
-			border-radius: 2px;
-			transform: scale(1) translate(-50%, -50%)
-		}
-
-		.checkList {
-			font-size: 1.2em;
-		} */
-</style>
 </head>
 
 <body>
@@ -118,13 +72,13 @@
 
 
 					<!-- 차트 -->
-					<div class="col-md-8 col-sm-6" style="z-index: 1;">
+					<div class="col-md-8" id="chart" style="z-index: 1;">
 						<canvas id="myChart" style="z-index: 1;"></canvas>
 					</div>
 
-
+					<div class="col-md-1 checkList"></div>
 					<!-- 엑셀 출력 폼 -->
-					<div class="col-md-4 col-sm-6 checkList">
+					<div class="col-md-3 checkList">
 						<div class="wf100 comment-form">
 
 							<ul>
@@ -140,10 +94,10 @@
 									value='nft' />&nbsp;&nbsp;NFT 현황조회</li>
 
 
-								<li class="w3 np">
+								<li class="">
 									<form id="form1" name="form1" method="post"
 										enctype="multipart/form-data">
-										<input type="text" id="selectList" name="selectList">
+										<input type="hidden" id="selectList" name="selectList">
 										<button type="button" class="post-btn"
 											onclick="doExcelDownloadProcess()">엑셀 다운로드</button>
 									</form>
@@ -155,8 +109,6 @@
 						</div>
 
 					</div>
-
-
 
 				</div>
 			</div>
@@ -174,6 +126,83 @@
 
 
 	<script type="text/javascript">
+		// ===== 차트 넣기 위해 데이터 가공 =====
+		var selectList = (${purHisSelectList});
+		var myChart;
+		var purDay = [];
+		var purCountArr = [];
+		var plantSum = [];
+		var kitSum = [];
+		var purSum = [];
+		
+		// =====  차트 그리는 함수 =====
+		function createChart(selectList) {
+			
+			//데이터 초기화시키기
+			purDay = [];
+			purCountArr = [];
+			plantSum = [];
+			kitSum = [];
+			purSum = [];
+			
+			
+			for ( var li in selectList) {
+			
+				purDay.push(selectList[li].pur_his_pur_day);
+				purCountArr.push(selectList[li].pur_count);
+				plantSum.push(selectList[li].plant_sum);
+				kitSum.push(selectList[li].kit_sum);
+				purSum.push(selectList[li].pur_sum);
+				
+			}
+
+			//=====차트=====
+			var context = document.getElementById('myChart').getContext('2d');
+			myChart = new Chart(context, {
+				type : 'line', // 차트의 형태 line, pie, bar
+				data : { // 차트에 들어갈 데이터
+					labels : purDay, //x 축
+					datasets : [ { //데이터
+						label : '총매출', //차트 제목
+						fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+						data : purSum,//x축 label에 대응되는 데이터 값
+						backgroundColor : [ 'rgb(1, 146, 103)' ],//색상
+						borderColor : [ 'rgb(1, 146, 103)' ],
+						borderWidth : 1
+					//경계선 굵기
+
+					}, { //데이터
+						label : '키트매출', //차트 제목
+						fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+						data : kitSum, //x축 label에 대응되는 데이터 값
+						backgroundColor : [ 'rgb(0, 200, 151)' ],//색상
+						borderColor : [ 'rgb(0, 200, 151)' ],//경계선 색상
+						borderWidth : 1
+					//경계선 굵기
+					}, { //데이터
+						label : '작물매출', //차트 제목
+						fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+						data : plantSum, //x축 label에 대응되는 데이터 값
+						backgroundColor : [ 'rgb(255, 211, 101)' ],//색상
+						borderColor : [ 'rgb(255, 211, 101)' ],//경계선 색상
+						borderWidth : 1
+					//경계선 굵기
+					} ]
+
+				},
+				options : {
+					scales : {
+						yAxes : [ {
+							ticks : {
+								beginAtZero : true
+							}
+						} ]
+					}
+				}
+			});
+		}
+		createChart(selectList);
+		
 		// ===== 팝업 달력 =====
 		var today = new Date();
 		var picker = tui.DatePicker.createRangePicker({
@@ -189,10 +218,14 @@
 				input : '#endpicker-input',
 				container : '#endpicker-container'
 			},
-			selectableRanges : [ [ new Date(2017, 3, 1), new Date() ],
-					[ new Date(2017, 3, 1), new Date() ] ]
+			selectableRanges : [ [ new Date(2000, 1, 1), new Date() ],
+					[ new Date(2000, 1, 1), new Date() ] ]
 
 		});
+
+		var now = new Date();
+		picker.setStartDate(new Date(now.setMonth(now.getMonth() - 1)));
+
 		// ===== 엑셀 다운로드 =====
 		function doExcelDownloadProcess() {
 
@@ -217,80 +250,48 @@
 				var list = JSON.stringify(excelList);
 				console.log(excelList);
 				document.getElementById('selectList').value = list;
-				
-				
+
+				var f = document.form1;
+				f.selectList.value = list;
+				f.action = "downloadExcelFile.do";
+				f.submit();
 
 			} else {//체크를 하나도 안한 경우
 				toastr.error("항목을 하나 이상 체크해주세요");
 
 			}
 
-			var f = document.form1;
-	        f.selectList.value=list;
-			f.action = "downloadExcelFile.do";
-			f.submit();
-
 		}
-
-		//=====차트=====
-		var context = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(context, {
-			type : 'line', // 차트의 형태 line, pie, bar
-			data : { // 차트에 들어갈 데이터
-				labels : [ '1', '2', '3', '4', '5', '6', '7' ], //x 축
-				datasets : [ { //데이터
-					label : '총매출', //차트 제목
-					fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-					data : [ 21, 19, 25, 20, 23, 26, 25 //x축 label에 대응되는 데이터 값
-					],
-					backgroundColor : [
-					//색상
-					'rgba(255, 206, 86, 1)' ],
-					borderColor : [
-					//경계선 색상
-					'rgba(255, 206, 86, 1)' ],
-					borderWidth : 1
-				//경계선 굵기
-
-				}, { //데이터
-					label : '키트매출', //차트 제목
-					fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-					data : [ 2, 3, 14, 25, 13, 41, 12 //x축 label에 대응되는 데이터 값
-					],
-					backgroundColor : [
-					//색상
-					'rgba(75, 192, 192, 1)', ],
-					borderColor : [
-					//경계선 색상
-					'rgba(75, 192, 192, 1)', ],
-					borderWidth : 1
-				//경계선 굵기
-				} ]
-
-			},
-			options : {
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
-						}
-					} ]
-				}
-			}
-		});
-
-		// ===== 날짜 검색 함수 =====
+		
+		// ===== 차트 지우기 함수 =====
+		function resetCanvas() {
+			document.getElementById('myChart').remove();
+			$('#chart').append('<canvas id="myChart"><canvas>');
+			
+		}
+		
+		// ===== 검색 함수 =====
 		function searchFnc() {
+			
+			var startDate = $("#startpicker-input").val();
+			var endDate = $("#endpicker-input").val();
 
-			//두 날짜 차이 구하기
-			var start = $("#startpicker-input").val().split("-");
-			var end = $("#endpicker-input").val().split("-");
+			$.ajax({
+				url : "adminGetSales.do",
+				method : 'post',
+				contentType : "application/json; charset=utf-8",
+				data : JSON.stringify({
+					start_date : startDate,
+					end_date : endDate
+				}),
+				dataType : 'json',
+				success : function(res) {
+					console.log(res);
+					resetCanvas();
+					createChart(res);
+				}
+			})
 
-			var startDate = new Date(start[0], start[1], start[2]);
-			var endDate = new Date(end[0], end[1], end[2]);
-			var divDay = 24 * 60 * 60 * 1000;
-			var getDate = parseInt((endDate - startDate) / divDay);
-			console.log(getDate);
 		}
 	</script>
 

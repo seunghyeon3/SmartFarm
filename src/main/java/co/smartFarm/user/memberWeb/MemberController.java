@@ -15,6 +15,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -85,15 +86,15 @@ public class MemberController {
 				// 페이지 이동
 				if (resultVo.getMem_athr().equals("B0")) {// 관리자인 경우 : 관리자 페이지로 이동
 					System.out.println("관리자 로그인");
-					return "admin/adminHome";
+					return "redirect:/admin/adminHome.do";
 
 				} else if (resultVo.getMem_athr().equals("B2")) {// 농부인 경우 : 관리 페이지로 이동
 					System.out.println("농부 로그인");
-					return "grow/growhome";
+					return "redirect:/growhome.do";
 
 				} else {// 일반회원인 경우 : 홈으로 이동
 					System.out.println("일반회원 로그인");
-					return "home/home";
+					return "redirect:/home.do";
 
 				}
 			} else {
@@ -121,8 +122,8 @@ public class MemberController {
 	// ===== 회원가입 =====
 	// 회원가입창으로 이동
 	@RequestMapping("/register.do")
-	public String register(Model model) throws IOException {
-		String test = "C:\\Users\\admin\\Desktop\\agreement.txt"; // 추후수정 : 나중에 경로 고치기
+	public String register(Model model, HttpServletRequest request) throws IOException {
+		String test =  request.getServletContext().getRealPath("resources/register/agreement.txt");
 		Path path = Paths.get(test);
 		List<String> lines = java.nio.file.Files.readAllLines(path);
 		model.addAttribute("pInfo",lines);
