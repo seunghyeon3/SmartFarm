@@ -28,39 +28,12 @@ web3.eth.getAccounts(function (err, accs){
 var abi = [
 	{
 		"constant": false,
-		"inputs": [],
-		"name": "bid",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "auctionEnd",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "beneficiary",
-		"outputs": [
+		"inputs": [
 			{
-				"name": "",
-				"type": "address"
+				"name": "_aucnNo",
+				"type": "uint256"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
 		"name": "withdraw",
 		"outputs": [
 			{
@@ -73,29 +46,45 @@ var abi = [
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "highestBidder",
-		"outputs": [
+		"constant": false,
+		"inputs": [
 			{
-				"name": "",
-				"type": "address"
+				"name": "_aucnNo",
+				"type": "uint256"
 			}
 		],
+		"name": "auctionEnd",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_biddingTime",
+				"name": "_beneficiary",
+				"type": "address"
+			},
+			{
+				"name": "_aucnNo",
 				"type": "uint256"
 			},
 			{
-				"name": "_beneficiary",
+				"name": "highestBidder",
 				"type": "address"
+			},
+			{
+				"name": "highestBid",
+				"type": "uint256"
+			},
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "ended",
+				"type": "bool"
 			}
 		],
 		"name": "NFTAuction",
@@ -105,13 +94,52 @@ var abi = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_aucnNo",
+				"type": "uint256"
+			}
+		],
+		"name": "bid",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"constant": true,
-		"inputs": [],
-		"name": "highestBid",
-		"outputs": [
+		"inputs": [
 			{
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"name": "AuctionMapping",
+		"outputs": [
+			{
+				"name": "beneficiary",
+				"type": "address"
+			},
+			{
+				"name": "aucnNo",
+				"type": "uint256"
+			},
+			{
+				"name": "highestBidder",
+				"type": "address"
+			},
+			{
+				"name": "highestBid",
+				"type": "uint256"
+			},
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "ended",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -154,10 +182,10 @@ var abi = [
 	}
 ];
 
-//var GrowDiaryContract = web3.eth.contract(abi)
+//var NFTAuctionContract = web3.eth.contract(abi)
 
-var contractAddress = "0x9BcEeb6EF1D19842a5dB24b2A86CAF51EB34C256"; /* our contract address on Ethereum after deploying */
+var contractAddress = "0x07EB809f99e89C1BE5c12111186fc21107d10723"; /* our contract address on Ethereum after deploying */
 
-var NFTAuction = new web3.eth.Contract(abi, contractAddress);//GrowDiaryContract.at(contractAddress)
-// `GrowDiary`는 우리 컨트랙트의 public 함수와 이벤트에 접근할 수 있다.
+var NFTAuction = new web3.eth.Contract(abi, contractAddress);//NFTAuctionContract.at(contractAddress)
+// `NFTAuction`는 우리 컨트랙트의 public 함수와 이벤트에 접근할 수 있다.
 

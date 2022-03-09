@@ -13,4 +13,6 @@ public interface AucnMapper {
 	List<AucnVO> aucnEnable();
 	//경매 입찰시 현재 최고 금액을 찾고 비교후 입찰금액이 현재 금액보다 높을시 입찰금액과 회원아이디 업데이트
 	Integer aucnBid(AucnVO aucn);
+	//경매등록시 만들어지는 최고 번호
+	int aucnNoselect();
 }

@@ -258,6 +258,14 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>4.0.0</version>
 		</dependency>
+
+		<!-- web3 스마트컨트랙트 연결 -->
+		<!-- https://mvnrepository.com/artifact/org.web3j/core -->
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>5.0.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
