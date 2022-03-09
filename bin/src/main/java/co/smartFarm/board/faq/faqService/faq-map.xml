@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.board.faq.faqService.FaqMapper">
+<!-- 전체리스트 -->
+ <select id="faqSelectList" resultType="co.smartFarm.board.faq.faqService.FaqVO">
+SELECT REPLACE(FAQ_CON,CHR(13) || CHR(10),'') FAQ_CON, FAQ_NO,FAQ_TITLE FROM FAQ <!--다시 수정 -->
+ </select>
+ <!-- 단건조회 -->
+ <select id="faqinsertSelect" resultType="co.smartFarm.board.faq.faqService.FaqVO"
+ parameterType="co.smartFarm.board.faq.faqService.FaqVO">
+ SELECT * FROM FAQ WHERE FAQ_NO = #{FAQ_NO}
+ </select>
+ <!-- 수정 -->
+ <update id="faqUpdate" parameterType="co.smartFarm.board.faq.faqService.FaqVO">
+ UPDATE FAQ
+ SET
+ FAQ_TITLE = #{faq_title},
+ FAQ_CON = #{faq_con}
+ WHERE FAQ_NO = #{faq_no}
+ </update>
+ <!-- 등록 -->
+ <insert id="faqInsert" parameterType="co.smartFarm.board.faq.faqService.FaqVO">
+<selectKey keyProperty="faq_no" resultType="co.smartFarm.board.faq.faqService.FaqVO" order="BEFORE">
+SELECT NVL(MAX(FAQ_NO) + 1, 1 ) AS FAQ_NO FROM FAQ
+</selectKey>
+INSERT INTO FAQ(FAQ_NO,FAQ_TITLE,
+FAQ_CON)
+VALUES(#{faq_no}, #{faq_title}, #{faq_con})
+</insert>
+<!-- 삭제 -->
+<delete id="faqDelete" parameterType="co.smartFarm.board.faq.faqService.FaqVO">
+   DELETE FROM FAQ WHERE FAQ_NO =#{faq_no}
+</delete>
+<!-- 검색 -->
+	<select id="faqSearch" resultType="co.smartFarm.board.faq.faqService.FaqVO">
+		SELECT * FROM FAQ
+		<if test="key == ''"> WHERE 1 = 1</if>
+		<if test="key == 'faq_no'">WHERE FAQ_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'faq_title'">WHERE FAQ_TITLE LIKE '%' || #{val} || '%'</if>
+			
+	</select>
+ </mapper>

@@ -60,7 +60,7 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>NFT 경매 등록</h3>
-                        <form action="aucnInsert.do" method="post">
+                        <form action="aucnInsert.do" onsubmit="nftAuctionInsert()" method="post">
 	                        <ul class="cform">
 		                        <li class="full">
 		                        	<input type="hidden" id="nft_no" name="nft_no" value="${nftVo.nft_no }">
@@ -92,7 +92,10 @@
                </div>
             </div>
          </section>
-         
+         	<script
+				src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js">
+			</script>
+			<script src="resources/js/NFTAuction.js"></script>
          <script>
          $(document).ready( function () {
              $('#aucn_start_time').dateTimePicker();
@@ -118,6 +121,15 @@
 		       setTimeout(func, timer);
 		    }
 		}
+         
+         
+         function nftAuctionInsert(){
+        	 NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
+				.send({from: account, })
+				.then(function(result){console.log(result);});	
+        	 alert("경매가 정상적으로 등록되었습니다.");
+			}
+			
          </script>
 </body>
 </html>

@@ -59,4 +59,8 @@
             )}
         ]]>
     </select>
+
+	<select id="aucnNoselect" resultType="int">
+		SELECT NVL(MAX(AUCN_NO)+1,1) AS AUCN_NO FROM AUCN
+	</select>
 </mapper>

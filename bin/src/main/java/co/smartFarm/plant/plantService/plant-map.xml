@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.plant.plantService.PlantMapper">
+
+<!-- 220302 PSH shopping -> plant 구분 작업 -->
+	<select id="selectMemPlantList"
+		parameterType="co.smartFarm.plant.plantService.PlantVO"
+		resultType="co.smartFarm.plant.plantService.PlantVO">
+		SELECT * FROM PLANT
+		WHERE MEM_EMAIL = #{mem_email}
+	</select>
+	
+	
+	<!-- 220302 PSH shopping -> plant 구분 작업 -->
+		<select id="selectPlant"
+		parameterType="co.smartFarm.plant.plantService.PlantVO"
+		resultType="co.smartFarm.plant.plantService.PlantVO">
+		SELECT * FROM PLANT
+		WHERE PLANT_NO = #{plant_no}
+	
+	</select>
+	
+
+	
+</mapper>

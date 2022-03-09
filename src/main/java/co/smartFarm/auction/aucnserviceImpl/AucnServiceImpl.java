@@ -40,5 +40,10 @@ public class AucnServiceImpl implements AucnService{
 		return map.aucnBid(aucn);
 	}
 
+	@Override
+	public int aucnNoselect() {
+		return map.aucnNoselect();
+	}
+
 	
 }

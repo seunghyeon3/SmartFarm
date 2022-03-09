@@ -4,11 +4,23 @@
 	<select id="useRevwList" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
 		SELECT * FROM USE_REVW
 	</select>
+	<select id="createRevw" parameterType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO" statementType="CALLABLE">
+        <![CDATA[
+        { call create_revw (
+                #{pur_his_order_no},
+                #{use_revw_title},
+                #{use_revw_con},
+                #{mem_name},
+                #{mem_email},
+                #{use_revw_ori_rou},
+                #{use_revw_phy_rou}
+            )}
+        ]]>
+    </select>    
 	<select id="recentlyUseRevw" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
 	SELECT *
 	FROM USE_REVW
 	WHERE <![CDATA[ ROWNUM < 6]]>
 	ORDER BY USE_REVW_WRITE_DAY
-	
 	</select>
 </mapper>

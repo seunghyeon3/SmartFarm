@@ -227,10 +227,10 @@ to {
 		</div>
 	</section>
 
-	<!-- <script
+	<script
 		src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js">
 	</script>
-	<script src="resources/js/NFTAuction.js"></script> -->
+	<script src="resources/js/NFTAuction.js"></script>
 	<script type="text/javascript" src="resources/js/countdown.js"></script>
 
 	<!-- 웹소켓 기능 -->
