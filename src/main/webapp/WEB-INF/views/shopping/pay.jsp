@@ -20,7 +20,6 @@ table {
 	border-top: 1px solid #aaaaaa;
 	border-collapse: collapse;
 	background-color: white;
-	
 }
 
 th {
@@ -46,7 +45,8 @@ input {
 	border-top: 0px;
 	border-left: 0px;
 	/* border-bottom:1px; */
-	border-width: thin; border-color: #555555;
+	border-width: thin;
+	border-color: #555555;
 }
 
 #findAddBtn {
@@ -81,14 +81,21 @@ input {
 						style="padding: 20px; margin-bottom: 20px;">
 						<h3>배송정보</h3>
 						<br>
-						<table style="width:60%;">
+						<table style="width: 60%;">
 							<tr>
 								<th>이름</th>
 								<td><input type="text" id="pur_his_recv"></td>
 							</tr>
 							<tr>
 								<th>핸드폰</th>
-								<td><input type="text" id="pur_his_tel"></td>
+								<td><input type="text" id="pur_his_tel1" style="width: 80px;">
+								<span style="font-size: small">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+								<input type="text" id="pur_his_tel2" style="width: 80px;">
+									<span style="font-size: small">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+									<input type="text"id="pur_his_tel3" style="width: 80px;"> 
+									
+									<input type="hidden" id="pur_his_tel"></td>
+									
 							</tr>
 							<tr>
 								<th>우편번호</th>
@@ -98,14 +105,14 @@ input {
 							</tr>
 							<tr>
 								<th>주소</th>
-								<td><input type="text" id="mem_addr2" style="width:90%;"></td>
+								<td><input type="text" id="mem_addr2" style="width: 90%;"></td>
 
 							</tr>
 							<tr>
 								<th>상세주소</th>
 								<td><input type="hidden" id="mem_addr3"><input
 									type="hidden" id="mem_addr"><input type="text"
-									id="mem_det_addr" style="width:90%;"></td>
+									id="mem_det_addr" style="width: 90%;"></td>
 							</tr>
 						</table>
 					</div>
@@ -185,11 +192,12 @@ input {
 							cart_sum : {
 								template : function(summary) {
 									var sum = getSum().toLocaleString('ko-KR');
-									if($("#showSum") != null){
+									if ($("#showSum") != null) {
 										$("#showSum").empty();
 									}
-									$("#showSum").append($("<h3>").text("총액 : " + sum));
-									return '총액 : '+ sum;
+									$("#showSum").append(
+											$("<h3>").text("총액 : " + sum));
+									return '총액 : ' + sum;
 								}
 							}
 						}
@@ -201,10 +209,10 @@ input {
 		grid.resetData(gridData);
 		var bodyHeight = payList.length * 17;
 		grid.setBodyHeight(30);
-		
+
 		// 판매가와 총액에 콤마 찍기
 		function setMoney() {
-			
+
 			for (var i = 0; i < gridData.length; i++) {
 				var price = parseInt(grid.getValue(i, 'cart_price'))
 						.toLocaleString('ko-KR');
@@ -212,7 +220,7 @@ input {
 				var sum = parseInt(grid.getValue(i, 'cart_sum'))
 						.toLocaleString('ko-KR');
 				grid.setValue(i, 'cart_sum', sum, true);
-			} 
+			}
 
 		}
 		setMoney();
@@ -220,7 +228,7 @@ input {
 		// ===== 총액 구하기 =====
 		function getSum() {
 			var sum = 0;
-			for (var i=0;i<payList.length;i++){
+			for (var i = 0; i < payList.length; i++) {
 				sum += payList[i].cart_sum;
 			}
 			return sum;
@@ -244,7 +252,9 @@ input {
 
 			// 결제 정보
 			var pur_his_recv = $("#pur_his_recv").val();//구매자 이름
-			var pur_his_tel = $("#pur_his_tel").val();//전화번호
+			var pur_his_tel = $("#pur_his_tel1").val() + '-' + $("#pur_his_tel2").val()
+					+'-'+$("#pur_his_tel3").val();//전화번호
+			$("#pur_his_tel").val(pur_his_tel);
 			var pur_his_addr = $("#mem_addr").val() + $("#mem_det_addr").val();// 구매자 주소 
 			var pur_postcode = $("mem_addr1").val();//우편번호
 			var pur_his_price = getSum(); //구매가격 
@@ -296,8 +306,8 @@ input {
 				contentType : "application/json; charset=utf-8",
 				dataType : 'json',
 				success : function(res) {
-					if(alert('결제가 완료되었습니다.')){
-						location.href= "home.do";
+					if (alert('결제가 완료되었습니다.')) {
+						location.href = "home.do";
 					}
 				}
 			});

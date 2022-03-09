@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,26 +73,38 @@
 								<li class="half pr-15"><input type="text"
 									class="form-control" id="mem_name" name="mem_name"
 									placeholder="이름" required></li>
+									
+									
+								<!-- 핸드폰 번호 -->
 								<li class="half pl-15"><input type="text"
-									class="form-control" id="mem_tel" name="mem_tel"
-									placeholder="전화번호" required></li>
+									class="form-control"
+									style="width: 126px; float: left; -webkit-appearance: none;"
+									id="mem_tel1" name="mem_tel1" required> <span
+									style="float: left">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
+									<input type="text" class="form-control"
+									style="width: 126px; float: left" id="mem_tel2" name="mem_tel2"
+									required><span style="float: left">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
+									<input type="text" class="form-control"
+									style="width: 126px; float: left" id="mem_tel3" name="mem_tel3"
+									required> <input type="hidden" id="mem_tel"
+									name="mem_tel" ></li>
 
 								<!-- 주소 -->
 								<li class="half pr-15"><input type="text"
 									class="form-control" id="mem_addr1" name="mem_addr1"
-									placeholder="우편번호" required></li>
+									placeholder="우편번호" required readonly></li>
 
 								<li class="half pl-15">
 									<button type="button" onclick="findAddr()" class="fsubmit">우편번호
 										찾기</button>
 								</li>
 								<li class="full"><input type="text" id="mem_addr2"
-									name="mem_addr2" class="form-control" placeholder="주소" required></li>
+									name="mem_addr2" class="form-control" placeholder="주소" required readonly></li>
 
-								<li class="half pr-15"><input type="text" id="mem_det_addr"
+								<li class="full"><input type="text" id="mem_det_addr"
 									name="mem_det_addr" class="form-control" placeholder="상세주소"
 									required></li>
-								<li class="half pl-15"><input type="text" id="mem_addr3"
+								<li class="half pl-15"><input type="hidden" id="mem_addr3"
 									name="mem_addr3" class="form-control" placeholder=""></li>
 
 
@@ -137,10 +149,10 @@
 	</div>
 
 	<!-- 개인정보 동의 창 -->
-	<div id="lightPInfo" class="col-md-12 white_content">
-		개인정보 동의 <a onclick="closeFrm()">Close </a> <br> <br>
+	<div id="lightPInfo" class="col-md-12 white_content" style="padding:20px;">
+		<h5 style="padding:20px;">개인정보 동의 <a onclick="closeFrm()" style="float:right;color:blue;font-size: medium"> X </a></h5>  <br> <br>
 
-		<div id="pInfo" class="container"  style="overFlow: auto;">
+		<div id="pInfo" class="container" style="overFlow: auto;">
 			<c:forEach items="${pInfo }" var="in">
 				<p>${in }</p>
 			</c:forEach>
@@ -224,8 +236,6 @@
 	 	// ===== 회원가입 버튼 누르기 전에 확인하기 =====
 	   	function checkRequired() {
 			
-			//event.preventDefault();
-			
 	 		//이메일 중복여부 확인
 	 		var mem_email_check = $('#mem_email_check').val();
 	 		var pInfoCheck = $("#pInfoCheck").val();
@@ -239,7 +249,11 @@
 	 			return false;
 	 		} 
 	 		
+	 		
 	 		checkPw();
+	 		var mem_tel = document.getElementById('mem_tel1').value +"-"+document.getElementById('mem_tel2').value 
+			+"-"+document.getElementById('mem_tel2').value ;
+			document.getElementById('mem_tel').value = mem_tel;
 	 		
 	 		return true;
 	 		
@@ -275,6 +289,8 @@
 						}
 					});
 			}
+			
+			
 			
 		}
 		

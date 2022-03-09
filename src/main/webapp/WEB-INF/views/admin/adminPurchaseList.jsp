@@ -152,19 +152,7 @@ h3 {
 
 
 
-					<div class="col-md-4 col-sm-6" style="padding: 0 100px;">
-						<div class="wf100 comment-form">
-
-							<ul>
-
-								<li class="w3 np"><button onclick="openInstP()"
-										class="post-btn" style="width: 100px; margin: 0 150px;">작물등록</button></li>
-
-							</ul>
-
-						</div>
-
-					</div>
+					
 
 
 
@@ -177,132 +165,6 @@ h3 {
 
 
 	</div>
-
-
-
-	<!-- 팝업창 -->
-	<div id="lightInstP" class="col-md-12 white_content"
-		style="text-align: center; height: 800px; top: 70px;">
-		<br>
-
-		<div>
-
-			<h3>작물등록</h3>
-			<a href="javascript:void(0)"
-				onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
-			</a>
-
-		</div>
-		<br>
-
-		<div class="blog-single-content"
-			style="width: 80%; display: inline-block;">
-			<form action="">
-
-				<div class="single-post-tags wf50">
-					<a href="#">과일류</a>&nbsp;&nbsp;&nbsp; <a href="#">채소류</a>
-				</div>
-
-				<table class="GeneratedTable">
-					<tbody>
-						<tr>
-							<th>작물종류</th>
-							<td><input type="text" value="나중에 버튼 누르면 컬럼 바껴야함"></td>
-						</tr>
-						<tr>
-							<th>작물이름</th>
-							<td><input type="text"></td>
-						</tr>
-						<tr>
-							<th>재배기간</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<th>적정온도</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<th>습도</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<th>일사량</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<th>급액양</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<th>농약양</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<th>cctv</th>
-							<td><input type="text"></td>
-						</tr>
-						<tr>
-							<th>키트 가격</th>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<th>대표 이미지</th>
-							<td><input type="text"></td>
-						</tr>
-						<tr>
-							<th>설명 이미지</th>
-							<td><input type="text"></td>
-						</tr>
-
-						<!-- hidden 영역 -->
-						<tr>
-							<th>판매여부</th>
-							<td><input type="text" value="Y"></td>
-						</tr>
-
-						<tr>
-							<th>조회수</th>
-							<td><input type="text" value=0></td>
-						</tr>
-						<tr>
-							<th>판매수</th>
-							<td><input type="text" value=0></td>
-						</tr>
-
-					</tbody>
-
-
-
-				</table>
-
-				<div class="wf100 comment-form"
-					style="width: 80%; text-align: center;">
-
-					<ul style="width: 100%;">
-						<li class="w2 np"></li>
-						<li class="w3 np"><button onclick="openInstP()"
-								class="post-btn">작물등록</button></li>
-
-						<li class="w3 np">
-							<button
-								onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'"
-								class="post-btn"
-								style="background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">취소</button>
-						</li>
-					</ul>
-
-				</div>
-
-			</form>
-		</div>
-	</div>
-
-
-
-
-
-	<div id="fadeInstP" class="black_overlay"></div>
-
 
 
 
@@ -359,11 +221,7 @@ h3 {
 					}
 				});
 		
-		//=====팝업창=====
-		function openInstP() {
-			document.getElementById('lightInstP').style.display = 'block';
-			document.getElementById('fadeInstP').style.display = 'block';
-		}
+		
 
 		//=====팝업 달력=====
 		var today = new Date();

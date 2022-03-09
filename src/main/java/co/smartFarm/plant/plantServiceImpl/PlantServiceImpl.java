@@ -25,4 +25,9 @@ public class PlantServiceImpl implements PlantService{
 	public PlantVO selectPlant(PlantVO plantVo) {
 		return map.selectPlant(plantVo);
 	}
+
+	@Override
+	public List<PlantVO> adminSelectPlant() {
+		return map.adminSelectPlant();
+	}
 }

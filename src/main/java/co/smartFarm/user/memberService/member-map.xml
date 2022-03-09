@@ -23,8 +23,8 @@
 	<select id="memberSelectList"
 		resultType="co.smartFarm.user.memberService.MemberVO">
 		SELECT
-		     RPAD(SUBSTR(MEM_EMAIL, 0, 3), LENGTH(MEM_EMAIL), '*') MEM_EMAIL
-		    , RPAD(SUBSTR(MEM_NAME, 0, 1), LENGTH(MEM_NAME) + 1, '*') MEM_NAME
+		     MEM_EMAIL
+		    , MEM_NAME
 		    , CASE WHEN  MEM_ATHR = 'B1' THEN '일반회원' 
 		           WHEN MEM_ATHR = 'B2' THEN '농부'
 		           WHEN MEM_ATHR = 'B0' THEN '관리자'
@@ -36,6 +36,7 @@
 		        ELSE ' '
 		    END MEM_FM_RESULT
 		FROM MEMBER
+		WHERE MEM_EMAIL NOT LIKE 'admin%'
 	</select>
 
 	<!-- 회원가입 -->
