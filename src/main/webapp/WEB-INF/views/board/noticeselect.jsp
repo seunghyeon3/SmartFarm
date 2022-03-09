@@ -77,8 +77,10 @@ ul>li>p{
                              <a href="download.do?img=${notice.notice_img}">${notice.notice_img}</a>
                             
                             </li>
-                           <li class="full">
+                            <li class="half pr-15">
  							   <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit"> 
+                               </li>
+                                <li class="half pr-15">
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>

@@ -75,8 +75,10 @@ ul>li>p{
                             <li class="full">
                             <p><a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a></p>
                             </li>
-                           <li class="full">
+                           <li class="half pr-15">
  								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
+                               </li>
+                                <li class="half pr-15">
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
@@ -84,6 +86,6 @@ ul>li>p{
                   </div>
                </div>
             </div>
-         </section>    
+         </section>   
 </body>
 </html>

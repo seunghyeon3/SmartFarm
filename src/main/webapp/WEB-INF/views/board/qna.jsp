@@ -56,8 +56,10 @@
 	</div>
 	<section class="shop wf100 p80">
 		<div class="container">
+				<h1>QNA</h1>
 			<div class="row" id="prolist">
-				<h3>QNA</h3>
+			<div class="col-md-6 col-sm-6">
+         	</div> 
 				<div class="col-md-6 col-sm-1">
 						<div class="side-search">
 							<!-- <form action="adminMemSearch.do" method="post"> -->
@@ -72,7 +74,7 @@
 							<!-- </form> -->
 						</div>
 					</div>
-				<div class="col-md-12">
+				 <div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
 					<a href="qnainsertForm.do" class="view-more"
@@ -101,8 +103,6 @@
 		</div>
 	</section>
 
-	<div></div>
-	
 	<!-- 4 -->
 	<script>
 		//표 출력
