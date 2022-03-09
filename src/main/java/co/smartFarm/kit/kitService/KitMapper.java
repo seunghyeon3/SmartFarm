@@ -9,5 +9,6 @@ public interface KitMapper {
 
 	int kitUpdateWhet(KitVO kitVo);
 	List<KitVO> kitSelectOne(String kitName);
-
+	
+	List<KitVO> kitRecommand();
 }

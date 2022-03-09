@@ -122,7 +122,7 @@ public class MemberController {
 	// 회원가입창으로 이동
 	@RequestMapping("/register.do")
 	public String register(Model model) throws IOException {
-		String test = "C:\\Users\\admin\\Desktop\\agreement.txt"; // 추후수정 : 나중에 경로 고치기
+		String test = "C:\\Users\\admin\\Desktop\\agreement.txt"; // 추후수정 : 나중에 경로 고치기-> 물리 경로 고치기
 		Path path = Paths.get(test);
 		List<String> lines = java.nio.file.Files.readAllLines(path);
 		model.addAttribute("pInfo",lines);

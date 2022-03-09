@@ -62,6 +62,11 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public String writeValueAsString(List<NoticeVO> noticeSelectList) {
 		return map.writeValueAsString(noticeSelectList());
+	}
+
+	@Override
+	public List<NoticeVO> recentlyNotice() {
+		return map.recentlyNotice();
 	} 
 	
 	

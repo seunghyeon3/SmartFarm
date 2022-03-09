@@ -56,4 +56,12 @@
 		    
    </select>
    
+   <select id="purHisPriceSelect" resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+		SELECT DISTINCT SUM(PUR_HIS_PRICE)
+		OVER(PARTITION BY MEM_EMAIL)
+		AS PUR_HIS_PRICE,
+		MEM_EMAIL
+		FROM PUR_HIS
+   </select>
+   
 </mapper>

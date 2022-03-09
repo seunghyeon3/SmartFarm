@@ -34,5 +34,10 @@ public class KitServiceImpl implements KitService{
 		return map.kitSelectOneByNo(kitNo);
 	}
 
+	@Override
+	public List<KitVO> kitRecommand() {
+		return map.kitRecommand();
+	}
+
 	
 }

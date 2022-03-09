@@ -26,4 +26,9 @@ public class PurHisServiceImpl implements PurHisService{
 		
 		return map.adminPurHisSelectList(purHisVo);
 	}
+
+	@Override
+	public List<PurHisVO> purHisPriceSelect() {
+		return map.purHisPriceSelect();
+	}
 }

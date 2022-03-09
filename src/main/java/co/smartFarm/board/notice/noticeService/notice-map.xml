@@ -43,5 +43,13 @@ VALUES(#{notice_no}, #{notice_title}, #{notice_con}, #{notice_img}, #{mem_name})
 		<if test="key == 'notice_no'">WHERE NOTICE_NO LIKE '%' || #{val} || '%'</if>
 		<if test="key == 'notice_title'">WHERE NOTICE_TITLE LIKE '%' || #{val} || '%'</if>
 	</select>
+	
+	<select id="recentlyNotice" resultType="co.smartFarm.board.notice.noticeService.NoticeVO">
+	SELECT *
+	FROM NOTICE
+	WHERE <![CDATA[ROWNUM<6]]>
+	ORDER BY NOTICE_DAY DESC
+	</select>
+	
 </mapper>
 

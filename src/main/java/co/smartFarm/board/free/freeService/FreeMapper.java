@@ -16,6 +16,5 @@ public interface FreeMapper {
     int freeUpdate(FreeVO free);
     int freeNoUpdate(int free_no); 
     List<FreeVO> freeSearch(@Param("key")String key, @Param("val") String val);
-
-
+    List<FreeVO> recentlyFree();
 }

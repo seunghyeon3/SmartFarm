@@ -4,4 +4,11 @@
 	<select id="useRevwList" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
 		SELECT * FROM USE_REVW
 	</select>
+	<select id="recentlyUseRevw" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
+	SELECT *
+	FROM USE_REVW
+	WHERE <![CDATA[ ROWNUM < 6]]>
+	ORDER BY USE_REVW_WRITE_DAY
+	
+	</select>
 </mapper>
