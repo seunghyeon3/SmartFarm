@@ -180,6 +180,7 @@
    <script src="${pageContext.request.contextPath}/resources/js/isotope.min.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/movePage.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/js/websocket.js"></script>
    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -196,6 +197,7 @@
     console.log(window.location.pathname);
 	console.log("${pageContext.request.contextPath}");
     movePage(window.location.pathname, "${pageContext.request.contextPath}")
+    
    </script> 
 </body>
 </html>

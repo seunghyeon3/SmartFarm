@@ -10,8 +10,8 @@ public class AucnVO {
 	private String aucn_con;
 	private String mem_name;
 	private String aucn_start_time;
-	private double first_bid;
-	private double now_bid;
+	private int first_bid;
+	private int now_bid;
 	private String now_bid_mem_email;
 	private String aucn_whet;
 	private String mem_email;

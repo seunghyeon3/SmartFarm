@@ -184,7 +184,7 @@ var abi = [
 
 //var NFTAuctionContract = web3.eth.contract(abi)
 
-var contractAddress = "0x07EB809f99e89C1BE5c12111186fc21107d10723"; /* our contract address on Ethereum after deploying */
+var contractAddress = "0xa9BDfaAd018E4Df034Ec37E1ffee2d020AFA3804"; /* our contract address on Ethereum after deploying */
 
 var NFTAuction = new web3.eth.Contract(abi, contractAddress);//NFTAuctionContract.at(contractAddress)
 // `NFTAuction`는 우리 컨트랙트의 public 함수와 이벤트에 접근할 수 있다.
