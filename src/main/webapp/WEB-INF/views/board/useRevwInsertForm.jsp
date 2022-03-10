@@ -51,28 +51,22 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                        <h3>작물 판매 등록</h3>
-                        <form action="plantSaleInsert.do" onsubmit="return check();" method="post">
+                        <h3>이용 후기 등록</h3>
+                        <form action="useRevwInsert.do" onsubmit="return check();" method="post">
 	                        <ul class="cform">
 	                       	   <li class="full">
-	                       	   		<select class=" full form-control" id="plant_no" name="plant_no" onchange="selectFnc(this)">
-	                       	   			<option value="-1">작물목록</option>
+	                       	   		<select class=" full form-control" id="pur_his_order_no" name="pur_his_order_no" onchange="selectFnc(this)">
+	                       	   			<option value="-1">구매목록</option>
 		                       	   		<c:forEach var="list" items="${purHisList}">
-											<option value="${list.pur_his_order_no }"> 상품 이름 : ${list.plant_name } | 가격 : ${list.pur_his_price } | 수량 : ${list.plant_ivy } | 구매날짜 : ${list.pur_his_pur_day }</option>
+											<option value="${list.pur_his_order_no }"> 상품 이름 : ${list.product_name } | 가격 : ${list.pur_his_price } | 수량 : ${list.pur_his_sale_count } | 구매날짜 : ${list.pur_his_pur_day }</option>
 										</c:forEach>
 									</select>
 	                       	   </li>
 	                           <li class="full">
-	                              <input type="text" id="plant_sale_title" name="plant_sale_title" class="form-control" placeholder="제목" oninvalid="toastr.error('제목을 입력해주세요')" >
-	                           </li>
-	                           <li class="half pr-15">
-	                              <input type="number" id="plant_sale_price" name="plant_sale_price" class="form-control" placeholder="가격"  min="0" oninvalid="toastr.error('가격을 입력해주세요')"  >
-	                           </li>
-	                           <li class="half pl-15">
-	                              <input type="number" id="plant_count" name="plant_count" class="form-control" placeholder="수량"  min="1" oninput="countCheck()" oninvalid="toastr.error('수량을 입력해주세요')" >
+	                              <input type="text" id="use_revw_title" name="use_revw_title" class="form-control" placeholder="제목" oninvalid="toastr.error('제목을 입력해주세요')" >
 	                           </li>
 	                            <li class="full">
-	                              <textarea class="textarea-control" id="plant_sale_con" name="plant_sale_con" placeholder="내용" oninvalid="toastr.error('내용을 입력해주세요')" ></textarea>
+	                              <textarea class="textarea-control" id="use_revw_con" name="use_revw_con" placeholder="내용" oninvalid="toastr.error('내용을 입력해주세요')" ></textarea>
 	                           </li>
 	                           <!-- 파일업로드 버튼 구성 -->
 	                           <li>
@@ -81,9 +75,6 @@
 		  								<input type="file" id="ex_file">
 								   </div>
 							   </li>
-		                        <input type="text" id="mem_email" name="mem_email" value="${member.mem_email}">
-		                        <input type="text" id="mem_name" name="mem_name" value="${member.mem_name }">
-		                        <input type="text" id="plant_sale_plant_class" name="plant_sale_plant_class">
                         		
 	                           <li class="full">
 	                              <input type="submit" value="등록" class="fsubmit">
@@ -95,59 +86,6 @@
                </div>
             </div>
          </section>
-         
-         <script type="text/javascript">
-         	
-         	
-         	
-         	// ===== 폼 넘기기 전에 확인할 목록 =====
-         	function check() {
-         		//작물 입력 안한 경우
-				var plant_no = $("#plant_no").val();
-				if(plant_no === '-1'){
-					toastr.error('판매할 작물을 입력해주세요');
-					return false;	
-				}
-				
-				return true;
-			}
-         
-         	// ===== 입력한 작물 개수가 수량보다 많은 경우 =====
-         	function countCheck() {
-         		var list = ${selectMemScript}
-         		
-				var plant_count = $("#plant_count").val();
-         		var index = $("#plant_no option").index($("#plant_no option:selected")) -1 ;
-	
-         		
-         		if(index >= 0){
-         			var max = Number(list[index].plant_ivy);
-         			//alert(max);
-         			
-         			
-         			if(plant_count > max){
-    					toastr.error('재고보다 많은 수량을 판매할 수 없습니다');
-    					$("#plant_count").val('');
-    					return false;
-    				}
-         			return true;
-         			
-         		}
-         		
-				return true;
-			}
-         	
-         	function selectFnc(e) {
-         		var list = ${selectMemScript}
-         		var index = $("#plant_no option").index($("#plant_no option:selected")) -1 ;
-         		
-         		var plant_sale_plant_class = list[index].plant_class
-         		$("#plant_sale_plant_class").val(plant_sale_plant_class);
-			}
-         	
-         	
-         	
-         </script>
          
 </body>
 </html>

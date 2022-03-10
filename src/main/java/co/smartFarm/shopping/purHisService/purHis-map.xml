@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.smartFarm.shopping.purHisService.PurHisMapper">
-   <select id="purHisInsert" 
-   	parameterType="co.smartFarm.shopping.purHisService.PurHisVO"
-   	statementType="CALLABLE">
+<mapper
+	namespace="co.smartFarm.shopping.purHisService.PurHisMapper">
+	<select id="purHisInsert"
+		parameterType="co.smartFarm.shopping.purHisService.PurHisVO"
+		statementType="CALLABLE">
         <![CDATA[
             {call insert_pur_his(
                #{mem_email},
@@ -16,55 +17,70 @@
                #{pur_his_price}
             )}
          ]]>
-       
-   </select>
-   
-   <select id="adminPurHisSelectList" 
-   		parameterType="co.smartFarm.shopping.purHisService.PurHisVO"
-   		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+
+	</select>
+
+	<select id="adminPurHisSelectList"
+		parameterType="co.smartFarm.shopping.purHisService.PurHisVO"
+		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
 		SELECT
-		    TO_CHAR(PUR_HIS_PUR_DAY, 'yyyy/mm/dd') PUR_HIS_PUR_DAY,
-		    PUR_COUNT                   AS PUR_COUNT,
-		    SUM(PLANT_SUM)
-		    OVER(
-		    ORDER BY PUR_HIS_PUR_DAY)   AS PLANT_SUM,
-		    SUM(KIT_SUM)
-		    OVER(
-		    ORDER BY PUR_HIS_PUR_DAY)   AS KIT_SUM,
-		    SUM(PUR_SUM)
-		    OVER(
-		    ORDER BY PUR_HIS_PUR_DAY)   AS PUR_SUM
+		TO_CHAR(PUR_HIS_PUR_DAY, 'yyyy/mm/dd') PUR_HIS_PUR_DAY,
+		PUR_COUNT AS PUR_COUNT,
+		SUM(PLANT_SUM)
+		OVER(
+		ORDER BY PUR_HIS_PUR_DAY) AS PLANT_SUM,
+		SUM(KIT_SUM)
+		OVER(
+		ORDER BY PUR_HIS_PUR_DAY) AS KIT_SUM,
+		SUM(PUR_SUM)
+		OVER(
+		ORDER BY PUR_HIS_PUR_DAY) AS PUR_SUM
 		FROM
-		      ( SELECT
-		            NUM,
-		            MIN(PUR_HIS_PUR_DAY)                                     AS PUR_HIS_PUR_DAY,
-		            COUNT(PUR_HIS_PRICE)                                     AS PUR_COUNT,
-		            SUM(DECODE(KIT_NO, 0, PUR_HIS_PRICE, 0))                 AS KIT_SUM,
-		            SUM(DECODE(PLANT_SALE_NO, 0, PUR_HIS_PRICE, 0))          AS PLANT_SUM,
-		            SUM(PUR_HIS_PRICE)                                       AS PUR_SUM
-		        FROM( SELECT
-		                    ROUND( ( PUR_HIS_PUR_DAY - TO_DATE (#{start_date}, 'YYYY-MM-DD')) / 7, 0) + 1      AS NUM
-		                    , PUR_HIS_PRICE
-		                    , KIT_NO
-		                    , PLANT_SALE_NO          
-		                    , PUR_HIS_PUR_DAY
-		                FROM PUR_HIS
-		                WHERE PUR_HIS_PUR_DAY BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD' )) 
-		                GROUP BY NUM)
-		   
-		 
-		    
-   </select>
-   
-   <select id="purHisPriceSelect" resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+		( SELECT
+		NUM,
+		MIN(PUR_HIS_PUR_DAY) AS PUR_HIS_PUR_DAY,
+		COUNT(PUR_HIS_PRICE) AS PUR_COUNT,
+		SUM(DECODE(KIT_NO, 0, PUR_HIS_PRICE, 0)) AS KIT_SUM,
+		SUM(DECODE(PLANT_SALE_NO, 0, PUR_HIS_PRICE, 0)) AS PLANT_SUM,
+		SUM(PUR_HIS_PRICE) AS PUR_SUM
+		FROM( SELECT
+		ROUND( ( PUR_HIS_PUR_DAY - TO_DATE (#{start_date}, 'YYYY-MM-DD')) / 7, 0) +
+		1 AS NUM
+		, PUR_HIS_PRICE
+		, KIT_NO
+		, PLANT_SALE_NO
+		, PUR_HIS_PUR_DAY
+		FROM PUR_HIS
+		WHERE PUR_HIS_PUR_DAY BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND
+		TO_DATE(#{end_date}, 'YYYY-MM-DD' ))
+		GROUP BY NUM)
+
+
+
+	</select>
+
+	<select id="purHisPriceSelect"
+		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
 		SELECT DISTINCT SUM(PUR_HIS_PRICE)
-		OVER(PARTITION BY MEM_EMAIL)
+		OVER(PARTITION BY
+		MEM_EMAIL)
 		AS PUR_HIS_PRICE,
 		MEM_EMAIL
 		FROM PUR_HIS
-   </select>
-   
-   <select id="purHisRevwSelect" parameterType="String" resultType="co.smartFarm.shopping.purHisService.PurHisVO">
-   		SELECT * FROM PUR_HIS WHERE MEM_EMAIL = {#mem_email} AND PUR_HIS_REVW_WRITE = 'N'	
-   </select>
+	</select>
+
+	<select id="purHisRevwSelect" parameterType="String"
+		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+		SELECT p.pur_his_order_no, p.pur_his_price, p.pur_his_pur_day,pur_his_sale_count,
+		CASE WHEN p.plant_sale_no = 0
+		THEN k.kit_name
+		ELSE s.plant_sale_title
+		END AS product_name
+		FROM pur_his p LEFT OUTER JOIN kit k
+		ON (p.kit_no = k.kit_no)
+		LEFT OUTER JOIN plant_sale s
+		ON (p.plant_sale_no = s.plant_sale_no)
+		WHERE p.mem_email = #{memEmail}
+		AND p.pur_his_revw_write = 'N'
+	</select>
 </mapper>

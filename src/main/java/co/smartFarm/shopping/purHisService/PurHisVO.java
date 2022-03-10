@@ -28,7 +28,6 @@ public class PurHisVO {
 	private String end_date; // 일자 받아오기
 	
 	// 이용후기 페이지에서 상품 이름을 표시하기 위한 컬럼
-	private String kit_name;
-	private String plant_sale_title;
+	private String product_name;
 	
 }

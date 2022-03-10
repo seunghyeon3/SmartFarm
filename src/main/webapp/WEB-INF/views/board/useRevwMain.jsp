@@ -44,7 +44,7 @@
 				</c:forEach>
 				<!-- 판매 리스트 출력 끝 -->
 				<div class="col-md-12">
-					<a href="useRevwInsert.do" class="view-more"
+					<a href="useRevwInsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">이용후기 등록 버튼</a>
 				</div>
 			</div>
