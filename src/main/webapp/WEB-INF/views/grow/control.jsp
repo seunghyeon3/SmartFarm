@@ -25,7 +25,8 @@
 							
 								<c:forEach items="${kitList}" var="grow" varStatus="status">
 								
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-startdate="${grow.grow_status }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="#">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li>
+								<%-- <li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-startdate="${grow.grow_status }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li> --%>
+								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li>
 								
 								</c:forEach>
 								
@@ -66,8 +67,10 @@
 							<a id="growstart" href="#" class="dn-btn">재배 시작</a>
 							<a id="growstop" href="#" class="dn-btn">재배 중지</a>
 							<a id="growchange" href="#" class="dn-btn">값 변경</a>
-							<a href="#" class="dn-btn">재배 완료(일지 저장)</a>
-							<a href="#" class="dn-btn">취소(일지 저장 안함)</a>
+							
+							<a style="display: none;" id="complete" href="#" class="dn-btn">재배 완료(일지 저장)</a>
+							<a style="display: none;" id="cancel" href="#" class="dn-btn">취소(일지 저장 안함)</a>
+							
 						</div>
 						<!--재배 관리 화면 출력부 종료-->
 						
@@ -81,6 +84,8 @@
 <script type="text/javascript">
 
 	$("#growKitList").on("click", "li", function(event)	{
+		$("#complete").hide();
+		$("#cancel").hide();
 		$("#temp").val("");
 		$("#hum").val("");
 		$("#light").val("");
@@ -90,33 +95,40 @@
 			type:'get',
 			/* url:event.target.dataset.url+"checkGrow", */
 			url:event.target.id+"checkGrow",
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 		}).done(function (result) {
-			console.log(result.hum);
+			console.log(result.status)
 			$("#temp").val(result.temp);
 			$("#hum").val(result.hum);
 			$("#light").val(result.light);
 			$("#water").val(result.water);
 			$("#pes").val(result.pes);
+			if(result.status == 2) {
+				$("#complete").show();
+				$("#cancel").show();				
+			}
 		})	
 		
  		console.log(event.target.dataset.percent);
-		console.log(event.target.dataset.startdate);
 		
 		$("#growstart").attr("data-url", event.target.id);
         $("#growstop").attr("data-url", event.target.id);
         $("#growchange").attr("data-url", event.target.id);
-        if(!event.target.dataset.startdate){
-	        $("#start").html("");
+        $("#complete").attr("data-url", event.target.id);
+        
+        /* if(!event.target.dataset.startdate){ */
+/* 	        $("#start").html("");
 	        $("#percent").html("재배를 시작해주세요");
 	        $("#end").html("");
-	        $("#p-bar").css("width","0")
-		}else {
-        $("#start").html(event.target.dataset.startdate);
+	        $("#p-bar").css("width","0"); */
+		/* }else { */
+/*         $("#start").html(event.target.dataset.startdate); */
         $("#percent").html(event.target.dataset.percent + "%");
         $("#end").html(event.target.dataset.end);
         $("#p-bar").css("width",event.target.dataset.percent+"%")
-		}
+        
+		/* } */
+        
         $("input#auto").attr("data-tp", event.target.dataset.tp);
         $("input#auto").attr("data-hd", event.target.dataset.hd);
         $("input#auto").attr("data-sun", event.target.dataset.sun);
@@ -198,6 +210,17 @@
 		}else {
 			$("input.value").removeAttr("disabled");
 		}
+	})
+	
+	$("#complete").on("click",function(event) {
+		console.log(event.target.dataset.url);
+		$.ajax({
+			type:'get',
+			url:event.target.dataset.url+"complete",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+		}).done( function (result) {
+			toastr.info(result);
+		})		
 	})
 	
 </script>
