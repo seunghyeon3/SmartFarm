@@ -47,7 +47,6 @@ VALUES(#{notice_no}, #{notice_title}, #{notice_con}, #{notice_img}, #{mem_name})
 	<select id="recentlyNotice" resultType="co.smartFarm.board.notice.noticeService.NoticeVO">
 	SELECT *
 	FROM NOTICE
-	WHERE <![CDATA[ROWNUM<6]]>
 	ORDER BY NOTICE_DAY DESC
 	</select>
 	
