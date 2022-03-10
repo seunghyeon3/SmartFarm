@@ -77,7 +77,7 @@
 
 	<!-- 웹 소켓 서버로 사용할 클래스의 bean을 생성 -->
 	<beans:bean
-		class="co.smartFarm.auction.aucnWeb.SocketHandler" id="myHandler" />
+		class="co.smartFarm.prj.SocketHandler" id="myHandler" />
 
 	<!-- 웹 소켓 서버와 URL을 매핑 -->
 	<websocket:handlers>
@@ -85,7 +85,7 @@
 			path="/websocket/broadcast.do" />
 		<websocket:handshake-interceptors>
 			<beans:bean
-				class="co.smartFarm.auction.aucnWeb.HandShakeInterceptor" />
+				class="co.smartFarm.prj.HandShakeInterceptor" />
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 

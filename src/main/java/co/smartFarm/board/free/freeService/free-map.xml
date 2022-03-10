@@ -17,7 +17,6 @@
     <select id="recentlyFree" resultType="co.smartFarm.board.free.freeService.FreeVO">
     SELECT *
 	FROM FREE
-	WHERE <![CDATA[ ROWNUM < 6]]>
 	ORDER BY FREE_DAY DESC
     </select>
 </mapper>
