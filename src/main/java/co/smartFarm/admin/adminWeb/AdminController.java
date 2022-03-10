@@ -125,10 +125,22 @@ public class AdminController {
 
 	// ===== 구매현황 리스트 페이지 이동 =====
 	@RequestMapping("/admin/adminPurchaseList.do")
-	public String adminPurchaseList() {
-
+	public String adminPurchaseList(Model model) {
+		
 		return "admin/adminPurchaseList";
 
+	}
+	// ===== 구매현황 리스트 정보 받아오기 =====
+	@GetMapping(value = "/admin/adminGetPurchaseList.do", produces = "text/plain; charset=UTF-8")
+	@ResponseBody
+	public String adminGetPurchaseList(KitVO kitVo) {
+		
+		System.out.println(kitVo.toString());
+		
+		List<KitVO> list = kitDao.adminKitRankList(kitVo);
+		String result = new Gson().toJson(list);
+		
+		return result;
 	}
 
 	// ===== 회원 관리 페이지 창 이동(리스트 뿌려줌) =====

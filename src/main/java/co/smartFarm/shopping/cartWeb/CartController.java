@@ -33,10 +33,9 @@ public class CartController {
 	public String cartDetail(Model model, HttpSession session, String mem_email) {
 
 		MemberVO memberVo = (MemberVO) session.getAttribute("member");
-		mem_email = memberVo.getMem_email();
+		
 		CartVO cartVo = new CartVO();
-		cartVo.setMem_email("bbb@abc.com");
-//		cartVo.setMem_email(memberVo.getMem_email()); // 추후수정 끝나면 이거 살리고 위에꺼 지우기
+		cartVo.setMem_email(memberVo.getMem_email()); // 추후수정 끝나면 이거 살리고 위에꺼 지우기
 
 		List<CartVO> list = cartDao.cartSelectList(cartVo);
 		String json = new Gson().toJson(list);
@@ -49,9 +48,12 @@ public class CartController {
 	// ===== 장바구니 추가 =====
 	@GetMapping("/cartInsert.do")
 	public String cartInsert(CartVO cartVo, HttpSession session, HttpServletRequest request) {
-		// MemberVO memberVo = (MemberVO)session.getAttribute("member");
-		// cartVo.setMem_email(memberVo.getMem_email());
-		cartVo.setMem_email("ddd@abc.com"); // 추후수정 나중에 이부분 지우고 위에 두줄 살리기
+		
+		MemberVO memberVo = (MemberVO)session.getAttribute("member");
+		cartVo.setMem_email(memberVo.getMem_email());
+		
+		//cartVo.setMem_email("ddd@abc.com"); // 추후수정 나중에 이부분 지우고 위에 두줄 살리기
+		
 		System.out.println("확인할 부분! === " + cartVo.toString());
 		Integer result = cartDao.cartInsert(cartVo);
 		System.out.println("결과 확인 === ! " + result);

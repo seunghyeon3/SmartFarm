@@ -12,4 +12,5 @@ public interface KitMapper {
 	List<KitVO> adminKitSelectList();
 	
 	List<KitVO> kitRecommand();
+	List<KitVO> adminKitRankList(KitVO kitVo);
 }

@@ -27,4 +27,11 @@ public class KitVO {
 	private String kit_sale_whet;
 	private int kit_hit;
 	private int kit_sale_count;
+
+	// admin에서 kit rank를 확인하기 위한 컬럼
+	private int pur_rank;
+	private String start_date;
+	private String end_date;
+	private int pur_his_sale_count;
+
 }

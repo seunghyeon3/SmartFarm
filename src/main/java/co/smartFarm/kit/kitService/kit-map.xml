@@ -37,4 +37,33 @@
 	FROM KIT
 	ORDER BY KIT_SALE_COUNT DESC
 	</select>
+	
+	<select id="adminKitRankList" 
+		parameterType="co.smartFarm.kit.kitService.KitVO"
+		resultType="co.smartFarm.kit.kitService.KitVO">
+		SELECT * 
+		FROM(
+		    SELECT KIT_NO, KIT_NAME, KIT_PRPOS, KIT_PLANT_NAME, KIT_PLANT_CLASS, ROW_NUMBER() OVER(ORDER BY PUR_HIS_SALE_COUNT DESC) PUR_RANK, PUR_HIS_SALE_COUNT
+		    FROM
+		        (
+		        SELECT 
+		            K.KIT_NO
+		            , '(' || kit_prpos || ') ' || KIT_NAME AS KIT_NAME
+		            , SUM(P.PUR_HIS_SALE_COUNT) PUR_HIS_SALE_COUNT
+		            , K.KIT_PRPOS
+		            , K.KIT_PLANT_NAME
+		            , K.KIT_PLANT_CLASS
+		        FROM PUR_HIS P LEFT JOIN KIT K
+		        ON(P.KIT_NO = K.KIT_NO)
+		        
+		        WHERE P.PLANT_SALE_NO = 0
+		        AND K.KIT_PRPOS LIKE '%' || #{kit_prpos} || '%'
+		        AND K.KIT_PLANT_CLASS LIKE '%' || #{kit_plant_class} || '%'
+		        AND P.PUR_HIS_PUR_DAY BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')
+		        
+		        GROUP BY K.KIT_NO, K.KIT_NAME, K.KIT_PRPOS, K.KIT_PLANT_NAME, K.KIT_PLANT_CLASS
+		        )
+		    )
+		WHERE PUR_RANK BETWEEN 1 AND 10
+	</select>
 </mapper>

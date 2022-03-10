@@ -70,8 +70,11 @@
 				
 				if(result == '0'){
 					toastr.error('유효하지 않은 이메일입니다');
-				} else {
+					
+				} else if(result == '1') {
 					toastr.success('임시비밀번호가 메일로 발송되었습니다');
+				} else if(result == '2'){
+					toastr.error('임시비밀번호 발송에 실패했습니다.\n다시 시도해주세요')
 				}
 				
 			});
