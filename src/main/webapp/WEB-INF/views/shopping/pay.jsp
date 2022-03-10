@@ -233,6 +233,9 @@ input {
 			}
 			return sum;
 		}
+		
+		
+	
 
 		// ===== 결제하기 ===== 
 		//가맹점 식별코드를 이용하여 IMP 객체를 초기화하기
@@ -273,7 +276,7 @@ input {
 				buyer_name : pur_his_recv, // 구매자 이름
 				buyer_tel : pur_his_tel, // 구매자 전화번호
 				buyer_addr : pur_his_addr, //구매자 주소
-				buyer_postcode : pur_postcode
+				buyer_postcode : pur_postcode //우편번호
 			//구매자 우편번호
 			}, function(rsp) { // callback
 
@@ -293,6 +296,8 @@ input {
 			});
 		}
 
+		//삭제버튼에서 정보 받아와서 바꾸기!
+		
 		//===== 결제 완료 후 결제 내역을 cart에서 삭제하고 pur_his에 insert 하기 =====
 		function insertPurHis(purHis) {
 
@@ -306,9 +311,9 @@ input {
 				contentType : "application/json; charset=utf-8",
 				dataType : 'json',
 				success : function(res) {
-					if (alert('결제가 완료되었습니다.')) {
-						location.href = "home.do";
-					}
+					alert('결제가 완료되었습니다.')
+					location.href = "home.do";
+					
 				}
 			});
 		}

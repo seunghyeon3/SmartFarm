@@ -1,84 +1,97 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
 
 <head>
-   <meta charset="UTF-8">
-   <title>Home</title>
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
-   <div class="container p80">
-      <div class="col-lg-9 col-md-8 side-widget">
+	<div class="container p80">
+		<div class="col-lg-9 col-md-8 side-widget">
 
-         <!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
-         <div class="single-post-tags">
-            <a href="javascript:divisionList(product)">전체</a>
-            <a href="javascript:divisionList(product)">상업용</a>
-            <a href="javascript:divisionList(habbit)">취미용</a>
-         </div>
-      </div>
-
-
-      <!-- 검색 버튼 추가 -->
-      <div class="col-lg-3 col-md-4 side-search">
-         <input type="search" class="form-control" placeholder="Search" id="autoCompt">
-         <button><i class="fas fa-search"></i></button>
-      </div>
-   </div>
-
-   <section class="shop wf100 p80">
-      <div class="container">
-         <div class="row" id="prolist">
-            <!-- 판매 리스트 출력 시작 -->
-            <c:forEach items="${kitSelectList}" var="list">
-               <div class="col-lg-3 col-sm-6">
-                  <div class="product-box">
+			<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
+			<div class="single-post-tags">
+				<a href="javascript:divisionList(product)">전체</a> <a
+					href="javascript:divisionList(product)">상업용</a> <a
+					href="javascript:divisionList(habbit)">취미용</a>
+			</div>
+		</div>
 
 
-                     <div class="pro-thumb"> <a onclick="insertCart(this)"
-                           href="cartInsert.do?cart_kit_no=${list.kit_no }&cart_price=${list.kit_price}&cart_sale_count=1">장바구니
-                           추가</a> <img src="resources/images/shop/pro1.jpg" alt=""></div>
-                     <div class="pro-txt">
-                        <p style="margin:0;">(${list.kit_prpos})</p>
-                        <h6><a href="kitProductDetail.do?kit_no=${list.kit_no }"> ${list.kit_name}</a></h6>
-                        <p class="pro-price"> ${list.kit_price }</p>
-                     </div>
-                  </div>
-               </div>
-            </c:forEach>
-            <!-- 판매 리스트 출력 끝 -->
-            <div class="col-md-12">
-               <a href="plantProductAdd.do" class="view-more" style="color: white; cursor: pointer;">키트 등록 버튼</a>
-            </div>
-         </div>
+		<!-- 검색 버튼 추가 -->
+		<div class="col-lg-3 col-md-4 side-search">
+			<input type="search" class="form-control" placeholder="Search"
+				id="autoCompt">
+			<button>
+				<i class="fas fa-search"></i>
+			</button>
+		</div>
+	</div>
 
-         <div class="row">
-            <div class="col-md-12">
-               <div class="gt-pagination">
-                  <nav>
-                     <ul class="pagination">
-                        <li class="page-item"> <a class="page-link" href="#" aria-label="Previous"> <i
-                                 class="fas fa-angle-left"></i> </a> </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <i
-                                 class="fas fa-angle-right"></i> </a> </li>
-                     </ul>
-                  </nav>
-               </div>
-            </div>
-         </div>
-      </div>
-   </section>
-   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<section class="shop wf100 p80">
+		<div class="container">
+			<div class="row" id="prolist">
+				<!-- 판매 리스트 출력 시작 -->
+				<c:forEach items="${kitSelectList}" var="list">
+					<div class="col-lg-3 col-sm-6">
+						<div class="product-box">
 
-   <script type="text/javascript">
+
+							<div class="pro-thumb">
+								<a
+									onclick="insertCart('cartInsert.do?cart_kit_no=${list.kit_no }&cart_price=${list.kit_price}&cart_sale_count=1')"
+									href="javascript:void(0);">장바구니 추가</a> <img
+									src="resources/images/shop/pro1.jpg" alt="">
+							</div>
+							<div class="pro-txt">
+								<p style="margin: 0;">(${list.kit_prpos})</p>
+								<h6>
+									<a href="kitProductDetail.do?kit_no=${list.kit_no }">
+										${list.kit_name}</a>
+								</h6>
+								<p class="pro-price">${list.kit_price }</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+				<!-- 판매 리스트 출력 끝 -->
+				<div class="col-md-12">
+					<a href="plantProductAdd.do" class="view-more"
+						style="color: white; cursor: pointer;">키트 등록 버튼</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="gt-pagination">
+						<nav>
+							<ul class="pagination">
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Previous"> <i class="fas fa-angle-left"></i>
+								</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item active"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Next"> <i class="fas fa-angle-right"></i>
+								</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<script type="text/javascript">
       /* //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
       $.ajax({
          url: '',
@@ -134,9 +147,10 @@
       }
 
       // ===== 장바구니 추가 =====
-      function insertCart(e) {
-         e.preventDefault();
-         console.log(e)
+      function insertCart(link) {
+         //console.log(e);
+         toastr.success("상품이 장바구니에 담겼습니다.");
+         
       }
 
       /* //판매 리스트 출력하는 함수

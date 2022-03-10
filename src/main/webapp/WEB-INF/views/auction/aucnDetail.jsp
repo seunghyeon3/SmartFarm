@@ -208,7 +208,7 @@ to {
 							<div class="col-md-12" style="text-align: center;">
 								<input id="popupBidWindow" readonly="readonly"
 									style="height: 66px; font-size: 18pt" /> <input type="number"
-									step="0.1" min="0" id="inputMessage" size="30"
+									min="0" id="inputMessage" size="30"
 									onkeypress="if(event.keyCode==13){countCheck();}"
 									placeholder="입찰금액입력" style="height: 66px; font-size: 18pt; text-align:center;" /> <br>
 								<br>
@@ -234,7 +234,8 @@ to {
 	<script type="text/javascript" src="resources/js/countdown.js"></script>
 
 	<!-- 웹소켓 기능 -->
-	<script>
+	<!-- 220310 PSH websocket.js로 이동 -->
+	<!-- <script>
 		var aucnBidWindow = document.getElementById("aucnBidWindow");
 		var popupBidWindow = document.getElementById("popupBidWindow"); 
 		//일반경로 localhost 
@@ -303,9 +304,19 @@ to {
 		var textarea = document.getElementById('messageWindow');
 		textarea.scrollTop = textarea.scrollHeight;
 		} */
-	</script>
+	</script> -->
 
 	<script>
+	/* 웹소켓 테스트 */
+	var websocketData =  
+	{ aucn_no : '${aucnSelect.aucn_no}',
+	  now_bid : '${aucnSelect.now_bid}'
+	};
+	
+	console.log("test"+websocketData);
+	
+	doWebsocket( websocketData , "${pageContext.request.contextPath}");
+	
 	/* ----------팝업 로딩생성---------- */
 	function createLoading(){
 		document.getElementById('fade').style.display = 'block';
@@ -378,7 +389,7 @@ to {
 				//로딩끄기
 				document.getElementById('fade').style.display = 'none';
 				
-				function send(){
+/* 				function send(){
 					 // 서버로 전송할 데이터를 담을 msg 객체 생성.
 					 var msg ={
 					 cmd: "message",
@@ -391,7 +402,7 @@ to {
 					 
 					 // Blank the text input element, ready to receive the next line of text from the user.
 					 document.getElementById("inputMessae").value ="";
-					}
+					} */
 			}
 		 
 			//입력값과 최고가 비교하는 함수
@@ -406,7 +417,6 @@ to {
 				console.log(typeof(aucnBid));
 				console.log(typeof(inputAucnBid));
 				
-				
 				if(aucnBid >= inputAucnBid){
 					alert("현재 최고 금액보다 높게 지정하세요.");
 					toastr.error("현재 최고 금액보다 높게 지정하세요.");
@@ -417,8 +427,12 @@ to {
 				}else{
 					alert('입찰에 성공하였습니다.');
 					//nft 경매 솔리디티 함수 실행
-					
-					webSocketSendChat();
+					var inputBid ={
+						 bid: document.getElementById("inputMessage").value,
+						 id: '${member.mem_email}',
+						 aucn: '${aucnSelect.aucn_no }'
+					};
+					webSocketSendChat(inputBid);
 				}
 			}
 	</script>
