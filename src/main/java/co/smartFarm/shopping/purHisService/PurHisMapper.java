@@ -6,4 +6,5 @@ public interface PurHisMapper {
 	Integer purHisInsert(PurHisVO purHisVo);
 	List<PurHisVO> adminPurHisSelectList(PurHisVO purHisVo);
 	List<PurHisVO> purHisPriceSelect();
+	List<PurHisVO> purHisRevwSelect(String memEmail);
 }

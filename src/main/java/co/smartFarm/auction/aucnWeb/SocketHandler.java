@@ -105,7 +105,10 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 				
 				String sendBid = bid.toString()+Integer.toString(aucnNo);
 				// 다시 실시간 채팅화면으로 메세지를 던져줌 던질때는 String 형식으로 보냄
-				sendMessage(sendBid);				
+				sendMessage(sendBid);
+				
+				// 입찰 DB 업데이트가 끝날시 NFTAuction 솔리디티 method 호출후 bid(aucnNo) 실행하여 입찰
+				
 			}
 		
 	} 

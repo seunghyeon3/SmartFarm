@@ -8,7 +8,6 @@
 <title>이용후기 메인페이지</title>
 </head>
 <body>
-
 	<div class="container p80">
 		<div class="col-lg-9 col-md-8 side-widget"></div>
 		<!-- 검색 버튼 추가 -->
@@ -28,19 +27,17 @@
 				<c:forEach items="${useRevwList}" var="useRevw">
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
-
-							<div class="pro-thumb">
-								<a onclick="insertCart(this)"
-									href="useRevwDetail.do?use_revw_no=${useRevw.use_revw_no }">장바구니
-									추가</a> <img src="resources/images/shop/pro1.jpg" alt="">
-							</div>
+								 <a href="useRevwDetail.do?use_revw_no=${useRevw.use_revw_no }">
+									 <img src="resources/images/shop/pro1.jpg" alt="">
+								 </a>
 							<div class="pro-txt">
-								<p style="margin: 0;">(${useRevw.use_revw_title})</p>
 								<h6>
 									<a href="useRevwDetail.do?use_revw_no=${useRevw.use_revw_no }">
 										${useRevw.use_revw_title}</a>
 								</h6>
-								<p class="pro-price">${useRevw.use_revw_hit }</p>
+								<p class="pro-price">작성자 : ${useRevw.mem_name }</p>
+								<p class="pro-price">조회수 : ${useRevw.use_revw_hit }</p>
+								<p class="pro-price">작성일자 : ${useRevw.use_revw_write_day }</p>
 							</div>
 						</div>
 					</div>

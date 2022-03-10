@@ -64,4 +64,7 @@
 		FROM PUR_HIS
    </select>
    
+   <select id="purHisRevwSelect" parameterType="String" resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+   		SELECT * FROM PUR_HIS WHERE MEM_EMAIL = {#mem_email} AND PUR_HIS_REVW_WRITE = 'N'	
+   </select>
 </mapper>
