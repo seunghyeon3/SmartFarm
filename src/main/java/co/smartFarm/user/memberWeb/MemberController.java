@@ -89,7 +89,7 @@ public class MemberController {
 
 				} else if (resultVo.getMem_athr().equals("B2")) {// 농부인 경우 : 관리 페이지로 이동
 					System.out.println("농부 로그인");
-					return "redirect:/growhome.do";
+					return "redirect:/grow.do";
 
 				} else {// 일반회원인 경우 : 홈으로 이동
 					System.out.println("일반회원 로그인");

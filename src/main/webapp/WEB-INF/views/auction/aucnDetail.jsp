@@ -234,7 +234,8 @@ to {
 	<script type="text/javascript" src="resources/js/countdown.js"></script>
 
 	<!-- 웹소켓 기능 -->
-	<script>
+	<!-- 220310 PSH websocket.js로 이동 -->
+	<!-- <script>
 		var aucnBidWindow = document.getElementById("aucnBidWindow");
 		var popupBidWindow = document.getElementById("popupBidWindow"); 
 		//일반경로 localhost 
@@ -303,7 +304,7 @@ to {
 		var textarea = document.getElementById('messageWindow');
 		textarea.scrollTop = textarea.scrollHeight;
 		} */
-	</script>
+	</script> -->
 
 	<script>
 	/* ----------팝업 로딩생성---------- */

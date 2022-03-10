@@ -113,7 +113,7 @@
                          </ul>  
                      </li>
                        <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
-                     <c:if test="${member ne null }">
+                     <c:if test="${member.mem_athr eq 'B1' || member.mem_athr eq 'B2'}">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
                         <ul class="dropdown-menu">
@@ -128,8 +128,8 @@
                      </li>
                      </c:if>
                      
-                       <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
-                        <c:if test="${member.mem_athr eq 'B0' }">
+                       <!-- 220308 PSH 관리자 일 경우만 사용 가능 하도록 구분 -->
+                        <c:if test="${member.mem_athr eq 'B0'}">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
                         <ul class="dropdown-menu">
@@ -191,6 +191,8 @@
    
     <script type="text/javascript">
     /* 220309 PSH home, header 통합 작업 진행, 외부 js 파일은 movePage.js 참고 */
+    console.log(window.location.pathname);
+	console.log("${pageContext.request.contextPath}");
     movePage(window.location.pathname, "${pageContext.request.contextPath}")
    </script> 
 </body>
