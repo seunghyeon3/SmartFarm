@@ -84,7 +84,7 @@
                        <div id="grid"></div> <!-- grid 불러오기 -->
                <a href="archieveinsertForm.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
             </div>
-       
+       	
          <div class="row">
             <div class="col-md-12">
                <div class="gt-pagination">

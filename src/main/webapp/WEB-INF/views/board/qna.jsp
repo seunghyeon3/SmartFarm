@@ -147,7 +147,7 @@
 	            
 		        ,]
 		});
-
+         
 		// GRID 에 데이터를 입력
 		var gridData = ${qna};	
 		grid.resetData(gridData);

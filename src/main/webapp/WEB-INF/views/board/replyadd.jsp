@@ -80,15 +80,9 @@ ul>li>p {
 								onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
 								class="fsubmit"></li>
 							<li class="half pr-15"><input type="button" value="뒤로가기"
-								onclick="history.back(-1);" class="fsubmit">
-							</li>
-							<li class="full"><input type="button" value="답글 쓰기"
-								onclick="location.href='replyinsertForm.do?qna_no=${qna.qna_no}'"
-								class="fsubmit">
-							</li>
-							
+								onclick="history.back(-1);" class="fsubmit"></li>
 							<!--Leave a Comment Start-->
-							<%-- <h4>댓글</h4>
+							<h4>댓글</h4>
 							<ul>
 								<form id="commentForm" name="commentForm" method="post">
 									<br>
@@ -106,10 +100,7 @@ ul>li>p {
 														<div>
 															<a href='#' onClick="fn_comment('${qna.qna_no}')"
 																class="btn pull-right btn-success">등록</a>
-															
-														</div>
-														</td>
-														
+														</div></td>
 												</tr>
 											</table>
 										</div>
@@ -117,7 +108,7 @@ ul>li>p {
 									<input type="hidden" id="qna_no" name="qna_no"
 										value="${qna.qna_no}" />
 								</form>
-							</ul> --%>
+							</ul>
 					</div>
 					</ul>
 				</div>
@@ -125,7 +116,7 @@ ul>li>p {
 			</div>
 		</div>
 	</section>
-	<!-- <script>
+	<script>
 		/*
 		 * 댓글 등록하기(Ajax)
 		 */
@@ -205,12 +196,7 @@ ul>li>p {
 						}
 
 					});
-		
 		}
-	
-		// 댓글 삭제
-		
-	
-	</script> -->
+	</script>
 </body>
 </html>
