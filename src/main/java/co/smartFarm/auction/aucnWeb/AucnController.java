@@ -1,21 +1,32 @@
 package co.smartFarm.auction.aucnWeb;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import co.smartFarm.NFT.service.NftService;
 import co.smartFarm.auction.aucnService.AucnService;
 import co.smartFarm.auction.aucnService.AucnVO;
+import co.smartFarm.prj.EthResultVO;
 import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class AucnController {
+	
+	private static final String LOCAL = "http://127.0.0.1:8545";
 	
 	@Autowired
 	private AucnService aucnDao;
@@ -61,8 +72,45 @@ public class AucnController {
 	// web소켓 알림으로 최고입찰자를 제외한 입찰자들에게 알림 전송 (**최고입찰자에게 경매가 완료되었다 알림을 보낼지 물어보기**) 
 	// -> 알림에서 버튼을 누를 시 NFTAuction 솔리디티 method 호출후 withdraw(aucnNo) 실행해서 입찰금액 출금
 	// GrowDiary 솔리디티 method 호출후 ownerUpdate(nftNo, newOwner) 실행해서 NFT소유주 변경
-	//@Scheduled(cron="0 0/1 * * * *")
-	public void nftAuctionEnd() {
+	@Scheduled(cron="0 0/1 * * * *")
+	public void nftAuctionEnd() throws IOException {
 			System.out.println("test");
+			GetClientVersion();
 	}
+	
+	// 이더리움 호출하는 친구
+	public <T> T callEthFunction(String JSONInput, Class<T> classes){
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+
+	    HttpEntity<String> param= new HttpEntity<String>(JSONInput, headers);
+
+	    RestTemplate restTemplate = new RestTemplate();
+	    return (T) restTemplate.postForObject(LOCAL, param, classes);
+	}
+	
+	public void GetClientVersion() throws IOException{
+		
+		JSONObject jsonInput = new JSONObject();
+		JSONArray data = new JSONArray();
+		
+		// 이 두친구도 고정값
+		jsonInput.put("jsonrpc", "2.0");
+		jsonInput.put("method", "eth_call");
+		
+		JSONObject param = new JSONObject();
+		// smart contract Address
+		param.put("to", "0xf9778ECE6949Fb3b8D587b12Eb30A732d5c427A2");
+		// input 값 hash 변환 method+parameter(optional)
+		param.put("data", "0x8cafe5db000000000000000000000000000000000000000000000000000000000000000a");
+		data.put(param);
+		jsonInput.put("params", data);
+		// id는 아무거나 넣으슈
+		jsonInput.put("id", 1);
+		
+        EthResultVO result = callEthFunction(jsonInput.toString(), EthResultVO.class);
+        System.out.println(result);
+    }
+	
+	
 }
