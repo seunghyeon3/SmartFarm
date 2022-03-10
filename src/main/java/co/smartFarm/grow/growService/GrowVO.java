@@ -19,7 +19,7 @@ public class GrowVO {
 	private int kit_no;
 	private int pur_his_order_no;
 	private String pur_his_kit_address;
-	private String grow_status;
+//	private String grow_status;
 	private int kit_grow_day;
 	private String kit_plant_name;
 	private String kit_prpos;

@@ -30,9 +30,9 @@
 		UPDATE PUR_HIS SET PUR_HIS_KIT_ADDRESS = #{ip} WHERE PUR_HIS_ORDER_NO = #{no}
 	</update>
 	
-	<update id="statusUpdate" parameterType="hashmap">
+<!-- 	<update id="statusUpdate" parameterType="hashmap">
 		UPDATE PUR_HIS SET GROW_STATUS = #{status} WHERE PUR_HIS_ORDER_NO = #{no}
-	</update>
+	</update> -->
 	
 	<!-- DB영농일지 등록 -->
 	<insert id="diaryWrite" parameterType="hashmap">

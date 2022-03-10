@@ -43,5 +43,10 @@ public class KitServiceImpl implements KitService{
 		return map.kitRecommand();
 	}
 
+	@Override
+	public List<KitVO> adminKitRankList(KitVO kitVo) {
+		return map.adminKitRankList(kitVo);
+	}
+
 	
 }

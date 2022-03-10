@@ -104,10 +104,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	}
 	
 	function insertCart() {
-		var link = "cartInsert.do?cart_kit_no=${kitSelectOne.kit_no }&cart_price=${kitSelectOne.kit_price}&cart_sale_count=";
+		var link = "cartInsert.do?cart_kit_no="+${kitSelectOne.kit_no }+"&cart_price="+${kitSelectOne.kit_price}+"&cart_sale_count=";
 		var cartSaleCount = $("#cartCount").val();
 		console.log(link + cartSaleCount);	
 		location.href = link + cartSaleCount;
+		toastr.success("상품이 장바구니에 담겼습니다.");
 		
 	}
 		</script>
