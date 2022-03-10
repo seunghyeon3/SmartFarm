@@ -89,7 +89,7 @@ public class MemberController {
 
 				} else if (resultVo.getMem_athr().equals("B2")) {// 농부인 경우 : 관리 페이지로 이동
 					System.out.println("농부 로그인");
-					return "redirect:/growhome.do";
+					return "redirect:/grow.do";
 
 				} else {// 일반회원인 경우 : 홈으로 이동
 					System.out.println("일반회원 로그인");
@@ -142,7 +142,7 @@ public class MemberController {
 		return "home";
 	}
 
-	// 이메일 체크
+	// 이메일 체크 + 카카오 로그인시 member테이블에 저장되어 있는지 체크
 	@RequestMapping("/memberEmailCheck.do")
 	@ResponseBody
 	public String memberEmailCheck(@RequestBody String req, HttpSession session) {
@@ -249,7 +249,7 @@ public class MemberController {
 
 				boolean check = sendEmail(memberVo);
 
-				if (check == false) {
+				if (check) {
 					System.out.println("있는데 발송 X");
 					return "2";
 
@@ -257,7 +257,7 @@ public class MemberController {
 					System.out.println("있는데 발송 O");
 					return "1";
 				}
-				// return "1";// check되면은 이거 지우기!
+				
 			} else {
 				System.out.println("없음3");
 				return "0";
@@ -266,7 +266,7 @@ public class MemberController {
 		}
 	}
 
-	public boolean sendEmail(MemberVO memberVo) throws Exception {
+	public boolean sendEmail(MemberVO memberVo) {
 		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
 		String user = "yisseol@naver.com"; // 패스워드
 		String password = "password"; // SMTP 서버 정보를 설정한다.
@@ -304,11 +304,12 @@ public class MemberController {
 			// 임시 비밀번호로 회원의 비밀번호 설정하기
 			memberVo.setMem_pw(tmpPwd);
 			memberDao.memberUpdatePw(memberVo);
-
-		} catch (MessagingException e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
+		
 		return true;
 	}
 

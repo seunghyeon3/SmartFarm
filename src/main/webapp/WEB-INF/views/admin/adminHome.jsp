@@ -222,7 +222,8 @@
 					[ new Date(2000, 1, 1), new Date() ] ]
 
 		});
-
+		
+		//창이 업로드 되면 한달 전으로 미리 설정해두기 
 		var now = new Date();
 		picker.setStartDate(new Date(now.setMonth(now.getMonth() - 1)));
 

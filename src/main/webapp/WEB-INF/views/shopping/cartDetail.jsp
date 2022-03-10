@@ -11,65 +11,7 @@
 <meta name="author" content="">
 <link rel="icon" href="../resources/images/favicon.png">
 <title>ECO HTML</title>
-<!-- CSS FILES START -->
-
-<!-- CSS FILES End -->
 <style type="text/css">
-/* .radioCss {
-	width: 50px;
-	padding: 20px;
-	font-size: 1.2em;
-}
-
-/*radio 버튼 색상변경 
-input[type='radio'] {
-	-webkit-appearance: none;
-	width: 16px;
-	height: 16px;
-	border: 1px solid darkgray;
-	border-radius: 50%;
-	outline: none;
-	background: #e6e6e6;
-}
-
-input[type='radio']:before {
-	content: '';
-	display: block;
-	width: 60%;
-	height: 60%;
-	margin: 20% auto;
-	border-radius: 50%;
-}
-
-input[type='radio']:checked:before {
-	background: #1b5e20;
-}
-
-input[type="checkbox"]:checked {
-	background-color: black;
-	border-color: black;
-	color: white;
-}
-
-input[type="checkbox"]:checked::before {
-	border-radius: 2px;
-	transform: scale(1) translate(-50%, -50%)
-}
-
-input[type="number"] {
-	height: 60%;
-	width: 90%;
-	padding: 6px 7px;
-	border: solid 1px #ddd;
-}
-
-.checkList {
-	font-size: 1.2em;
-}
-
-.inner {
-	width: 150px;
-} */
 .delBtn {
 	padding: 3px 20px;
 	background-color: #f53738;
@@ -268,7 +210,9 @@ input[type="number"] {
 			
 		}
 		
-		//선택주문, 전체주문 
+		
+		
+		// ===== 선택주문, 전체주문 ===== 
 		function buy(e) {
 			console.log(e.id);
 			var check = e.id; //all 인지 select 인지 구분하기 위한 변수
@@ -279,32 +223,35 @@ input[type="number"] {
 				grid.checkAll();
 			}
 			
+			console.log(check);
+			//체크된 값 가져오기
 			checkArr = grid.getCheckedRows();
 			
-			//price, sum, count를 String에서 Number 형식으로 변환
+			// pay로 보내기 전에 데이터 가공하기
+			var btnList = document.querySelectorAll('.delBtn');
+			
 			for(var i = 0; i < checkArr.length;i++){
-				
+				//price, sum, count를 String에서 Number 형식으로 변환
 				var cartSum = (checkArr[i].cart_sum).replaceAll(",","");
 				checkArr[i].cart_sum = parseInt(cartSum);
 				
 				var cartPrice = (checkArr[i].cart_price).replaceAll(",","");
 				checkArr[i].cart_price = parseInt(cartPrice);
 				
-				
 				checkArr[i].cart_sale_count = parseInt(checkArr[i].cart_sale_count);
+				
+				//cart_option 정리하기
+				var row = checkArr[i].rowKey;
+				checkArr[i].cart_option = btnList[row].id;
+				
 			}//for
 			
-			console.log(JSON.stringify(checkArr))
-			localStorage.setItem("payList", JSON.stringify(checkArr));
-			location.href = "pay.do"
 			console.log(checkArr);
+			localStorage.setItem("payList", JSON.stringify(checkArr));
+			location.href = "pay.do";
 			
 		}
 	 
 	</script>
-
-
 </body>
-
-
 </html>
