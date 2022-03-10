@@ -3,16 +3,16 @@
 <mapper namespace="co.smartFarm.grow.growService.GrowMapper">
 
 	<!-- 회원의 키트 조회 -->
-	<select id="growList" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
+<!-- 	<select id="growList" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
 		SELECT DISTINCT KIT_NO, PUR_HIS_KIT_ADDRESS FROM PUR_HIS
 		WHERE MEM_EMAIL = #{memEmail}
-	</select>
+	</select> -->
 	
 		<!-- 회원의 키트 조회 -->
-	<select id="orderNumber" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
+<!-- 	<select id="orderNumber" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
 		SELECT DISTINCT PUR_HIS_ORDER_NO FROM PUR_HIS
 		WHERE MEM_EMAIL = #{memEmail}
-	</select>
+	</select> -->
 	
 	<!-- 회원의 상업용 키트 조회 -->
 	<select id="growComList" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
@@ -20,8 +20,16 @@
 		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL = #{memEmail} AND K.KIT_PRPOS='상업용'
 	</select>
 	
-	<select id="growListing" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
+	<!-- 회원의 키트 조회 -->
+<!-- 	<select id="growListing" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
 		SELECT P.PUR_HIS_ORDER_NO, P.KIT_NO, P.PUR_HIS_KIT_ADDRESS, P.GROW_STATUS, K.KIT_NAME, K.KIT_PRPOS, K.KIT_PLANT_NAME, K.KIT_GROW_DAY, K.KIT_TP, K.KIT_HD, K.KIT_SUN, K.KIT_WATER, K.KIT_PES
+		FROM PUR_HIS P, KIT K 
+		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL=#{memEmail}
+	</select> -->
+	
+	<!-- 회원의 키트 조회 -->
+	<select id="growListing" parameterType="String" resultType="co.smartFarm.grow.growService.GrowVO">
+		SELECT P.PUR_HIS_ORDER_NO, P.KIT_NO, P.PUR_HIS_KIT_ADDRESS, K.KIT_NAME, K.KIT_PRPOS, K.KIT_PLANT_NAME, K.KIT_GROW_DAY, K.KIT_TP, K.KIT_HD, K.KIT_SUN, K.KIT_WATER, K.KIT_PES
 		FROM PUR_HIS P, KIT K 
 		WHERE P.KIT_NO = K.KIT_NO AND P.MEM_EMAIL=#{memEmail}
 	</select>
@@ -30,9 +38,9 @@
 		UPDATE PUR_HIS SET PUR_HIS_KIT_ADDRESS = #{ip} WHERE PUR_HIS_ORDER_NO = #{no}
 	</update>
 	
-	<update id="statusUpdate" parameterType="hashmap">
+<!-- 	<update id="statusUpdate" parameterType="hashmap">
 		UPDATE PUR_HIS SET GROW_STATUS = #{status} WHERE PUR_HIS_ORDER_NO = #{no}
-	</update>
+	</update> -->
 	
 	<!-- DB영농일지 등록 -->
 	<insert id="diaryWrite" parameterType="hashmap">
@@ -43,5 +51,6 @@
 		GROW_DIARY_LOG_ROU, GROW_DIARY_POINT, GROW_DIARY_GRD, PLANT_NAME, GROW_DIARY_START_DAY, KIT_NO)
 		VALUES(#{grow_diary_grow_no}, #{email}, #{log}, #{score}, #{grade}, #{plant}, #{sday}, #{kno})
 	</insert>
+	
 	
 </mapper>

@@ -1,5 +1,6 @@
 package co.smartFarm.grow.growDiaryService;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface GrowDiaryService {
@@ -7,5 +8,8 @@ public interface GrowDiaryService {
 	List<GrowDiaryVO> growDiaryMyList(String memEmail);
 	
 	GrowDiaryVO growDiaryNoList(int growDiaryGrowNo);
+	
+	
+//	List<GrowDiaryVO> growDiaryList(String memEmail) throws IOException;
 	
 }

@@ -1,5 +1,8 @@
 package co.smartFarm.grow.growDiaryWeb;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.smartFarm.grow.growDiaryService.GrowDiaryService;
 
@@ -24,17 +28,26 @@ public class GrowDiaryController {
 	public String diary(Locale locale, Model model, HttpSession session) {
 
 //		테스트용
-		session.setAttribute("email", "bbb@abc.com");
+		session.setAttribute("email", "aaa@abc.com");
 		
 //		영농 일지 출력
-		
 		//220302 PSH mapGD -> growDiaryDao로 수정
-		/*model.addAttribute("diary", mapGD.growDiaryMyList(session.getAttribute("email").toString()));
-		System.out.println(mapGD.growDiaryMyList(session.getAttribute("email").toString()));*/
 		model.addAttribute("diary", growDiaryDao.growDiaryMyList(session.getAttribute("email").toString()));
 		System.out.println(growDiaryDao.growDiaryMyList(session.getAttribute("email").toString()));
 
-
 		return "grow/diary";
+	}
+	
+//	영농일지 내용 출력
+	@RequestMapping("/diaryBody.do")
+	@ResponseBody
+	public List<String> diaryBody(String route) throws Exception {
+		
+		System.out.println(route);
+
+		Path path = Paths.get("D:\\"+route);
+		List<String> lines = java.nio.file.Files.readAllLines(path);
+		
+		return lines;
 	}
 }

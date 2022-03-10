@@ -47,35 +47,35 @@ public class GrowServiceImpl implements GrowService{
 		String now;
 		now = format.format(currentTime);
 
-		for(int i = 0; i<voList.size(); i++) {
-			
-			if(voList.get(i).getGrow_status()!=null) {
-				gd = voList.get(i).getKit_grow_day();
-				String sd = voList.get(i).getGrow_status();
-				System.out.println(sd);
-				Date s_date = null;
-				Date c_date = null;
-				Date e_date = null;
-				try {
-					s_date = format.parse(sd);
-					c_date = format.parse(now);
-					e_date = format.parse(format.format(cal.getTime()));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				cal.setTime(s_date);
-				cal.add(Calendar.DATE, gd);
-				System.out.println(s_date);
-				System.out.println(c_date);
-				System.out.println(e_date);
-		        float diffSec = (c_date.getTime() - s_date.getTime()) / 1000; //초 차이
-		        System.out.println(diffSec);
-				int diffDays = Math.round(diffSec*100/(24*60*60*gd)); //일자수 차이
-				System.out.println(diffDays);
-				voList.get(i).setPercent(diffDays);
-				voList.get(i).setEnd_estimate(format.format(e_date));
-			}
-		}
+//		for(int i = 0; i<voList.size(); i++) {
+//			
+//			if(voList.get(i).getGrow_status()!=null) {
+//				gd = voList.get(i).getKit_grow_day();
+//				String sd = voList.get(i).getGrow_status();
+//				System.out.println(sd);
+//				Date s_date = null;
+//				Date c_date = null;
+//				Date e_date = null;
+//				try {
+//					s_date = format.parse(sd);
+//					c_date = format.parse(now);
+//					e_date = format.parse(format.format(cal.getTime()));
+//				} catch (ParseException e) {
+//					e.printStackTrace();
+//				}
+//				cal.setTime(s_date);
+//				cal.add(Calendar.DATE, gd);
+//				System.out.println(s_date);
+//				System.out.println(c_date);
+//				System.out.println(e_date);
+//		        float diffSec = (c_date.getTime() - s_date.getTime()) / 1000; //초 차이
+//		        System.out.println(diffSec);
+//				int diffDays = Math.round(diffSec*100/(24*60*60*gd)); //일자수 차이
+//				System.out.println(diffDays);
+//				voList.get(i).setPercent(diffDays);
+//				voList.get(i).setEnd_estimate(format.format(e_date));
+//			}
+//		}
 		
 		return voList;
 	}

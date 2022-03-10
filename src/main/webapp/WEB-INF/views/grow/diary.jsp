@@ -32,10 +32,8 @@
 						<div style="display: inline-block; width: 20%;">
 							<ol id="diary" style="margin-top: 20px;">
 							    <c:forEach items="${diary}" var="diary">
-							
-								<li data-route=${diary.grow_diary_log_rou }><strong>${diary.grow_diary_grow_nick }</strong></li>
+								<li style="cursor: pointer;" data-route=${diary.grow_diary_log_rou }>${diary.plant_name }<br>${diary.grow_diary_start_day }</li>
 								</c:forEach>
-
 							</ol>
 						</div>
 						<div style="display: inline-block; width: 75%; border: 1px solid black;">
