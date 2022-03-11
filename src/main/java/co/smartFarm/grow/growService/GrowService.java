@@ -19,4 +19,6 @@ public interface GrowService {
 
 	void diaryWrite(Map<String, String> val);
 
+	String kitOwner(int deviceId);
+
 }

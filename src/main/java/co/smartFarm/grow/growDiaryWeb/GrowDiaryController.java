@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.smartFarm.grow.growDiaryService.GrowDiaryService;
+import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class GrowDiaryController {
@@ -28,12 +29,15 @@ public class GrowDiaryController {
 	public String diary(Locale locale, Model model, HttpSession session) {
 
 //		테스트용
-		session.setAttribute("email", "aaa@abc.com");
+//		session.setAttribute("email", "aaa@abc.com");
 		
 //		영농 일지 출력
 		//220302 PSH mapGD -> growDiaryDao로 수정
-		model.addAttribute("diary", growDiaryDao.growDiaryMyList(session.getAttribute("email").toString()));
-		System.out.println(growDiaryDao.growDiaryMyList(session.getAttribute("email").toString()));
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
+		
+		model.addAttribute("diary", growDiaryDao.growDiaryMyList(memEmail));
+		System.out.println(growDiaryDao.growDiaryMyList(memEmail));
 
 		return "grow/diary";
 	}
