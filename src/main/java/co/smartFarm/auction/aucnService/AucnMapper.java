@@ -1,6 +1,7 @@
 package co.smartFarm.auction.aucnService;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AucnMapper {
 	//경매 전체 조회 (nft조인 nft이미지까지)
@@ -19,4 +20,11 @@ public interface AucnMapper {
 	int aucnEndCheck();
 	//경매 끝난게 있으면 종료 업데이트
 	Integer aucnEnd();
+	//경매 끝난 경매리스트 들고옴
+	List<AucnVO> aucnEndNo();
+	
+	List<Map<String, Object>> aucnEndCheckdo();
+	//
+//	@
+//	Map<String, Object> aucnTest();  
 }

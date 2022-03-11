@@ -1,6 +1,7 @@
 package co.smartFarm.auction.aucnserviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -53,6 +54,16 @@ public class AucnServiceImpl implements AucnService{
 	@Override
 	public Integer aucnEnd() {
 		return map.aucnEnd();
+	}
+
+	@Override
+	public List<AucnVO> aucnEndNo() {
+		return map.aucnEndNo();
+	}
+
+	@Override
+	public List<Map<String, Object>> aucnEndCheckdo() {
+		return map.aucnEndCheckdo();
 	}
 
 	
