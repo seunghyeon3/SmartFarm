@@ -19,4 +19,6 @@ public interface GrowMapper {
 	
 	void diaryWrite(Map<String, String> val);
 	
+	String kitOwner(int deviceId);
+	
 }

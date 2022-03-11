@@ -26,6 +26,7 @@ import co.smartFarm.user.memberService.MemberVO;
 @Controller
 public class AucnController {
 	
+	//web3 provider
 	private static final String LOCAL = "http://127.0.0.1:8545";
 	
 	@Autowired
@@ -46,6 +47,7 @@ public class AucnController {
 		aucn.setMem_name(member.getMem_name());
 		aucn.setMem_email(member.getMem_email());
 		aucn.setNow_bid(aucn.getFirst_bid());
+		aucn.setNow_bid_mem_email(member.getMem_email());
 		aucnDao.aucnInsert(aucn);
 	    return "redirect:nftholdings.do";
 }
@@ -72,16 +74,16 @@ public class AucnController {
 	// web소켓 알림으로 최고입찰자를 제외한 입찰자들에게 알림 전송 (**최고입찰자에게 경매가 완료되었다 알림을 보낼지 물어보기**) 
 	// -> 알림에서 버튼을 누를 시 NFTAuction 솔리디티 method 호출후 withdraw(aucnNo) 실행해서 입찰금액 출금
 	// GrowDiary 솔리디티 method 호출후 ownerUpdate(nftNo, newOwner) 실행해서 NFT소유주 변경
-	@Scheduled(cron="0 0/1 * * * *")
+	//@Scheduled(cron="10 0/1 * * * *")
 	public void nftAuctionEnd() throws IOException {
-			System.out.println("test");
+		System.out.println("test");
 			GetClientVersion();
 	}
 	
 	// 이더리움 호출하는 친구
 	public <T> T callEthFunction(String JSONInput, Class<T> classes){
 	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    headers.set("Content-Type", "application/json");
 
 	    HttpEntity<String> param= new HttpEntity<String>(JSONInput, headers);
 
@@ -91,25 +93,64 @@ public class AucnController {
 	
 	public void GetClientVersion() throws IOException{
 		
+		int aucnEndCount = aucnDao.aucnEndCheck();
+		System.out.println("경매종료"+aucnEndCount);
+		
+		if(aucnEndCount != 0) {
+			
+		aucnDao.aucnEnd();
+		
+		// 파라미터값 64byte로 변환 
+		int testParam = 10;
+		
+		String hexBid = Integer.toHexString(testParam);
+		
+		String zero = "";
+		
+		for (int i = 0; i < 64 - hexBid.length(); i++) {
+			zero = zero + "0";
+		}
+		String paramBid = zero + hexBid;
+		System.out.println(paramBid);
+		
 		JSONObject jsonInput = new JSONObject();
 		JSONArray data = new JSONArray();
 		
 		// 이 두친구도 고정값
 		jsonInput.put("jsonrpc", "2.0");
-		jsonInput.put("method", "eth_call");
+		jsonInput.put("method", "eth_sendTransaction");
 		
 		JSONObject param = new JSONObject();
 		// smart contract Address
-		param.put("to", "0xf9778ECE6949Fb3b8D587b12Eb30A732d5c427A2");
+		param.put("from", "0x01740d5aCC6F52129b22f79AFF8d0e8b8F8212Ca");
+		param.put("to", "0xe97D4Ef966998C4DdCfd1413b5dA7dfAE531A144");
 		// input 값 hash 변환 method+parameter(optional)
-		param.put("data", "0x8cafe5db000000000000000000000000000000000000000000000000000000000000000a");
+		
+		//withdraw data ( 10번 경매 10 -> a (16진수) )
+		//param.put("data", "0x2e1a7d4d000000000000000000000000000000000000000000000000000000000000000a");
+		
+		//auctionEnd data ( 10번 경매 10 -> a (16진수) )0x32246e9f000000000000000000000000000000000000000000000000000000000000000a
+		String auctionEnd = "0x32246e9f"; 
+		String auctionEndData = auctionEnd+paramBid;
+		param.put("data", auctionEndData);
+		
+		//test
+		//param.put("data", "0x32246e9f000000000000000000000000000000000000000000000000000000000000000a");
+		
+		//bid data ( 10번 경매 10 -> a (16진수) )
+		//param.put("data", "0x454a2ab3000000000000000000000000000000000000000000000000000000000000000a");
+		//param.put("value", "340aad21b3b700000");
+		//param.put("gas", "e453");
 		data.put(param);
 		jsonInput.put("params", data);
+		//data.put("latest");
 		// id는 아무거나 넣으슈
-		jsonInput.put("id", 1);
-		
+		jsonInput.put("id", 67);
+		System.out.println(jsonInput.toString());
         EthResultVO result = callEthFunction(jsonInput.toString(), EthResultVO.class);
         System.out.println(result);
+		}
+        
     }
 	
 	

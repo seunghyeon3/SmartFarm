@@ -29,7 +29,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 				<div class="col-md-6">
 					<div class="section-title-2">
 						<h5>이용후기</h5>
-						<h2>${kitSelectOne.kit_name }</h2>
 						<img alt="이미지 들어가야함" src="resources/images/aboutimg.jpg"
 							style="width: 300px">
 					</div>
@@ -38,43 +37,61 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					<div class="contact-form mb60">
 						<ul class="cform">
 							<li class="full">
-								<h3>${kitSelectOne.kit_name}</h3>
+								<h5>제목</h5> <br>
+								<h3>${useRevwDetail.use_revw_title}</h3>
 								<hr>
 							</li>
 							<li class="full">
-								<h5>수량</h5>
-								<div class="col-md-12">
-									<div class="col-md-2"
-										style="float: left; margin-right: 1px; margin-left: 0">
-										<a onclick="changeNum(this)" id="minus" class="view-more"
-											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px;">-</a>
-									</div>
-									<div class="col-md-2"
-										style="float: left; margin: 0; padding-left: 0px; padding-right: 0px;">
-										<input type="number" id="cartCount" min="1" value="1"
-											class="form-control" readonly>
-									</div>
-									<div class="col-md-2" style="float: left; margin-left: 0px;">
-										<a onclick="changeNum(this)" id="plus" class="view-more"
-											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px;">+</a>
-									</div>
-								</div>
-							</li>
-							<li class="full" id="price"></li>
-							<li class="full"><a href="plantProductAdd.do"
-								class="view-more" style="color: white; cursor: pointer;">구매</a>
-								<a onclick="insertCart()" class="view-more"
-								style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
+								<h5>내용</h5> <br>
+								<div class="col-md-12">${useRevwDetail.use_revw_con}</div>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-12">내용이 들어 가유 ~~~</div>
-				<div class="col-md-12">내용 후기가 들어가유~~~</div>
+				<div class="wf100 comment-form">
+					<h4>이용후기 댓글</h4>
+					<ul>
+						<li class="w3"><input type="text" class="form-control"
+							placeholder="${member.mem_name }"></li>
+						<li class="full"><textarea class="form-control"
+								placeholder="댓글 작성"></textarea></li>
+						<li class="full">
+							<button class="post-btn">Post Your Comment</button>
+						</li>
+					</ul>
+
+					<ul class="comments">
+						<li class="comment">
+							<div class="user-thumb">
+								<img src="images/auser.jpg" alt="">
+							</div>
+							<div class="comment-txt">
+								<h6>Harry Butler</h6>
+								<p>Personally I think a combination of all these methods is
+									most effective, but in today’s post I will be focusing
+									specifically on how to use and style WordPress’ built-in sticky
+									post feature and highlighting it’s best use case based on my
+									own experience.</p>
+								<ul class="comment-time">
+									<li>Posted: 09 July, 2018 at 2:37 pm</li>
+									<li><a href="#"><i class="fas fa-reply"></i> Reply</a></li>
+								</ul>
+
+
+							</div>
+						</li>
+
+					</ul>
+				</div>
+
 			</div>
 		</div>
 	</section>
 
+	<script>
+		//아작스 호출해서 댓글 들고와서 #comments에 넣어주기
+	</script>
+	
 </body>
 
 </html>

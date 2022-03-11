@@ -62,8 +62,8 @@
 											<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
 												<ul class="funds">
 													<li id="startDate" class="text-left">재배 시작일<strong id = "sd"></strong></li>
-													<li class="text-center">진행률<strong id = "pc">${grow.percent}%</strong></li>
-													<li class="text-right">예상 종료일<strong id = "ed">${grow.end_estimate }</strong></li>
+													<li class="text-center">진행률<strong id = "pc">정보를 받아오는 중..</strong></li>
+													<li class="text-right">예상 종료일<strong id = "ed"></strong></li>
 												</ul>
 												<div class="progress">
 													<div id = "pbar" class="progress-bar" role="progressbar"
@@ -71,9 +71,9 @@
 														aria-valuemax="100"></div>
 												</div>
 												<div style="float: right;">
-												<a href="#" class="dn-btn">재배 관리</a>
+												<a href="control.do?no=${grow.pur_his_order_no }" class="dn-btn">재배 관리</a>
 												<a href="#" class="dn-btn">실시간 정보</a>
-												<a href="#" class="dn-btn">일별 로그</a>
+												<a href="log.do?no=${grow.pur_his_order_no }" class="dn-btn">일별 로그</a>
 												</div>
 											</div>
 										</div>
@@ -163,7 +163,7 @@
 				
 				
 				<!--페이징처리 시작-->
-				<div class="row">
+<!-- 				<div class="row">
                      <div class="col-md-12">
                         <div class="gt-pagination mt20">
                            <nav>
@@ -177,7 +177,7 @@
                            </nav>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   <!--페이징처리 종료-->
                   
 			</div>
@@ -196,10 +196,25 @@
 		    $.ajax({
 		        url: "http://${growlist.pur_his_kit_address}/checkGrow",
 		        type: 'get',
+		        error: function() {
+		        	var error = "#"+${growlist.pur_his_order_no}+" #pc";
+		        	$(error).html("연결 오류 : 키트를 확인해 주세요");
+					toastr.info(${growlist.pur_his_order_no}+"번 키트 오류발생");
+		        },
 		        success: function(result) {
 		        	console.log(result.id);
-		        	var id = "#"+result.id+" #sd";
-		        	$(id).html(result.startDate);
+		        	var sd = "#"+result.id+" #sd";
+		        	var pc = "#"+result.id+" #pc";
+		        	var ed = "#"+result.id+" #ed";
+		        	var pbar = "#"+result.id+" #pbar";
+		        	$(sd).html(result.startDate);
+		        	$(pc).html(result.percent+"%");
+		        	$(ed).html(result.end);
+		        	$(pbar).css("width",result.percent+"%");
+/* 		        	id = "#"+result.id+" #pc";
+		        	$(id).html(result.percent);
+		        	id = "#"+result.id+" #ed";
+		        	$(id).html(result.end); */
 		        }
 		    })	
 		</c:forEach>

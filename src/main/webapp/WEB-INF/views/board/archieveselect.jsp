@@ -73,7 +73,7 @@ ul>li>p{
                           	<img src="resources/images/${archieve.archieve_img}"onError="this.style.visibility='hidden'">
                            </li>
                             <li class="full">
-                            <p><a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a></p>
+                            <a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a>
                             </li>
                            <li class="half pr-15">
  								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">

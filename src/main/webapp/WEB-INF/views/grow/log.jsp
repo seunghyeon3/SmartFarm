@@ -26,9 +26,10 @@
 						<div id="growKitList" class="blog-single-content" style="overflow: auto; white-space: nowrap;">
 							<ul class="post-meta">
 							
-								<c:forEach items="${kitList}" var="grow">
+								<c:forEach items="${kitList}" var="grow" varStatus="status">
 								
-								<li class="tags" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center;" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" ><i class="fa-brands fa-raspberry-pi"></i>${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
+								<%-- <li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-startdate="${grow.grow_status }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li> --%>
+								<li class="tags" data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center;"><i id = "${grow.pur_his_order_no }" class="fa-brands fa-raspberry-pi"></i>${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
 								
 								</c:forEach>
 								
@@ -40,17 +41,19 @@
 						<div class="event-txt" style="width: 100%; padding: 0;">
 							<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
 								<ul class="funds">
-									<li class="text-left">재배 시작일<strong>2022년 02월 20일 09:30am</strong></li>
-									<li class="text-center">진행률<strong>33%</strong></li>
-									<li class="text-right">예상 종료일<strong>2022년 03월 03일 09:30am</strong></li>
+									<li class="text-left">재배 시작일<strong id="start">^^^</strong></li>
+									<li class="text-center">진행률<strong id="percent">상단 목록에서 키트를 선택해 주세요</strong></li>
+									<li class="text-right">예상 종료일<strong id="end">^^^</strong></li>
 								</ul>
 								<div class="progress">
-									<div class="progress-bar" role="progressbar"
-										style="width: 33%" aria-valuenow="55" aria-valuemin="0"
+									<div id="p-bar" class="progress-bar" role="progressbar"
+										style="width: 0%" aria-valuenow="55" aria-valuemin="0"
 										aria-valuemax="100"></div>
 								</div>
 							</div>
 						</div>
+											
+											
 											
 						<div style="display: inline-block; width: 20%;">
 							<ul id="daily" class="check-list" style="margin-top: 20px;">
@@ -83,11 +86,15 @@
 	}
 
 	$("#growKitList").on("click", "li", function(event)	{
+		$("#start").html("");
+	    $("#percent").html("연결중..");
+	    $("#end").html("");
+	    $("#p-bar").css("width","0%");
 
         $("#daily").empty();
         
 		var day1 = new Date();
-		var day1 = new Date('2022-03-12');
+		/* var day1 = new Date('2022-03-12'); */
 		console.log(day1);
 		
 		$.ajax({
@@ -96,6 +103,10 @@
 			url:event.target.id+"checkGrow",
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 		}).done(function (result) {
+			$("#start").html(result.startDate);
+		    $("#percent").html(result.percent+ "%");
+		    $("#end").html(result.end);
+		    $("#p-bar").css("width",result.percent+"%");
 			console.log(result.status);
 			console.log(result.id);
 			console.log(result.startDate.substr(0,10));
@@ -103,7 +114,7 @@
 			var difference= Math.abs(day1-day2);
 			days = difference/(1000 * 3600 * 24)
 			console.log(days)
-			if(result.status == 2) {
+			if(result.status != 0) {
 				for(var i=0; i<=days; i++) {
 					var j = new Date();
 					var k = format(new Date(j.setDate(day1.getDate() + i)));
@@ -125,6 +136,7 @@
 
 
 $("#daily").on("click", "li", function(event){ 
+	console.log(event.target.dataset.log);
     $.ajax({
         url: 'logBody.do',
         type: 'post',
@@ -137,6 +149,12 @@ $("#daily").on("click", "li", function(event){
         }
     })	
 }) 
+
+	$(function() {
+		console.log(${no});
+			console.log($("#${no}").parent());
+			$("#${no}").parent().click();
+	});
 
 </script>
 

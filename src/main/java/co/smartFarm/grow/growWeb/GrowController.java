@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 
 import co.smartFarm.grow.growService.GrowService;
 import co.smartFarm.grow.growService.GrowVO;
+import co.smartFarm.user.memberService.MemberVO;
 
 
 @Controller
@@ -49,14 +50,24 @@ public class GrowController {
 	@RequestMapping(value = "/grow.do", method = RequestMethod.GET)
 	public String grow(Locale locale, Model model, HttpSession session) throws ParseException {
 //		테스트용
-		session.setAttribute("email", "aaa@abc.com");
+//		session.setAttribute("email", "aaa@abc.com");
 		
 //		세션 이메일 사용
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
+		
+		List<GrowVO> voList = growDao.growListing(memEmail);
+
+		System.out.println(voList.toString());
+		model.addAttribute("list", voList);
+		System.out.println(model);
+		
+		return "grow/growhome";
 		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute(mapG.growList(session.getAttribute("email").toString()));
-		System.out.println(session.getAttribute("email").toString());
-		List<GrowVO> voList = growDao.growListing(session.getAttribute("email").toString());
+//		System.out.println(session.getAttribute("email").toString());
+//		List<GrowVO> voList = growDao.growListing(session.getAttribute("email").toString());
 //		int gd = 0;
 ////        Calendar cal = Calendar.getInstance();
 //		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
@@ -86,12 +97,6 @@ public class GrowController {
 //			}
 //		}
 		
-		System.out.println(voList.toString());
-		model.addAttribute("list", voList);
-		
-		System.out.println(model);
-		
-		
 		
 //		System.out.println(vo.get(2).getPur_his_kit_address());
 //		HttpHeaders headers = new HttpHeaders();
@@ -108,9 +113,6 @@ public class GrowController {
 //		System.out.println(response);
 //		
 ////		model.addAttribute("no1", response1);
-		
-		
-		return "grow/growhome";
 	}
 
 //	키트 사용법 페이지
@@ -125,32 +127,39 @@ public class GrowController {
 	public String cctv(Locale locale, Model model, HttpSession session) {
 		
 //		테스트용
-		session.setAttribute("email", "aaa@abc.com");
+//		session.setAttribute("email", "aaa@abc.com");
 		
 //		키트 목록 출력
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
+		model.addAttribute("kitList", growDao.growComList(memEmail));
+		System.out.println(model);
 		
+		return "grow/cctv";
+
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute("kitList", mapG.growComList(session.getAttribute("email").toString()));
-		model.addAttribute("kitList", growDao.growComList(session.getAttribute("email").toString()));
-		System.out.println(model);
-
-		return "grow/cctv";
 	}
 
 //	재배 관리 페이지
 	@RequestMapping(value = "/control.do", method = RequestMethod.GET)
-	public String control(Locale locale, Model model, HttpSession session) {
+	public String control(Locale locale, Model model, HttpSession session, String no) {
 		
 //		테스트용
-		session.setAttribute("email", "aaa@abc.com");
+//		session.setAttribute("email", "aaa@abc.com");
 		
 //		키트 목록 출력
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
 		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
-		List<GrowVO> voList = growDao.growListing(session.getAttribute("email").toString());
+		List<GrowVO> voList = growDao.growListing(memEmail);
 		model.addAttribute("kitList", voList);
 		System.out.println(model);
+		if(no != null) {
+			model.addAttribute("no", no);
+		}
 		return "grow/control";
 	}
 
@@ -159,39 +168,41 @@ public class GrowController {
 	public String sensor(Locale locale, Model model, HttpSession session) {
 		
 //		테스트용
-		session.setAttribute("email", "aaa@abc.com");
+//		session.setAttribute("email", "aaa@abc.com");
 		
 //		키트 목록 출력
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
+		model.addAttribute("kitList", growDao.growListing(memEmail));
+		System.out.println(model);
+		
+		return "grow/sensor";
 		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
-		model.addAttribute("kitList", growDao.growListing(session.getAttribute("email").toString()));
-		System.out.println(model);
-		return "grow/sensor";
 	}
 
 //	재배 로그 페이지
 	@RequestMapping(value = "/log.do", method = RequestMethod.GET)
-	public String log(Locale locale, Model model, HttpSession session) {
+	public String log(Locale locale, Model model, HttpSession session, String no) {
 
 //		테스트용
-		session.setAttribute("email", "aaa@abc.com");
+//		session.setAttribute("email", "aaa@abc.com");
 		
 //		세션 이메일 사용
-		String user = session.getAttribute("email").toString();
+//		String user = session.getAttribute("email").toString();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
 		
 		String DATA_DIRECTORY = "D:\\";
 		File dir = new File(DATA_DIRECTORY);
 		
 		FilenameFilter filter = new FilenameFilter() {
-			
 			public boolean accept(File f, String name) {
 //				파일 이름에 user 이메일이 붙은것들만 필터링 
-				return name.contains(user);
+				return name.contains(memEmail);
 			}
-			
 		};
-
 		String[] filenames = dir.list(filter);
 		model.addAttribute("filenames", filenames);
 		
@@ -199,13 +210,13 @@ public class GrowController {
 		System.out.println(model);
 		
 //		키트 목록 출력
-		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
-		model.addAttribute("kitList", growDao.growListing(session.getAttribute("email").toString()));
+		model.addAttribute("kitList", growDao.growListing(memEmail));
+		if(no != null) {
+			model.addAttribute("no", no);
+		}
 		System.out.println(model);
-
-
 		return "grow/log";
 	}
 
@@ -258,24 +269,22 @@ public class GrowController {
 	@ResponseBody
 	public String logger(HttpServletRequest request, HttpSession session) {
 		
-		session.setAttribute("email", "aaa@abc.com");
-
-		String email = session.getAttribute("email").toString();
-		
-		
+//		session.setAttribute("email", "aaa@abc.com");
+//		String email = session.getAttribute("email").toString();
 		//220302 PSH mapG -> growDao로 수정
 		//List<GrowVO> test = mapG.orderNumber(email);
-		List<GrowVO> oNum = growDao.orderNumber(email);
+		String deviceId = request.getParameter("id");
+		String memEmail = growDao.kitOwner(Integer.parseInt(deviceId));
+		String sd = request.getParameter("sd").substring(0, 10);
 		
 		Gson gson = new Gson();
+		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
 		
-		List<String> resultTest = gson.fromJson(request.getParameter(Integer.toString(oNum.get(0).getPur_his_order_no())), List.class);
+//		System.out.println(resultTest.get(0));
+//		System.out.println(request.getParameter(Integer.toString(oNum.get(0).getPur_his_order_no())));	
 		
-		System.out.println(resultTest.get(0));
-		
-		System.out.println(request.getParameter(Integer.toString(oNum.get(0).getPur_his_order_no())));	
-		
-		String logRoute = "D:\\" + email + ".txt";
+		String logRoute = "D:\\" + memEmail+deviceId+sd + ".txt";
+		System.out.println(logRoute);
 		
 		try {
 			File file = new File(logRoute);
@@ -327,35 +336,38 @@ public class GrowController {
 		return "address-updated";
 	}
 	
-	@RequestMapping(value = "/statusUpdate.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String statusUpdate(HttpServletRequest request) {
-		
-		Gson gson = new Gson();
-		
-		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
-		
-		Map<String, String> map = new HashMap<String, String>();
-
-		for(int i=0; i<resultTest.size(); i++) {
-			System.out.println(resultTest.get(i));
-		}
-		
-		map.put("no", resultTest.get(0));
-		map.put("status", resultTest.get(1));
-		
-		growDao.statusUpdate(map);
-		
-		
-		
-		return "status-updated";
-	}
+//	@RequestMapping(value = "/statusUpdate.do", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String statusUpdate(HttpServletRequest request) {
+//		
+//		Gson gson = new Gson();
+//		
+//		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
+//		
+//		Map<String, String> map = new HashMap<String, String>();
+//
+//		for(int i=0; i<resultTest.size(); i++) {
+//			System.out.println(resultTest.get(i));
+//		}
+//		
+//		map.put("no", resultTest.get(0));
+//		map.put("status", resultTest.get(1));
+//		
+//		growDao.statusUpdate(map);
+//		
+//		
+//		
+//		return "status-updated";
+//	}
 	
 	@RequestMapping(value = "/diaryWrite.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String diaryWrite(HttpServletRequest request, HttpSession session) {
-		session.setAttribute("email", "aaa@abc.com");
-
+//		session.setAttribute("email", "aaa@abc.com");
+//		MemberVO member = (MemberVO) session.getAttribute("member");
+//		
+//		String memEmail = member.getMem_email();
+		
 		Gson gson = new Gson();
 		
 		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
@@ -365,8 +377,11 @@ public class GrowController {
 		for(int i=0; i<resultTest.size(); i++) {
 			System.out.println(resultTest.get(i));
 		}
-		map.put("email", session.getAttribute("email").toString());
-		map.put("log", session.getAttribute("email").toString()+resultTest.get(5)+resultTest.get(3).substring(0, 10)+".txt");
+		System.out.println(resultTest.get(5));
+		String memEmail = growDao.kitOwner(Integer.parseInt(resultTest.get(5)));
+		
+		map.put("email", memEmail);
+		map.put("log", memEmail+resultTest.get(5)+resultTest.get(3).substring(0, 10)+".txt");
 		map.put("score", resultTest.get(0));
 		map.put("grade", resultTest.get(1));
 		map.put("plant", resultTest.get(2));

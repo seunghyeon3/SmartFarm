@@ -27,12 +27,12 @@
 				<c:forEach items="${useRevwList}" var="useRevw">
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
-								 <a href="useRevwDetail.do?use_revw_no=${useRevw.use_revw_no }">
+								 <a href="useRevwDetail.do?useRevwNo=${useRevw.use_revw_no }">
 									 <img src="resources/images/shop/pro1.jpg" alt="">
 								 </a>
 							<div class="pro-txt">
 								<h6>
-									<a href="useRevwDetail.do?use_revw_no=${useRevw.use_revw_no }">
+									<a href="useRevwDetail.do?useRevwNo=${useRevw.use_revw_no }">
 										${useRevw.use_revw_title}</a>
 								</h6>
 								<p class="pro-price">작성자 : ${useRevw.mem_name }</p>
