@@ -56,25 +56,26 @@
 	</div>
 	<section class="shop wf100 p80">
 		<div class="container">
-				<h1>QNA</h1>
+			<h1>QNA</h1>
 			<div class="row" id="prolist">
-			<div class="col-md-6 col-sm-6">
-         	</div> 
+				<div class="col-md-6 col-sm-6"></div>
 				<div class="col-md-6 col-sm-1">
-						<div class="side-search">
-							<!-- <form action="adminMemSearch.do" method="post"> -->
-								<select class="form-control" id="key" name="key" style="width: 120px; float: left">
-									<option value="qna_no">번호</option>
-									<option value="mem_email">이메일</option>
-								</select> <input  type="search" id="val" name="val" class="form-control" placeholder="검색"
-									style="margin: 0 10px; width: 380px; float: left;">
-								<button onclick="searchFnc()" type="submit">
-									<i class="fas fa-search"></i>
-								</button>
-							<!-- </form> -->
-						</div>
+					<div class="side-search">
+						<!-- <form action="adminMemSearch.do" method="post"> -->
+						<select class="form-control" id="key" name="key"
+							style="width: 120px; float: left">
+							<option value="qna_no">번호</option>
+							<option value="mem_email">이메일</option>
+						</select> <input type="search" id="val" name="val" class="form-control"
+							placeholder="검색"
+							style="margin: 0 10px; width: 380px; float: left;">
+						<button onclick="searchFnc()" type="submit">
+							<i class="fas fa-search"></i>
+						</button>
+						<!-- </form> -->
 					</div>
-				 <div class="col-md-12 col-sm-6" style="padding: 20px;">
+				</div>
+				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
 					<a href="qnainsertForm.do" class="view-more"
@@ -120,34 +121,31 @@
 	              header: '제목',
 	              name: 'qna_title',
 	            },{
-	              header: '내용',
-	              name: 'qna_con',
-	            },{
-	              header: '작성자',
-	              name: 'mem_name',
-	            },{
-	              header: '조회',
-	              name: 'qna_hit',
-	            },{
-	              header: '등록일',
-	              name:  'qna_day',
-	            },{
-	              header: '첨부파일',
-	              name: 'qna_phy_rou',
-	              formatter(object){	            	  
-	            	   return object.value != null ? 'Y' : 'N';
-	               }
-	            },{
+		          header: '첨부파일',
+		          name: 'qna_phy_rou',
+		          formatter(object){	            	  
+		          return object.value != null ? 'Y' : 'N';}
+		        },{
 	              header: '이메일',
 	              name: 'mem_email',
 	            },{
+		          header: '등록일',
+		          name:  'qna_day',
+		        },{
 	               header: '공개여부',
 		           name: 'qna_open_whet',
-	              }
-	            
+	            },{
+		           header: '답글여부',
+			       name: 'reply_con',
+			       formatter(object){	            	  
+				   return object.value != null ? 'Y' : 'N';}
+		         },{
+		              header: '조회',
+		              name: 'qna_hit',
+		            }
 		        ,]
 		});
-
+         
 		// GRID 에 데이터를 입력
 		var gridData = ${qna};	
 		grid.resetData(gridData);

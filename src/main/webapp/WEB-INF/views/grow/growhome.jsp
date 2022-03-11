@@ -52,6 +52,43 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${list}" var="grow">
+									<!--보유 키트 리스트 시작-->
+									<div id=${grow.pur_his_order_no } class="event-list-box">
+										<ul class="event-meta" style="margin-top: 10px;">
+											<li><strong>키트 번호:</strong><h5>${grow.pur_his_order_no }</h5></li>
+											<li><strong>작물 이름:</strong><h5>${grow.kit_plant_name}<br>(${grow.kit_prpos})</h5></li>
+										</ul>
+										<div class="event-txt" style="width: 83%; padding: 0;">
+											<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
+												<ul class="funds">
+													<li id="startDate" class="text-left">재배 시작일<strong id = "sd"></strong></li>
+													<li class="text-center">진행률<strong id = "pc">${grow.percent}%</strong></li>
+													<li class="text-right">예상 종료일<strong id = "ed">${grow.end_estimate }</strong></li>
+												</ul>
+												<div class="progress">
+													<div id = "pbar" class="progress-bar" role="progressbar"
+														style="width: 0%" aria-valuenow="55" aria-valuemin="0"
+														aria-valuemax="100"></div>
+												</div>
+												<div style="float: right;">
+												<a href="#" class="dn-btn">재배 관리</a>
+												<a href="#" class="dn-btn">실시간 정보</a>
+												<a href="#" class="dn-btn">일별 로그</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--보유 키트 리스트 종료-->
+								</c:forEach>
+							</c:otherwise>
+							
+							
+							
+							
+							
+<%-- 							
+							<c:otherwise>
+								<c:forEach items="${list}" var="grow">
 								<c:choose>
 									<c:when test="${not empty grow.grow_status}">
 									<!--보유 키트 리스트 시작-->
@@ -115,6 +152,9 @@
 							</c:choose>		
 								</c:forEach>
 							</c:otherwise>
+ --%>							
+							
+							
 						</c:choose>
 											
 					</div>
@@ -152,8 +192,22 @@
      
     <script type="text/javascript">
     
-			
+		<c:forEach var="growlist" items="${list}">
+		    $.ajax({
+		        url: "http://${growlist.pur_his_kit_address}/checkGrow",
+		        type: 'get',
+		        success: function(result) {
+		        	console.log(result.id);
+		        	var id = "#"+result.id+" #sd";
+		        	$(id).html(result.startDate);
+		        }
+		    })	
+		</c:forEach>
+		
+    
     </script>
+    
+    
  <!-- 
 	<script type="text/javascript">
 	

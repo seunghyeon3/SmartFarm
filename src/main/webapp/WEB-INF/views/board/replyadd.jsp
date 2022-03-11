@@ -91,8 +91,6 @@ ul>li>p {
 										<div>
 											<span><strong>Comments</strong></span> <span id="cCnt"></span>
 										</div>
-										<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    									<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;
 										<div>
 											<table class="table">
 												<tr>
@@ -102,14 +100,13 @@ ul>li>p {
 														<div>
 															<a href='#' onClick="fn_comment('${qna.qna_no}')"
 																class="btn pull-right btn-success">등록</a>
-														</div>
-												    </td>
+														</div></td>
 												</tr>
 											</table>
 										</div>
 									</div>
 									<input type="hidden" id="qna_no" name="qna_no"
-										value="${qna.qna_no}"/>
+										value="${qna.qna_no}" />
 								</form>
 							</ul>
 					</div>
@@ -126,11 +123,9 @@ ul>li>p {
 		function fn_comment(code) {
 
 			$.ajax({
-				type : 'POST', //post 방식 
-				url : "replyadd.do", 
+				type : 'POST',
+				url : "replyadd.do",
 				data : JSON.stringify({ reply_con : $('#reply_con').val(), qna_no : Number($('#qna_no').val())}),
-				// reply_con : reply_con, qna_no:qna_no -> json 받음 
-				//data를 -> replycontroller로 보냄 
 				contentType:"application/json; charset=utf-8",
 				success : function(data) {
 					console.log(data);
@@ -161,13 +156,12 @@ ul>li>p {
 		function getCommentList() {
 
 			$.ajax({
-						type : 'POST',  //post 형식으로 보내고 
-						url : "replycommend.do", 
-						dataType : "json", 
-						data : JSON.stringify({ qna_no : Number($('#qna_no').val())}), // qna_no : Number.val -> json형식으로 변환
-						//data ->replycontroller 데이터를 담아서 보내줌 
-						contentType:"application/json; charset=utf-8", // 한글 번역 
-						success : function(data) { 
+						type : 'Post',
+						url : "replycommend.do",
+						dataType : "json",
+						data : JSON.stringify({ qna_no : Number($('#qna_no').val())}),
+						contentType:"application/json; charset=utf-8",
+						success : function(data) {
 							console.log(data);
 							var html = "";
 							var cCnt = data.length;
@@ -180,8 +174,6 @@ ul>li>p {
 											+ data[i].mem_name + "</strong></h6>";
 									html += data[i].reply_con
 											+ "<tr><td></td></tr>";
-								    html += "<a href='javascript:replyDelete();'>삭제</a>";
-					
 									html += "</table></div>";
 									html += "</div>";
 								}
@@ -205,20 +197,6 @@ ul>li>p {
 
 					});
 		}
-		 /* 	function replyDelete(reply_no){
-				var paramData = {"rid": rid};
-				$.ajax({
-					url: "replydelete.do"
-					type : 'POST'
-					datatype : 'json'
-					,success: function(result){
-						showReplyList();
-					}
-					, error: function(error){
-						console.log("에러 : " + error);
-					}
-				}); 
-			}  */
 	</script>
 </body>
 </html>

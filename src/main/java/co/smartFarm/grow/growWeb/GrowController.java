@@ -1,16 +1,17 @@
 package co.smartFarm.grow.growWeb;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -24,8 +25,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 
 import co.smartFarm.grow.growService.GrowService;
@@ -41,7 +44,7 @@ public class GrowController {
 	@Autowired
 	//220302 PSH GrowMapper mapG 에서 아래 내용오르 수정
 	GrowService growDao;
-
+	
 //	재배 진행 정보 페이지
 	@RequestMapping(value = "/grow.do", method = RequestMethod.GET)
 	public String grow(Locale locale, Model model, HttpSession session) throws ParseException {
@@ -162,7 +165,7 @@ public class GrowController {
 		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
-		model.addAttribute("kitList", growDao.growList(session.getAttribute("email").toString()));
+		model.addAttribute("kitList", growDao.growListing(session.getAttribute("email").toString()));
 		System.out.println(model);
 		return "grow/sensor";
 	}
@@ -199,7 +202,7 @@ public class GrowController {
 		
 		//220302 PSH mapG -> growDao로 수정
 		//model.addAttribute("kitList", mapG.growList(session.getAttribute("email").toString()));
-		model.addAttribute("kitList", growDao.growList(session.getAttribute("email").toString()));
+		model.addAttribute("kitList", growDao.growListing(session.getAttribute("email").toString()));
 		System.out.println(model);
 
 
@@ -209,35 +212,46 @@ public class GrowController {
 //	로그파일 내용 출력
 	@RequestMapping("/logBody.do")
 	@ResponseBody
-	public List<String> logBody(String file) throws Exception {
+	public List<String> logBody(@RequestParam Map<String, String> param) throws Exception {
 
-		String test = "D:\\" + file;
+		String test = "D:\\" + param.get("file") + ".txt";
 		
 //		로그
 		System.out.println(test);
 
+		StringBuffer sb = new StringBuffer();
+		FileReader readFile;
+		BufferedReader br;
+		String getLine;
 //		텍스트 내용 읽기
-		Path path = Paths.get(test);
-		List<String> lines = java.nio.file.Files.readAllLines(path);
+		List<String> lines = new ArrayList<>();
+		try {
+			readFile = new FileReader(test);
+			br = new BufferedReader(readFile);
+			
+			while((getLine=br.readLine())!=null) {
+				System.out.println(getLine);
+				if(getLine.startsWith(param.get("date"))) {
+					lines.add(getLine);
+				}
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+//		Path path = Paths.get(test);
+//		List<String> lines = Files.readLines(null, null)
 //		로그
-		System.out.println(lines);
+//		System.out.println(lines);
 		
 		return lines;
 	}
 
 
-	
-//	영농일지 내용 출력
-	@RequestMapping("/diaryBody.do")
-	@ResponseBody
-	public List<String> diaryBody(String route) throws Exception {
-		System.out.println(route);
 
-		Path path = Paths.get(route);
-		List<String> lines = java.nio.file.Files.readAllLines(path);
-		
-		return lines;
-	}
 	
 //	키트에서 로그전송
 	@RequestMapping(value = "/logger.do", method = RequestMethod.POST)
@@ -247,6 +261,7 @@ public class GrowController {
 		session.setAttribute("email", "aaa@abc.com");
 
 		String email = session.getAttribute("email").toString();
+		
 		
 		//220302 PSH mapG -> growDao로 수정
 		//List<GrowVO> test = mapG.orderNumber(email);

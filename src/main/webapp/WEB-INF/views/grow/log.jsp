@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
@@ -22,14 +22,13 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12">
 
-
 						<!--재배 키트 목록 시작-->
-						<div class="blog-single-content" style="overflow: auto; white-space: nowrap;">
+						<div id="growKitList" class="blog-single-content" style="overflow: auto; white-space: nowrap;">
 							<ul class="post-meta">
 							
 								<c:forEach items="${kitList}" var="grow">
 								
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">${grow.kit_no }</a></li>
+								<li class="tags" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center;" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" ><i class="fa-brands fa-raspberry-pi"></i>${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
 								
 								</c:forEach>
 								
@@ -55,20 +54,13 @@
 											
 						<div style="display: inline-block; width: 20%;">
 							<ul id="daily" class="check-list" style="margin-top: 20px;">
-							
 								<!-- 로그 리스트 -->
-							    <c:forEach items="${filenames}" var="log">
-								<li><strong>${log}</strong></li>
-								</c:forEach>
-								
 							</ul>
 						</div>
 						
 						<div style="display: inline-block; width: 75%; border: 1px solid black;">
 							<ul id="log" class="check-list">
-								<li>00:00 자동재배중입니다/온도30 습도60 일사량5 급액량400 재배중입니다</li>
-								<li>10:17 온도변화를 감지하였습니다 27 -> 33</li>
-								<li>15:20 온도를 설정값을 30도로 변경하였습니다</li>
+								<!-- 로그 내용 -->
 							</ul>
 
 						</div>
@@ -83,12 +75,60 @@
 	<!--본문 종료-->
 <script type="text/javascript">
 
-$("#daily").on("click", "li", function(event){ 
+	function format(d) {
+		var year = d.getFullYear();
+		var month = ('0' + (d.getMonth() + 1)).slice(-2);
+		var day = ('0' + d.getDate()).slice(-2);
+		return dateString = year + '-' + month  + '-' + day;
+	}
 
+	$("#growKitList").on("click", "li", function(event)	{
+
+        $("#daily").empty();
+        
+		var day1 = new Date();
+		var day1 = new Date('2022-03-12');
+		console.log(day1);
+		
+		$.ajax({
+			type:'get',
+			/* url:event.target.dataset.url+"checkGrow", */
+			url:event.target.id+"checkGrow",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+		}).done(function (result) {
+			console.log(result.status);
+			console.log(result.id);
+			console.log(result.startDate.substr(0,10));
+			var day2 = new Date(result.startDate.substr(0,10));
+			var difference= Math.abs(day1-day2);
+			days = difference/(1000 * 3600 * 24)
+			console.log(days)
+			if(result.status == 2) {
+				for(var i=0; i<=days; i++) {
+					var j = new Date();
+					var k = format(new Date(j.setDate(day1.getDate() + i)));
+					console.log(k);
+					var li = document.createElement("li");
+					var txt = '${member.mem_email}' + result.id +format(day2);
+					console.log(txt);
+					li.data = txt;
+					li.setAttribute('data-log', txt);
+					li.innerHTML=k;
+					$("#daily").append(li);
+		            /* $("#daily").html("<li data-log='"+txt+"'" ) */
+				}
+			}
+		})
+		
+		
+	})
+
+
+$("#daily").on("click", "li", function(event){ 
     $.ajax({
         url: 'logBody.do',
         type: 'post',
-        data: {"file" : event.target.innerText},
+        data: {"file" : event.target.dataset.log, "date" : event.target.innerText},
         success: function(result) {
             $("#log").empty();
 			for(i=0; i<result.length; i++) {

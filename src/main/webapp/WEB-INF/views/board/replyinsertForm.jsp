@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!doctype html>
-<html lang="en">
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8">
-<title>스마트팜 등록</title>
-
+<meta charset="UTF-8">
+<title>QNA 글쓰기</title>
+</head>
 <style>
 .filebox label {
   display: inline-block;
@@ -40,40 +39,31 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-.full{
-	display: inline-block;
-	text-align: center;
-
-}
-.filebox{
-	float: right;
-}
-
 </style>
-</head>
 <body>
-	<div class="wrapper">
-		<section class="contact-page wf100 p80">
+<section class="contact-page wf100 p80">
             <div class="container">
                <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                     	<h1>등록</h1>
-                     	<form action="introinsert.do" method="post" enctype="multipart/form-data">
+                        <h3>글쓰기</h3>
+                        <form action="replyinsert.do" method="post">
+
                         <ul class="cform">
- 						<input type="hidden" name="intro_board_class" value="intro3">	
-                           <!-- 파일업로드 버튼 구성 -->
-                         <div class="filebox"> 
-  								<label for="ex_file">사진 업로드</label>
-  								<input type="file" id="ex_file" name="introfile" value=${intro.intro_img}>
-					     </div> 
-					     <br><br><br>
-                           <li class="half pr-15">
-                              <input type="submit" value="등록" class="fsubmit">
+                        <td class="form-inline">
+    					<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    					<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;
+						
+						</td>
+                           <li class="full">
+                           <input type="hidden" class="form-control" placeholder="원글 번호" name="qna_no" value=${qnaVO.qna_no}>
                            </li>
-                           <li class="half pr-15">
-                              <input type="submit" value="취소" onclick="history.back(-1);"class="fsubmit">
+                            <li class="full">
+                              <textarea class="textarea-control" placeholder="내용" name="reply_con">${reply.reply_con}</textarea>
+                           </li>
+                           <li class="full">
+                              <input type="submit" value="등록"  class="fsubmit">
                            </li>
                         </ul>
                         </form>
@@ -82,7 +72,7 @@
                </div>
             </div>
          </section>
-         </div>
+         
+ 
 </body>
-
 </html>

@@ -10,7 +10,7 @@ import co.smartFarm.board.qna.qnaService.QnaService;
 import co.smartFarm.board.qna.qnaService.QnaVO;
 
 @Repository("qnaDao")
-public class qnaServiceImpl implements QnaService{
+public class QnaServiceImpl implements QnaService{
 
 	@Autowired
 	private QnaMapper map;
