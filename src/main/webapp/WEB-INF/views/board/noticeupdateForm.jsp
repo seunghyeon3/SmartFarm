@@ -57,8 +57,11 @@
                         </div>
                         <li class="full"><textarea class="textarea-control"placeholder="내용" name="notice_con">${notice.notice_con}</textarea>
                         </li>
-                        <li class="full"><input type="submit" value="확인" onclick="location.href=noticeupdate.do" class="fsubmit">
-                                    <input type=button value="삭제" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
+                        <li class="half pr-15">
+                        <input type="submit" value="확인" onclick="location.href=noticeupdate.do" class="fsubmit">
+                        </li>
+                        <li class="half pr-15">
+                        <input type=button value="삭제" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
                         </li>
                      </ul>
                   	</form>

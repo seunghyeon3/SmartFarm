@@ -79,9 +79,10 @@
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
 					<a href="faqinsertForm.do" class="view-more"
-						style="color: white; cursor: pointer;">글쓰기</a> <a
-						href="javascript:void(0)" onclick="deleteCheck()"
+						style="color: white; cursor: pointer;">글쓰기</a> 
+						<a href="javascript:void(0)" onclick="deleteCheck()"
 						class="view-more" style="color: white; cursor: pointer;">삭제</a>
+				</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -104,7 +105,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</section>
 
 	<div></div>
