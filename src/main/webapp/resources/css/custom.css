@@ -94,12 +94,16 @@ Fonts Start
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300i,400,400i,700');
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 @font-face {
 	font-family: 'yg-jalnan','droidSans';
 	src: url('../webfonts/DroidSans-webfont.eot');
 	src: url('../webfonts/DroidSans-webfontd41d.eot?#iefix') format('embedded-opentype'), url('../webfonts/droidsans-webfont.woff2') format('woff2'), url('../webfonts/DroidSans-webfont.woff') format('woff'), url('../webfonts/DroidSans-webfont.ttf') format('truetype'), url('../webfonts/DroidSans-webfont.svg#droid_sansregular') format('svg');
 	font-weight: 400;
 	font-style: normal;
+}
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
 }
 @font-face {
 	font-family: 'yg-jalnan','droidSans';

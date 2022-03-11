@@ -113,3 +113,6 @@ function movePage(url, realPath){
                   )
         }
     }
+    
+    
+var tempvalue= "abcd";
