@@ -66,6 +66,11 @@ public class GrowServiceImpl implements GrowService{
 	public void diaryWrite(Map<String, String> val) {
 		map.diaryWrite(val);
 	}
+
+	@Override
+	public String kitOwner(int deviceId) {
+		return map.kitOwner(deviceId);
+	}
 	
 	
 }

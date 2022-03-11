@@ -26,7 +26,7 @@
 								<c:forEach items="${kitList}" var="grow" varStatus="status">
 								
 								<%-- <li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-startdate="${grow.grow_status }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li> --%>
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li>
+								<li class="tags" data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center;"><i id = "${grow.pur_his_order_no }" class="fa-brands fa-raspberry-pi"></i>${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
 								
 								</c:forEach>
 								
@@ -38,13 +38,13 @@
 						<div class="event-txt" style="width: 100%; padding: 0;">
 							<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
 								<ul class="funds">
-									<li class="text-left">재배 시작일<strong id="start">2022년 02월 20일 09:30am</strong></li>
-									<li class="text-center">진행률<strong id="percent">33%</strong></li>
-									<li class="text-right">예상 종료일<strong id="end">2022년 03월 03일 09:30am</strong></li>
+									<li class="text-left">재배 시작일<strong id="start">^^^</strong></li>
+									<li class="text-center">진행률<strong id="percent">상단 목록에서 키트를 선택해 주세요</strong></li>
+									<li class="text-right">예상 종료일<strong id="end">^^^</strong></li>
 								</ul>
 								<div class="progress">
 									<div id="p-bar" class="progress-bar" role="progressbar"
-										style="width: 33%" aria-valuenow="55" aria-valuemin="0"
+										style="width: 0%" aria-valuenow="55" aria-valuemin="0"
 										aria-valuemax="100"></div>
 								</div>
 							</div>
@@ -53,12 +53,13 @@
 						<div style="display: block;">
 							<div>
 								<ul class="check-list" style="margin-top: 20px;">
-									<li><strong>자동 재배:   </strong><input id="auto" type="checkbox"> </li>
-									<li><strong>온도:</strong><input class="value" id="temp" name="temp" type="number" min="1"></li>
-									<li><strong>습도:</strong><input class="value" id="hum" name="hum" type="number"></li>
-									<li><strong>하루 중 일사량(시간):</strong><input class="value" id="light" name="light" type="number"></li>
-									<li><strong>하루 중 급액량:</strong><input class="value" id="water" name="water" type="number"></li>
-									<li><strong>하루 중 농약량:</strong><input class="value" id="pes" name="pes" type="number"></li>
+									<li><strong id="name"> </strong></li>
+									<li><strong>자동 재배:</strong><input id="auto" type="checkbox"></li>
+									<li><strong>온도(적정값: 1~40):</strong><input class="value" id="temp" name="temp" type="number" min="1" max="40"></li>
+									<li><strong>습도(적정값: 10~90):</strong><input class="value" id="hum" name="hum" type="number" min="10" max="90"></li>
+									<li><strong>하루 중 일사시간(적정값: 1~15):</strong><input class="value" id="light" name="light" type="number" min="1" max="15"></li>
+									<li><strong>하루 중 급액량(적정값: 10~500):</strong><input class="value" id="water" name="water" type="number" min="10" max="400"></li>
+									<li><strong>하루 중 농약량(적정값: 0~70):</strong><input class="value" id="pes" name="pes" type="number" min="0" max="70"></li>
 								</ul>
 							</div>
 						</div>
@@ -84,18 +85,28 @@
 <script type="text/javascript">
 
 	$("#growKitList").on("click", "li", function(event)	{
+		$("#name").html(event.target.innerText);
 		$("#complete").hide();
 		$("#cancel").hide();
+		$("#auto").prop("checked", false);
+		$("input.value").removeAttr("disabled");
 		$("#temp").val("");
 		$("#hum").val("");
 		$("#light").val("");
 		$("#water").val("");
 		$("#pes").val("");
+		$("#start").html("");
+	    $("#percent").html("연결중..");
+	    $("#end").html("");
+	    $("#p-bar").css("width","0%");
 		$.ajax({
 			type:'get',
 			/* url:event.target.dataset.url+"checkGrow", */
 			url:event.target.id+"checkGrow",
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			error: function(){
+			    $("#percent").html("키트 연결 상태를 확인하세요");
+			}
 		}).done(function (result) {
 			console.log(result.status)
 			$("#temp").val(result.temp);
@@ -103,6 +114,10 @@
 			$("#light").val(result.light);
 			$("#water").val(result.water);
 			$("#pes").val(result.pes);
+			$("#start").html(result.startDate);
+		    $("#percent").html(result.percent+ "%");
+		    $("#end").html(result.end);
+		    $("#p-bar").css("width",result.percent+"%");
 			if(result.status == 2) {
 				$("#complete").show();
 				$("#cancel").show();				
@@ -115,7 +130,7 @@
         $("#growstop").attr("data-url", event.target.id);
         $("#growchange").attr("data-url", event.target.id);
         $("#complete").attr("data-url", event.target.id);
-        
+        $("#cancel").attr("data-url", event.target.id);
         /* if(!event.target.dataset.startdate){ */
 /* 	        $("#start").html("");
 	        $("#percent").html("재배를 시작해주세요");
@@ -123,9 +138,9 @@
 	        $("#p-bar").css("width","0"); */
 		/* }else { */
 /*         $("#start").html(event.target.dataset.startdate); */
-        $("#percent").html(event.target.dataset.percent + "%");
-        $("#end").html(event.target.dataset.end);
-        $("#p-bar").css("width",event.target.dataset.percent+"%")
+       /*  $("#percent").html(event.target.dataset.percent + "%"); */
+        /* $("#end").html(event.target.dataset.end); */
+        /* $("#p-bar").css("width",event.target.dataset.percent+"%") */
         
 		/* } */
         
@@ -222,6 +237,12 @@
 			toastr.info(result);
 		})		
 	})
+	
+	$(function() {
+		console.log(${no});
+			console.log($("#${no}").parent());
+			$("#${no}").parent().click();
+	});
 	
 </script>
 
