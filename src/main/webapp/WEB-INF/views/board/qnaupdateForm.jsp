@@ -60,8 +60,11 @@
                         </div>
                         <li class="full"><textarea class="textarea-control"placeholder="내용" name="qna_con">${qna.qna_con}</textarea>
                         </li>
-                        <li class="full"><input type="submit" value="확인" onclick="location.href=qnaupdate.do" class="fsubmit">
-                                         <input type=button value="삭제" onclick="location.href='qnadelete.do?qna_no=${qna.qna_no}'"class="fsubmit">
+                       <li class="half pr-15">
+                       <input type="submit" value="확인" onclick="location.href=qnaupdate.do" class="fsubmit">
+                       </li>
+                       <li class="half pr-15">
+                       <input type=button value="삭제" onclick="location.href='qnadelete.do?qna_no=${qna.qna_no}'"class="fsubmit">
                         </li>
                      </ul>
                   </form>

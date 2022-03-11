@@ -65,8 +65,11 @@
   								 <label for="ex_file">사진 업로드</label>
   								 <input type="file" id="ex_file" name="introfile">
 						   </div>
-                           <li class="full">
+						   <br><br><br>
+                           <li class="half pr-15">
                               <input type="submit" value="수정" onclick="location.href='intron.do'"class="fsubmit">
+                           </li>
+                           <li class="half pr-15">
                            	  <input type="button" value="취소" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
