@@ -17,4 +17,7 @@ public interface KitService {
 	
 	//admin 페이지에서 키트별 판매순위
 	List<KitVO> adminKitRankList(KitVO kitVo);
+	
+	//키트 추가
+	int kitInsert(KitVO kitVo);
 }

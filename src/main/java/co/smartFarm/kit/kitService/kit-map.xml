@@ -66,4 +66,16 @@
 		    )
 		WHERE PUR_RANK BETWEEN 1 AND 10
 	</select>
+	
+	<insert id="kitInsert" parameterType="co.smartFarm.kit.kitService.KitVO">
+		<selectKey keyProperty="kit_no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(KIT_NO), 0)+1 KIT_NO 
+			FROM KIT
+		</selectKey>
+		INSERT INTO kit
+		VALUES(#{kit_no}, #{kit_name}, #{kit_prpos}, #{kit_plant_class}, #{kit_plant_name}, #{kit_grow_day}, 
+		#{kit_tp}, #{kit_hd}, #{kit_sun}, #{kit_water}, #{kit_pes}, #{kit_cctv}, #{kit_price}, #{kit_main_img}, 
+		#{kit_exp_img}, #{kit_sale_whet}, #{kit_hit}, #{kit_sale_count})
+		
+	</insert>
 </mapper>

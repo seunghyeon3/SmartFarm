@@ -32,11 +32,7 @@ h3 {
 	float: left;
 }
 </style>
-
-
-
 </head>
-
 <body>
 
 
@@ -53,8 +49,9 @@ h3 {
 				<br>
 				<div class="row">
 					<div class="single-post-tags wf50" style="float: left;">
-						<a href="javascript:void(0)">전체보기</a>&nbsp;&nbsp;&nbsp; <a href="#">과일류</a>&nbsp;&nbsp;&nbsp;
-						<a href="#">채소류</a>
+						<a onclick="clickA(this)" id="" class="clickBtn">전체보기</a>&nbsp;&nbsp;&nbsp;
+						<a onclick="clickA(this)" id="과일" class="clickBtn">과일류</a>&nbsp;&nbsp;&nbsp;
+						<a onclick="clickA(this)" id="채소" class="clickBtn">채소류</a>
 					</div>
 
 
@@ -63,46 +60,40 @@ h3 {
 
 					<!-- 팝업 달력 -->
 					<div class="col-md-12 comment-form">
-						
-							<ul class="col-md-12" style="display: inline-block;">
 
-								<li class="col-md-3" style="float: left;">
-									<div
-										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
-										style="width: 200px; height: 50px; z-index: 3;">
-										<input id="startpicker-input" type="text" aria-label="Date"
-											style="z-index: 2;"> <span class="tui-ico-date"></span>
-										<div id="startpicker-container" style="margin-left: -1px;"></div>
-									</div>
-								</li>
-								<li class="col-md-3" style="float: left;">
+						<ul class="col-md-12" style="display: inline-block;">
 
-									<div
-										class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
-										style="width: 200px; height: 50px; z-index: 3;">
-										<input id="endpicker-input" type="text" aria-label="Date"
-											style="z-index: 2;"> <span class="tui-ico-date"></span>
+							<li class="col-md-3" style="float: left;">
+								<div
+									class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+									style="width: 200px; height: 50px; z-index: 3;">
+									<input id="startpicker-input" type="text" aria-label="Date"
+										style="z-index: 2;"> <span class="tui-ico-date"></span>
+									<div id="startpicker-container" style="margin-left: -1px;"></div>
+								</div>
+							</li>
+							<li class="col-md-3" style="float: left;">
 
-										<div id="endpicker-container" style="margin-left: -1px;"></div>
-									</div>
-								</li>
-								<li class="col-md-2" style="float: left;"><button type="button"
-										class="post-btn" style="width: 100px; height: 50px;" onclick="getData('','')">검색</button></li>
-							</ul>
+								<div
+									class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
+									style="width: 200px; height: 50px; z-index: 3;">
+									<input id="endpicker-input" type="text" aria-label="Date"
+										style="z-index: 2;"> <span class="tui-ico-date"></span>
 
-					
-
+									<div id="endpicker-container" style="margin-left: -1px;"></div>
+								</div>
+							</li>
+							<li class="col-md-2" style="float: left;"><button
+									type="button" class="post-btn"
+									style="width: 100px; height: 50px;" onclick="getData('','')">검색</button></li>
+						</ul>
 					</div>
 
-
-					<div class="col-md-8 col-sm-6">
+					<!-- 차트 -->
+					<div class="col-md-1 col-sm-6"></div>
+					<div class="col-md-10 col-sm-6">
 						<canvas id="myChart"></canvas>
 					</div>
-
-
-
-
-
 
 
 
@@ -124,34 +115,55 @@ h3 {
 		src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
 
 	<script type="text/javascript">
-	
-		//=====팝업 달력=====
-		var today = new Date();
-		var picker = tui.DatePicker.createRangePicker({
-			language : 'ko',
-			startpicker : {
-				date : today,
-				input : '#startpicker-input',
-				container : '#startpicker-container'
-			},
-			endpicker : {
-				date : today,
-				input : '#endpicker-input',
-				container : '#endpicker-container'
-			},
-			selectableRanges : [ [ new Date(2000, 1, 1), new Date() ],
-					[ new Date(2000, 1, 1), new Date() ] ]
-		});
-		
-		
-		//창이 업로드 되면 한달 전으로 미리 설정해두기 
-		var now = new Date();
-		picker.setStartDate(new Date(now.setMonth(now.getMonth() - 1)));
-		
-		
-		// ===== 차트 그릴 정보 받아오기 =====
+		// 페이지가 load 팝업달력을 설정 + 차트 그리기
+		window.onload = function() {
+			//=====팝업 달력=====
+			var today = new Date();
+			var picker = tui.DatePicker.createRangePicker({
+				language : 'ko',
+				startpicker : {
+					date : today,
+					input : '#startpicker-input',
+					container : '#startpicker-container'
+				},
+				endpicker : {
+					date : today,
+					input : '#endpicker-input',
+					container : '#endpicker-container'
+				},
+				selectableRanges : [ [ new Date(2000, 1, 1), new Date() ],
+						[ new Date(2000, 1, 1), new Date() ] ]
+			});
+
+			//창이 업로드 되면 한달 전으로 미리 설정해두기 
+			var now = new Date();
+			picker.setStartDate(new Date(now.setMonth(now.getMonth() - 1)));
+
+			//url 받아와서 차트 그리기
+			//var url = getUrl('', '');//전체조회로 설정
+			getData('', '');
+
+		}
+
+		//a 태그 onclick 하기전... 데이터 가공
+		function clickA(e) {
+			var kitPlantCalss = e.id;
+			getData(kitPlantCalss, '');
+		}
+
+		//달력에서 focusout 되면 실행될 함수
+		function checkCal(kitPlantClass) {
+			var startDate = $("#startpicker-input").val();
+			var endDate = $("#endpicker-input").val();
+			var url = "adminGetPurchaseList.do?kit_prpos=" + kitPrpos
+					+ "&kit_plant_class=" + kitPlantClass + "&start_date="
+					+ startDate + "&end_date=" + endDate;
+
+		}
+
+		// ===== 작물과 용도를 설정하면 데이터 받아와서 차트 그리는 함수 =====
 		function getData(kitPlantClass, kitPrpos) {
-			
+
 			var startDate = $("#startpicker-input").val();
 			var endDate = $("#endpicker-input").val();
 
@@ -176,27 +188,25 @@ h3 {
 
 			});
 		}
-		
+
 		//제일 처음에는 전체 값으로 초기화하기
-		getData('', '');
 
 		// ===== 차트 그리는 함수 =====
 		var kitName = []; // 키트 이름
 		var kitPurCount = []; // 키트 판매수
 		var myChart; //차트
 		var context;
-		
-		
+
 		// 가져온 리스트로 차트 그리기
 		function createChart(kitList) {
 			//데이터 초기화시키기
 			kitName = []; // 키트 이름
 			kitPurCount = []; // 키트 판매수
-			if(window.chartObj != undefined){
+			if (window.chartObj != undefined) {
 				window.chartObj.destroy();
 			}
-			
-			for ( var li in kitList ) {
+
+			for ( var li in kitList) {
 				kitName.push(kitList[li].kit_name);
 				kitPurCount.push(kitList[li].pur_his_sale_count);
 			}
@@ -237,7 +247,8 @@ h3 {
 								'rgba(75, 192, 192, 1)',
 								'rgba(153, 102, 255, 1)',
 								'rgba(255, 159, 64, 1)' ],
-						borderWidth : 1 //경계선 굵기
+						borderWidth : 1
+					//경계선 굵기
 					} ]
 				},
 				options : {
@@ -252,10 +263,9 @@ h3 {
 				}
 			});
 		}
-		
+
 		// 달력 입력후 focus out 이벤트 발생시키기
 		//var startPicker = document.getElementById('startpicker-input')
-		
 	</script>
 </body>
 
