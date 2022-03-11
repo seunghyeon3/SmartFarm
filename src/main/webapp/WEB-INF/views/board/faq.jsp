@@ -64,7 +64,7 @@
 						<!--<form action="noticeSearch.do" method="post"> -->
 						<select class="form-control" id="key" name="key"
 							style="width: 120px; float: left">
-							<option value="faq_no">번호</option>
+							<option value="faq_con">내용</option>
 							<option value="faq_title">제목</option>
 						</select> <input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
