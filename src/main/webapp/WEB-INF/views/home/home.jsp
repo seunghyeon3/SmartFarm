@@ -346,4 +346,16 @@
 		</section>
 		<!--Online Products End-->
 	</div>
+	<script type="text/javascript">
+	$('.owl-carousel').owlCarousel({
+	    items : 1, //화면에 표시 할 슬라이드 수
+	    animateOut : 'fadeOut', // 사라질때의 애니메이션
+	    margin : 10, // 슬라이드 간격
+	    dots : true, // Pagination 표시 여부
+	    autoplay : true, // 자동 슬라이드 여부
+	    autoplayTimeout : 3000, // 자동 슬라이드 시간 (예제는 3초)
+	    loop : true // 무한 반복 여부
+	})
+	</script>
+	</body>
 </html>
