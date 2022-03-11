@@ -32,11 +32,7 @@ h3 {
 	float: left;
 }
 </style>
-
-
-
 </head>
-
 <body>
 
 

@@ -12,61 +12,16 @@
 <meta name="author" content="">
 <link rel="icon" href="../resources/images/favicon.png">
 <title>ECO HTML</title>
-<!-- CSS FILES START -->
-
-
-<!-- CSS FILES End -->
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <style type="text/css">
-.radioCss {
-	width: 50px;
-	padding: 20px;
-	font-size: 1.2em;
-}
-
-/*radio 버튼 색상변경 */
-input[type='radio'] {
-	-webkit-appearance: none;
-	width: 16px;
-	height: 16px;
-	border: 1px solid darkgray;
-	border-radius: 50%;
-	outline: none;
-	background: #e6e6e6;
-}
-
-input[type='radio']:before {
-	content: '';
-	display: block;
-	width: 60%;
-	height: 60%;
-	margin: 20% auto;
-	border-radius: 50%;
-}
-
-input[type='radio']:checked:before {
-	background: #1b5e20;
-}
-
-input[type="checkbox"]:checked {
-	background-color: black;
-	border-color: black;
-	color: white;
-}
-
-input[type="checkbox"]:checked::before {
-	border-radius: 2px;
-	transform: scale(1) translate(-50%, -50%)
-}
-
-.checkList {
-	font-size: 1.2em;
-}
-
-.inner {
-	width: 150px;
+input{
+	border:none;
+	width:100%;
 }
 </style>
 </head>
+
 
 <body>
 
@@ -102,8 +57,8 @@ input[type="checkbox"]:checked::before {
 
 
 
-
-					<div class="col-md-12 col-sm-6" style="padding: 20px;">
+					<!-- 표 -->
+					<div class="col-md-12 col-sm-6" style="padding: 20px; z-index: 1;">
 						<div id="grid" style="width: 100%;"></div>
 					</div>
 					<div class="col-md-8 col-sm-8"></div>
@@ -129,13 +84,12 @@ input[type="checkbox"]:checked::before {
 
 	<!-- 팝업창 -->
 	<div id="lightInstP" class="col-md-12 white_content"
-		style="text-align: center; height: 800px; top: 70px;">
-		<br>
+		style="text-align: center; height: 800px; top: 70px; z-index: 3;">
 
-		<div>
 
-			<h3>작물등록</h3>
-			<a href="javascript:void(0)"
+		<div style="text-align: center;">
+			<h3 style="width: 200px; text-align: center; float: left;">키트등록</h3>
+			<a href="javascript:void(0)" style="float: right;"
 				onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
 			</a>
 
@@ -144,80 +98,90 @@ input[type="checkbox"]:checked::before {
 
 		<div class="blog-single-content"
 			style="width: 80%; display: inline-block;">
-			<form action="">
+			<form action="kitInsert.do" method="post" enctype="multipart/form-data">
 
 				<div class="single-post-tags wf50">
-					<a href="#">과일류</a>&nbsp;&nbsp;&nbsp; <a href="#">채소류</a>
+					<a onclick="changeCol(this)" id="com">상업용</a>&nbsp;&nbsp;&nbsp; <a
+						onclick="changeCol(this)" id="ho">취미용</a>
 				</div>
 
-				<table class="GeneratedTable">
+				<table class="GeneratedTable" style="margin:0;">
 					<tbody>
 						<tr>
 							<th>작물종류</th>
-							<td><input type="text" value="나중에 버튼 누르면 컬럼 바껴야함"></td>
+							<td>
+							<select class=" full form-control" id="kit_plant_class" name="kit_plant_class" style="border:none;">
+								<option value="채소">채소</option>
+								<option value="과일">과일</option>
+							</select>
+						</tr>
+						<tr>
+							<th>키트이름</th>
+							<td><input type="text" id="kit_name" name="kit_name"></td>
 						</tr>
 						<tr>
 							<th>작물이름</th>
-							<td><input type="text"></td>
+							<td><input type="text" id="kit_plant_name" name="kit_plant_name"></td>
 						</tr>
 						<tr>
 							<th>재배기간</th>
-							<td><input type="number"></td>
+							<td><input type="number" id="kit_grow_day" name="kit_grow_day"></td>
 						</tr>
 						<tr>
 							<th>적정온도</th>
-							<td><input type="number"></td>
+							<td><input type="number" id="kit_tp" name="kit_tp"></td>
 						</tr>
 						<tr>
 							<th>습도</th>
-							<td><input type="number"></td>
+							<td><input type="number" id="kit_hd" name="kit_hd"></td>
 						</tr>
 						<tr>
 							<th>일사량</th>
-							<td><input type="number"></td>
+							<td><input type="number" id="kit_sun" name="kit_sun"></td>
 						</tr>
 						<tr>
 							<th>급액양</th>
-							<td><input type="number"></td>
+							<td><input type="number" id="kit_water" name="kit_water"></td>
 						</tr>
-						<tr>
+						<!-- 상업용에만 있는 컬럼 -->
+						<tr class="forC">
 							<th>농약양</th>
-							<td><input type="number"></td>
+							<td><input type="number" id="kit_pes" name="kit_pes"></td>
 						</tr>
-						<tr>
+						<!-- 상업용에만 있는 컬럼 -->
+						<tr class="forC">
 							<th>cctv</th>
-							<td><input type="text"></td>
+							<td><input type="text" id="kit_cctv" name="kit_cctv" value="Y" readonly></td>
 						</tr>
 						<tr>
 							<th>키트 가격</th>
-							<td><input type="number"></td>
+							<td><input type="number" id="kit_price" name="kit_price"></td>
 						</tr>
 						<tr>
 							<th>대표 이미지</th>
-							<td><input type="text"></td>
+							<td><input type="file" id="kit_main_img" name="img"></td>
 						</tr>
 						<tr>
 							<th>설명 이미지</th>
-							<td><input type="text"></td>
+							<td><input type="file" id="kit_exp_img" name="img"></td>
 						</tr>
 
 						<!-- hidden 영역 -->
-						<tr>
+						<tr ><!-- style="display: none;" -->
 							<th>판매여부</th>
-							<td><input type="text" value="Y"></td>
+							<td><input type="text" value="Y" id="kit_sale_whet" name="kit_sale_whet"></td>
 						</tr>
 
-						<tr>
+						<tr ><!-- style="display: none;" -->
 							<th>조회수</th>
-							<td><input type="text" value=0></td>
+							<td><input type="text" value=0 id="kit_hit" name="kit_hit"></td>
 						</tr>
-						<tr>
+						<tr ><!-- style="display: none;" -->
 							<th>판매수</th>
-							<td><input type="text" value=0></td>
+							<td><input type="text" value=0 id="kit_sale_count" name="kit_sale_count">
+							<input type="text" id="kit_prpos" name="kit_prpos" value="상업용"> </td>
 						</tr>
-
 					</tbody>
-
 
 
 				</table>
@@ -225,12 +189,12 @@ input[type="checkbox"]:checked::before {
 				<div class="wf100 comment-form"
 					style="width: 80%; text-align: center;">
 
-					<ul style="width: 100%;">
+					<ul style="width: 100%; padding:20px;">
 						<li class="w2 np"></li>
-						<li class="w3 np"><button onclick="openInstP()"
-								class="post-btn">작물등록</button></li>
+						<li class="w3 np" style="float: right"><button
+							class="post-btn" type="submit">키트등록</button></li>
 
-						<li class="w3 np">
+						<li class="w3 np" style="float: right">
 							<button
 								onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'"
 								class="post-btn"
@@ -239,29 +203,30 @@ input[type="checkbox"]:checked::before {
 					</ul>
 
 				</div>
-
 			</form>
 		</div>
 	</div>
 
 
-
-
-
-	<div id="fadeInstP" class="black_overlay loading"></div>
-
-
+	<div id="fadeInstP" class="black_overlay loading" style="z-index: 2;"></div>
 
 
 	<!--   JS Files Start  -->
+	<script type="text/javascript"
+		src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.js"></script>
+	<script type="text/javascript"
+		src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script type="text/javascript">
+	
+	
 	//=====팝업창=====
 	function openInstP() {
 		document.getElementById('lightInstP').style.display = 'block';
 		document.getElementById('fadeInstP').style.display = 'block';
 	}	
-	//표 출력
+	
+	// ===== 표 출력 ======
 		var grid = new tui.Grid({
 			rowHeight : 'auto',
 			el : document.getElementById('grid'),
@@ -311,12 +276,18 @@ input[type="checkbox"]:checked::before {
 			{
 				header : '관리',
 				name : 'kit_sale_whet',
-				width : '155'
+				width : '155',
+				sortingType : 'desc',
+				sortable : true
 
 			} ],
 			columnOptions : {
 				resizable : true
-			}
+			},
+			pageOptions: {
+		        useClient: true,
+		        perPage: 5
+		    }
 
 		});
 
@@ -336,13 +307,11 @@ input[type="checkbox"]:checked::before {
 				console.log(grid.getValue(i, 'kit_sale_whet'));
 
 				if (grid.getValue(i, 'kit_sale_whet') == 'Y') {// 내리기
-					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="cancle(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 
 				} else { //올리기
-
 					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
-
 					grid.setValue(i, 'kit_sale_whet', input, true);
 				}
 
@@ -353,31 +322,18 @@ input[type="checkbox"]:checked::before {
 
 		// Kit 판매 올리기 내리기
 		function enroll(e) { // Y
-			console.log("올리기!===");
-			var id = e.id;//whet
-			var key = e.dataset.key;//키트 번호 찾기 위한 rowKey
-			kitSaleWhet(id, key);
-			location.reload();
-		}
-
-		function cancle(e) { // N
-			console.log("내리기!===");
 			
-			var id = e.id;//whet
+			//필요한 값 가져오기
+			var id = e.id;//whet Y N를 받아옴
 			var key = e.dataset.key;//키트 번호 찾기 위한 rowKey
-			kitSaleWhet(id, key);
-			location.reload();
 			
-		}
-
-		function kitSaleWhet(id, key) {
-			console.log("값 나오는지 확인! === " + id);
-			console.log(key);//id
-			key = key*1;
-			console.log(typeof key)
+			key = key*1;//key를 번호로 바꾸기
+		
+			//fetch 돌리기
 			var kit_no = grid.getValue(key, 'kit_no');
 			console.log(kit_no);
 			var data = JSON.stringify({kit_no : kit_no, kit_sale_whet: id});
+			
 			fetch("adminKitSaleWhet.do",
 					{
 						method:'post',
@@ -385,13 +341,27 @@ input[type="checkbox"]:checked::before {
 					})
 					.then(response => response.json())
 					.then(function (result) {
-						console.log(result.val());
+						
+						if(result == '1'){//성공했을 때 버튼 바꾸기 (올리기->내리기 | 내리기->올리기)
+							if (id == 'Y') {//내리기
+								var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+key+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+								grid.setValue(key, 'kit_sale_whet', input, true);
+	
+							} else { //올리기
+								var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+key+' onclick="enroll(this)" class="read-post" style="color:white;width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+								grid.setValue(key, 'kit_sale_whet', input, true);
+								
+							}
+							
+						} else {
+							toastr.error('오류가 발생했습니다. 다시 시도해주세요.');
+						}
 					})
 			 
 		}
 		
 		
-		
+		//키트 검색
 		function searchKit() {
 			var search = $("#searchKit").val();
 			
@@ -410,6 +380,30 @@ input[type="checkbox"]:checked::before {
 				grid.resetData(res);
 				changeValue();
 			} )
+			
+		}
+		
+		//===== 상업용 취미용 컬럼 바꾸기 ===== 
+		function changeCol(e) {
+			console.log(e.id);
+			var id = e.id;
+			var forC = document.getElementsByClassName('forC'); // 상업용 컬럼 가져오기
+			var cctv = document.getElementById('kit_cctv');
+			var kitPrpos = document.getElementById('kit_prpos');
+			if(id == 'com'){//상업용인 경우
+				for(var i =0;i<forC.length;i++){
+					forC[i].style.display= '';
+				}
+				cctv.value = "Y";
+				kitPrpos.value="상업용";
+				
+			}else{// 취미용인경우
+				for(var i =0;i<forC.length;i++){
+					forC[i].style.display= 'none';
+				}
+				cctv.value = "";
+				kitPrpos.value="취미용";
+			}
 			
 		}
 	</script>

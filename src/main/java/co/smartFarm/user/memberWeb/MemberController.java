@@ -293,7 +293,7 @@ public class MemberController {
 			String content = "<div style=\" width: 550px; height: 350px; text-align: center;\">"
 					+ "<div style=\" display: inline-block; background-color: #66bb6a;  text-align:center; width: 350px; height: 200px;  border-radius: 5px; padding:50px;\">"
 					+ "<div style=\"background-color: white; width: 350px; height: 200px;  border-radius: 5px; \">"
-					+ "<br><br>" + "<h3>임시 비밀번호 입니다</h3>" + "<br>" + "<p>" + tmpPwd + "</p>" + "</div>" + "</div>"
+					+ "<br><br>" + "<h3>똑장이의 임시 비밀번호 입니다</h3>" + "<br>" + "<p>" + tmpPwd + "</p>" + "</div>" + "</div>"
 					+ "</div>";
 
 			message.setContent(content, "text/html; charset=utf-8");
@@ -309,6 +309,7 @@ public class MemberController {
 			e.printStackTrace();
 			return false;
 		}
+		
 		
 		return true;
 	}
