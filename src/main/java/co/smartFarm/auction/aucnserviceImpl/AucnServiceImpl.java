@@ -45,5 +45,15 @@ public class AucnServiceImpl implements AucnService{
 		return map.aucnNoselect();
 	}
 
+	@Override
+	public int aucnEndCheck() {
+		return map.aucnEndCheck();
+	}
+
+	@Override
+	public Integer aucnEnd() {
+		return map.aucnEnd();
+	}
+
 	
 }

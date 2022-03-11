@@ -59,7 +59,7 @@
                   <div class="col-md-1"></div>
                   <div class="col-md-10">
                      <div class="contact-form mb60">
-                     	<h3>등록</h3>
+                     	<h1>등록</h1>
                      	<form action="introginsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
                         <input type="hidden" name="intro_board_class" value="intro2">	
@@ -68,9 +68,12 @@
   								<label for="ex_file">사진 업로드</label>
   								<input type="file" id="ex_file" name="introfile" value=${introg.intro_img}>
 					     </div> 
-                           <li class="full">
-                              <input type="submit" value="등록" class="fsubmit">
-                              <input type="button" value="취소" onclick="history.back(-1);"class="fsubmit">
+					     <br><br><br>
+                         <li class="half pr-15">
+                           <input type="submit" value="등록" class="fsubmit">
+                           </li>
+                          <li class="half pr-15">
+                          <input type="button" value="취소" onclick="history.back(-1);"class="fsubmit">
                            </li>
                         </ul>
                         </form>
