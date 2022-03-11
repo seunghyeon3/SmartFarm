@@ -205,20 +205,24 @@ ul>li>p {
 
 					});
 		}
-		 /* 	function replyDelete(reply_no){
-				var paramData = {"rid": rid};
+		 	
+	 function replyDelete(qna_no){
+				var paramData = {"reply_no": qna_no};
 				$.ajax({
-					url: "replydelete.do"
-					type : 'POST'
-					datatype : 'json'
-					,success: function(result){
-						showReplyList();
-					}
-					, error: function(error){
+					url: 'replydelete.do',
+					method : 'post',
+					data : paramData,
+					datatype : 'json',
+					success: function(data){
+						showReplyList(data);
+						alert("삭제 완료");
+						location.reload();
+					}, 
+					error: function(data){
 						console.log("에러 : " + error);
 					}
 				}); 
-			}  */
+			}                                          
 	</script>
 </body>
 </html>
