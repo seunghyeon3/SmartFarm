@@ -86,7 +86,6 @@ var abi = [
 //var GrowDiaryContract = web3.eth.contract(abi)
 
 var contractAddress = "0x5C8178041aA2f761910Ba9D726Fd12228f10E00c"; /* our contract address on Ethereum after deploying */
-
 var GrowDiary = new web3.eth.Contract(abi, contractAddress);//GrowDiaryContract.at(contractAddress)
 // `GrowDiary`는 우리 컨트랙트의 public 함수와 이벤트에 접근할 수 있다.
 

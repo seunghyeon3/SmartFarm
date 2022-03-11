@@ -15,4 +15,8 @@ public interface AucnMapper {
 	Integer aucnBid(AucnVO aucn);
 	//경매등록시 만들어지는 최고 번호
 	int aucnNoselect();
+	//경매 끝난게 있는지 없는지 체크
+	int aucnEndCheck();
+	//경매 끝난게 있으면 종료 업데이트
+	Integer aucnEnd();
 }
