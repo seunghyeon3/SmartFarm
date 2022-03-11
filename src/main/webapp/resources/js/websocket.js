@@ -1,6 +1,6 @@
 var webSocket = new WebSocket('ws://localhost/prj/websocket/broadcast.do');
 
-function doWebsocket(data, url){
+
 
 		var aucnBidWindow = document.getElementById("aucnBidWindow");
 		var popupBidWindow = document.getElementById("popupBidWindow"); 
@@ -42,7 +42,7 @@ function doWebsocket(data, url){
 			console.log(event); 
 			alert(event.data);
 		}
-}
+
 
 function webSocketSendChat(inputBid) {
 	// 입찰하기 버튼이나 엔터 누를시 소켓 서버로 입력값을 던짐
@@ -50,5 +50,4 @@ function webSocketSendChat(inputBid) {
 	webSocket.send(JSON.stringify(inputBid)); 
 	inputBid.value = ""; 
 	
-	
-}
+	}

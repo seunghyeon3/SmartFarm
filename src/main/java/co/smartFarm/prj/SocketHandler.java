@@ -102,7 +102,20 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		// 솔리디티 넣어주기
 		JSONObject jsonInput = new JSONObject();
 		JSONArray data = new JSONArray();
+		
+		// 입찰금액 10진수에서 16진수로 변환
+		String hexBid = Integer.toHexString(bid);
+		// 16진수 앞에 length 64만큼 0붙이기
+		//String.format("%09d", hexBid);
+		
+		String zero = "";
 
+ 		for (int i = 0; i < 64 - hexBid.length(); i++) {
+ 			zero = zero + "0";
+ 		}
+ 		String paramBid = zero + hexBid;
+		
+ 		
 		// 이 두친구도 고정값
 		jsonInput.put("jsonrpc", "2.0");
 		jsonInput.put("method", "eth_call");
