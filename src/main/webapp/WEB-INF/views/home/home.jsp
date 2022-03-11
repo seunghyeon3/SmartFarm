@@ -186,29 +186,27 @@
 							<h2>영농 일지</h2>
 						</div>
 					</div>
-					<div class="col-lg-6">
-						<ul class="nav" id="myTab" role="tablist">
-						</ul>
-					</div>
+				  <div class="col-lg-6">
+                     <ul class="nav" id="myTab" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" id="wildlife-tab" data-toggle="tab" href="#wildlife" role="tab" aria-controls="wildlife-tab" aria-selected="true">Wildlife</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="water-tab" data-toggle="tab" href="#water" role="tab" aria-controls="water-tab" aria-selected="false">Water Resources</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="solar-tab" data-toggle="tab" href="#solar" role="tab" aria-controls="solar-tab" aria-selected="false">Solar Energy</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="recycling-tab" data-toggle="tab" href="#recycling" role="tab" aria-controls="recycling-tab" aria-selected="false">Recycling</a> </li>
+                     </ul>
+                  </div>				
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="tab-content" id="myTabContent">
 							<!--WildLife Slider Start-->
-							<div class="tab-pane fade show active" id="wildlife"
-								role="tabpanel" aria-labelledby="wildlife-tab">
-								<div
-									class="cpro-slider owl-carousel owl-theme owl-loaded owl-drag">
+							 <div class="tab-pane fade show active" id="wildlife" role="tabpanel" aria-labelledby="wildlife-tab">
+                           <div class="cpro-slider owl-carousel owl-theme">
 									<!-- 경매 데이터 넣어줘야함. -->
 									<!--Pro Box-->
-									<div class="owl-stage-outer">
-										<div class="owl-stage">
 										<c:forEach items="${aucnEnable }" var="aucn">
 											<div class="item">
 												<div class="pro-box">
-													<img
-														src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>"
-														alt="" style="width: 278px; height: 378px;">
+													<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 278px; height: 378px;">
 													<h5>${aucn.aucn_title }</h5>
 													<div class="pro-hover">
 														<h6>${aucn.aucn_title }</h6>
@@ -220,22 +218,11 @@
 											</div>
 										</c:forEach>
 										<!--Pro Box End-->
-										</div>
-									</div>
-									<div class="owl-nav">
-										<button type="button" role="presentation" class="owl-prev">
-											<span aria-label="Previous">‹</span>
-										</button>
-										<button type="button" role="presentation" class="owl-next">
-											<span aria-label="Next">›</span>
-										</button>
-									</div>
-									<div class="owl-dots disabled"></div>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 		</section>
 		<!--Current Projects End-->
@@ -359,4 +346,16 @@
 		</section>
 		<!--Online Products End-->
 	</div>
+	<script type="text/javascript">
+	$('.owl-carousel').owlCarousel({
+	    items : 1, //화면에 표시 할 슬라이드 수
+	    animateOut : 'fadeOut', // 사라질때의 애니메이션
+	    margin : 10, // 슬라이드 간격
+	    dots : true, // Pagination 표시 여부
+	    autoplay : true, // 자동 슬라이드 여부
+	    autoplayTimeout : 3000, // 자동 슬라이드 시간 (예제는 3초)
+	    loop : true // 무한 반복 여부
+	})
+	</script>
+	</body>
 </html>

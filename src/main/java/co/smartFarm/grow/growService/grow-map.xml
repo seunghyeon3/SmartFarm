@@ -58,7 +58,7 @@
 	</selectKey>
 		INSERT INTO GROW_DIARY(GROW_DIARY_GROW_NO,MEM_EMAIL,
 		GROW_DIARY_LOG_ROU, GROW_DIARY_POINT, GROW_DIARY_GRD, PLANT_NAME, GROW_DIARY_START_DAY, GROW_DIARY_NFT_CREATE_ENNC, KIT_NO)
-		VALUES(#{grow_diary_grow_no}, #{email}, #{log}, #{score}, #{grade}, #{plant}, #{sday}, 'N', #{kno})
+		VALUES(#{grow_diary_grow_no}, #{email}, #{log}, #{score}, #{grade}, #{plant}, #{sday}, 'Y', #{kno})
 	</insert>
 	
 	

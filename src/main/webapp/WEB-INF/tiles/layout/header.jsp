@@ -155,7 +155,7 @@
 					<!-- 220308 PSH mypage -> mem_name 대체 -->
 					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="mypage.do">${member.mem_name}님</a> </li>
 					 <li class="dropdown">
-                        <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown" data-toggle="dropdown" style="padding: 0px;"> <i class="fas fa-shopping-cart"></i></a>
+                        <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown"  style="padding: 0px;"> <i class="fas fa-shopping-cart"></i></a> 
                      </li>					 
 					</c:if>
                   </ul>
