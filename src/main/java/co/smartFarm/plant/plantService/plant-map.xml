@@ -22,7 +22,17 @@
 	
 	<select id="adminSelectPlant"
 		resultType="co.smartFarm.plant.plantService.PlantVO">
-		SELECT * FROM PLANT
+		SELECT 
+			PLANT_NO
+			, PLANT_NAME
+			, PLANT_GRD
+			, KIT_NO
+			, PLANT_CLASS
+			, MEM_EMAIL
+			, PLANT_IVY
+			, TO_CHAR(PLANT_PROC_DAY, 'YYYY/MM/DD') PLANT_PROC_DAY
+			, PLANT_TOT_GROW_AMNT 
+		FROM PLANT
 	</select>
 
 	

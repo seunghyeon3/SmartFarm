@@ -149,6 +149,9 @@
       // ===== 장바구니 추가 =====
       function insertCart(link) {
          //console.log(e);
+         //toastr.success("상품이 장바구니에 담겼습니다.");
+         
+         location.href = link;
          toastr.success("상품이 장바구니에 담겼습니다.");
          
       }

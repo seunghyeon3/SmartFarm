@@ -62,19 +62,20 @@
 										class="fsubmit">이메일 확인</button>
 								</li>
 
-								<li class="half pr-15"><input type="password"
+								<li class="half pr-15" style="padding:0; margin-bottom:10px;"><input type="password"
 									class="form-control" id="mem_pw" name="mem_pw"
 									placeholder="비밀번호" required></li>
-								<li class="half pl-15"><input type="password"
+								<li class="half pl-15" style="padding:0; margin-bottom:10px;"><input type="password"
 									class="form-control" id="mem_pw_check" name="mem_pw_check"
 									placeholder="비밀번호 확인" required></li>
-
+								<li class="full" style="margin-left:10px;"><span style="color:#f53738;">비밀번호는 대, 소문자, 숫자, 특수문자를 조합하여
+										입력해주세요</span></li>
 
 								<li class="half pr-15"><input type="text"
 									class="form-control" id="mem_name" name="mem_name"
 									placeholder="이름" required></li>
-									
-									
+
+
 								<!-- 핸드폰 번호 -->
 								<li class="half pl-15"><input type="text"
 									class="form-control"
@@ -87,7 +88,7 @@
 									<input type="text" class="form-control"
 									style="width: 126px; float: left" id="mem_tel3" name="mem_tel3"
 									required> <input type="hidden" id="mem_tel"
-									name="mem_tel" ></li>
+									name="mem_tel"></li>
 
 								<!-- 주소 -->
 								<li class="half pr-15"><input type="text"
@@ -99,7 +100,8 @@
 										찾기</button>
 								</li>
 								<li class="full"><input type="text" id="mem_addr2"
-									name="mem_addr2" class="form-control" placeholder="주소" required readonly></li>
+									name="mem_addr2" class="form-control" placeholder="주소" required
+									readonly></li>
 
 								<li class="full"><input type="text" id="mem_det_addr"
 									name="mem_det_addr" class="form-control" placeholder="상세주소"
@@ -149,8 +151,13 @@
 	</div>
 
 	<!-- 개인정보 동의 창 -->
-	<div id="lightPInfo" class="col-md-12 white_content" style="padding:20px;">
-		<h5 style="padding:20px;">개인정보 동의 <a onclick="closeFrm()" style="float:right;color:blue;font-size: medium"> X </a></h5>  <br> <br>
+	<div id="lightPInfo" class="col-md-12 white_content"
+		style="padding: 20px;">
+		<h5 style="padding: 20px;">
+			개인정보 동의 <a onclick="closeFrm()"
+				style="float: right; color: blue; font-size: medium"> X </a>
+		</h5>
+		<br> <br>
 
 		<div id="pInfo" class="container" style="overFlow: auto;">
 			<c:forEach items="${pInfo }" var="in">

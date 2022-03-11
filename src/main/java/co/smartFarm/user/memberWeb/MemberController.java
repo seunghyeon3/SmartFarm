@@ -139,7 +139,7 @@ public class MemberController {
 		System.out.println(memberVo.getMem_det_addr());
 		System.out.println(memberVo.getMem_addr());
 		memberDao.memberInsert(memberVo);
-		return "home";
+		return "redirect:/home.do";
 	}
 
 	// 이메일 체크 + 카카오 로그인시 member테이블에 저장되어 있는지 체크
