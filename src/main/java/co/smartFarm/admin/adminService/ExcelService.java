@@ -60,27 +60,29 @@ public class ExcelService {
 			String menu = jObj.getString("menu");
 
 			if (menu.equals("sales")) {// 매출인 경우
-
+				System.out.println("확인하기 !! ===========================");
+				
 				PurHisVO insertVo = new PurHisVO();
 				insertVo.setEnd_date(jObj.getString("endDate"));
 				insertVo.setStart_date(jObj.getString("startDate"));
-
+				System.out.println(insertVo.toString());
 				List<PurHisVO> list = purHisDao.adminPurHisSelectList(insertVo);
-
+				System.out.println(list.toString());
+				
 				// 시트 생성
 				SXSSFSheet sheetSales = workbook.createSheet("매출");
 
 				// 시트 열 너비 설정
-				sheetSales.setColumnWidth(0, 18000);
-				sheetSales.setColumnWidth(0, 18000);
-				sheetSales.setColumnWidth(0, 18000);
-				sheetSales.setColumnWidth(0, 18000);
-				sheetSales.setColumnWidth(0, 18000);
+				sheetSales.setColumnWidth(0, 3000);
+				sheetSales.setColumnWidth(1, 2000);
+				sheetSales.setColumnWidth(2, 5000);
+				sheetSales.setColumnWidth(3, 5000);
+				sheetSales.setColumnWidth(4, 5000);
 
 				// 헤더 행 생
 				Row headerRow = sheetSales.createRow(0);
+				
 				// 해당 행의 첫번째 열 셀 생성
-
 				Cell headerCell = headerRow.createCell(0);
 				headerCell.setCellValue("일자");
 				// 해당 행의 두번째 열 셀 생성
@@ -108,7 +110,7 @@ public class ExcelService {
 					
 					// 일자
 					bodyCell = bodyRow.createCell(0);
-					bodyCell.setCellValue(sdf.format(purhisVo.getPur_his_pur_day()));
+					bodyCell.setCellValue(purhisVo.getPur_his_pur_day());
 					// 판매수
 					bodyCell = bodyRow.createCell(1);
 					bodyCell.setCellValue(purhisVo.getPur_count());
@@ -133,19 +135,19 @@ public class ExcelService {
 				SXSSFSheet sheetKit = workbook.createSheet("키트");
 
 				// 시트 열 너비 설정
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-				sheetKit.setColumnWidth(0, 18000);
-
+				sheetKit.setColumnWidth(0, 5000);
+				sheetKit.setColumnWidth(1, 2000);
+				sheetKit.setColumnWidth(2, 2000);
+				sheetKit.setColumnWidth(3, 2000);
+				sheetKit.setColumnWidth(4, 2000);
+				sheetKit.setColumnWidth(5, 2000);
+				sheetKit.setColumnWidth(6, 2000);
+				sheetKit.setColumnWidth(7, 2000);
+				sheetKit.setColumnWidth(8, 2000);
+				sheetKit.setColumnWidth(9, 2000);
+				sheetKit.setColumnWidth(10, 5000);
+				sheetKit.setColumnWidth(11, 2000);
+				sheetKit.setColumnWidth(12, 2000);
 				// 헤더 행 생
 				Row headerRow = sheetKit.createRow(0);
 				Cell headerCell = headerRow.createCell(0);
@@ -256,12 +258,12 @@ public class ExcelService {
 				SXSSFSheet sheetPlant = workbook.createSheet("작물");
 
 				// 시트 열 너비 설정
-				sheetPlant.setColumnWidth(0, 18000);
-				sheetPlant.setColumnWidth(0, 18000);
-				sheetPlant.setColumnWidth(0, 18000);
-				sheetPlant.setColumnWidth(0, 18000);
-				sheetPlant.setColumnWidth(0, 18000);
-				sheetPlant.setColumnWidth(0, 18000);
+				sheetPlant.setColumnWidth(0, 3500);
+				sheetPlant.setColumnWidth(1, 3000);
+				sheetPlant.setColumnWidth(2, 3000);
+				sheetPlant.setColumnWidth(3, 3000);
+				sheetPlant.setColumnWidth(4, 3000);
+				sheetPlant.setColumnWidth(5, 3000);
 
 				// 헤더 행 생
 				Row headerRow = sheetPlant.createRow(0);
@@ -323,11 +325,11 @@ public class ExcelService {
 				SXSSFSheet sheetMember = workbook.createSheet("회원");
 
 				// 시트 열 너비 설정
-				sheetMember.setColumnWidth(0, 18000);
-				sheetMember.setColumnWidth(0, 18000);
-				sheetMember.setColumnWidth(0, 18000);
-				sheetMember.setColumnWidth(0, 18000);
-				sheetMember.setColumnWidth(0, 18000);
+				sheetMember.setColumnWidth(0, 7000);
+				sheetMember.setColumnWidth(1, 3000);
+				sheetMember.setColumnWidth(2, 3000);
+				sheetMember.setColumnWidth(3, 5000);
+				sheetMember.setColumnWidth(4, 5000);
 
 				// 헤더 행 생
 				Row headerRow = sheetMember.createRow(0);
@@ -381,12 +383,12 @@ public class ExcelService {
 				SXSSFSheet sheetNft = workbook.createSheet("NFT");
 
 				// 시트 열 너비 설정
-				sheetNft.setColumnWidth(0, 18000);
-				sheetNft.setColumnWidth(0, 18000);
-				sheetNft.setColumnWidth(0, 18000);
-				sheetNft.setColumnWidth(0, 18000);
-				sheetNft.setColumnWidth(0, 18000);
-				sheetNft.setColumnWidth(0, 18000);
+				sheetNft.setColumnWidth(0, 3000);
+				sheetNft.setColumnWidth(1, 3000);
+				sheetNft.setColumnWidth(2, 3000);
+				sheetNft.setColumnWidth(3, 3000);
+				sheetNft.setColumnWidth(4, 5000);
+				sheetNft.setColumnWidth(5, 3000);
 
 				// 헤더 행 생
 				Row headerRow = sheetNft.createRow(0);

@@ -101,12 +101,11 @@ public class AdminController {
 	public String downloadExcelFile(Model model, String selectList) {
 
 		JSONArray jArray = new JSONArray(selectList);
-		JSONObject object = (JSONObject) jArray.get(0);
 
 		SXSSFWorkbook workbook = excelDao.excelFileDownloadProcess(jArray);
 		model.addAttribute("locale", Locale.KOREA);
 		model.addAttribute("workbook", workbook);
-		model.addAttribute("workbookName", "회원리스트");
+		model.addAttribute("workbookName", "똑장이");
 
 		return "excelDownloadView";
 	}

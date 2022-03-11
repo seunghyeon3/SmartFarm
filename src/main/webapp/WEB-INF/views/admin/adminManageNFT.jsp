@@ -143,12 +143,17 @@
 					sortable: true
 				}
 
-			]
+			],
+			pageOptions: {
+		        useClient: true,
+		        perPage: 5
+		    }
 		});
 
 		// GRID 에 데이터를 입력한다.
 		var arrData = ${nftSelectList};
 		grid.resetData(arrData);
+		
 	</script>
 
 

@@ -107,9 +107,8 @@
 			scrollX : false,
 			scrollY : false,
 			rowHeaders : [ 'checkbox' ],
-			minBodyHeight : 40 * gridData.length,
 			columns : [ {
-				header : '상품정보(사진 + 이름 링크달기)',
+				header : '상품정보',
 				name : 'cart_detail'
 			}, {
 				header : '판매가',
@@ -135,7 +134,11 @@
 				name : 'cart_option'
 			}
 
-			]
+			],
+			pageOptions: {
+		        useClient: true,
+		        perPage: 5
+		    }
 		});
 
 		
@@ -145,17 +148,55 @@
 		grid.resetData(gridData);
 
 		// 판매가와 총액에 콤마 찍기
-		function setMoney() {
+		function setGrid() {
 			
 			for(var i =0; i < gridData.length;i++){
-				
+				//판매가와 총액에 콤마찍기	
 				var price = parseInt(grid.getValue(i, 'cart_price')).toLocaleString('ko-KR');
 				grid.setValue(i, 'cart_price', price, true);
 				var sum = parseInt(grid.getValue(i, 'cart_sum')).toLocaleString('ko-KR');
 				grid.setValue(i, 'cart_sum', sum, true);	
+				
+				// /kitProductDetail.do?kit_no=1
+				var cartOption = grid.getValue(i, 'cart_option');
+				
+				if(cartOption.includes('K')) {//키트 번호인 경우
+					var link = "kitProductDetail.do?kit_no=";
+					var kitNo = cartOption.substr(1);
+					console.log( link + kitNo );
+					
+				} else { // 작물인 경우
+					var link = "plantProductDetail.do?plant_no=";
+					var plantNo = cartOption.substr(1);
+					console.log( link+ plantNo);
+				}
+				
 			}	
+			
+			
 		}
-		setMoney();
+		setGrid();
+		
+		//더블클릭하면 링크로 연결해주기
+		grid.on('dblclick', (ev) => {
+			// /kitProductDetail.do?kit_no=1
+			var cartOption = grid.getValue(ev.rowKey, 'cart_option');
+			console.log("되긴 되는지...");
+			
+			if(cartOption.includes('K')) {//키트 번호인 경우
+				var link = "kitProductDetail.do?kit_no=";
+				var kitNo = cartOption.substr(1);
+				console.log( link + kitNo );
+				
+			} else { // 작물인 경우
+				var link = "plantProductDetail.do?plant_no=";
+				var plantNo = cartOption.substr(1);
+				console.log( link+ plantNo);
+			}
+			
+			
+			
+		});//on dblclick
 		
 		//삭제 버튼 만들기
 		function createDelBtn() {
@@ -165,7 +206,6 @@
 				grid.setValue(i, 'cart_option', input, true);
 			}
 		}
-		
 		createDelBtn();
 		
 		// ===== 장바구니에서 삭제하기 ===== 
@@ -177,7 +217,7 @@
 			var cartDetail = e.id; //plant kit 번호 받아오기
 			var key = e.dataset.key;//rowKey 받아오기
 			// console.log(grid.getRow(key));
-			var url="cartDelete.do?cart_detail="+cartDetail;
+			var url="cartDelete.do?cart_detail=" + cartDetail;
 			
 			$.ajax({
 				method : 'get',
@@ -209,8 +249,6 @@
 			grid.setValue(rowKey, 'cart_sum', afterPrice, true);
 			
 		}
-		
-		
 		
 		// ===== 선택주문, 전체주문 ===== 
 		function buy(e) {
