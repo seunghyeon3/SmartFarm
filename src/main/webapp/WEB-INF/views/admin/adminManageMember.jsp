@@ -107,7 +107,7 @@ input[type="checkbox"]:checked::before {
 
 
 					<!-- 표 출력 -->
-					<div class="col-md-12 col-sm-6" style="padding: 20px;">
+					<div class="col-md-12 col-sm-6" style="padding: 20px;z-index:1;">
 						<div id="grid"></div>
 					</div>
 
@@ -127,7 +127,7 @@ input[type="checkbox"]:checked::before {
 
 	<!-- 팝업창 -->
 	<div id="lightInstP" class="col-md-12 white_content"
-		style="text-align: center; height: 800px; top: 70px;z-index:2;">
+		style="text-align: center; height: 800px; top: 70px;z-index:3;">
 		<br>
 
 		<div class="container">
@@ -147,7 +147,7 @@ input[type="checkbox"]:checked::before {
 	</div>
 
 
-	<div id="fadeInstP" class="black_overlay" style="z-index:1;"></div>
+	<div id="fadeInstP" class="black_overlay" style="z-index:2;"></div>
 
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
@@ -184,7 +184,11 @@ input[type="checkbox"]:checked::before {
 				name : 'mem_fm_result',
 				filter : 'select'
 
-			} ]
+			} ],
+			pageOptions: {
+		        useClient: true,
+		        perPage: 5
+		    }
 			
 		
 		});

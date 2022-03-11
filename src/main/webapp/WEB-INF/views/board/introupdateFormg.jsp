@@ -61,6 +61,7 @@
 							<h3>수정</h3>
 							<ul class="cform">
 							<!-- 파일업로드 버튼 구성 -->
+						    
 							<div class="filebox">
 								<form action="introupdateg.do" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="intro_no" value="${introg.intro_no }"> 
@@ -69,8 +70,11 @@
 										<label for="ex_file">사진업로드</label> 
 										<input type="file" id="ex_file" name="introfile">
 							</div>
-							<li class="full">
+							<br><br><br>
+							<li class="half pr-15">
 								<input type="submit" value="수정" onclick="location.href='introg.do'" class="fsubmit"> 
+							</li>
+							<li class="half pr-15">
 								<input type="button" value="취소" onclick="history.back(-1);" class="fsubmit">
 							</li>
 						</ul>

@@ -175,7 +175,8 @@
 							//데이터 입력
 							//console.log(data);
 							grid.resetData(data);
-
+								
+							
 							//생성가능여부 가능할때 버튼생성 
 							for (var i = 0; i < data.length; i++) {
 								if (grid.getValue(i,
@@ -184,7 +185,7 @@
 									var growDiary = data[i];
 									var input = `<div class="container" style="text-aline:center;">
 									<a id=createNft data-no=\${data[i].grow_diary_grow_no} href="javascript:nftGeneration('\${data[i].grow_diary_grow_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">생성가능</a></div>`;
-
+			
 									grid.setValue(i,
 											'grow_diary_nft_create_ennc',
 											input, true);

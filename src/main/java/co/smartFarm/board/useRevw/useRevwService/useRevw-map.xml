@@ -22,4 +22,7 @@
 	FROM USE_REVW
 	ORDER BY USE_REVW_WRITE_DAY
 	</select>
+	<select id="useRevwDetail" parameterType="int" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
+		SELECT * FROM USE_REVW WHERE USE_REVW_NO = #{useRevwNo}
+	</select>
 </mapper>

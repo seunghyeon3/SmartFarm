@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.smartFarm.board.useRevw.useRevwService.UseRevwService;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwVO;
 import co.smartFarm.shopping.purHisService.PurHisService;
-import co.smartFarm.shopping.purHisService.PurHisVO;
 import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
@@ -59,7 +59,9 @@ public class UseRevwController {
 	
 	//이용후기 메인페이지 
 	@RequestMapping("useRevwDetail.do")
-	public String useRevwDetail() {
-		return null;
+	public String useRevwDetail(@RequestParam("useRevwNo") int useRevwNo, UseRevwVO useRevw, Model model) {
+		useRevw = useRevwDao.useRevwDetail(useRevwNo);
+		model.addAttribute("useRevwDetail", useRevw);
+		return "board/useRevwDetail";
 		}
 }

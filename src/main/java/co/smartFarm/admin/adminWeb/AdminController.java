@@ -1,5 +1,7 @@
 package co.smartFarm.admin.adminWeb;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,9 +10,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.aspectj.internal.lang.annotation.ajcDeclareParents;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,7 +88,7 @@ public class AdminController {
 		purHisVo.setStart_date(startDate);
 
 		List<PurHisVO> list = purHisDao.adminPurHisSelectList(purHisVo);
-		
+
 		String gson = new Gson().toJson(list);
 		model.addAttribute("purHisSelectList", gson);
 		System.out.println(list.toString());
@@ -104,7 +110,7 @@ public class AdminController {
 
 		return "excelDownloadView";
 	}
-	
+
 	// ===== 날짜 입력하면 매출 받아오기 =====
 	@PostMapping("/admin/adminGetSales.do")
 	@ResponseBody
@@ -113,33 +119,34 @@ public class AdminController {
 		PurHisVO purhisVo = new PurHisVO();
 		purhisVo.setEnd_date(map.get("end_date"));
 		purhisVo.setStart_date(map.get("start_date"));
-		
+
 		List<PurHisVO> list = purHisDao.adminPurHisSelectList(purhisVo);
 		String gson = new Gson().toJson(list);
-		
+
 		System.out.println("==========");
 		System.out.println(gson.toString());
-		
+
 		return gson;
 	}
 
 	// ===== 구매현황 리스트 페이지 이동 =====
 	@RequestMapping("/admin/adminPurchaseList.do")
 	public String adminPurchaseList(Model model) {
-		
+
 		return "admin/adminPurchaseList";
 
 	}
+
 	// ===== 구매현황 리스트 정보 받아오기 =====
 	@GetMapping(value = "/admin/adminGetPurchaseList.do", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String adminGetPurchaseList(KitVO kitVo) {
-		
+
 		System.out.println(kitVo.toString());
-		
+
 		List<KitVO> list = kitDao.adminKitRankList(kitVo);
 		String result = new Gson().toJson(list);
-		
+
 		return result;
 	}
 
@@ -273,20 +280,61 @@ public class AdminController {
 		System.out.println(list);
 		System.out.println("결과 확인! ==" + list.get(0).getKit_name());
 
-		JSONArray jArray = new JSONArray();
-		if (list.size() > 0) {
-			for (KitVO li : list) {
-				JSONObject object = new JSONObject();
-				object.put("kit_no", li.getKit_no());
-				object.put("kit_name", li.getKit_name());
-				System.out.println(li.getKit_name());
-				object.put("kit_prpos", li.getKit_prpos());
-				object.put("kit_plant_class", li.getKit_plant_class());
-				object.put("kit_sale_whet", li.getKit_sale_whet());
-				jArray.put(object);
-			}
-			return jArray.toString();
-		}
+		String gson = new Gson().toJson(list);
+
+		return gson;
+	}
+
+	// ===== 키트 등록하기 =====
+	@PostMapping("/admin/kitInsert.do")
+	public String kitInsert(KitVO kitVo, MultipartHttpServletRequest mhsr) {
+
+		List<MultipartFile> list = mhsr.getFiles("img");
+		//
+		//
+		//
+		//
+		// list에서 하나씩 값 꺼내와서 정리하면 됨!!!!!!
+		//
+		//
+		//
+		//
+
+		System.out.println(list.toString());
+		System.out.println("======== 확인하기 ! ");
+		System.out.println(kitVo.toString());
+		// 파일 처리하기
+		// 저장장소
+		// String saveDir = "kit" + File.separatorChar;// 추후수정
+
+		/*
+		 * String saveDir = "C:\\newFile\\"; // 메인 이미지 String mainImgName =
+		 * kit_main_img.getOriginalFilename();
+		 * 
+		 * // 설명 이미지 String expImgName = kit_exp_img.getOriginalFilename();
+		 * 
+		 * if (!kit_main_img.isEmpty()) { // 메인 이미지 String uuidMainImg =
+		 * UUID.randomUUID().toString();// 파일 저장명 생성 String saveFileMain = uuidMainImg +
+		 * mainImgName.substring(mainImgName.lastIndexOf("."));
+		 * 
+		 * // 설명 이미지 String uuidExpImg = UUID.randomUUID().toString(); String
+		 * saveFileExp = uuidExpImg + expImgName.substring(expImgName.lastIndexOf("."));
+		 * 
+		 * try { // 메인 이미지 kit_main_img.transferTo(new File(saveDir, saveFileMain));
+		 * kitVo.setKit_main_img(saveFileMain); System.out.println("메인 이미지 === " +
+		 * saveFileMain);
+		 * 
+		 * // 설명 이미지 kit_exp_img.transferTo(new File(saveDir, saveFileExp));
+		 * System.out.println("설명 이미지 === " + saveFileExp);
+		 * System.out.println("=======kitVo"); System.out.println(kitVo.toString());
+		 * 
+		 * } catch (IOException | IllegalStateException e) { e.printStackTrace(); }
+		 * 
+		 * }
+		 */
+
+		// kit에 insert 하기
+
 		return null;
 	}
 
