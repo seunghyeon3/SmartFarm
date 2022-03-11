@@ -105,16 +105,16 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		
 		// 입찰금액 10진수에서 16진수로 변환
 		String hexBid = Integer.toHexString(bid);
-		// 16진수 앞에 length 64만큼 0붙이기
-		//String.format("%09d", hexBid);
 		
 		String zero = "";
-
- 		for (int i = 0; i < 64 - hexBid.length(); i++) {
- 			zero = zero + "0";
- 		}
+		
+		for (int i = 0; i < 64 - hexBid.length(); i++) {
+			zero = zero + "0";
+		}
+		
  		String paramBid = zero + hexBid;
 		
+ 		System.out.println(paramBid);
  		
 		// 이 두친구도 고정값
 		jsonInput.put("jsonrpc", "2.0");
@@ -124,7 +124,9 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		// smart contract Address (MultiAuction)
 		param.put("to", "0xeF1F09b40F189341FC58D073dcF8ab3B60AD263F");
 		// input 값 hash 변환 method+parameter(optional)
-		param.put("data", "0x454a2ab3");
+		String auctionBid = "0x454a2ab3";
+		String auctionBidData = auctionBid+ paramBid;
+		param.put("data", auctionBidData);
 		data.put(param);
 		jsonInput.put("params", data);
 		// id는 아무거나 넣으슈

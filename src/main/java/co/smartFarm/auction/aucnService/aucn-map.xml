@@ -87,14 +87,26 @@
 	<select id="aucnEndCheck" resultType="int">
 		SELECT count(*)
 		FROM AUCN
-		WHERE TO_CHAR(TO_DATE(AUCN_START_TIME, 'yyyy-MM-dd HH24:mi')+1, 'yyyy-MM-dd
-		HH24:mi')
-		= TO_CHAR(SYSDATE+ 9/24, 'yyyy-MM-dd HH24:mi')
+		WHERE TO_CHAR(TO_DATE(AUCN_START_TIME, 'yyyy-MM-dd HH24:mi')+1, 'yyyy-MM-dd HH24:mi')
+		= TO_CHAR(SYSDATE+ 9/24, 'yyyy-MM-dd HH24:mi') 
 	</select>
-
+	
+	<select id="aucnEndCheckdo" resultType="map">
+		select TO_CHAR(sysdate+ 9/24, 'yyyy-MM-dd HH24:mi')a,  TO_CHAR(TO_DATE(AUCN_START_TIME, 'yyyy-MM-dd HH24:mi')+1, 'yyyy-MM-dd HH24:mi') b
+		from aucn
+		
+	</select>
+	
 	<select id="aucnEnd" statementType="CALLABLE">
 		<![CDATA[
-        { call aucn_end ()}
+        { call aucn_end }
         ]]>
+	</select>
+	
+	<select id="aucnEndNo" resultType="co.smartFarm.auction.aucnService.AucnVO">
+		SELECT aucn_no
+		FROM AUCN
+		WHERE TO_CHAR(TO_DATE(AUCN_START_TIME, 'yyyy-MM-dd HH24:mi')+1, 'yyyy-MM-dd HH24:mi')
+		= TO_CHAR(SYSDATE+ 9/24, 'yyyy-MM-dd HH24:mi')
 	</select>
 </mapper>

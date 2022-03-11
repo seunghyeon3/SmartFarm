@@ -308,14 +308,14 @@ to {
 
 	<script>
 	/* 웹소켓 테스트 */
-	var websocketData =  
+/* 	var websocketData =  
 	{ aucn_no : '${aucnSelect.aucn_no}',
 	  now_bid : '${aucnSelect.now_bid}'
 	};
 	
 	console.log("test"+websocketData);
 	
-	doWebsocket( websocketData , "${pageContext.request.contextPath}");
+	doWebsocket( websocketData , "${pageContext.request.contextPath}"); */
 	
 	/* ----------팝업 로딩생성---------- */
 	function createLoading(){
