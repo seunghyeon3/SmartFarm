@@ -230,7 +230,7 @@ public class MemberController {
 		return "user/findPw";
 	}
 
-	// 폼 실행 후 비밀번호 찾기
+	// 폼 실행 후 비밀번호 찾기 + 비밀번호 발송
 	@RequestMapping("/findMemberPw.do")
 	@ResponseBody
 	public String findMemberPw(@RequestBody MemberVO memberVo) throws Exception {
@@ -249,7 +249,7 @@ public class MemberController {
 
 				boolean check = sendEmail(memberVo);
 
-				if (check) {
+				if (check == false) {
 					System.out.println("있는데 발송 X");
 					return "2";
 
@@ -267,9 +267,9 @@ public class MemberController {
 	}
 
 	public boolean sendEmail(MemberVO memberVo) {
-		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
-		String user = "yisseol@naver.com"; // 패스워드
-		String password = "password"; // SMTP 서버 정보를 설정한다.
+		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 SMTP 서버 정보를 설정한다. 
+		String user = "yisseol@naver.com"; // 이메일
+		String password = "추후수정"; // 비밀번호 추후수정
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
@@ -286,9 +286,9 @@ public class MemberController {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(user));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberVo.getMem_email())); // 메일 제목
-			message.setSubject("[똑장이] 임시 비밀번호 발송"); // 메일 내용
-			String tmpPwd = getRamdomPassword(10);
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberVo.getMem_email())); // 메일 보낼 곳
+			message.setSubject("[똑장이] 임시 비밀번호 발송"); // 메일 제목
+			String tmpPwd = getRamdomPassword(13);
 
 			String content = "<div style=\" width: 550px; height: 350px; text-align: center;\">"
 					+ "<div style=\" display: inline-block; background-color: #66bb6a;  text-align:center; width: 350px; height: 200px;  border-radius: 5px; padding:50px;\">"
@@ -305,7 +305,7 @@ public class MemberController {
 			memberVo.setMem_pw(tmpPwd);
 			memberDao.memberUpdatePw(memberVo);
 			
-		} catch (Exception e) {
+		} catch (MessagingException e) {
 			e.printStackTrace();
 			return false;
 		}
