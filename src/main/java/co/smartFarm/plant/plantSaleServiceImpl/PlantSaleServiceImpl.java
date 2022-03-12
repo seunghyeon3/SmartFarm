@@ -24,4 +24,9 @@ public class PlantSaleServiceImpl implements PlantSaleService{
 	public List<PlantSaleVO> plantSaleSelectList() {
 		return map.plantSaleSelectList();
 	}
+	@Override
+	public List<PlantSaleVO> plantSaleSelectListOrderNo() {
+		return map.plantSaleSelectListOrderNo();
+	}
+
 }
