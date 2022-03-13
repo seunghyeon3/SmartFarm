@@ -6,6 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>FAQ</title>
+<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 <style>
 .filebox label {
 	display: inline-block;
@@ -64,7 +65,7 @@
 						<!--<form action="noticeSearch.do" method="post"> -->
 						<select class="form-control" id="key" name="key"
 							style="width: 120px; float: left">
-							<option value="faq_con">내용</option>
+							<!--<option value="faq_con">내용</option>  -->
 							<option value="faq_title">제목</option>
 						</select> <input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
@@ -78,31 +79,13 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
+					<c:if test="${member.mem_athr eq 'B0'}">
 					<a href="faqinsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a> 
-						<a href="javascript:void(0)" onclick="deleteCheck()"
+					<a href="javascript:void(0)" onclick="deleteCheck()"
 						class="view-more" style="color: white; cursor: pointer;">삭제</a>
+					</c:if>
 				</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="gt-pagination">
-							<nav>
-								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Previous"> <i class="fas fa-angle-left"></i>
-									</a></li>
-									<li class="page-item active"><a class="page-link"
-										href="noticea.do">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Next"> <i class="fas fa-angle-right"></i>
-									</a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
 				</div>
 			</div>
 	</section>
@@ -111,7 +94,6 @@
 	<!-- 4 -->
 	<script>
 		//표 출력
-		
 	const faqData = [ 
 		<c:forEach var="values" items="${faq}"  varStatus="status" >  //foreach for문 
 
@@ -136,13 +118,14 @@
       el: document.getElementById('grid'),
       //data: ${faq},
       data : faqData,
-  rowHeaders: ['checkbox'], 
+      rowHeaders: ['checkbox'], 
       bodyHeight: 500,
       treeColumnOptions: {
     	    name: 'faq_title',
     	    useCascadingCheckbox: true,
-    	    indentWidth:22
-    	  },
+    	    indentWidth:22,
+    	    rowHeight : 50,
+    	    },
       columns: [
         /* {
           header: '번호',
@@ -152,9 +135,17 @@
         {
           header: '제목',
           name: 'faq_title'
-        },
-        
-      ]
+        },{
+        	header:'버튼',
+        	name:'faq_button'
+        }],
+      columnOptions : {
+			resizable : true
+		},
+		pageOptions: {
+	        useClient: true,
+	        perPage: 20
+	    }
     });
 	
 

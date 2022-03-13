@@ -3,7 +3,7 @@
 <mapper namespace="co.smartFarm.board.qna.qnaService.QnaMapper">
 <!-- 전체리스트 -->
  <select id="qnaSelectList" resultType="co.smartFarm.board.qna.qnaService.QnaVO">
- SELECT * FROM QNA ORDER BY QNA_NO ASC
+ SELECT * FROM QNA ORDER BY QNA_NO DESC
  </select>
 <!-- 단건조회 -->
 <select id="qnaSelect" resultType="co.smartFarm.board.qna.qnaService.QnaVO"
@@ -41,7 +41,7 @@ WHERE QNA_NO = #{qna_no}
 	<select id="qnaSearch" resultType="co.smartFarm.board.qna.qnaService.QnaVO">
 		SELECT * FROM QNA
 		<if test="key == ''"> WHERE 1 = 1</if>
-		<if test="key == 'qna_no'">WHERE QNA_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'qna_title'">WHERE QNA_TITLE LIKE '%' || #{val} || '%'</if>
 		<if test="key == 'mem_name'">WHERE MEM_NAME LIKE '%' || #{val} || '%'</if>
 	</select>
  </mapper>

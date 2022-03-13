@@ -3,7 +3,7 @@
 <mapper namespace="co.smartFarm.board.Archieve.archieveService.ArchieveMapper">
 <!-- 전체리스트 -->
 <select id="archieveSelectList" resultType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
- SELECT * FROM ARCHIEVE ORDER BY ARCHIEVE_NO ASC
+ SELECT * FROM ARCHIEVE ORDER BY ARCHIEVE_NO DESC
 </select>
 <!-- 단건조회 -->
 <select id="archieveSelect" resultType="co.smartFarm.board.Archieve.archieveService.ArchieveVO"
@@ -40,7 +40,7 @@ VALUES(#{archieve_no}, #{archieve_title}, #{archieve_con}, #{archieve_img}, #{me
 	<select id="archieveSearch" resultType="co.smartFarm.board.Archieve.archieveService.ArchieveVO">
 		SELECT * FROM ARCHIEVE
 		<if test="key == ''"> WHERE 1 = 1</if>
-		<if test="key == 'archieve_no'">WHERE ARCHIEVE_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'archieve_day'">WHERE ARCHIEVE_DAY LIKE '%' || #{val} || '%'</if>
 		<if test="key == 'archieve_title'">WHERE ARCHIEVE_TITLE LIKE '%' || #{val} || '%'</if>
 	</select>
 </mapper>

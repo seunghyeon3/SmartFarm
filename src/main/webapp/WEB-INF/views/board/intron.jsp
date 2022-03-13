@@ -27,6 +27,7 @@
 				<div class="about-video-section wf100">
 					<div class="container">
 					<h3>노지분야 소개</h3>
+					 <br><br><br>
 						<div class="row">
 							<div class="about-text">
 								<img src="resources/images/${intron[0].intro_img}" alt="내용을 등록 해주세요">
@@ -37,9 +38,11 @@
 				</div>
 		</section>
 				<div align="right" class="bt_se">
+				<c:if test="${member.mem_athr eq 'B0'}">
 				<a class="aboutus" href="introupdateFormn.do?intro_no=${intron[0].intro_no }&intro_img=${intron[0].intro_img}">수정</a>	
 				<a class="aboutus" href="introninsertForm.do">글쓰기</a>
 				</div>
+				</c:if>
 			</div>
 </body>
 </html>

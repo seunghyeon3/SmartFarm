@@ -60,6 +60,7 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                      	<h1>등록</h1>
+                     	 <br><br><br>
                      	<form action="introinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
  						<input type="hidden" name="intro_board_class" value="intro3">	

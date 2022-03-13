@@ -34,6 +34,7 @@
 				<div class="about-video-section wf100">
 					<div class="container">
 							<h3>과수분야 소개</h3>
+							 <br><br><br>
 						<div class="row">
 							<div class="about-text">
 								<img src="resources/images/${introg[0].intro_img}" alt="내용을 등록 해주세요">
@@ -44,8 +45,10 @@
 			</div>
 		</section>
 		<div align="right" class="bt_se">
+		<c:if test="${member.mem_athr eq 'B0'}">
 			<a class="aboutus" href="introupdateFormg.do?intro_no=${introg[0].intro_no }&intro_img=${introg[0].intro_img}">수정</a>	
 			<a class="aboutus" href="introinsertgForm.do">글쓰기</a>
+			</c:if>
 		</div>
 	</div>
 </body>

@@ -1,14 +1,12 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!doctype html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>공지사항 메인 페이지</title>
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-
 <style>
 .filebox label {
 	display: inline-block;
@@ -58,12 +56,9 @@
 </style>
 </head>
 <body>
-
 	<div class="container p80">
 		<div class="col-lg-9 col-md-8 side-widget"></div>
 	</div>
-
-
 	<section class="shop wf100 p80">
 		<div class="container">
 			<h1>공지 사항</h1>
@@ -74,7 +69,7 @@
 						<!--<form action="noticeSearch.do" method="post"> -->
 						<select class="form-control" id="key" name="key"
 							style="width: 120px; float: left">
-							<option value="notice_no">번호</option>
+							<option value="notice_day">등록일</option>
 							<option value="notice_title">제목</option>
 						</select> <input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
@@ -88,32 +83,16 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
+					<c:if test="${member.mem_athr eq 'B0'}">
 					<a href="noticeinsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
+					</c:if>
 				</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="gt-pagination">
-							<nav>
-								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Previous"> <i class="fas fa-angle-left"></i>
-									</a></li>
-									<li class="page-item active"><a class="page-link" href="noticea.do">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Next"> <i class="fas fa-angle-right"></i>
-									</a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
 				</div>
 			</div>
 	</section>
-
+    
+    <div></div>
 	<!-- 4 -->
 	<script>
 		//표 출력
@@ -124,25 +103,35 @@
 			rowHeaders : [ 'rowNum' ],//번호 매기기
 			scrollX : false,
 			scrollY : false,
+			columnOptions : {
+				rowHeight : 50
+			},
 			columns : [{
-	              header: '번호',
-	              name: 'notice_no',
-	            },{
 	              header: '제목',
 	              name: 'notice_title',
-	            },{
-	               header: '조회',
-	               name: 'notice_hit',
+	              width: 620
 	            },{
 	               header: '등록일',
 	               name: 'notice_day',
+	               width: 270
 	            },{
 	               header: '첨부파일',
 	               name: 'notice_img',
+	               width: 100,
 	               formatter(object){	            	  
-	            	   return object.value != null ? 'Y' : 'N';
-	               }
-	            },]
+	            	   return object.value != null ? 'Y' : 'N';}
+	            },{
+		               header: '조회',
+		               name: 'notice_hit',
+		               width: 70
+		            }],
+	            columnOptions : {
+					resizable : true
+				},
+				pageOptions: {
+			        useClient: true,
+			        perPage: 10
+			    }
 		});
 
 		// GRID 에 데이터를 입력
