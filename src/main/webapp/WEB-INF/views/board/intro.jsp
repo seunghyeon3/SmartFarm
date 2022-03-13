@@ -34,6 +34,7 @@
 				<div class="about-video-section wf100">
 					<div class="container">
 							<h3>스마트팜 소개</h3>
+							<br><br><br>
 						<div class="row">
 							<div class="about-text">
 								<img src="resources/images/${intro[0].intro_img}" alt="내용을 등록 해주세요">
@@ -44,9 +45,11 @@
 			</div>
 		</section>
 		<div align="right" class="bt_se">
+		<c:if test="${member.mem_athr eq 'B0'}">
 			<a class="aboutus" href="introupdateForm.do?intro_no=${intro[0].intro_no }&intro_img=${intro[0].intro_img}">수정</a>	
 			<a class="aboutus" href="introinsertForm.do">글쓰기</a>
+			</c:if>
+			</div>
 		</div>
-	</div>
-</body>
+	</body>
 </html>

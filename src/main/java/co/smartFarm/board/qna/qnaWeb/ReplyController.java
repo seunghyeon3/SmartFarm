@@ -31,7 +31,6 @@ public class ReplyController {
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member"); 
 		try {
-
 			reply.setMem_name(memberVO.getMem_name());
 			replyDao.replyInsert(reply);
 
@@ -51,7 +50,6 @@ public class ReplyController {
 
 	}
 	// 답글 삭제
-	
 	 @RequestMapping(value = "/replydelete.do") 
 	 public String replyDelete(@RequestParam(value = "reply_no") int reply_no, Model model) {
 		 System.out.println(reply_no); 
@@ -59,8 +57,15 @@ public class ReplyController {
 		 reply.setReply_no(reply_no);
 		 replyDao.replyDelete(reply);
 		 model.addAttribute("reply", replyDao.replySelectList()); 
-		 return "redirect:/qnaselect.do"; 
+		 return "redirect:/replydelete.do"; 
 	 }
-	 
+	 // 답글 수정
+	 @RequestMapping(value = "/replyUpdate.do")
+	 public String replyUpdate(ReplyVO reply, Model model, HttpServletRequest request) {
+	 System.out.println("성공" + reply.toString());
+	 List<ReplyVO> list = replyDao.replySelectList();
+	 model.addAttribute("list", list);
+	 return "redirect:/replyadd.do";
+}
 	 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="co.smartFarm.board.notice.noticeService.NoticeMapper">
 <!-- 전체리스트 -->
 <select id="noticeSelectList" resultType="co.smartFarm.board.notice.noticeService.NoticeVO">
- SELECT * FROM NOTICE ORDER BY NOTICE_NO ASC
+ SELECT * FROM NOTICE ORDER BY NOTICE_NO DESC
 </select>
 <!-- 단건조회 -->
 <select id="noticeSelect" resultType="co.smartFarm.board.notice.noticeService.NoticeVO"
@@ -40,7 +40,7 @@ VALUES(#{notice_no}, #{notice_title}, #{notice_con}, #{notice_img}, #{mem_name})
 	<select id="noticeSearch" resultType="co.smartFarm.board.notice.noticeService.NoticeVO">
 		SELECT * FROM NOTICE
 		<if test="key == ''"> WHERE 1 = 1</if>
-		<if test="key == 'notice_no'">WHERE NOTICE_NO LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'notice_day'">WHERE NOTICE_DAY LIKE '%' || #{val} || '%'</if>
 		<if test="key == 'notice_title'">WHERE NOTICE_TITLE LIKE '%' || #{val} || '%'</if>
 	</select>
 	
