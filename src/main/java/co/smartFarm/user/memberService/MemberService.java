@@ -13,4 +13,7 @@ public interface MemberService {
 	int memberAcceptAthr(String mem_email);
 	int memberRejectAthr(String mem_email);
 	List<MemberVO> memberSelectKeyList(@Param("key") String key, @Param("val") String val);
+	int memberDelete(String mem_email);
+	int memberUpdate(MemberVO memberVo);
+	int memberUpdateFarmer(MemberVO memberVo);
 }

@@ -83,4 +83,18 @@
 		WHERE p.mem_email = #{memEmail}
 		AND p.pur_his_revw_write = 'N'
 	</select>
+	
+	<select id="purHisSelect" parameterType="String"
+		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+		SELECT p.pur_his_order_no, p.pur_his_price, p.pur_his_pur_day,pur_his_sale_count,
+		CASE WHEN p.plant_sale_no = 0
+		THEN k.kit_name
+		ELSE s.plant_sale_title
+		END AS product_name
+		FROM pur_his p LEFT OUTER JOIN kit k
+		ON (p.kit_no = k.kit_no)
+		LEFT OUTER JOIN plant_sale s
+		ON (p.plant_sale_no = s.plant_sale_no)
+		WHERE p.mem_email = #{mem_email}
+	</select>
 </mapper>

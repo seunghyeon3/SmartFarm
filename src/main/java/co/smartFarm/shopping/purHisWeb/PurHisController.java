@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -17,6 +20,7 @@ import com.google.gson.Gson;
 import co.smartFarm.shopping.purHisService.PurHisMapper;
 import co.smartFarm.shopping.purHisService.PurHisService;
 import co.smartFarm.shopping.purHisService.PurHisVO;
+import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class PurHisController {
@@ -65,5 +69,12 @@ public class PurHisController {
 		
 		return "1";
 	}
-
+	
+	@RequestMapping("purHisSelect.do")
+	@ResponseBody
+	public List<PurHisVO> purHisSelect(HttpSession session){
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String mem_email = member.getMem_email();
+		return purHisDao.purHisSelect(mem_email);
+	}
 }

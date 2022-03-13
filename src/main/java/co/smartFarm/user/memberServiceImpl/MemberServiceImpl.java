@@ -55,4 +55,19 @@ public class MemberServiceImpl implements MemberService{
 		return map.memberSelectKeyList(key, val);
 	}
 
+	@Override
+	public int memberDelete(String mem_email) {
+		return map.memberDelete(mem_email);
+	}
+
+	@Override
+	public int memberUpdate(MemberVO memberVo) {
+		return map.memberUpdate(memberVo);
+	}
+
+	@Override
+	public int memberUpdateFarmer(MemberVO memberVo) {
+		return map.memberUpdateFarmer(memberVo);
+	}
+
 }

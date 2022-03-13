@@ -83,7 +83,6 @@
 								<li class="half pl-15"><input type="hidden" id="mem_addr3"
 									name="mem_addr3" class="form-control" placeholder=""></li>
 
-
 								<li class="full"><a href="javascript:void(0)"
 									onclick="openPInfo()" id="pInfo">개인정보 동의</a></li>
 
