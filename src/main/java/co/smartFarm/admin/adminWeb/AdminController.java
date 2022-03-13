@@ -12,6 +12,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.aspectj.internal.lang.annotation.ajcDeclareParents;
@@ -286,55 +288,57 @@ public class AdminController {
 
 	// ===== 키트 등록하기 =====
 	@PostMapping("/admin/kitInsert.do")
-	public String kitInsert(KitVO kitVo, MultipartHttpServletRequest mhsr) {
+	public String kitInsert(KitVO kitVo, HttpServletRequest req, MultipartHttpServletRequest mhsr) {
 
 		List<MultipartFile> list = mhsr.getFiles("img");
-		//
-		//
-		//
-		//
-		// list에서 하나씩 값 꺼내와서 정리하면 됨!!!!!!
-		//
-		//
-		//
-		//
 
 		System.out.println(list.toString());
 		System.out.println("======== 확인하기 ! ");
 		System.out.println(kitVo.toString());
+		String kitMainImg = list.get(0).getOriginalFilename();
+		String kitExpImg = list.get(1).getOriginalFilename();
+		 
+		System.out.println(kitMainImg + " : " + kitExpImg);
+
 		// 파일 처리하기
 		// 저장장소
-		// String saveDir = "kit" + File.separatorChar;// 추후수정
+		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/kit"); // 추후수정
 
-		/*
-		 * String saveDir = "C:\\newFile\\"; // 메인 이미지 String mainImgName =
-		 * kit_main_img.getOriginalFilename();
-		 * 
-		 * // 설명 이미지 String expImgName = kit_exp_img.getOriginalFilename();
-		 * 
-		 * if (!kit_main_img.isEmpty()) { // 메인 이미지 String uuidMainImg =
-		 * UUID.randomUUID().toString();// 파일 저장명 생성 String saveFileMain = uuidMainImg +
-		 * mainImgName.substring(mainImgName.lastIndexOf("."));
-		 * 
-		 * // 설명 이미지 String uuidExpImg = UUID.randomUUID().toString(); String
-		 * saveFileExp = uuidExpImg + expImgName.substring(expImgName.lastIndexOf("."));
-		 * 
-		 * try { // 메인 이미지 kit_main_img.transferTo(new File(saveDir, saveFileMain));
-		 * kitVo.setKit_main_img(saveFileMain); System.out.println("메인 이미지 === " +
-		 * saveFileMain);
-		 * 
-		 * // 설명 이미지 kit_exp_img.transferTo(new File(saveDir, saveFileExp));
-		 * System.out.println("설명 이미지 === " + saveFileExp);
-		 * System.out.println("=======kitVo"); System.out.println(kitVo.toString());
-		 * 
-		 * } catch (IOException | IllegalStateException e) { e.printStackTrace(); }
-		 * 
-		 * }
-		 */
+		MultipartFile mainFile = list.get(0);
+		MultipartFile expFile = list.get(1); 
 
-		// kit에 insert 하기
+		
+		if (!kitMainImg.isEmpty() && !kitExpImg.isEmpty()) { // 둘 다 비어있지 않을때만 실행됨
+			// 메인 이미지
+			String uuidMainImg = UUID.randomUUID().toString(); // 파일 저장명 생성
+			String saveFileMain = uuidMainImg + kitMainImg.substring(kitMainImg.lastIndexOf("."));
 
-		return null;
+			// 설명 이미지
+			String uuidExpImg = UUID.randomUUID().toString();
+			String saveFileExp = uuidExpImg + kitExpImg.substring(kitExpImg.lastIndexOf("."));
+
+			try { // 메인 이미지
+				mainFile.transferTo(new File(saveDirectory, saveFileMain));
+				kitVo.setKit_main_img(saveFileMain);
+
+				// 설명 이미지
+				expFile.transferTo(new File(saveDirectory, saveFileExp));
+				kitVo.setKit_exp_img(saveFileExp);
+				
+				// kit에 insert 하기
+				int result = kitDao.kitInsert(kitVo);
+				if(result > 0) {
+					System.out.println("정상작동");
+					return "redirect:/admin/adminManageKit.do";
+				}
+				
+			} catch ( IOException| IllegalStateException e) {
+				e.printStackTrace();
+			} 
+
+		}
+
+		return "redirect:/admin/adminManageKit.do";
 	}
 
 }

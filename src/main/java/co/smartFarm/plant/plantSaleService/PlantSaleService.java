@@ -8,5 +8,8 @@ public interface PlantSaleService {
 	int plantSaleInsert(PlantSaleVO plantSaleVO);
 	List<PlantSaleVO> plantSaleSelectList();
 	// 220312 PSH 날짜별(no가 후순일수록 최근꺼) 작물 조회 하기 위해 추가
-		List<PlantSaleVO> plantSaleSelectListOrderNo();
+	List<PlantSaleVO> plantSaleSelectListOrderNo();
+	PlantSaleVO plantSaleSelectOneByNo(int plantSaleNo);
+	PlantSaleVO plantSaleSelectOne(int plantSaleNo);//plant_sale, plant 조인함
+
 }

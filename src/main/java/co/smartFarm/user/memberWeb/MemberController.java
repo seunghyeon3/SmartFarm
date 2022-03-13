@@ -133,13 +133,14 @@ public class MemberController {
 
 	// 회원가입 입력
 	@PostMapping("/memberInsert.do")
-	public String memberInsert(MemberVO memberVo) {
+	@ResponseBody
+	public String memberInsert(@RequestBody MemberVO memberVo) {
 		System.out.println("=========");
 		System.out.println("확인!!!! === " + memberVo.getMem_email());
 		System.out.println(memberVo.getMem_det_addr());
 		System.out.println(memberVo.getMem_addr());
 		memberDao.memberInsert(memberVo);
-		return "redirect:/home.do";
+		return "1";
 	}
 
 	// 이메일 체크 + 카카오 로그인시 member테이블에 저장되어 있는지 체크
