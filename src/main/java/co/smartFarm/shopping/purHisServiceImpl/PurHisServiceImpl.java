@@ -36,4 +36,9 @@ public class PurHisServiceImpl implements PurHisService{
 	public List<PurHisVO> purHisRevwSelect(String memEmail) {
 		return map.purHisRevwSelect(memEmail);
 	}
+
+	@Override
+	public List<PurHisVO> purHisSelect(String mem_email) {
+		return map.purHisSelect(mem_email);
+	}
 }

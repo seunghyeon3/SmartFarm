@@ -142,6 +142,33 @@ public class MemberController {
 		return "redirect:/home.do";
 	}
 
+	// 회원정보 수정
+	@RequestMapping("/memberUpdate.do")
+	public String memberUpdate(MemberVO memberVo,HttpSession session) {
+		memberDao.memberUpdate(memberVo);
+		session.invalidate();
+		return "home/home";
+	}
+	
+	// 회원탈퇴
+	@RequestMapping("/memberDelete.do")
+	public String memberDelete(HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String mem_email = member.getMem_email();
+		memberDao.memberDelete(mem_email);
+		session.invalidate(); // 세션의 모든 속성을 삭제
+		return "home/home";
+	}
+	
+	// 회원농부신청
+	@RequestMapping("/memberFarmer.do")
+	public String memberFarmer(MemberVO memberVo, HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		memberVo.setMem_email(member.getMem_email());
+		memberDao.memberUpdateFarmer(memberVo);
+		return "redirect:mypage.do";
+	}
+	
 	// 이메일 체크 + 카카오 로그인시 member테이블에 저장되어 있는지 체크
 	@RequestMapping("/memberEmailCheck.do")
 	@ResponseBody

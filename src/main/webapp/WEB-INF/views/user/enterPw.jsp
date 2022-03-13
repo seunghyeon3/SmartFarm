@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -27,10 +26,10 @@
 				<div class="col-md-6">
 					<div class="login-box">
 						<h3>비밀번호를 입력하세요</h3>
-						<form>
+						<form action="mypage.do" onsubmit="return passwordCheck()">
 							
 							<div class="input-group">
-								<input type="password" class="form-control"
+								<input id="password" type="password" class="form-control"
 									placeholder="비밀번호" required>
 							</div>
 							
@@ -45,5 +44,17 @@
 		</div>
 	</section>
 	<!--Causes End-->
+	<script>
+		function passwordCheck() {
+
+			if(document.getElementById('password').value == ${member.mem_pw}){
+				alert('정상적으로 입력되었습니다.');
+				return true;
+			}else{
+				alert('비밀번호가 일치하지 않습니다.');
+				return false;
+			} 
+		}
+	</script>
 </body>
 </html>

@@ -78,4 +78,29 @@
 		<if test="key == 'mem_name'">WHERE MEM_NAME LIKE '%' || #{val} || '%'</if>
 	</select>
 	
+	<!-- 회원정보수정 -->
+	<update id="memberUpdate" parameterType="co.smartFarm.user.memberService.MemberVO">
+		UPDATE MEMBER
+		SET
+		MEM_PW = #{mem_pw},
+		MEM_ADDR = #{mem_addr},
+		MEM_DET_ADDR = #{mem_det_addr},
+		MEM_TEL = #{mem_tel}
+		WHERE MEM_EMAIL = #{mem_email}
+	</update>
+
+	<!-- 회원농부신청 -->
+	<update id="memberUpdateFarmer" parameterType="co.smartFarm.user.memberService.MemberVO">
+		UPDATE MEMBER
+		SET
+		MEM_FM_REQ = #{mem_fm_req}
+		WHERE MEM_EMAIL = #{mem_email}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="memberDelete" parameterType="String">
+		DELETE FROM MEMBER 
+		WHERE MEM_EMAIL = #{mem_email}
+	</delete>
+	
 </mapper>

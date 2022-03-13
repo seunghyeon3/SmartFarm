@@ -21,7 +21,7 @@ public class UseRevwServiceImpl implements UseRevwService{
 	}
 
 	@Override
-	public int createRevw(UseRevwVO useRevw) {
+	public Integer createRevw(UseRevwVO useRevw) {
 		return map.createRevw(useRevw);
 	}
 	

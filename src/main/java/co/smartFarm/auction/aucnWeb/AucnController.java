@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.smartFarm.NFT.service.NftService;
 import co.smartFarm.auction.aucnService.AucnService;
@@ -129,8 +131,8 @@ public class AucnController {
 			
 			JSONObject param = new JSONObject();
 			// from : 관리자 지갑주소 , to : smart contract Address
-			param.put("from", "0x01740d5aCC6F52129b22f79AFF8d0e8b8F8212Ca");
-			param.put("to", "0xe97D4Ef966998C4DdCfd1413b5dA7dfAE531A144");
+			param.put("from", "0x13B770f414f4c5e547da9cE9382071Ebdd8f3F9a");
+			param.put("to", "0x243Ac993BD48280D420d3BfD27d1250d8A51530C");
 			// input 값 hash 변환 method+parameter(optional)
 			
 			//withdraw data ( 10번 경매 10 -> a (16진수) )
