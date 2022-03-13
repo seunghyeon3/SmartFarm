@@ -17,5 +17,7 @@ public class PlantSaleVO {
 	private String mem_email;
 	private String mem_name;
 	private String plant_sale_whet;
+	
+	//
 
 }

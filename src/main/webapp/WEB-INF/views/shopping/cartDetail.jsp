@@ -83,8 +83,8 @@
 	        el.min = min;
 	        el.value = String(props.value);
 
-       	 this.el = el;
-      }
+       	 	this.el = el;
+      	}
 
       
       getElement() {
@@ -115,8 +115,8 @@
 				name : 'cart_price'
 			}, {
 				header : '수량',
-				name : 'cart_sale_count'
-				,
+				width : '130',
+				name : 'cart_sale_count',
 				editor: {
 		            type: CustomTextEditor,
 		            options: {
@@ -131,6 +131,7 @@
 				name : 'cart_sum'
 			}, {
 				header : '선택',
+				width : '120',
 				name : 'cart_option'
 			}
 
@@ -143,8 +144,6 @@
 
 		
 		// GRID 에 데이터를 입력한다.
-		
-		
 		grid.resetData(gridData);
 
 		// 판매가와 총액에 콤마 찍기
@@ -172,29 +171,28 @@
 				}
 				
 			}	
-			
-			
 		}
 		setGrid();
 		
 		//더블클릭하면 링크로 연결해주기
 		grid.on('dblclick', (ev) => {
-			// /kitProductDetail.do?kit_no=1
-			var cartOption = grid.getValue(ev.rowKey, 'cart_option');
-			console.log("되긴 되는지...");
 			
-			if(cartOption.includes('K')) {//키트 번호인 경우
-				var link = "kitProductDetail.do?kit_no=";
-				var kitNo = cartOption.substr(1);
-				console.log( link + kitNo );
-				
-			} else { // 작물인 경우
-				var link = "plantProductDetail.do?plant_no=";
-				var plantNo = cartOption.substr(1);
-				console.log( link+ plantNo);
+			console.log(ev);
+			if(ev.columnName !== "cart_sale_count"){
+		        var cartOption = gridData[ev.rowKey].cart_option;
+		         
+				if(cartOption.includes('K')) {//키트 번호인 경우
+					var link = "kitProductDetail.do?kit_no=";
+					var kitNo = cartOption.substr(1);
+					location.href = link + kitNo;
+					
+				} else { // 작물인 경우
+					var link = "plantProductDetail.do?plant_sale_no=";
+					var plantNo = cartOption.substr(1);
+					location.href = link + plantNo;
+				} 
+			
 			}
-			
-			
 			
 		});//on dblclick
 		
@@ -227,7 +225,7 @@
 				success: function (res) {
 					if(res ==='1'){
 						toastr.success('삭제되었습니다');
-					}else{
+					} else {
 						toastr.error('오류가 발생했습니다. 다시 시도해주세요');
 					}
 					location.reload();

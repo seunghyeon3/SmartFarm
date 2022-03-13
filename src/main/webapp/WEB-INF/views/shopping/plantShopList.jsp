@@ -14,12 +14,12 @@
    <div class="container p80">
       <div class="col-lg-9 col-md-8 side-widget">
 
-         <!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
+         <!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝>
          <div class="single-post-tags">
          	<a href="javascript:divisionList(product)">전체</a>
             <a href="javascript:divisionList(product)">상업용</a>
             <a href="javascript:divisionList(habbit)">취미용</a>
-         </div>
+         </div>  -->
       </div>
       
 
@@ -39,7 +39,7 @@
                      <div class="product-box">
                         <div class="pro-thumb"> <a href="#">장바구니 추가</a> <img src="resources/images/shop/pro1.jpg" alt=""></div>
                         <div class="pro-txt">
-                           <h6><a href="#">${list.plant_sale_title}</a></h6>
+                           <h6><a href="plantProductDetail.do?plant_sale_no=${list.plant_sale_no }">${list.plant_sale_title}</a></h6>
                            <p class="pro-price"> ${list.plant_sale_price }</p>
                         </div>
                      </div>

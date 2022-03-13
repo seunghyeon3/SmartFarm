@@ -17,9 +17,9 @@
 
 			<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
 			<div class="single-post-tags">
-				<a href="javascript:divisionList(product)">전체</a> <a
-					href="javascript:divisionList(product)">상업용</a> <a
-					href="javascript:divisionList(habbit)">취미용</a>
+				<a href="kitShopList.do?kitPrpos=">전체</a> <a
+					href="kitShopList.do?kitPrpos=business">상업용</a> <a
+					href="kitShopList.do?kitPrpos=hobby">취미용</a>
 			</div>
 		</div>
 

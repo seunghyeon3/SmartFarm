@@ -3,7 +3,7 @@ package co.smartFarm.kit.kitService;
 import java.util.List;
 
 public interface KitMapper {
-	List<KitVO> kitSelectList();
+	List<KitVO> kitSelectList(String kitPrpos);
 
 	KitVO kitSelectOneByNo(int kitNo);
 
@@ -14,4 +14,5 @@ public interface KitMapper {
 	List<KitVO> kitRecommand();
 	List<KitVO> adminKitRankList(KitVO kitVo);
 	int kitInsert(KitVO kitVo);
+	int kitUpdateHit(int kitNo);
 }

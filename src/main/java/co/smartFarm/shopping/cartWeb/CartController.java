@@ -54,22 +54,23 @@ public class CartController {
 			HttpServletRequest request) throws IOException {
 
 		MemberVO memberVo = (MemberVO) session.getAttribute("member");
-		cartVo.setMem_email(memberVo.getMem_email());
-
-		// cartVo.setMem_email("ddd@abc.com"); // 추후수정 나중에 이부분 지우고 위에 두줄 살리기
-
-		System.out.println("확인할 부분! === " + cartVo.toString());
-		Integer result = cartDao.cartInsert(cartVo);
-		System.out.println("결과 확인 === ! " + result);
-		String referer = request.getHeader("Referer");
+		
+		if (memberVo != null) {
+			// cartVo.setMem_email("ddd@abc.com"); // 추후수정 나중에 이부분 지우고 위에 두줄 살리기
+			cartVo.setMem_email(memberVo.getMem_email());
+			System.out.println("확인할 부분! === " + cartVo.toString());
+			Integer result = cartDao.cartInsert(cartVo);
+			System.out.println("결과 확인 === ! " + result);
+			String referer = request.getHeader("Referer");
 
 //		// alert 띄우기
 //		PrintWriter out = response.getWriter();
 //		out.println("<script>alert'장바구니에 추가되었습니다'); </script>");
 //		out.flush();
 
-		return "redirect:" + referer; // 이전페이지로 가기
-
+			return "redirect:" + referer; // 이전페이지로 가기
+		}
+		return null;
 	}
 
 	// ===== 장바구니에서 삭제하기 =====

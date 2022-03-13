@@ -9,4 +9,5 @@ public interface PlantService {
 	List<PlantVO> selectMemPlantList(MemberVO memberVo);
 	PlantVO selectPlant(PlantVO plantVo);
 	List<PlantVO> adminSelectPlant();
+	
 }

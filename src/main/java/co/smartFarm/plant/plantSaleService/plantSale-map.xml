@@ -18,9 +18,27 @@
 	<select id="plantSaleSelectList"
 		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
 		SELECT * FROM PLANT_SALE
+		WHERE PLANT_SALE_WHET = 'N'
 	</select>
 		<!-- 220312 PSH 날짜별(no가 후순일수록 최근꺼) 작물 조회 하기 위해 추가 -->
 	<select id="plantSaleSelectListOrderNo" resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
 	SELECT * FROM PLANT_SALE ORDER BY PLANT_NO DESC
+	</select>
+	
+	<select id="plantSaleSelectOneByNo"
+		parameterType="int"
+		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
+		SELECT * FROM PLANT_SALE
+		WHERE PLANT_SALE_NO = #{plant_sale_no}
+	</select>
+	
+	
+	<select id="plantSaleSelectOne" 
+		parameterType="int"
+		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
+		SELECT * 
+		FROM PLANT P JOIN PLANT_SALE PS
+		ON(P.PLANT_NO = PS.PLANT_NO)
+		WHERE PS.PLANT_SALE_NO = #{plant_sale_no}
 	</select>
 </mapper>

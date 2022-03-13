@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +21,9 @@ public class PlantController {
 
 	@Autowired
 	private PlantService plantDao;
-	
+
 	// ===== 작물추가 창 =====
-	//220302 PSH shoppingController -> plantController 구분 작업
+	// 220302 PSH shoppingController -> plantController 구분 작업
 	@RequestMapping("/plantProductAdd.do")
 	public String plantProductAdd(HttpSession session, Model model) {
 
@@ -37,20 +38,15 @@ public class PlantController {
 		return "shopping/plantProductAdd";
 
 	}
+
+	// 작물 상세창
+	// 220302 PSH shoppingController -> plantController 구분 작업
+	/*
+	 * @RequestMapping("/plantProductDetail.do") public String plantProductDetail()
+	 * {
+	 * 
+	 * return "shopping/plantProductDetail"; }
+	 */
+
 	
-	//작물 상세창
-	//220302 PSH shoppingController -> plantController 구분 작업
-		@RequestMapping("/plantProductDetail.do")
-		public String plantProductDetail() {
-
-			return "shopping/plantProductDetail";
-		}
-
-	// 작물 수정창
-	//220302 PSH shoppingController -> plantController 구분 작업
-		@RequestMapping("/plantProductUpdate.do")
-		public String plantProductUpdate() {
-			return "shopping/plantProductUpdate";
-		}
-
 }

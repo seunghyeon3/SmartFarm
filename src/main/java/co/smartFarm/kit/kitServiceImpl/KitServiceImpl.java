@@ -15,8 +15,8 @@ public class KitServiceImpl implements KitService{
 	@Autowired
 	KitMapper map;
 	@Override
-	public List<KitVO> kitSelectList() {
-		return map.kitSelectList();
+	public List<KitVO> kitSelectList(String kitPrpos) {
+		return map.kitSelectList(kitPrpos);
 	}
 
 	@Override
@@ -53,5 +53,9 @@ public class KitServiceImpl implements KitService{
 		return map.kitInsert(kitVo);
 	}
 
-	
+	@Override
+	public int kitUpdateHit(int kitNo) {
+		return map.kitUpdateHit(kitNo);
+	}
+
 }

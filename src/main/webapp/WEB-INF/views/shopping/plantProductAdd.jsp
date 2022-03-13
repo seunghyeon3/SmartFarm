@@ -53,7 +53,7 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>작물 판매 등록</h3>
-                        <form action="plantSaleInsert.do" onsubmit="return check();" method="post">
+                        <form action="plantSaleInsert.do" onsubmit="return check();" method="post" enctype="multipart/form-data">
 	                        <ul class="cform">
 	                       	   <li class="full">
 	                       	   		<select class=" full form-control" id="plant_no" name="plant_no" onchange="selectFnc(this)">
@@ -78,13 +78,15 @@
 	                           <!-- 파일업로드 버튼 구성 -->
 	                           <li>
 		                           <div class="filebox" style="float: right">
-		  								<label for="ex_file">사진 업로드</label>
-		  								<input type="file" id="ex_file">
+		  								<label for="oriFile">사진 업로드</label>
+		  								<input type="file" id="oriFile" name="oriFile">
 								   </div>
 							   </li>
-		                        <input type="text" id="mem_email" name="mem_email" value="${member.mem_email}">
-		                        <input type="text" id="mem_name" name="mem_name" value="${member.mem_name }">
-		                        <input type="text" id="plant_sale_plant_class" name="plant_sale_plant_class">
+							   
+							   <!-- hidden 목록 추후수정 -->
+		                        <input type="hidden" id="mem_email" name="mem_email" value="${member.mem_email}">
+		                        <input type="hidden" id="mem_name" name="mem_name" value="${member.mem_name }">
+		                        <input type="hidden" id="plant_sale_plant_class" name="plant_sale_plant_class">
                         		
 	                           <li class="full">
 	                              <input type="submit" value="등록" class="fsubmit">
