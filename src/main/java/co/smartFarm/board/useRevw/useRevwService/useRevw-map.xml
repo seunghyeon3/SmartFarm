@@ -16,13 +16,43 @@
                 #{use_revw_phy_rou}
             )}
         ]]>
-    </select>    
+    </select>
+        
 	<select id="recentlyUseRevw" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
 	SELECT *
 	FROM USE_REVW
 	ORDER BY USE_REVW_WRITE_DAY
 	</select>
+	
 	<select id="useRevwDetail" parameterType="int" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
 		SELECT * FROM USE_REVW WHERE USE_REVW_NO = #{useRevwNo}
 	</select>
+	
+	<select id="purHisSelectNo" parameterType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO"
+		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
+		SELECT p.pur_his_order_no, p.pur_his_price, p.pur_his_pur_day,pur_his_sale_count,
+		CASE WHEN p.plant_sale_no = 0
+		THEN k.kit_name
+		ELSE s.plant_sale_title
+		END AS product_name
+		FROM pur_his p LEFT OUTER JOIN kit k
+		ON (p.kit_no = k.kit_no)
+		LEFT OUTER JOIN plant_sale s
+		ON (p.plant_sale_no = s.plant_sale_no)
+		WHERE p.mem_email = #{mem_email}
+		AND p.PUR_HIS_ORDER_NO = #{pur_his_order_no}
+	</select>
+	
+	<update id="updateRevw" parameterType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
+		update USE_REVW
+		set USE_REVW_TITLE = #{use_revw_title},
+			USE_REVW_CON = #{use_revw_con},
+			USE_REVW_ORI_ROU = #{use_revw_ori_rou},
+			USE_REVW_PHY_ROU = #{use_revw_phy_rou}
+		where use_revw_no = #{use_revw_no}
+	</update>
+	
+	<delete id="deleteRevw" parameterType="int">
+		delete from use_revw where use_revw_no = #{use_revw_no}
+	</delete>
 </mapper>

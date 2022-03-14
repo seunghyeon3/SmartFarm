@@ -2,6 +2,8 @@ package co.smartFarm.board.useRevw.useRevwService;
 
 import java.util.List;
 
+import co.smartFarm.shopping.purHisService.PurHisVO;
+
 public interface UseRevwMapper {
 	//이용후기 메인페이지 전체조회
 	List<UseRevwVO> useRevwList();
@@ -11,4 +13,10 @@ public interface UseRevwMapper {
 	List<UseRevwVO> recentlyUseRevw();
 	//이용후기 상세페이지
 	UseRevwVO useRevwDetail(int useRevwNo);
+	//이용후기 수정내역
+	PurHisVO purHisSelectNo(UseRevwVO useRevw);
+	//이용후기 수정
+	int updateRevw(UseRevwVO useRevw);
+	//이용후기 삭제
+	int deleteRevw(int useRevwNo);
 }
