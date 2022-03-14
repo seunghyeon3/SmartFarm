@@ -35,6 +35,7 @@ import co.smartFarm.plant.plantService.PlantVO;
 import co.smartFarm.shopping.cartService.CartMapper;
 import co.smartFarm.shopping.cartService.CartVO;
 import co.smartFarm.user.memberService.MemberVO;
+import freemarker.template.utility.DOMNodeModel;
 import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
@@ -83,7 +84,7 @@ public class PlantSaleController {
 		return "redirect:/plantShopList.do";
 	}
 
-	//===== 작물 상세조회 창으로 넘어가기=====
+	// ===== 작물 상세조회 창으로 넘어가기=====
 	@RequestMapping("/plantProductDetail.do")
 	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model) {
 		// 내용 조회하기
@@ -115,12 +116,13 @@ public class PlantSaleController {
 	}
 
 	@PostMapping("/plantSaleUpdate.do")
-	public String plantSaleUpdate(PlantSaleVO plantSaleVo, MultipartFile oriFile, HttpServletRequest req) throws IllegalStateException, IOException {
-		
+	public String plantSaleUpdate(PlantSaleVO plantSaleVo, MultipartFile oriFile, HttpServletRequest req)
+			throws IllegalStateException, IOException {
+
 		// 사진 저장
 		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/plant"); // 추후수정
-		
-		if(!oriFile.isEmpty()) {
+
+		if (!oriFile.isEmpty()) {
 			String originRou = oriFile.getOriginalFilename();
 			String uuid = UUID.randomUUID().toString();
 			String plantSaleOriRou = uuid + originRou.substring(originRou.lastIndexOf("."));
@@ -131,13 +133,41 @@ public class PlantSaleController {
 			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);
 			System.out.println(oriFile);
 		}
-		
-		//update하기
+
+		// update하기
 		plantSaleDao.plantSaleUpdate(plantSaleVo);
-		
+
 		return "redirect:/plantShopList.do";
 	}
-	
-	
+
+	@GetMapping("/plantSaleDelete.do")
+	@ResponseBody
+	public String plantSaleDelete(@Param("plantSaleNo") String plantSaleNo) {
+		// plantSale 삭제하기
+		int result = plantSaleDao.plantDelete(Integer.parseInt(plantSaleNo));
+
+		if (result > 0) {// 삭제됐을 경우 update
+			// 전체 조회하기
+			List<PlantSaleVO> list = plantSaleDao.plantSaleSelectBiggerNo(result);
+			// 한 자리씩 내리기
+			plantSaleDao.plantSaleUpdateNo(list);
+
+			return "1";
+
+		}
+
+		return "0";
+	}
+
+	@GetMapping("/plantSaleSearch.do")
+	public String plantSaleSearch(@Param("plantSaleTitle") String plantSaleTitle, Model model) {
+
+		List<PlantSaleVO> list = plantSaleDao.plantSaleSearch(plantSaleTitle);
+
+		String gson = new Gson().toJson(list);
+		model.addAttribute("plantSaleList",list);
+
+		return "shopping/plantShopList";
+	}
 
 }

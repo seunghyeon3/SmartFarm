@@ -33,12 +33,17 @@
 	<select id="adminKitSelectList"
 		resultType="co.smartFarm.kit.kitService.KitVO">
 		SELECT * FROM KIT
+		<trim prefix="ORDER BY">
+			<if test="orderBy =='name'"> kit_name asc</if>
+			<if test="orderBy =='hit'"> kit_hit desc</if>
+			<if test="orderBy =='saleCount'"> kit_sale_count desc</if>
+		</trim>
 	</select>
 
 	<select id="kitRecommand" resultType="co.smartFarm.kit.kitService.KitVO">
-	SELECT * 
-	FROM KIT
-	ORDER BY KIT_SALE_COUNT DESC
+		SELECT * 
+		FROM KIT
+		ORDER BY KIT_SALE_COUNT DESC
 	</select>
 	
 	<select id="adminKitRankList" 
@@ -88,4 +93,15 @@
 		SET KIT_HIT = KIT_HIT + 1
 		WHERE KIT_NO = #{kit_no}
 	</update>
+	
+	<select id="kitSelectOrderBy"
+		resultType="co.smartFarm.kit.kitService.KitVO">
+		SELECT * FROM KIT
+		<trim prefix="ORDER BY">
+			<if test="orderBy =='name'"> kit_name asc</if>
+			<if test="orderBy =='hit'"> kit_hit desc</if>
+			<if test="orderBy =='saleCount'"> kit_sale_count desc</if>
+		</trim>
+	</select>
+	
 </mapper>
