@@ -11,5 +11,5 @@ public interface PlantSaleService {
 	List<PlantSaleVO> plantSaleSelectListOrderNo();
 	PlantSaleVO plantSaleSelectOneByNo(int plantSaleNo);
 	PlantSaleVO plantSaleSelectOne(int plantSaleNo);//plant_sale, plant 조인함
-
+	int plantSaleUpdate(PlantSaleVO plantSaleVo);
 }

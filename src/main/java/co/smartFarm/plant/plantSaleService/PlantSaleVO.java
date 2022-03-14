@@ -18,6 +18,10 @@ public class PlantSaleVO {
 	private String mem_name;
 	private String plant_sale_whet;
 	
-	//
+	//작물수정을 위해 필요한 컬럼
+	private String plant_grd;
+	private String plant_name;
+	private String plant_ivy;
+	private String plant_tot_grow_amnt;
 
 }

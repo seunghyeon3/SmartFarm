@@ -26,9 +26,9 @@
 
 		<!-- 검색 버튼 추가 -->
 		<div class="col-lg-3 col-md-4 side-search">
-			<input type="search" class="form-control" placeholder="Search"
-				id="autoCompt">
-			<button>
+			<input type="search" class="form-control" placeholder="키트 이름을 입력하세요"
+				id="kitName">
+			<button onclick="searchKit()">
 				<i class="fas fa-search"></i>
 			</button>
 		</div>
@@ -155,6 +155,23 @@
          toastr.success("상품이 장바구니에 담겼습니다.");
          
       }
+      
+      //===== 키트 검색 =====
+	  function searchKit() {
+	    	var kitName = document.getElementById("kitName").value;
+	    	var url = "kitShopList.do?kitName="+kitName;
+			location.href=url;
+	    	/* $.ajax({
+				url : url,
+				type:'get',
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success: function (res) {
+					console.log(res)
+					var result = JSON.parse(res);
+					console.log(result)
+				}
+			}) */
+		}
 
       /* //판매 리스트 출력하는 함수
       function showList(lists){

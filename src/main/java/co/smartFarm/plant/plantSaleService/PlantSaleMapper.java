@@ -12,4 +12,5 @@ public interface PlantSaleMapper {
 	List<PlantSaleVO> plantSaleSelectListOrderNo();
 	PlantSaleVO plantSaleSelectOneByNo(int plantSaleNo);//detail로 가기위해 필요
 	PlantSaleVO plantSaleSelectOne(int plantSaleNo);//plant_sale, plant 조인함
+	int plantSaleUpdate(PlantSaleVO plantSaleVo);
 }
