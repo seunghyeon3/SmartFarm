@@ -176,7 +176,7 @@ to {
 							<br> <br>
 
 							<div class="share-post wf100">
-								<strong style="height: 66px; font-size: 18pt;">최저 입찰 가격 : ${aucnSelect.first_bid } eth</strong>
+								<strong style="height: 66px; font-size: 18pt;">최저 입찰 가격 : ${aucnSelect.first_bid } wei</strong>
 							</div>
 							<div class="share-post wf100">
 								<input id="aucnBidWindow" style="height: 66px; font-size: 18pt;" readonly="readonly" />
@@ -213,7 +213,7 @@ to {
 									placeholder="입찰금액입력" style="height: 66px; font-size: 18pt; text-align:center;" /> <br>
 								<br>
 								<div onclick="countCheck()" class="button">
-									<a href="javascript:void(0)" onclick="countCheck()">입찰하기</a>
+									<a href="javascript:void(0)">입찰하기</a>
 								</div>
 							</div>
 						</div>
@@ -227,21 +227,17 @@ to {
 		</div>
 	</section>
 
-	<script
-		src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js">
-	</script>
-	<script src="resources/js/NFTAuction.js"></script>
 	<script type="text/javascript" src="resources/js/countdown.js"></script>
 
 	<!-- 웹소켓 기능 -->
 	<!-- 220310 PSH websocket.js로 이동 -->
-	<!-- <script>
-		var aucnBidWindow = document.getElementById("aucnBidWindow");
-		var popupBidWindow = document.getElementById("popupBidWindow"); 
+	 <script>
 		//일반경로 localhost 
-		var webSocket = new WebSocket('ws://localhost/prj/websocket/broadcast.do');
+		//var webSocket = new WebSocket('ws://localhost/prj/websocket/broadcast.do');
 		//ip경로 다중 경로 테스트할 시 ip 주소로 테스트
 		//var webSocket = new WebSocket('ws://192.168.0.11/prj/websocket/broadcast.do');
+		var aucnBidWindow = document.getElementById("aucnBidWindow");
+		var popupBidWindow = document.getElementById("popupBidWindow"); 
 		var btnSend = document.getElementById('btnSend'); 
 		var inputBid = document.getElementById('inputMessage'); 
 		
@@ -250,50 +246,47 @@ to {
 		};
 		webSocket.onopen = function(event) {
 			onOpen(event) 
-		};
+		}; 
 		webSocket.onmessage = function(event) {
 			onMessage(event) 
 		};
+		
 		function onMessage(event) {
-				var location = event.data.indexOf('.');
-				var cutAucnNo = event.data.substring(location+2, event.data.length);
-				var cutBid = event.data.substring(0,location+2);
-				var modelAucnNo = ${aucnSelect.aucn_no};
-				if(cutAucnNo == modelAucnNo.toString())
-				{
-				aucnBidWindow.innerHTML = "";
-				aucnBidWindow.value = "현재 최고 금액 : " + cutBid + " eth";
-				aucnBidWindow.setAttribute('data-bid', cutBid);
-				popupBidWindow.innerHTML = "";
-				popupBidWindow.value = "현재 최고 금액 : " + cutBid + " eth";
-				popupBidWindow.setAttribute('data-bid', cutBid);
-				}
+			var aucnEventData = JSON.parse(event.data);
+			var modelAucnNo = ${aucnSelect.aucn_no } ;
+			console.log(aucnEventData.aucnNo);
+			console.log(modelAucnNo.toString());
+			if(aucnEventData.aucnNo == modelAucnNo.toString())
+			{
+			aucnBidWindow.innerHTML = "";
+			aucnBidWindow.value = "현재 최고 금액 : " + aucnEventData.bid + " wei";
+			aucnBidWindow.setAttribute('data-bid', aucnEventData.bid);
+			popupBidWindow.innerHTML = "";
+			popupBidWindow.value = "현재 최고 금액 : " + aucnEventData.bid + " wei";
+			popupBidWindow.setAttribute('data-bid', aucnEventData.bid);
+			}
+			console.log(aucnEventData.bid);
 		}
+		
 		function onOpen(event) {
 			//현재 최고금액 뿌려주기 
-			aucnBidWindow.value = "현재 최고 금액 : ${aucnSelect.now_bid } eth";
-			popupBidWindow.value = "현재 최고 금액 : ${aucnSelect.now_bid } eth"; 
+			aucnBidWindow.value = "현재 최고 금액 : ${aucnSelect.now_bid } wei";
+			popupBidWindow.value = "현재 최고 금액 : ${aucnSelect.now_bid } wei"; 
 			popupBidWindow.setAttribute('data-bid', ${aucnSelect.now_bid });
 		}
 		function onError(event) {
 			console.log(event); 
 			alert(event.data); 
 		}
-		function webSocketSendChat() {
-			//aucnBidWindow.value = "현재 최고 금액 : " + inputBid.value + " eth";
-			//popupBidWindow.value = "현재 최고 금액 : " + inputBid.value + " eth";
+		
+		function webSocketSendChat(inputBid) {
 			// 입찰하기 버튼이나 엔터 누를시 소켓 서버로 입력값을 던짐
-			
- 			var inputBid ={
-					 bid: document.getElementById("inputMessage").value,
-					 id: '${member.mem_email}',
-					 aucn: '${aucnSelect.aucn_no }'
-					 };
+
 			webSocket.send(JSON.stringify(inputBid)); 
 			inputBid.value = ""; 
-			
-			
-		}
+
+			}
+
 		/* function chatAreaScroll() {
 		//using jquery
 		var textArea = $('#messageWindow');
@@ -308,14 +301,14 @@ to {
 
 	<script>
 	/* 웹소켓 테스트 */
-	var websocketData =  
+/* 	var websocketData =  
 	{ aucn_no : '${aucnSelect.aucn_no}',
 	  now_bid : '${aucnSelect.now_bid}'
 	};
 	
 	console.log("test"+websocketData);
 	
-	doWebsocket( websocketData , "${pageContext.request.contextPath}");
+	doWebsocket( websocketData , "${pageContext.request.contextPath}"); */
 	
 	/* ----------팝업 로딩생성---------- */
 	function createLoading(){

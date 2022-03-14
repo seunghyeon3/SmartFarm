@@ -51,8 +51,7 @@
 								</div>
 							</li>
 							<li class="col-md-3" style="float: left;">
-
-								<div
+								<div>
 									class="tui-datepicker-input tui-datetime-input tui-has-focus w3"
 									style="width: 200px; height: 50px; z-index: 3;">
 									<input id="endpicker-input" type="text" aria-label="Date"

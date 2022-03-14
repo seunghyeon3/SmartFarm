@@ -11,6 +11,7 @@ import co.smartFarm.board.free.freeService.FreeService;
 import co.smartFarm.board.notice.noticeService.NoticeService;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwService;
 import co.smartFarm.kit.kitService.KitService;
+import co.smartFarm.plant.plantSaleService.PlantSaleService;
 import co.smartFarm.shopping.purHisService.PurHisService;
 
 @Controller
@@ -33,6 +34,9 @@ public class HomeController {
 	
 	@Autowired
 	private UseRevwService useRevwDao;
+	
+	@Autowired
+	private PlantSaleService plantSaleDao;
 	//220309 PSH 메인페이지 슬라이드, 공지사항, 자유게시판, 이용후기 리스트 출력	
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -43,7 +47,8 @@ public class HomeController {
 		model.addAttribute("recentlyNotice", noticeDao.recentlyNotice());
 		model.addAttribute("recentlyFree", freeDao.recentlyFree());
 		model.addAttribute("recentlyUseRevw", useRevwDao.recentlyUseRevw());
-		
+		model.addAttribute("recentlyPlantSale" , plantSaleDao.plantSaleSelectListOrderNo());
+		System.out.println(plantSaleDao.plantSaleSelectListOrderNo().toString());
 		return "home/home";
 	}
 }

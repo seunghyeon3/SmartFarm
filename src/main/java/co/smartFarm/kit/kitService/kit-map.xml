@@ -5,6 +5,9 @@
 		resultType="co.smartFarm.kit.kitService.KitVO">
 		SELECT * FROM KIT
         WHERE KIT_SALE_WHET = 'Y'
+        <if test="key == ''">AND KIT_PRPOS LIKE '%%'</if>
+        <if test="key == 'hobby'">AND KIT_PRPOS LIKE '취미용'</if>
+        <if test="key == 'business'">AND KIT_PRPOS LIKE '상업용'</if>
 	</select>
 	
 	 <select id="kitSelectOneByNo" parameterType="int"
@@ -78,4 +81,11 @@
 		#{kit_exp_img}, #{kit_sale_whet}, #{kit_hit}, #{kit_sale_count})
 		
 	</insert>
+	
+	<update id="kitUpdateHit"
+		parameterType="int">
+		UPDATE KIT 
+		SET KIT_HIT = KIT_HIT + 1
+		WHERE KIT_NO = #{kit_no}
+	</update>
 </mapper>

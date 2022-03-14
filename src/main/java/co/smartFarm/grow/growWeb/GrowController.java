@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,7 @@ import co.smartFarm.grow.growService.GrowService;
 import co.smartFarm.grow.growService.GrowVO;
 import co.smartFarm.user.memberService.MemberVO;
 
-
+@CrossOrigin
 @Controller
 public class GrowController {
 

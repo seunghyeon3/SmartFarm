@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,8 +92,8 @@ ul>li>p {
 										<div>
 											<span><strong>Comments</strong></span> <span id="cCnt"></span>
 										</div>
-										<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    									<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;
+										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;  -->
+    									<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;  -->
 										<div>
 											<table class="table">
 												<tr>
@@ -181,7 +182,7 @@ ul>li>p {
 									html += data[i].reply_con
 											+ "<tr><td></td></tr>";
 								    html += "<a href='javascript:replyDelete();'>삭제</a>";
-					
+					                html += "<a href='javascript:replyUpdate();'>수정</a>";
 									html += "</table></div>";
 									html += "</div>";
 								}
@@ -205,20 +206,23 @@ ul>li>p {
 
 					});
 		}
-		 /* 	function replyDelete(reply_no){
-				var paramData = {"rid": rid};
+	 function replyDelete(qna_no){
+				var paramData = {"reply_no": qna_no};
 				$.ajax({
-					url: "replydelete.do"
-					type : 'POST'
-					datatype : 'json'
-					,success: function(result){
+					url: 'replydelete.do',
+					type : 'post',
+					data : paramData,
+					datatype : 'json',
+					success: function(data){
 						showReplyList();
-					}
-					, error: function(error){
+						alert("삭제 완료");
+						location.reload();
+					}, 
+					error: function(data){
 						console.log("에러 : " + error);
 					}
 				}); 
-			}  */
+			}                                        
 	</script>
 </body>
 </html>

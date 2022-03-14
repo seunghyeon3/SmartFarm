@@ -29,7 +29,7 @@ WHERE  REPLY_NO = #{reply_no}
 </update>
 <!-- 삭제 -->
 <delete id="replyDelete" parameterType="co.smartFarm.board.qna.qnaService.ReplyVO">
-   DELETE FROM REPLY WHERE REPLY_NO =#{reply_no}
+   DELETE FROM REPLY WHERE REPLY_NO = #{reply_no}
 </delete>
 <!---->
 </mapper>

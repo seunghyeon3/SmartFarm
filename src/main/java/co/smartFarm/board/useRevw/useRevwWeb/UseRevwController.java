@@ -1,5 +1,8 @@
 package co.smartFarm.board.useRevw.useRevwWeb;
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.smartFarm.board.useRevw.useRevwService.UseRevwService;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwVO;
@@ -20,6 +24,8 @@ public class UseRevwController {
 	UseRevwService useRevwDao;
 	@Autowired
 	PurHisService purHisDao;
+	@Autowired
+	private String saveDir; // 파일저장 경로를 자동 주입
 	
 	//이용후기 메인페이지 
 	@RequestMapping("useRevwMain.do")
@@ -45,7 +51,7 @@ public class UseRevwController {
 	
 	//이용후기 DB 등록 완료되면 다시 메인화면으로 고고
 	@RequestMapping("useRevwInsert.do")
-	public String useRevwInsert(UseRevwVO useRevw, HttpSession session) {
+	public String useRevwInsert(UseRevwVO useRevw, HttpSession session, @RequestParam("file") MultipartFile file) {
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		String memEmail = member.getMem_email();
@@ -53,6 +59,23 @@ public class UseRevwController {
 		
 		useRevw.setMem_email(memEmail);
 		useRevw.setMem_name(memName);
+		
+		String originalFileName = file.getOriginalFilename(); // 원본 파일명 찾기
+		if (!originalFileName.isEmpty()) {
+			String uid = UUID.randomUUID().toString(); // 유니크한 파일명 생성
+			// uuil에 파일확장자 추가하여 물리적 파일명을 만듬
+			String saveFileName = uid + originalFileName.substring(originalFileName.lastIndexOf("."));
+			try {
+				file.transferTo(new File(saveDir, saveFileName));
+				useRevw.setUse_revw_ori_rou(originalFileName);
+				useRevw.setUse_revw_phy_rou(saveFileName);
+				//news.setNewsboard_id(member_company + news.getNewsboard_pfile());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		useRevwDao.createRevw(useRevw);
 		
 		return "redirect:useRevwMain.do";
 	}

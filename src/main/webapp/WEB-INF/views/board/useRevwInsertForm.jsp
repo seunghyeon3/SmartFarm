@@ -52,10 +52,10 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>이용 후기 등록</h3>
-                        <form action="useRevwInsert.do" onsubmit="return check();" method="post">
+                        <form action="useRevwInsert.do" method="post" enctype="multipart/form-data">
 	                        <ul class="cform">
 	                       	   <li class="full">
-	                       	   		<select class=" full form-control" id="pur_his_order_no" name="pur_his_order_no" onchange="selectFnc(this)">
+	                       	   		<select class=" full form-control" id="pur_his_order_no" name="pur_his_order_no">
 	                       	   			<option value="-1">구매목록</option>
 		                       	   		<c:forEach var="list" items="${purHisList}">
 											<option value="${list.pur_his_order_no }"> 상품 이름 : ${list.product_name } | 가격 : ${list.pur_his_price } | 수량 : ${list.pur_his_sale_count } | 구매날짜 : ${list.pur_his_pur_day }</option>
@@ -71,8 +71,8 @@
 	                           <!-- 파일업로드 버튼 구성 -->
 	                           <li>
 		                           <div class="filebox" style="float: right">
-		  								<label for="ex_file">사진 업로드</label>
-		  								<input type="file" id="ex_file">
+		  								<label for="file">사진 업로드</label>
+		  								<input type="file" id="file" name="file">
 								   </div>
 							   </li>
                         		
@@ -86,6 +86,8 @@
                </div>
             </div>
          </section>
-         
+         <script>
+         	
+         </script>
 </body>
 </html>

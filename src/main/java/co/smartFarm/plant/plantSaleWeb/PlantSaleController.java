@@ -1,7 +1,11 @@
 package co.smartFarm.plant.plantSaleWeb;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -9,10 +13,12 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -36,10 +42,14 @@ public class PlantSaleController {
 	@Autowired
 	private PlantSaleService plantSaleDao;
 
-	//작물 전체 리스트
+	@Autowired
+	private PlantService plantDao;
+	
+	// 작물 전체 리스트
 	@RequestMapping("/plantShopList.do")
 	public String plantShopList(Model model) {
-		//220302 PSH shoppingDao -> PlantSaleController 구분 작업 및 shoppingDao -> plantSaleDao 수정
+		// 220302 PSH shoppingDao -> PlantSaleController 구분 작업 및 shoppingDao ->
+		// plantSaleDao 수정
 		/* List<PlantSaleVO> list = shoppingDao.plantSaleSelectList(); */
 		List<PlantSaleVO> list = plantSaleDao.plantSaleSelectList();
 		model.addAttribute("plantSaleList", list);
@@ -48,20 +58,58 @@ public class PlantSaleController {
 
 	// 작물 등록창
 	@PostMapping("/plantSaleInsert.do")
-	public String plantSaleInsert(PlantSaleVO plantSaleVO) {
+	public String plantSaleInsert(PlantSaleVO plantSaleVo, HttpServletRequest req, MultipartFile oriFile)
+			throws IllegalStateException, IOException {
 
-//		System.out.println("==========");
-//		System.out.println(shoppingVo.getMem_email());
-//		System.out.println(shoppingVo.getPlant_no());
-		
-		//220302 PSH shoppingDao -> PlantSaleController 구분 작업 및 shoppingDao -> plantSaleDao 수정
-		/* int returnVal = shoppingDao.plantSaleInsert(shoppingVo); */
-		int returnVal = plantSaleDao.plantSaleInsert(plantSaleVO);
-		if (returnVal > 0) {
-//			System.out.println("입력됨!");
-			return "shopping/plantShopList";
+		// 사진 저장하기
+		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/plant"); // 추후수정
+		System.out.println(oriFile.toString());
+		if (!oriFile.isEmpty()) {
+
+			String originRou = oriFile.getOriginalFilename();
+			String uuid = UUID.randomUUID().toString();
+			String plantSaleOriRou = uuid + originRou.substring(originRou.lastIndexOf("."));
+
+			oriFile.transferTo(new File(saveDirectory, plantSaleOriRou));
+
+			plantSaleVo.setPlant_sale_ori_rou(plantSaleOriRou);
+			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);
+			System.out.println(oriFile);
 		}
+		// 작물 등록하기
+		plantSaleDao.plantSaleInsert(plantSaleVo);
 
-		return "shopping/plantShopList";
+		return "redirect:/plantShopList.do";
 	}
+
+	@RequestMapping("/plantProductDetail.do")
+	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model) {
+		// 내용 조회하기
+		System.out.println("확인하기 === " + plant_sale_no);
+		PlantSaleVO plantSaleVo = plantSaleDao.plantSaleSelectOneByNo(Integer.parseInt(plant_sale_no));
+		System.out.println(plantSaleVo.toString());
+		model.addAttribute("plantSaleDet", plantSaleVo);
+		return "shopping/plantProductDetail";
+	}
+
+	// 작물 수정창
+	// 220302 PSH shoppingController -> plantController 구분 작업
+	// 220313 LS plantController -> plantSaleController 이동 작업
+	@RequestMapping("/plantProductUpdate.do")
+	public String plantProductUpdate(@Param("plant_sale_no") String plant_sale_no, HttpSession session, Model model) {
+		
+		
+		MemberVO memberVo = (MemberVO) session.getAttribute("member");
+		PlantVO plantVo = new PlantVO();
+		plantVo.setPlant_no(plant_sale_no);
+		PlantVO resultVo= plantDao.selectPlant(plantVo);
+		
+		String jsonSelectPlantList = new Gson().toJson(resultVo);
+
+		model.addAttribute("plantSale", jsonSelectPlantList);
+		
+		model.addAttribute("member", memberVo);
+		return "shopping/plantProductUpdate";
+	}
+
 }

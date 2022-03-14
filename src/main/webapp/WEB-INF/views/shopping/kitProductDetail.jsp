@@ -20,12 +20,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<a href="plantProductAdd.do" class="view-more"
-						style="color: white; cursor: pointer;">삭제</a> <a
-						href="plantProductUpdate.do" class="view-more"
-						style="color: white; cursor: pointer; margin-right: 5px">수정</a>
-				</div>
+
 				<div class="col-md-6">
 					<div class="section-title-2">
 						<h5>키트 판매</h5>

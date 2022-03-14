@@ -6,36 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.black_overlay {
-	display: none;
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	width: 100%;
-	height: 100%;
-	background-color: black;
-	z-index: 1001;
-	-moz-opacity: 0.8;
-	opacity: .80;
-	filter: alpha(opacity = 80);
-}
-
-.white_content {
-	display: none;
-	position: absolute;
-	top: 25%;
-	left: 25%;
-	width: 50%;
-	height: 70%;
-	padding: 16px;
-	border: 16px solid orange;
-	background-color: white;
-	z-index: 1002;
-	overflow: auto;
-}
-</style>
-
 </head>
 
 <body>
@@ -49,8 +19,9 @@
 						<h3>회원가입</h3>
 
 
-						<form action="memberInsert.do" method="post"
-							onsubmit="return checkRequired();">
+						<form name="memInsert" id="memInsert">
+							<!--method="post"
+							onsubmit="return checkRequired();"-->
 
 							<ul class="cform">
 								<li class="half pr-15"><input type="email"
@@ -62,32 +33,36 @@
 										class="fsubmit">이메일 확인</button>
 								</li>
 
-								<li class="half pr-15"><input type="password"
-									class="form-control" id="mem_pw" name="mem_pw"
+								<li class="half pr-15"
+									style="padding-bottom: 0; margin-bottom: 10px;"><input
+									type="password" class="form-control" id="mem_pw" name="mem_pw"
 									placeholder="비밀번호" required></li>
-								<li class="half pl-15"><input type="password"
-									class="form-control" id="mem_pw_check" name="mem_pw_check"
-									placeholder="비밀번호 확인" required></li>
-
+								<li class="half pl-15"
+									style="padding-bottom: 0; margin-bottom: 10px;"><input
+									type="password" class="form-control" id="mem_pw_check"
+									name="mem_pw_check" placeholder="비밀번호 확인" required></li>
+								<li class="full" style="margin-left: 10px;"><span
+									style="color: #f53738;">비밀번호는 대, 소문자, 숫자, 특수문자를 조합하여
+										입력해주세요</span></li>
 
 								<li class="half pr-15"><input type="text"
 									class="form-control" id="mem_name" name="mem_name"
 									placeholder="이름" required></li>
-									
-									
+
+
 								<!-- 핸드폰 번호 -->
 								<li class="half pl-15"><input type="text"
 									class="form-control"
-									style="width: 126px; float: left; -webkit-appearance: none;"
+									style="width: 117px; float: left; -webkit-appearance: none;"
 									id="mem_tel1" name="mem_tel1" required> <span
-									style="float: left">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
+									style="float: left; margin: 15px;">&mdash;</span> <input
+									type="text" class="form-control"
+									style="width: 118px; float: left" id="mem_tel2" name="mem_tel2"
+									required><span style="float: left; margin: 15px;">&mdash;</span>
 									<input type="text" class="form-control"
-									style="width: 126px; float: left" id="mem_tel2" name="mem_tel2"
-									required><span style="float: left">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
-									<input type="text" class="form-control"
-									style="width: 126px; float: left" id="mem_tel3" name="mem_tel3"
+									style="width: 118px; float: left" id="mem_tel3" name="mem_tel3"
 									required> <input type="hidden" id="mem_tel"
-									name="mem_tel" ></li>
+									name="mem_tel"></li>
 
 								<!-- 주소 -->
 								<li class="half pr-15"><input type="text"
@@ -99,14 +74,14 @@
 										찾기</button>
 								</li>
 								<li class="full"><input type="text" id="mem_addr2"
-									name="mem_addr2" class="form-control" placeholder="주소" required readonly></li>
+									name="mem_addr2" class="form-control" placeholder="주소" required
+									readonly></li>
 
 								<li class="full"><input type="text" id="mem_det_addr"
 									name="mem_det_addr" class="form-control" placeholder="상세주소"
 									required></li>
 								<li class="half pl-15"><input type="hidden" id="mem_addr3"
 									name="mem_addr3" class="form-control" placeholder=""></li>
-
 
 								<li class="full"><a href="javascript:void(0)"
 									onclick="openPInfo()" id="pInfo">개인정보 동의</a></li>
@@ -118,7 +93,7 @@
 									placeholder="개인정보 동의"></li>
 
 								<li class="half pr-15">
-									<button type="submit" class="fsubmit">회원가입</button>
+									<button type="button" onclick="memberInsert()" class="fsubmit">회원가입</button>
 								</li>
 
 								<li class="half pl-15">
@@ -149,8 +124,13 @@
 	</div>
 
 	<!-- 개인정보 동의 창 -->
-	<div id="lightPInfo" class="col-md-12 white_content" style="padding:20px;">
-		<h5 style="padding:20px;">개인정보 동의 <a onclick="closeFrm()" style="float:right;color:blue;font-size: medium"> X </a></h5>  <br> <br>
+	<div id="lightPInfo" class="col-md-12 white_content"
+		style="padding: 20px; z-index: 2;">
+		<h5 style="padding: 20px;">
+			개인정보 동의 <a onclick="closeFrm()"
+				style="float: right; color: blue; font-size: medium"> X </a>
+		</h5>
+		<br> <br>
 
 		<div id="pInfo" class="container" style="overFlow: auto;">
 			<c:forEach items="${pInfo }" var="in">
@@ -177,7 +157,7 @@
 
 	</div>
 
-	<div id="fadePInfo" class="black_overlay"></div>
+	<div id="fadePInfo" class="black_overlay" style="z-index: 1;"></div>
 
 	<script>
 		//=====카카오 로그인으로 들어오는 경우 ===== 
@@ -194,7 +174,7 @@
 		// url 자르기
 		$.urlParam = function(name){
 		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-   		 	return results[1] || 0;
+   		 	return results [1] || 0;
 		}
 
 
@@ -213,12 +193,11 @@
 		 			toastr.error('비밀번호는 대소문자, 특수문자, 숫자를 조합하여 설정해주세요');
 		 			return false;
 		 		}
-				
 				return true;
 			}
-			
 		}
 		
+		//mem_pw에서 focusout 될때마다 유효성 검사하기
 		$('#mem_pw').focusout(function () {
 			checkPw();
 		})
@@ -231,7 +210,47 @@
 	 		if(mem_pw !== mem_pw_check){
 	 			toastr.error('비밀번호가 일치하지 않습니다');
 	 		}
-		})
+		});
+		
+		//memberInsert하기!
+		function memberInsert() {
+			console.log("memberInsert 들어감!!!! ");
+			if(checkRequired() == true){
+				console.log("확인하기!!!!!!!!!!!!!")
+				
+				var memEmail = document.getElementById('mem_email').value;
+				var memPw = document.getElementById('mem_pw').value;
+				var memName = document.getElementById('mem_name').value;
+				var memTel = document.getElementById('mem_tel').value;
+				var memAddr = document.getElementById('mem_addr').value;
+				var memDetAddr = document.getElementById('mem_det_addr').value;
+				var data = JSON.stringify({mem_email: memEmail,mem_pw : memPw, mem_name : memName,mem_tel : memTel,mem_det_addr : memDetAddr});
+				
+				$.ajax({
+					url: "memberInsert.do",
+					method : 'post',
+					data :JSON.stringify( {
+						"mem_email": memEmail,
+						"mem_pw" : memPw, 
+						"mem_name" : memName,
+						"mem_tel" : memTel,
+						"mem_addr" : memAddr,
+						"mem_det_addr" : memDetAddr
+					}),
+				    contentType : "application/json; charset=utf-8",
+				    dataType : "json",
+					success:function(res){
+						if(res === 1){
+							alert('회원가입이 완료되었습니다.');
+							location.href = 'home.do';
+						}
+					}
+					
+				});
+				
+			}
+		} 
+		
 			
 	 	// ===== 회원가입 버튼 누르기 전에 확인하기 =====
 	   	function checkRequired() {
@@ -249,8 +268,9 @@
 	 			return false;
 	 		} 
 	 		
-	 		
+	 	
 	 		checkPw();
+	 		
 	 		var mem_tel = document.getElementById('mem_tel1').value +"-"+document.getElementById('mem_tel2').value 
 			+"-"+document.getElementById('mem_tel2').value ;
 			document.getElementById('mem_tel').value = mem_tel;
@@ -261,11 +281,11 @@
 	
 		// ===== 입력한 이메일이 사용 가능한지 =====
 		function checkEmail() {
-			var mem_email = $("#mem_email").val();
+			var memEmail = $("#mem_email").val();
 			console.log(mem_email)
-			var menu = "homePage";
-			var data = JSON.stringify({ mem_email: mem_email, menu});
-			var mem_email_reg = mem_email.search(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+			var Menu = "homePage";
+			var data = JSON.stringify({ mem_email: memEmail, menu: Menu});
+			var mem_email_reg = memEmail.search(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 			
 			if(mem_email_reg < 0){
 				toastr.error('유효한 이메일 형식을 입력하세요');

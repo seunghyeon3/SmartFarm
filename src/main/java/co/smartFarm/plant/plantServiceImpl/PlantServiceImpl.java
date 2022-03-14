@@ -30,4 +30,6 @@ public class PlantServiceImpl implements PlantService{
 	public List<PlantVO> adminSelectPlant() {
 		return map.adminSelectPlant();
 	}
+
+	
 }

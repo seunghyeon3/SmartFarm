@@ -9,4 +9,6 @@ public interface PurHisService {
 	List<PurHisVO> purHisPriceSelect();
 	//구매내역 중 이용후기 작성하지 않은 애들만 조회
 	List<PurHisVO> purHisRevwSelect(String memEmail);
+	//마이페이지 구매내역
+	List<PurHisVO> purHisSelect(String mem_email);
 }

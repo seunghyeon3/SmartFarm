@@ -82,32 +82,33 @@ input[type="checkbox"]:checked::before {
 
 				<br> <br>
 				<div class="row">
-					 <div class="col-md-6 col-sm-6">
+					<div class="col-md-6 col-sm-6">
 
 						<!--<div class="single-post-tags wf50" style="float: left;">
 							<a href="#">전체</a>&nbsp;&nbsp;&nbsp; <a href="#">농부</a>&nbsp;&nbsp;&nbsp;
 							<a href="#">일반회원</a> &nbsp;&nbsp;&nbsp; <a href="#">농부신청</a>
 						</div>-->
-					</div> 
+					</div>
 
 					<div class="col-md-6 col-sm-1">
 						<div class="side-search">
-							<!-- <form action="adminMemSearch.do" method="post"> -->
-								<select class="form-control" id="key" name="key" style="width: 120px; float: left">
-									<option value="mem_name">이름</option>
-									<option value="mem_email">이메일</option>
-								</select> <input  type="search" id="val" name="val" class="form-control" placeholder="검색"
-									style="margin: 0 10px; width: 380px; float: left;">
-								<button onclick="searchFnc()" type="submit">
-									<i class="fas fa-search"></i>
-								</button>
-							<!-- </form> -->
+							<select class="form-control" id="key" name="key"
+								style="width: 120px; float: left">
+								<option value="mem_name">이름</option>
+								<option value="mem_email">이메일</option>
+							</select> <input type="search" id="val" name="val" class="form-control"
+								placeholder="검색"
+								style="margin: 0 10px; width: 380px; float: left;">
+							<button onclick="searchFnc()" type="submit">
+								<i class="fas fa-search"></i>
+							</button>
+
 						</div>
 					</div>
 
 
 					<!-- 표 출력 -->
-					<div class="col-md-12 col-sm-6" style="padding: 20px;z-index:1;">
+					<div class="col-md-12 col-sm-6" style="padding: 20px; z-index: 1;">
 						<div id="grid"></div>
 					</div>
 
@@ -127,7 +128,7 @@ input[type="checkbox"]:checked::before {
 
 	<!-- 팝업창 -->
 	<div id="lightInstP" class="col-md-12 white_content"
-		style="text-align: center; height: 800px; top: 70px;z-index:3;">
+		style="text-align: center; height: 800px; top: 70px; z-index: 3;">
 		<br>
 
 		<div class="container">
@@ -147,10 +148,11 @@ input[type="checkbox"]:checked::before {
 	</div>
 
 
-	<div id="fadeInstP" class="black_overlay" style="z-index:2;"></div>
+	<div id="fadeInstP" class="black_overlay" style="z-index: 2;"></div>
 
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-	<script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
+	<script type="text/javascript"
+		src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
 	<script>
 	
 		//표 출력

@@ -103,33 +103,43 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		JSONObject jsonInput = new JSONObject();
 		JSONArray data = new JSONArray();
 		
-		// 입찰금액 10진수에서 16진수로 변환
-		String hexBid = Integer.toHexString(bid);
-		// 16진수 앞에 length 64만큼 0붙이기
-		//String.format("%09d", hexBid);
+		// 경매번호 10진수에서 16진수로 변환
+		String hexAucnNo = Integer.toHexString(aucnNo);
 		
 		String zero = "";
-
- 		for (int i = 0; i < 64 - hexBid.length(); i++) {
- 			zero = zero + "0";
- 		}
- 		String paramBid = zero + hexBid;
 		
+		for (int i = 0; i < 64 - hexAucnNo.length(); i++) {
+			zero = zero + "0";
+		}
+		
+ 		String paramAucnNo = zero + hexAucnNo;
+		
+ 		//System.out.println(paramAucnNo);
  		
+ 		// 입찰가 10진수에서 16진수로 변환
+ 		String hexBid = Integer.toHexString(bid);
 		// 이 두친구도 고정값
 		jsonInput.put("jsonrpc", "2.0");
-		jsonInput.put("method", "eth_call");
+		jsonInput.put("method", "eth_sendTransaction");
 
 		JSONObject param = new JSONObject();
 		// smart contract Address (MultiAuction)
-		param.put("to", "0xeF1F09b40F189341FC58D073dcF8ab3B60AD263F");
+		// from : 지갑주소 , to : smart contract Address
+		
+		param.put("from", "0x13B770f414f4c5e547da9cE9382071Ebdd8f3F9a");
+		param.put("to", "0x243Ac993BD48280D420d3BfD27d1250d8A51530C");
+		// val 16진수로 변환한 wei 값을 넘긴다 이더로 보내고 싶으면 웨이값으로 환산한 후 보내기
+		String NaN = "0x";
+		param.put("value", NaN+hexBid);
 		// input 값 hash 변환 method+parameter(optional)
-		param.put("data", "0x454a2ab3");
+		String auctionBid = "0x454a2ab3";
+		String auctionBidData = auctionBid+ paramAucnNo;
+		param.put("data", auctionBidData);
 		data.put(param);
 		jsonInput.put("params", data);
 		// id는 아무거나 넣으슈
 		jsonInput.put("id", 1);
-
+		System.out.println("입찰 전송 : "+jsonInput.toString());
 		EthResultVO result = aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
 		System.out.println(result);
 		// 입찰 DB 업데이트가 끝날시 NFTAuction 솔리디티 method 호출후 bid(aucnNo) 실행하여 입찰

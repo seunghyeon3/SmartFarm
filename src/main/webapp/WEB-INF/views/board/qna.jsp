@@ -6,6 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>QNA 소개</title>
+<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 <style>
 .filebox label {
 	display: inline-block;
@@ -48,12 +49,15 @@
 .filebox {
 	float: right;
 }
+
 </style>
 </head>
 <body>
 	<div class="container p80">
 		<div class="col-lg-9 col-md-8 side-widget"></div>
 	</div>
+	
+	
 	<section class="shop wf100 p80">
 		<div class="container">
 			<h1>QNA</h1>
@@ -64,7 +68,7 @@
 						<!-- <form action="adminMemSearch.do" method="post"> -->
 						<select class="form-control" id="key" name="key"
 							style="width: 120px; float: left">
-							<option value="qna_no">번호</option>
+							<option value="qna_title">제목</option>
 							<option value="mem_email">이메일</option>
 						</select> <input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
@@ -78,27 +82,10 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
+					<c:if test="${member ne null }">
 					<a href="qnainsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="gt-pagination">
-						<nav>
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <i class="fas fa-angle-left"></i>
-								</a></li>
-								<li class="page-item active"><a class="page-link" href="">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <i class="fas fa-angle-right"></i>
-								</a></li>
-							</ul>
-						</nav>
-					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -114,38 +101,52 @@
 			rowHeaders : [ 'rowNum' ],//번호 매기기
 			scrollX : false,
 			scrollY : false,
+			columnOptions : {
+				rowHeight : 50
+			},
 			columns : [{
-	              header: '번호',
-	              name: 'qna_no',
-	            },{
 	              header: '제목',
 	              name: 'qna_title',
+	              width: 450
 	            },{
-		          header: '첨부파일',
-		          name: 'qna_phy_rou',
-		          formatter(object){	            	  
-		          return object.value != null ? 'Y' : 'N';}
-		        },{
-	              header: '이메일',
-	              name: 'mem_email',
+	            	header: '이메일',
+		            name: 'mem_email',
+		            width: 150
 	            },{
-		          header: '등록일',
-		          name:  'qna_day',
-		        },{
-	               header: '공개여부',
-		           name: 'qna_open_whet',
+	            	 header: '공개여부',
+			         name: 'qna_open_whet',
+			         width: 70
 	            },{
-		           header: '답글여부',
-			       name: 'reply_con',
-			       formatter(object){	            	  
-				   return object.value != null ? 'Y' : 'N';}
-		         },{
-		              header: '조회',
-		              name: 'qna_hit',
-		            }
-		        ,]
+	            	 header: '답글여부',
+				     name: 'reply_con',
+				     width: 70
+	            },{
+	               header: '등록일',
+	               name: 'qna_day',
+	               width: 200
+	            },{
+	               header: '첨부파일',
+	               name: 'qna_phy_rou_img',
+	               width: 70,
+	               formatter(object){	            	  
+	            	   return object.value != null ? 'Y' : 'N';}
+	    
+	         
+	            },{
+		               header: '조회',
+		               name: 'qna_hit',
+		               width: 30
+		            }],
+	            columnOptions : {
+					resizable : true,
+				},
+				pageOptions: {
+			        useClient: true,
+			        perPage: 10
+			    }
+			
 		});
-         
+
 		// GRID 에 데이터를 입력
 		var gridData = ${qna};	
 		grid.resetData(gridData);

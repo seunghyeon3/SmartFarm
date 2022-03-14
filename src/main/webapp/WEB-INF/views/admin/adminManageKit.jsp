@@ -15,9 +15,9 @@
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <style type="text/css">
-input{
-	border:none;
-	width:100%;
+input {
+	border: none;
+	width: 100%;
 }
 </style>
 </head>
@@ -88,31 +88,34 @@ input{
 
 
 		<div style="text-align: center;">
-			<h3 style="width: 200px; text-align: center; float: left;">키트등록</h3>
-			<a href="javascript:void(0)" style="float: right;"
-				onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
-			</a>
+			<h3 style="text-align: center;">
+				키트등록 <a href="javascript:void(0)" style="float: right; font-size: small;"
+					onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
+				</a>
+			</h3>
 
 		</div>
 		<br>
 
 		<div class="blog-single-content"
 			style="width: 80%; display: inline-block;">
-			<form action="kitInsert.do" method="post" enctype="multipart/form-data">
+			<form action="kitInsert.do" method="post"
+				enctype="multipart/form-data">
 
 				<div class="single-post-tags wf50">
 					<a onclick="changeCol(this)" id="com">상업용</a>&nbsp;&nbsp;&nbsp; <a
 						onclick="changeCol(this)" id="ho">취미용</a>
 				</div>
 
-				<table class="GeneratedTable" style="margin:0;">
+				<table class="GeneratedTable" style="margin: 0;">
 					<tbody>
 						<tr>
 							<th>작물종류</th>
-							<td>
-							<select class=" full form-control" id="kit_plant_class" name="kit_plant_class" style="border:none;">
-								<option value="채소">채소</option>
-								<option value="과일">과일</option>
+							<td><select class=" full form-control" id="kit_plant_class"
+								name="kit_plant_class"
+								style="border: none; padding: 0; height: 22px;">
+									<option value="채소">채소</option>
+									<option value="과일">과일</option>
 							</select>
 						</tr>
 						<tr>
@@ -121,11 +124,13 @@ input{
 						</tr>
 						<tr>
 							<th>작물이름</th>
-							<td><input type="text" id="kit_plant_name" name="kit_plant_name"></td>
+							<td><input type="text" id="kit_plant_name"
+								name="kit_plant_name"></td>
 						</tr>
 						<tr>
 							<th>재배기간</th>
-							<td><input type="number" id="kit_grow_day" name="kit_grow_day"></td>
+							<td><input type="number" id="kit_grow_day"
+								name="kit_grow_day"></td>
 						</tr>
 						<tr>
 							<th>적정온도</th>
@@ -151,7 +156,8 @@ input{
 						<!-- 상업용에만 있는 컬럼 -->
 						<tr class="forC">
 							<th>cctv</th>
-							<td><input type="text" id="kit_cctv" name="kit_cctv" value="Y" readonly></td>
+							<td><input type="text" id="kit_cctv" name="kit_cctv"
+								value="Y" readonly></td>
 						</tr>
 						<tr>
 							<th>키트 가격</th>
@@ -167,19 +173,21 @@ input{
 						</tr>
 
 						<!-- hidden 영역 -->
-						<tr ><!-- style="display: none;" -->
+						<tr style="display: none;">
 							<th>판매여부</th>
-							<td><input type="text" value="Y" id="kit_sale_whet" name="kit_sale_whet"></td>
+							<td><input type="text" value="Y" id="kit_sale_whet"
+								name="kit_sale_whet"></td>
 						</tr>
 
-						<tr ><!-- style="display: none;" -->
+						<tr style="display: none;">
 							<th>조회수</th>
 							<td><input type="text" value=0 id="kit_hit" name="kit_hit"></td>
 						</tr>
-						<tr ><!-- style="display: none;" -->
+						<tr style="display: none;">
 							<th>판매수</th>
-							<td><input type="text" value=0 id="kit_sale_count" name="kit_sale_count">
-							<input type="text" id="kit_prpos" name="kit_prpos" value="상업용"> </td>
+							<td><input type="text" value=0 id="kit_sale_count"
+								name="kit_sale_count"> <input type="text" id="kit_prpos"
+								name="kit_prpos" value="상업용"></td>
 						</tr>
 					</tbody>
 
@@ -189,10 +197,10 @@ input{
 				<div class="wf100 comment-form"
 					style="width: 80%; text-align: center;">
 
-					<ul style="width: 100%; padding:20px;">
+					<ul style="width: 100%; padding: 20px;">
 						<li class="w2 np"></li>
 						<li class="w3 np" style="float: right"><button
-							class="post-btn" type="submit">키트등록</button></li>
+								class="post-btn" type="submit">키트등록</button></li>
 
 						<li class="w3 np" style="float: right">
 							<button
