@@ -36,5 +36,9 @@ public class PlantSaleServiceImpl implements PlantSaleService{
 	public PlantSaleVO plantSaleSelectOne(int plantSaleNo) {
 		return map.plantSaleSelectOne(plantSaleNo);
 	}
+	@Override
+	public int plantSaleUpdate(PlantSaleVO plantSaleVo) {
+		return map.plantSaleUpdate(plantSaleVo);
+	}
 
 }

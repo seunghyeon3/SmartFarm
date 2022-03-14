@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -44,7 +45,7 @@ public class PlantSaleController {
 
 	@Autowired
 	private PlantService plantDao;
-	
+
 	// 작물 전체 리스트
 	@RequestMapping("/plantShopList.do")
 	public String plantShopList(Model model) {
@@ -82,6 +83,7 @@ public class PlantSaleController {
 		return "redirect:/plantShopList.do";
 	}
 
+	//===== 작물 상세조회 창으로 넘어가기=====
 	@RequestMapping("/plantProductDetail.do")
 	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model) {
 		// 내용 조회하기
@@ -97,19 +99,45 @@ public class PlantSaleController {
 	// 220313 LS plantController -> plantSaleController 이동 작업
 	@RequestMapping("/plantProductUpdate.do")
 	public String plantProductUpdate(@Param("plant_sale_no") String plant_sale_no, HttpSession session, Model model) {
-		
-		
+
 		MemberVO memberVo = (MemberVO) session.getAttribute("member");
 		PlantVO plantVo = new PlantVO();
 		plantVo.setPlant_no(plant_sale_no);
-		PlantVO resultVo= plantDao.selectPlant(plantVo);
-		
+
+		PlantSaleVO resultVo = plantSaleDao.plantSaleSelectOne(Integer.parseInt(plant_sale_no));
 		String jsonSelectPlantList = new Gson().toJson(resultVo);
 
-		model.addAttribute("plantSale", jsonSelectPlantList);
-		
+		model.addAttribute("plantSale", resultVo);
+		model.addAttribute("plantSaleScript", jsonSelectPlantList);
+
 		model.addAttribute("member", memberVo);
 		return "shopping/plantProductUpdate";
 	}
+
+	@PostMapping("/plantSaleUpdate.do")
+	public String plantSaleUpdate(PlantSaleVO plantSaleVo, MultipartFile oriFile, HttpServletRequest req) throws IllegalStateException, IOException {
+		
+		// 사진 저장
+		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/plant"); // 추후수정
+		
+		if(!oriFile.isEmpty()) {
+			String originRou = oriFile.getOriginalFilename();
+			String uuid = UUID.randomUUID().toString();
+			String plantSaleOriRou = uuid + originRou.substring(originRou.lastIndexOf("."));
+
+			oriFile.transferTo(new File(saveDirectory, plantSaleOriRou));
+
+			plantSaleVo.setPlant_sale_ori_rou(plantSaleOriRou);
+			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);
+			System.out.println(oriFile);
+		}
+		
+		//update하기
+		plantSaleDao.plantSaleUpdate(plantSaleVo);
+		
+		return "redirect:/plantShopList.do";
+	}
+	
+	
 
 }
