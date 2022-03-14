@@ -388,7 +388,7 @@
 				farmer = `<h1> ${member.mem_name} 귀하는 농부이십니다. </h1>`
 				$("#content").html(farmer);
 				
-			}else if('${member.mem_athr}' == "B1" && '${member.mem_fm_req}' != null){
+			}else if('${member.mem_athr}' == "B1" && '${member.mem_fm_req}' != ''){
 				
 				document.getElementById('fade').style.display = 'none';
 				farmerIng = `<img src="/prj/resources/images/memberDelete.gif">

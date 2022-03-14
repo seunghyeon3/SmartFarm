@@ -158,7 +158,7 @@ public class MemberController {
 		String mem_email = member.getMem_email();
 		memberDao.memberDelete(mem_email);
 		session.invalidate(); // 세션의 모든 속성을 삭제
-		return "home/home";
+		return "redirect:home.do";
 	}
 	
 	// 회원농부신청
