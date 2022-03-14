@@ -25,8 +25,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					<div class="section-title-2">
 						<h5>키트 판매</h5>
 						<h2>${kitSelectOne.kit_name }</h2>
-						<img alt="이미지 들어가야함" src="resources/images/aboutimg.jpg"
-							style="width: 300px">
+						<img alt="이미지 들어가야함" src="resources/images/aboutimg.jpg" 
+							style="width: 300px"><!-- 추후수정 -->
 					</div>
 				</div>
 				<div class="col-md-6">
