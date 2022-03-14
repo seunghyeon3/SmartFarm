@@ -97,4 +97,5 @@
 		ON (p.plant_sale_no = s.plant_sale_no)
 		WHERE p.mem_email = #{mem_email}
 	</select>
+	
 </mapper>

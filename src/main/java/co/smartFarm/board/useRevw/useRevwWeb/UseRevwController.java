@@ -87,4 +87,57 @@ public class UseRevwController {
 		model.addAttribute("useRevwDetail", useRevw);
 		return "board/useRevwDetail";
 		}
+	
+	//이용후기 수정페이지
+	@RequestMapping("useRevwUpdateForm.do")
+	public String useRevwUpdateForm(@RequestParam("useRevwNo") int useRevwNo, @RequestParam("purHisNo") int purHisNo, 
+										HttpSession session, Model model, UseRevwVO useRevw) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
+		
+		model.addAttribute("useRevwOne", useRevwDao.useRevwDetail(useRevwNo));
+		useRevw.setPur_his_order_no(purHisNo);
+		useRevw.setMem_email(memEmail);
+		model.addAttribute("purHisSelect", useRevwDao.purHisSelectNo(useRevw));
+		return "board/useRevwUpdateForm";
+	}
+	
+	//이용후기 수정
+	@RequestMapping("useRevwUpdate.do")
+	public String useRevwUpdate(UseRevwVO useRevw, HttpSession session, @RequestParam("file") MultipartFile file) {
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memEmail = member.getMem_email();
+		String memName = member.getMem_name();
+		
+		useRevw.setMem_email(memEmail);
+		useRevw.setMem_name(memName);
+		
+		String originalFileName = file.getOriginalFilename(); // 원본 파일명 찾기
+		if (!originalFileName.isEmpty()) {
+			String uid = UUID.randomUUID().toString(); // 유니크한 파일명 생성
+			// uuil에 파일확장자 추가하여 물리적 파일명을 만듬
+			String saveFileName = uid + originalFileName.substring(originalFileName.lastIndexOf("."));
+			try {
+				file.transferTo(new File(saveDir, saveFileName));
+				useRevw.setUse_revw_ori_rou(originalFileName);
+				useRevw.setUse_revw_phy_rou(saveFileName);
+				//news.setNewsboard_id(member_company + news.getNewsboard_pfile());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		useRevwDao.updateRevw(useRevw);
+		
+		return "redirect:useRevwMain.do";
+	}
+	
+	//이용후기 삭제
+	@RequestMapping("useRevwDelete.do")
+	public String useRevwDelete(@RequestParam("useRevwNo") int useRevwNo) {
+		
+		useRevwDao.deleteRevw(useRevwNo);
+		return "redirect:useRevwMain.do";
+	}
 }

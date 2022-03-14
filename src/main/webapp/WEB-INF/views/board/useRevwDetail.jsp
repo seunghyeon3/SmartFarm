@@ -21,9 +21,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<a href="useRevwDelete.do" class="view-more"
+					<a href="useRevwDelete.do?useRevwNo=${useRevwDetail.use_revw_no }" class="view-more"
 						style="color: white; cursor: pointer;">삭제</a> <a
-						href="useRevwUpdate.do" class="view-more"
+						href="useRevwUpdateForm.do?useRevwNo=${useRevwDetail.use_revw_no }&purHisNo=${useRevwDetail.pur_his_order_no }" class="view-more"
 						style="color: white; cursor: pointer; margin-right: 5px">수정</a>
 				</div>
 				<div class="col-md-6">
