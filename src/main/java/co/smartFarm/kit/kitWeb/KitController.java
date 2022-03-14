@@ -24,8 +24,9 @@ public class KitController {
 	// 키트 전체조회
 	// 220302 PSH shoppingController -> kitController 구분 작업
 	@GetMapping("/kitShopList.do")
-	public String kitShopList(Model model, @Param("kitPrpos") String kitPrpos, @Param("kitName") String kitName) {
-		if (kitPrpos != null) {
+	public String kitShopList(Model model, @Param("kitPrpos") String kitPrpos, @Param("kitName") String kitName,
+			@Param("orderBy") String orderBy) {
+		if (kitPrpos != null) { //키트 작물인 경우 
 			List<KitVO> list = kitDao.kitSelectList(kitPrpos);
 
 			// System.out.println(list);
@@ -36,10 +37,17 @@ public class KitController {
 
 		} else if (kitName != null) {// 키트 이름 조회인 경우
 			List<KitVO> list = kitDao.kitSelectOne(kitName);
-			String gson = new Gson().toJson(list);
 			model.addAttribute("kitSelectList", list);
 			return "shopping/kitShopList";
+			
+		} else if (orderBy != null) {
+			
+			List<KitVO> list= kitDao.kitSelectOrderBy(orderBy);
+			model.addAttribute("kitSelectList", list);
+			
+			return "shopping/kitShopList";
 		}
+
 		return "shopping/kitShopList";
 	}
 

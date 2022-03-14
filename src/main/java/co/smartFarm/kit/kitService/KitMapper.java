@@ -15,4 +15,5 @@ public interface KitMapper {
 	List<KitVO> adminKitRankList(KitVO kitVo);
 	int kitInsert(KitVO kitVo);
 	int kitUpdateHit(int kitNo);
+	List<KitVO> kitSelectOrderBy(String orderBy);
 }

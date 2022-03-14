@@ -115,7 +115,7 @@ public class MemberController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate(); // 세션의 모든 속성을 삭제
-		return "home/home";
+		return "redirect:/home.do";
 	}
 
 	// ===== 회원가입 =====
