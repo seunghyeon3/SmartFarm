@@ -137,6 +137,11 @@ user-select:none;
 					<h1>My NFT</h1>
 				</div>
 				<!--Team Box Start-->
+				<c:if test="${empty nftList}">
+						<img src="https://media1.giphy.com/media/l1J9yYblNRmcHXNok/giphy.gif?cid=ecf05e47vzqiqpqp4axb33ff0druao7l8xe339rc7etnf518&rid=giphy.gif&ct=g" alt="사진이 엄서용" style="width: 400px">
+						<div class="col-md-1"></div>
+						<h3>아직 생성된 NFT가 없습니다~♬</h3>
+				</c:if>
 				<c:forEach items="${nftList }" var="nft">
 					<!--Team Box Start-->
 					<div class="col-lg-3 col-md-4 col-sm-6">

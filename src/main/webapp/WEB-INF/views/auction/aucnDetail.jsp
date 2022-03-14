@@ -8,8 +8,8 @@
 <title>aucn detail</title>
 <style>
 .team-details-txt {
-	float: right;
-	text-align: right;
+	float: center;
+	text-align: center;
 	padding-right: 30px;
 }
 
@@ -146,13 +146,6 @@ to {
 						<br> <strong class="trank">${aucnSelect.kit_prpos }
 							${aucnSelect.kit_plant_name } NFT</strong>
 					</div>
-					<div class="col-md-1"></div>
-					<div class="col-md-3">
-						<strong class="trank aucnTitle">&lt; 제목 &gt;</strong>
-						<div id="aucnTitle">${aucnSelect.aucn_title }</div>
-						<br> <strong class="trank aucnCon">&lt; 내용 &gt;</strong>
-						<div id="aucnCon">${aucnSelect.aucn_con }</div>
-					</div>
 					<div class="col-md-5">
 						<div class="team-details-txt">
 							<strong class="trank auctionTime">입찰 남은 시간</strong>
@@ -179,7 +172,7 @@ to {
 								<strong style="height: 66px; font-size: 18pt;">최저 입찰 가격 : ${aucnSelect.first_bid } wei</strong>
 							</div>
 							<div class="share-post wf100">
-								<input id="aucnBidWindow" style="height: 66px; font-size: 18pt;" readonly="readonly" />
+								<input id="aucnBidWindow" style="height: 66px; font-size: 18pt; text-align:center;" readonly="readonly" />
 							</div>
 							<div>
 								<a href="javascript:void(0)"
@@ -192,6 +185,12 @@ to {
 							</fieldset>
 						</div>
 					</div>
+						<div class="col-md-3">
+							 &lt; 제목 &gt;
+						<div id="aucnTitle">${aucnSelect.aucn_title }</div>
+						<br> &lt; 내용 &gt;
+						<div id="aucnCon">${aucnSelect.aucn_con }</div>
+						</div>
 					<div id="light" class="col-md-12 white_content">
 						 <a href="javascript:void(0)" onclick="exitPopup()"
 							onkeyup="escExit(event)" style="float: right">Close </a> <br>
@@ -207,7 +206,7 @@ to {
 							<br>
 							<div class="col-md-12" style="text-align: center;">
 								<input id="popupBidWindow" readonly="readonly"
-									style="height: 66px; font-size: 18pt" /> <input type="number"
+									style="height: 66px; font-size: 18pt; text-align:center;" /> <input type="number"
 									min="0" id="inputMessage" size="30"
 									onkeypress="if(event.keyCode==13){countCheck();}"
 									placeholder="입찰금액입력" style="height: 66px; font-size: 18pt; text-align:center;" /> <br>
@@ -297,7 +296,7 @@ to {
 		var textarea = document.getElementById('messageWindow');
 		textarea.scrollTop = textarea.scrollHeight;
 		} */
-	</script> -->
+	</script> 
 
 	<script>
 	/* 웹소켓 테스트 */
