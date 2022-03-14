@@ -71,6 +71,12 @@ public class GrowServiceImpl implements GrowService{
 	public String kitOwner(int deviceId) {
 		return map.kitOwner(deviceId);
 	}
+
+	@Override
+	public List<GrowVO> nftList(Map<String, String> val) {
+		return map.nftList(val);
+		
+	}
 	
 	
 }

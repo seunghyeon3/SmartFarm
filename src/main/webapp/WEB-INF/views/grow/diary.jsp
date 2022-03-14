@@ -38,9 +38,7 @@
 						</div>
 						<div style="display: inline-block; width: 75%; border: 1px solid black;">
 							<ul id="log" class="check-list">
-								<li>1일차 00:00 자동재배중입니다/온도30 습도60 일사량5 급액량400 재배중입니다</li>
-								<li>2일차 10:17 온도변화를 감지하였습니다 27 -> 33</li>
-								<li>3일차 15:20 온도를 설정값을 30도로 변경하였습니다</li>
+
 							</ul>
 						</div>
 						<!--재배 관리 화면 출력부 종료-->

@@ -55,6 +55,7 @@
 								<ul class="check-list" style="margin-top: 20px;">
 									<li><strong id="name"> </strong></li>
 									<li><strong>자동 재배:</strong><input id="auto" type="checkbox"></li>
+									<li><strong>NFT자동재배:</strong><select id="nft"></select></li>
 									<li><strong>온도(적정값: 1~40):</strong><input class="value" id="temp" name="temp" type="number" min="1" max="40"></li>
 									<li><strong>습도(적정값: 10~90):</strong><input class="value" id="hum" name="hum" type="number" min="10" max="90"></li>
 									<li><strong>하루 중 일사시간(적정값: 1~15):</strong><input class="value" id="light" name="light" type="number" min="1" max="15"></li>
@@ -85,11 +86,17 @@
 <script type="text/javascript">
 
 	$("#growKitList").on("click", "li", function(event)	{
+		$("input.value").removeAttr("disabled");
+		$("#auto").removeAttr("disabled");
+		$("#nft").empty();
 		$("#name").html(event.target.innerText);
 		$("#complete").hide();
 		$("#cancel").hide();
-		$("#auto").prop("checked", false);
-		$("input.value").removeAttr("disabled");
+/* 		$("#auto").prop("checked", false);
+		$("input.value").removeAttr("disabled"); */
+		if($("#auto").is(":checked")){
+			$("#auto").click();
+		}
 		$("#temp").val("");
 		$("#hum").val("");
 		$("#light").val("");
@@ -118,11 +125,39 @@
 		    $("#percent").html(result.percent+ "%");
 		    $("#end").html(result.end);
 		    $("#p-bar").css("width",result.percent+"%");
+ 		    if(result.auto == 1) {
+				$("#auto").click();
+		    }
 			if(result.status == 2) {
 				$("#complete").show();
 				$("#cancel").show();				
 			}
-		})	
+		})
+		
+		$.ajax({
+			type:'get',
+			/* url:event.target.dataset.url+"checkGrow", */
+			url:"nftList.do",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			data: {
+				"kit_no" : event.target.dataset.kit
+			},
+			error: function(){
+			    $("#nft").html("리스트를 불러오는 도중 오류가 발생하였습니다.");
+			}
+		}).done(function (result) {
+				console.log(result[0].nft_no);
+				var dop = $("<option>");
+				dop.html("선택하세요");
+				dop.attr("value", "0");
+				$("#nft").append(dop);
+ 			for (var i = 0; i<result.length; i++) {
+				var op = $("<option>");
+				op.html(result[i].nft_no + "(" + result[i].grow_diary_grd + ")");
+				op.attr("value",result[i].grow_diary_log_rou);
+				$("#nft").append(op);
+			} 
+		})
 		
  		console.log(event.target.dataset.percent);
 		
@@ -164,7 +199,8 @@
 						"hum":$("input#auto")[0].dataset.hd,
 						"light":$("input#auto")[0].dataset.sun,
 						"water":$("input#auto")[0].dataset.water,
-						"pes":$("input#auto")[0].dataset.pes
+						"pes":$("input#auto")[0].dataset.pes,
+						"auto":$("input#auto")[0].dataset.auto
 				}
 			}).done( function (result) {
 				toastr.info(result);
@@ -179,7 +215,8 @@
 						"hum":$("#hum").val(),
 						"light":$("#light").val(),
 						"water":$("#water").val(),
-						"pes":$("#pes").val()
+						"pes":$("#pes").val(),
+						"auto":$("input#auto")[0].dataset.auto
 				}
 			}).done( function (result) {
 				toastr.info(result);
@@ -221,9 +258,13 @@
 		console.log("test");
 		if($(this).is(":checked")){
 			$("input.value").attr("disabled",true);
+			$("#nft").attr("disabled",true);
 			$("input.value").val("");
+	        $("input#auto").attr("data-auto", "1");
 		}else {
 			$("input.value").removeAttr("disabled");
+			$("#nft").removeAttr("disabled");
+	        $("input#auto").attr("data-auto", "0");
 		}
 	})
 	
@@ -243,6 +284,38 @@
 			console.log($("#${no}").parent());
 			$("#${no}").parent().click();
 	});
+	
+	
+    $("#nft").on("change",function(){
+		$("input.value").val("");
+		$("input.value").attr("disabled",true);
+		$("#auto").attr("disabled",true);
+        var sel_one = $("#nft option:selected").val();
+        if(sel_one === "0"){
+			$("input.value").removeAttr("disabled");
+			$("#auto").removeAttr("disabled");
+            return false;
+        }
+        
+        $.ajax({
+            type: 'post',
+            url:'nftValue.do',
+            data: {nft:$(this)[0].value},
+            success: function (data) {
+            	console.log(data);
+            	$("#nft").attr("data-tp", data.temp);
+                $("#nft").attr("data-hd", data.hum);
+                $("#nft").attr("data-sun", data.light);
+                $("#nft").attr("data-water", data.water);
+                $("#nft").attr("data-pes", data.pes);
+            	
+            },
+            error: function () {
+                console.log('error');
+            }
+        }); 
+    });
+	
 	
 </script>
 

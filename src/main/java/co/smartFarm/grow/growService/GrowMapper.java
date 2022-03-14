@@ -21,4 +21,6 @@ public interface GrowMapper {
 	
 	String kitOwner(int deviceId);
 	
+	List<GrowVO> nftList(Map<String, String> val);
+	
 }
