@@ -17,8 +17,8 @@ public class PlantServiceImpl implements PlantService{
 	PlantMapper map;
 
 	@Override
-	public List<PlantVO> selectMemPlantList(MemberVO memberVo) {
-		return map.selectMemPlantList(memberVo);
+	public List<PlantVO> selectMemPlantList(String memEmail) {
+		return map.selectMemPlantList(memEmail);
 	}
 
 	@Override

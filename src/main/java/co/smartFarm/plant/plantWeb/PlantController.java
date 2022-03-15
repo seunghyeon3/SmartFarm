@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +27,20 @@ public class PlantController {
 	// ===== 작물추가 창 =====
 	// 220302 PSH shoppingController -> plantController 구분 작업
 	@RequestMapping("/plantProductAdd.do")
-	public String plantProductAdd(HttpSession session, Model model) {
+	public String plantProductAdd(Model model) {
 
-		MemberVO memberVo = (MemberVO) session.getAttribute("member");
-		List<PlantVO> selectMemList = plantDao.selectMemPlantList(memberVo);
-		String jsonSelectMemList = new Gson().toJson(selectMemList);
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+			UserDetails userDatails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
 
-		model.addAttribute("selectMemList", selectMemList);
-		model.addAttribute("selectMemScript", jsonSelectMemList);
+			List<PlantVO> selectMemList = plantDao.selectMemPlantList(userDatails.getUsername());
 
-		model.addAttribute("member", memberVo);
+			String jsonSelectMemList = new Gson().toJson(selectMemList);
+
+			model.addAttribute("selectMemList", selectMemList);
+			model.addAttribute("selectMemScript", jsonSelectMemList);
+		}
+
 		return "shopping/plantProductAdd";
 
 	}
@@ -48,5 +54,4 @@ public class PlantController {
 	 * return "shopping/plantProductDetail"; }
 	 */
 
-	
 }

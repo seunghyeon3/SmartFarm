@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,7 +89,7 @@ public class PlantSaleController {
 
 	// ===== 작물 상세조회 창으로 넘어가기=====
 	@RequestMapping("/plantProductDetail.do")
-	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model, HttpSession session) {
+	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model) {
 		// 내용 조회하기
 		System.out.println("확인하기 === " + plant_sale_no);
 		PlantSaleVO plantSaleVo = plantSaleDao.plantSaleSelectOneByNo(Integer.parseInt(plant_sale_no));
@@ -103,10 +105,12 @@ public class PlantSaleController {
 		cartVo.setCart_price(Integer.parseInt(plantSaleVo.getPlant_sale_price()));
 		cartVo.setCart_sale_count(1);
 		cartVo.setCart_sum(Integer.parseInt(plantSaleVo.getPlant_sale_price()));
-		MemberVO memberVo = (MemberVO) session.getAttribute("member");
-		if (memberVo != null) {
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if (userDetails != null) {
 			
-			cartVo.setMem_email(memberVo.getMem_email());
+			cartVo.setMem_email(userDetails.getUsername());
 			String gson = new Gson().toJson(cartVo);
 
 			gson = "[" + gson + "]";
@@ -119,9 +123,8 @@ public class PlantSaleController {
 	// 220302 PSH shoppingController -> plantController 구분 작업
 	// 220313 LS plantController -> plantSaleController 이동 작업
 	@RequestMapping("/plantProductUpdate.do")
-	public String plantProductUpdate(@Param("plant_sale_no") String plant_sale_no, HttpSession session, Model model) {
+	public String plantProductUpdate(@Param("plant_sale_no") String plant_sale_no, Model model) {
 
-		MemberVO memberVo = (MemberVO) session.getAttribute("member");
 		PlantVO plantVo = new PlantVO();
 		plantVo.setPlant_no(plant_sale_no);
 
@@ -131,7 +134,6 @@ public class PlantSaleController {
 		model.addAttribute("plantSale", resultVo);
 		model.addAttribute("plantSaleScript", jsonSelectPlantList);
 
-		model.addAttribute("member", memberVo);
 		return "shopping/plantProductUpdate";
 	}
 

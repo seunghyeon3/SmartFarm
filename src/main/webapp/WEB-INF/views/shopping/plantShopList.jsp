@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <html>
 
 <head>
@@ -24,7 +25,8 @@
 
 
 					<!-- 검색 버튼 추가 -->
-					<div class="col-lg-3 col-md-4 side-search" style="margin;margin-bottom: 70px;">
+					<div class="col-lg-3 col-md-4 side-search"
+						style="margin-bottom: 70px;">
 						<input type="search" class="form-control"
 							placeholder="작물 이름을 입력해주세요" id="plantSaleTitle">
 						<button onclick="searchFnc()">
@@ -39,8 +41,11 @@
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
 							<div class="pro-thumb">
-								<a href="#">장바구니 추가</a> <img
-									src="resources/images/shop/pro1.jpg" alt=""> <!-- 추후수정(이미지 링크) -->
+								<a
+									onclick="insertCart('cartInsert.do?cart_plant_no=${list.plant_sale_no }&cart_price=${list.plant_sale_price}&cart_sale_count=1')"
+									href="javascript:void(0);">장바구니 추가</a> <img
+									src="resources/images/shop/pro1.jpg" alt="">
+								<!-- 추후수정(이미지 링크) -->
 							</div>
 							<div class="pro-txt">
 								<h6>
@@ -54,10 +59,13 @@
 				</c:forEach>
 
 				<!-- 판매 리스트 출력 끝 -->
-				<div class="col-md-12">
-					<a href="plantProductAdd.do" class="view-more"
-						style="color: white; cursor: pointer;">작물등록버튼</a>
-				</div>
+				<sec:authorize access="hasRole('ROLE_FARMER')">
+					
+					<div class="col-md-12">
+						<a href="plantProductAdd.do" class="view-more"
+							style="color: white; cursor: pointer;">작물등록버튼</a>
+					</div>
+				</sec:authorize>
 			</div>
 
 			<div class="row">
@@ -137,6 +145,21 @@
             $('#prolist').empty();
             showList(result);
          });
+      }
+      
+      // ===== 장바구니 추가 =====
+      function insertCart(link) {
+         //console.log(e);
+         //toastr.success("상품이 장바구니에 담겼습니다.");
+         alert('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}');
+        
+    	 if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' ==''){
+  			alert('로그인 후 사용해 주세요');
+  			
+  		} else {
+	         location.href = link;
+	         toastr.success("상품이 장바구니에 담겼습니다.");
+  		}
       }
       
       //검색 함수

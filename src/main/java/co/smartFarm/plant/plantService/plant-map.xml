@@ -4,7 +4,7 @@
 
 <!-- 220302 PSH shopping -> plant 구분 작업 -->
 	<select id="selectMemPlantList"
-		parameterType="co.smartFarm.plant.plantService.PlantVO"
+		parameterType="String"
 		resultType="co.smartFarm.plant.plantService.PlantVO">
 		SELECT * FROM PLANT
 		WHERE MEM_EMAIL = #{mem_email}

@@ -3,6 +3,9 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="true" %>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,12 +85,17 @@
 		  								<input type="file" id="oriFile" name="oriFile">
 								   </div>
 							   </li>
-							   
+
 							   <!-- hidden 목록 추후수정 -->
-		                        <input type="hidden" id="mem_email" name="mem_email" value="${member.mem_email}">
-		                        <input type="hidden" id="mem_name" name="mem_name" value="${member.mem_name }">
-		                        <input type="hidden" id="plant_sale_plant_class" name="plant_sale_plant_class">
-                        		
+		                       <sec:authorize access="isAuthenticated()">
+									<sec:authentication property="principal" var="member"/>
+									<input type="text" id="mem_email" name="mem_email"
+										value="${member.mem_email}">
+									<input type="text" id="mem_name" name="mem_name"
+										value="${member.mem_name }">
+									<input type="text" id="plant_sale_plant_class"
+										name="plant_sale_plant_class">
+								</sec:authorize>
 	                           <li class="full">
 	                              <input type="submit" value="등록" class="fsubmit">
 	                           </li>
