@@ -90,14 +90,14 @@
                         </ul>
                      </li>
                      <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
-                     <c:if test="${member ne null}">
+                     <sec:authorize access="isAuthenticated()">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 경매 </a>
                         <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/aucnMain.do">NFT 경매</a></li>
                         </ul>
                      </li>
-                     </c:if>
+                     </sec:authorize>
                      
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 커뮤니티 </a>
@@ -147,17 +147,17 @@
                             <!-- 220308 PSH session 값에 따라 출력 다르게 함. -->
                   <ul class="topnav-right"  id="headerfont">
                      
-					<c:if test="${member eq null}">
+					<sec:authorize access="isAnonymous()">
 					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
-					</c:if>
+					</sec:authorize>
 					
-					<c:if test="${member ne null }">
+					<sec:authorize access="isAuthenticated()">
 					<!-- 220308 PSH mypage -> mem_name 대체 -->
-					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${member.mem_name}님</a> </li>
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
 					 <li class="dropdown">
                         <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown"  style="padding: 0px;"> <i class="fas fa-shopping-cart"></i></a> 
                      </li>					 
-					</c:if>
+					</sec:authorize>
                   </ul>
                </div>
             </nav>
@@ -204,6 +204,9 @@
     /* 220309 PSH home, header 통합 작업 진행, 외부 js 파일은 movePage.js 참고 */
     console.log(window.location.pathname);
 	console.log("${pageContext.request.contextPath}");
+	
+	console.log("${SPRING_SECURITY_CONTEXT.authentication.principal}");
+	
     movePage(window.location.pathname, "${pageContext.request.contextPath}")
     
    </script> 

@@ -191,10 +191,12 @@ border-radius: 15px;
 						</div>
 					</div>
 						<div class="col-md-3">
-							 &lt; 제목 &gt;
-						<div id="aucnTitle">${aucnSelect.aucn_title }</div>
-						<br> &lt; 내용 &gt;
-						<div id="aucnCon">${aucnSelect.aucn_con }</div>
+						<strong class="trank" style="border-bottom:3px solid black; text-align:left; margin-bottom:20px; font-size:1.5em">${aucnSelect.aucn_title }</strong>
+						<p style="text-align:left">${aucnSelect.aucn_con }</p>
+						</div>
+						<div class="col-md-12" style="margin-top:50px">
+							※ 입찰버튼을 누르고 wei를 입력후 입찰버튼을 누르면 입찰이 완료됩니다.※<br>
+							※ 경매에 참여하였지만 낙찰 받지 못한 경우 마이페이지에서 입찰현황을 확인하여 출금해주세요!!※
 						</div>
 					<div id="light" class="col-md-12 white_content">
 						 <a href="javascript:void(0)" onclick="exitPopup()"

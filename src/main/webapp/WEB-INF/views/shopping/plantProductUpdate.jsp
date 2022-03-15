@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,50 +50,55 @@
 				<div class="col-md-10">
 					<div class="contact-form mb60">
 						<h3>작물 판매 수정</h3>
-						<form action="plantSaleUpdate.do" method="post" enctype="multipart/form-data">
-						<ul class="cform">
-							<li class="full"><input type="text" class="form-control"
-								value="작물 종류 : ${plantSale.plant_name } | 등급 : ${plantSale.plant_grd } | 재고 : ${plantSale.plant_ivy } | 총 재배량 : ${plantSale.plant_tot_grow_amnt }"
-								readonly></li>
-							<li class="full"><input type="text" id="plant_sale_title"
-								name="plant_sale_title" class="form-control" placeholder="제목"
-								value="${plantSale.plant_sale_title}"
-								oninvalid="toastr.error('제목을 입력해주세요')"></li>
+						<form action="plantSaleUpdate.do" method="post"
+							enctype="multipart/form-data">
+							<ul class="cform">
+								<li class="full"><input type="text" class="form-control"
+									value="작물 종류 : ${plantSale.plant_name } | 등급 : ${plantSale.plant_grd } | 재고 : ${plantSale.plant_ivy } | 총 재배량 : ${plantSale.plant_tot_grow_amnt }"
+									readonly></li>
+								<li class="full"><input type="text" id="plant_sale_title"
+									name="plant_sale_title" class="form-control" placeholder="제목"
+									value="${plantSale.plant_sale_title}"
+									oninvalid="toastr.error('제목을 입력해주세요')"></li>
 
-							<li class="half pr-15"><input type="number"
-								id="plant_sale_price" name="plant_sale_price"
-								class="form-control" placeholder="가격" min="0"
-								value="${plantSale.plant_sale_price }"
-								oninvalid="toastr.error('가격을 입력해주세요')"></li>
+								<li class="half pr-15"><input type="number"
+									id="plant_sale_price" name="plant_sale_price"
+									class="form-control" placeholder="가격" min="0"
+									value="${plantSale.plant_sale_price }"
+									oninvalid="toastr.error('가격을 입력해주세요')"></li>
 
-							<li class="half pl-15"><input type="number" id="plant_count"
-								name="plant_count" class="form-control" placeholder="수량" min="1"
-								oninput="countCheck()" value="${plantSale.plant_count }"
-								oninvalid="toastr.error('수량을 입력해주세요')"></li>
-							<li class="full"><textarea class="textarea-control"
-									id="plant_sale_con" name="plant_sale_con" placeholder="내용"
-									oninvalid="toastr.error('내용을 입력해주세요')">${plantSale.plant_sale_con }</textarea></li>
-							<!-- 파일업로드 버튼 구성 -->
-							<li class="full">
-								<div style="padding-left: 10px;">
-									<input type="file" id="oriFile" name="oriFile"
-										value=""><%-- resources/kit/${plantSale.plant_sale_ori_rou } --%>
-								</div>
-							</li>
+								<li class="half pl-15"><input type="number"
+									id="plant_count" name="plant_count" class="form-control"
+									placeholder="수량" min="1" oninput="countCheck()"
+									value="${plantSale.plant_count }"
+									oninvalid="toastr.error('수량을 입력해주세요')"></li>
+								<li class="full"><textarea class="textarea-control"
+										id="plant_sale_con" name="plant_sale_con" placeholder="내용"
+										oninvalid="toastr.error('내용을 입력해주세요')">${plantSale.plant_sale_con }</textarea></li>
+								<!-- 파일업로드 버튼 구성 -->
+								<li class="full">
+									<div style="padding-left: 10px;">
+										<input type="file" id="oriFile" name="oriFile" value="">
+										<%-- resources/kit/${plantSale.plant_sale_ori_rou } --%>
+									</div>
+								</li>
 
-							<!-- hidden 목록 추후수정 -->
-							<input type="hidden" id="mem_email" name="mem_email"
-								value="${member.mem_email}">
-							<input type="hidden" id="mem_name" name="mem_name"
-								value="${member.mem_name }">
-							<input type="hidden" id="plant_sale_plant_class"
-								name="plant_sale_plant_class">
-							<input type="hidden" id="plant_sale_plant_class"
-								name="plant_sale_no" value="${plantSale.plant_sale_no }">
+								<!-- hidden 목록 추후수정 -->
+								<input type="text" id="plant_sale_plant_class"
+									name="plant_sale_no" value="${plantSale.plant_sale_no }">
+								<sec:authorize>
+									<sec:authentication property="principal.username" var="mem_email" />
+									<input type="text" id="mem_email" name="mem_email"
+										value='${mem_email}'>
+									<input type="text" id="mem_name" name="mem_name"
+										value="${mem_email}">
+									<input type="text" id="plant_sale_plant_class"
+										name="plant_sale_plant_class">
 
-							<li class="full"><input type="submit" value="등록"
-								class="fsubmit"></li>
-						</ul>
+								</sec:authorize>
+								<li class="full"><input type="submit" value="등록"
+									class="fsubmit"></li>
+							</ul>
 						</form>
 					</div>
 				</div>

@@ -59,12 +59,12 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		System.out.println(session.getAttributes());
 		System.out.println(session.toString());
 		sessionList.add(session);
-		String user = getEmail(session);
-		if (user != null) {
-			userSessionsMap.put(user, session);
-		}
+		//String user = getEmail(session);
+		/*
+		 * if (user != null) { userSessionsMap.put(user, session); }
+		 */
 
-		this.logger.info("add session!");
+		//this.logger.info("add session!");
 
 //			for (WebSocketSession s : sessionList) {
 //				// DB셀렉해서 현재최고금액을 뿌림 
@@ -79,8 +79,7 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		super.handleMessage(session, message);
 		System.out.println(message.getPayload().toString());
-		String user = getEmail(session);
-
+		//String user = getEmail(session);
 		JSONObject json2Obj = new JSONObject(message.getPayload().toString());
 		int aucnNo = json2Obj.getInt("aucn");
 		int bid = json2Obj.getInt("bid");
@@ -214,9 +213,10 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 	}
 
 	// 220308 PSH http session 에서 member 정보의 email 가져오기
-	private String getEmail(WebSocketSession session) {
-		Map<String, Object> httpSession = session.getAttributes();
-		MemberVO member = (MemberVO) httpSession.get("member");
-		return member.getMem_email() == null ? null : member.getMem_email();
-	}
+	/* 220315 kjs security 로 주석
+	 * private String getEmail(WebSocketSession session) { Map<String, Object>
+	 * httpSession = session.getAttributes(); MemberVO member = (MemberVO)
+	 * httpSession.get("member"); return member.getMem_email() == null ? null :
+	 * member.getMem_email(); }
+	 */
 }

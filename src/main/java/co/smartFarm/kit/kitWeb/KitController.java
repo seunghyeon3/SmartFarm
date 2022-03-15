@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +62,7 @@ public class KitController {
 	// 키트 상세조회
 	// 220302 PSH shoppingController -> kitController 구분 작업
 	@RequestMapping("/kitProductDetail.do")
-	public String kitProductDetail(@Param("kit_no") String kit_no, Model model, HttpSession session) {
+	public String kitProductDetail(@Param("kit_no") String kit_no, Model model) {
 
 		KitVO kitVo = kitDao.kitSelectOneByNo(Integer.parseInt(kit_no));
 		// 앞단에서 뿌려주기 위한 VO타입
@@ -80,15 +82,20 @@ public class KitController {
 		cartVo.setCart_sale_count(1);
 		cartVo.setCart_sum(kitVo.getKit_price());
 
-		MemberVO memberVo = (MemberVO) session.getAttribute("member");
-		if (memberVo != null) {
-			cartVo.setMem_email(memberVo.getMem_email());
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+
+			cartVo.setMem_email(userDetails.getUsername());
 
 			String gson = new Gson().toJson(cartVo);
 			gson = "[" + gson + "]";
 			model.addAttribute("payList", gson);
+		}else {
+			String json = "[]";
+			model.addAttribute("payList", json);
 		}
-		// return "redirect:/kitProductDetail.do?kit_no=" + kitVo.getKit_no();
+		
 		return "shopping/kitProductDetail";
 	}
 

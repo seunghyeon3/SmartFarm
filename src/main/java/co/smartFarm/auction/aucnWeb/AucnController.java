@@ -3,21 +3,19 @@ package co.smartFarm.auction.aucnWeb;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.smartFarm.NFT.service.NftService;
 import co.smartFarm.auction.aucnService.AucnService;
@@ -44,13 +42,15 @@ public class AucnController {
 	}
 
 	@RequestMapping("/aucnInsert.do")
-	public String aucnInsert(AucnVO aucn, HttpSession session, MemberVO mem) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		aucn.setMem_name(member.getMem_name());
-		aucn.setMem_email(member.getMem_email());
+	public String aucnInsert(AucnVO aucn, MemberVO mem) {
+		//if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		aucn.setMem_email(userDetails.getUsername());
+		aucn.setAucn_con(aucn.getAucn_con().replace("\r\n", "<br>"));
 		aucn.setNow_bid(aucn.getFirst_bid());
-		aucn.setNow_bid_mem_email(member.getMem_email());
+		aucn.setNow_bid_mem_email(userDetails.getUsername());
 		aucnDao.aucnInsert(aucn);
+		//}
 	    return "redirect:nftholdings.do";
 }
 	

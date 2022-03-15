@@ -140,7 +140,7 @@
 									<li class="full">
 										&lt; 이메일 &gt;
 									<input type="email"
-										class="form-control" id="mem_email" name="mem_email" value = "${member.mem_email}"
+										class="form-control" id="mem_email" name="mem_email" value = "${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}"
 										 readonly>  </li>
 
 									<li class="full" style="padding:0; margin-bottom:10px;">
@@ -156,7 +156,7 @@
 
 									<li class="half pr-15">&lt; 이름 &gt;<input type="text"
 										class="form-control" id="mem_name" name="mem_name"
-											value = "${member.mem_name}" readonly></li>
+											value = "${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}" readonly></li>
 
 
 									<!-- 핸드폰 번호 -->
@@ -386,21 +386,21 @@
 			createPopup();
 			
 			var content = document.getElementById('content');
-			if('${member.mem_athr}' == 'B2'){
+			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B2'){
 				document.getElementById('fade').style.display = 'none';
 				
-				farmer = `<h1> ${member.mem_name} 귀하는 농부이십니다. </h1>`
+				farmer = `<h1> ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 귀하는 농부이십니다. </h1>`
 				$("#content").html(farmer);
 				
-			}else if('${member.mem_athr}' == 'B1' && '${member.mem_fm_req}' == 'Reject'){
+			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' == 'Reject'){
 				
 				document.getElementById('fade').style.display = 'none';
 				
-				farmer = `<h1> ${member.mem_name} 님 아쉽게도 신청이 거절되었습니다 </h1>
+				farmer = `<h1> ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님 아쉽게도 신청이 거절되었습니다 </h1>
 						<h1> 자세한 사항은 고객센터에 문의 바랍니다 </h1>`
 				$("#content").html(farmer);
 		
-			}else if('${member.mem_athr}' == 'B1' && '${member.mem_fm_req}' != ''){
+			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' != ''){
 				
 				document.getElementById('fade').style.display = 'none';
 				
@@ -472,7 +472,7 @@
 			
 			var withdrawForm = `
 				<div class="col-md-10">
-				<p>사용하고 계신 아이디 ${member.mem_email} 는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
+				<p>사용하고 계신 아이디 ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email} 는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
 				<p>탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.</p>
 				<p>탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다.</p>
 				<p>회원정보 및 메일, 블로그, 주소록 등 개인형 서비스 이용기록은 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다.</p>
@@ -513,7 +513,7 @@
 					document.getElementById('fade').style.display = 'none';
 					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
 					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
-					GrowDiary.methods.createGrowDiaryNft(nftNo, '${member.mem_email}')
+					GrowDiary.methods.createGrowDiaryNft(nftNo, '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}')
 					.send({from: account, })
 					.then(function(result){console.log(result);})	
 				},5000);
@@ -652,7 +652,7 @@
 	  
 	  function passwordCheck(){
 		  
-		  if(document.getElementById('password').value == '${member.mem_pw}'){
+		  if(document.getElementById('password').value == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_pw}'){
 				alert('정상적으로 입력되었습니다.');
 				return true;
 			}else{
