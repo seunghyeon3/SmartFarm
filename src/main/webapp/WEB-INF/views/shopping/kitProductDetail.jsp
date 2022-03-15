@@ -56,7 +56,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 								</div>
 							</li>
 							<li class="full" id="price"></li>
-							<li class="full"><a href="plantProductAdd.do"
+							<li class="full"><a onclick="purchase()" 
 								class="view-more" style="color: white; cursor: pointer;">구매</a>
 								<a onclick="insertCart()" class="view-more"
 								style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
@@ -98,14 +98,25 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		console.log( "가격 : "+ (parseInt(${kitSelectOne.kit_price }*(cartCount + num))) );
 	}
 	
+	// ===== 장바구니 넣기 ===== 
 	function insertCart() {
 		var link = "cartInsert.do?cart_kit_no="+${kitSelectOne.kit_no }+"&cart_price="+${kitSelectOne.kit_price}+"&cart_sale_count=";
 		var cartSaleCount = $("#cartCount").val();
 		console.log(link + cartSaleCount);	
 		location.href = link + cartSaleCount;
-		toastr.success("상품이 장바구니에 담겼습니다.");
+		
+		alert('상품이 장바구니에 담겼습니다.')
+		
 		
 	}
+	
+	function purchase() {
+		var payList = ${payList};
+		localStorage.setItem("payList", JSON.stringify(payList));
+		location.href = "pay.do";
+	}
+	
+	
 		</script>
 </body>
 
