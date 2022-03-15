@@ -3,21 +3,19 @@ package co.smartFarm.auction.aucnWeb;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.smartFarm.NFT.service.NftService;
 import co.smartFarm.auction.aucnService.AucnService;
@@ -44,12 +42,12 @@ public class AucnController {
 	}
 
 	@RequestMapping("/aucnInsert.do")
-	public String aucnInsert(AucnVO aucn, HttpSession session, MemberVO mem) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		aucn.setMem_name(member.getMem_name());
-		aucn.setMem_email(member.getMem_email());
+	public String aucnInsert(AucnVO aucn, MemberVO mem) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		aucn.setMem_email(userDetails.getUsername());
+		aucn.setAucn_con(aucn.getAucn_con().replace("\r\n", "<br>"));
 		aucn.setNow_bid(aucn.getFirst_bid());
-		aucn.setNow_bid_mem_email(member.getMem_email());
+		aucn.setNow_bid_mem_email(userDetails.getUsername());
 		aucnDao.aucnInsert(aucn);
 	    return "redirect:nftholdings.do";
 }
@@ -76,7 +74,7 @@ public class AucnController {
 	// web소켓 알림으로 최고입찰자를 제외한 입찰자들에게 알림 전송 (**최고입찰자에게 경매가 완료되었다 알림을 보낼지 물어보기**) 
 	// -> 알림에서 버튼을 누를 시 NFTAuction 솔리디티 method 호출후 withdraw(aucnNo) 실행해서 입찰금액 출금
 	// GrowDiary 솔리디티 method 호출후 ownerUpdate(nftNo, newOwner) 실행해서 NFT소유주 변경
-	//@Scheduled(cron="10 0/1 * * * *")
+	@Scheduled(cron="10 0/1 * * * *")
 	public void nftAuctionEnd() throws IOException {
 		//System.out.println("test");
 			GetClientVersion();

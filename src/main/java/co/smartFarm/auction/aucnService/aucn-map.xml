@@ -57,7 +57,6 @@
 		AUCN_WHET,
 		MEM_EMAIL, NFT_NO)
 		VALUES(#{aucn_no}, #{aucn_title}, #{aucn_con},
-		#{mem_name},
 		#{aucn_start_time}, #{first_bid}, #{now_bid},
 		#{now_bid_mem_email},
 		#{aucn_whet}, #{mem_email}, #{nft_no})
