@@ -59,7 +59,7 @@ public class UseRevwController {
 		
 		useRevw.setMem_email(memEmail);
 		useRevw.setMem_name(memName);
-		
+		useRevw.setUse_revw_con(useRevw.getUse_revw_con().replace("\r\n", "<br>"));
 		String originalFileName = file.getOriginalFilename(); // 원본 파일명 찾기
 		if (!originalFileName.isEmpty()) {
 			String uid = UUID.randomUUID().toString(); // 유니크한 파일명 생성
