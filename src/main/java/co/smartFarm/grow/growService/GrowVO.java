@@ -31,5 +31,7 @@ public class GrowVO {
 	private String kit_sun;
 	private String kit_water;
 	private String kit_pes;
+	
+	private int nft_no;
 
 }

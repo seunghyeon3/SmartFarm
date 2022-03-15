@@ -8,10 +8,9 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -29,8 +28,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.io.Files;
 import com.google.gson.Gson;
+import com.kenai.jffi.Array;
 
 import co.smartFarm.grow.growService.GrowService;
 import co.smartFarm.grow.growService.GrowVO;
@@ -411,5 +410,66 @@ public class GrowController {
 		return "test succeed";
 	}
 	
+	
+//	nft목록출력
+	@RequestMapping("/nftList.do")
+	@ResponseBody
+	public List<GrowVO> nftList(@RequestParam Map<String, String> param, HttpSession session) throws Exception {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		Map<String, String> map = new HashMap<>();
+		System.out.println(param.get("kit_no"));
+		map.put("kitNo", param.get("kit_no"));
+		map.put("memEmail", member.getMem_email());
+//		Path path = Paths.get(test);
+//		List<String> lines = Files.readLines(null, null)
+//		로그
+//		System.out.println(lines);
+		
+		return growDao.nftList(map);
+	}
+
+//	nft로그분석재배값추출
+	@RequestMapping("/nftValue.do")
+	@ResponseBody
+	public Map<String, String> nftList(String nft) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		
+		String test = "D:\\" + nft;
+		
+//		로그
+		System.out.println(test);
+
+		FileReader readFile;
+		BufferedReader br;
+		String getLine;
+//		텍스트 내용 읽기
+		try {
+			readFile = new FileReader(test);
+			br = new BufferedReader(readFile);
+			
+			getLine = br.readLine();
+
+			System.out.println(getLine);
+			String[] parse1 = getLine.split("\\(");
+			System.out.println(parse1[1]);
+			String[] parse2 = parse1[1].split("\\:");
+			System.out.println(Arrays.toString(parse2));
+			map.put("temp", parse2[1].replaceAll("[^0-9]", ""));
+			map.put("hum", parse2[2].replaceAll("[^0-9]", ""));
+			map.put("light", parse2[3].replaceAll("[^0-9]", ""));
+			map.put("water", parse2[4].replaceAll("[^0-9]", ""));
+			map.put("pes", parse2[5].replaceAll("[^0-9]", ""));
+			System.out.println(map.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		
+		return map;
+	}
 
 }

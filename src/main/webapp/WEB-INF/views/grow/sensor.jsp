@@ -10,6 +10,16 @@
 
 </head>
 <body>
+
+<style>
+
+.line {
+  fill: none !important;
+  stroke: #000 !important;
+  stroke-width: 1.5px !important;
+}
+
+</style>
 <script src="https://kit.fontawesome.com/1874543bef.js" crossorigin="anonymous"></script>
 
 	<!--본문 시작-->
@@ -22,12 +32,13 @@
 					<div class="col-lg-12 col-md-12">
 
 						<!--재배 키트 목록 시작-->
-						<div class="blog-single-content" style="overflow: auto; white-space: nowrap;">
+						<div id="growKitList" class="blog-single-content" style="overflow: auto; white-space: nowrap;">
 							<ul class="post-meta">
 							
-								<c:forEach items="${kitList}" var="grow">
+								<c:forEach items="${kitList}" var="grow" varStatus="status">
 								
-								<li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a href="#">${grow.kit_no }</a></li>
+								<%-- <li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-startdate="${grow.grow_status }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li> --%>
+								<li class="tags" data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center;"><i id = "${grow.pur_his_order_no }" class="fa-brands fa-raspberry-pi"></i>${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
 								
 								</c:forEach>
 								
@@ -39,13 +50,13 @@
 						<div class="event-txt" style="width: 100%; padding: 0;">
 							<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
 								<ul class="funds">
-									<li class="text-left">재배 시작일<strong>2022년 02월 20일 09:30am</strong></li>
-									<li class="text-center">진행률<strong>33%</strong></li>
-									<li class="text-right">예상 종료일<strong>2022년 03월 03일 09:30am</strong></li>
+									<li class="text-left">재배 시작일<strong id="start">^^^</strong></li>
+									<li class="text-center">진행률<strong id="percent">상단 목록에서 키트를 선택해 주세요</strong></li>
+									<li class="text-right">예상 종료일<strong id="end">^^^</strong></li>
 								</ul>
 								<div class="progress">
-									<div class="progress-bar" role="progressbar"
-										style="width: 33%" aria-valuenow="55" aria-valuemin="0"
+									<div id="p-bar" class="progress-bar" role="progressbar"
+										style="width: 0%" aria-valuenow="55" aria-valuemin="0"
 										aria-valuemax="100"></div>
 								</div>
 							</div>
@@ -54,13 +65,11 @@
 						<div style="display: block;">
 							<div>
 								<ul class="check-list" style="margin-top: 20px;">
-									<li><strong>키트 이름:</strong> 딸기키트</li>
-									<li><strong>작물 이름:</strong> 딸기</li>
-									<li><strong>현재 온도:</strong> 30</li>
-									<li><strong>현재 습도:</strong> 60</li>
-									<li><strong>조명 여부:</strong> ON</li>
-									<li><strong>당일 급액량:</strong> 30</li>
-									<li><strong>당일 농약량:</strong> 10</li>
+									<li>현재 온도:<strong></strong> 30</li>
+									<li>현재 습도:<strong></strong> 60</li>
+									<li>조명 여부:<strong></strong> ON</li>
+									<li>당일 급액량:<strong></strong> 30</li>
+									<li>당일 농약량:<strong></strong> 10</li>
 								</ul>
 							</div>
 						</div>
@@ -79,6 +88,122 @@
 	</section>
 	<!--본문 종료-->
 
+  
+<svg width="960" height="500"></svg>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+$("#growKitList").on("click", "li", function(event)	{
+	$("#start").html("");
+    $("#percent").html("연결중..");
+    $("#end").html("");
+    $("#p-bar").css("width","0%");
+	$.ajax({
+		type:'get',
+		/* url:event.target.dataset.url+"checkGrow", */
+		url:event.target.id+"checkGrow",
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		error: function(){
+		    $("#percent").html("키트 연결 상태를 확인하세요");
+		}
+	}).done(function (result) {
+		console.log(result.status)
+		$("#start").html(result.startDate);
+	    $("#percent").html(result.percent+ "%");
+	    $("#end").html(result.end);
+	    $("#p-bar").css("width",result.percent+"%");
+		if(result.status == 2) {
+		}
+	})	
+	
+		console.log(event.target.dataset.percent);
+	
+})
 
+
+
+var n = 40,
+    random = function(){
+	return 0;
+}
+    data = d3.range(n).map(random);
+
+var svg = d3.select("svg"),
+    margin = {top: 20, right: 20, bottom: 20, left: 40},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom,
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var x = d3.scaleLinear()
+    .domain([0, n - 1])
+    .range([0, width]);
+
+var y = d3.scaleLinear()
+    .domain([-100, 100])
+    .range([height, 0]);
+
+var line = d3.line()
+    .x(function(d, i) { return x(i); })
+    .y(function(d, i) { return y(d); });
+
+g.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("width", width)
+    .attr("height", height);
+
+g.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + y(0) + ")")
+    .call(d3.axisBottom(x));
+
+g.append("g")
+    .attr("class", "axis axis--y")
+    .call(d3.axisLeft(y));
+
+g.append("g")
+    .attr("clip-path", "url(#clip)")
+  .append("path")
+    .datum(data)
+    .attr("class", "line")
+  .transition()
+    .duration(1000)
+    .ease(d3.easeLinear)
+    .on("start", tick);
+    
+console.log(data);
+
+
+function tick() {
+
+	
+	
+    $.ajax({
+        url: "http://localhost:81/sensor",
+        type: 'get',
+        success: function(result) {
+			data.push(result);
+        }
+    })	
+	
+  // Push a new data point onto the back.
+/*   data.push(random());
+ */
+  // Redraw the line.
+  d3.select(this)
+      .attr("d", line)
+      .attr("transform", null);
+
+  // Slide it to the left.
+  d3.active(this)
+      .attr("transform", "translate(" + x(-1) + ",0)")
+    .transition()
+      .on("start", tick);
+
+  // Pop the old data point off the front.
+  data.shift();
+
+}
+
+</script>
 </body>
 </html>
