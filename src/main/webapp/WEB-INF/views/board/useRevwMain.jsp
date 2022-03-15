@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,10 +44,12 @@
 					</div>
 				</c:forEach>
 				<!-- 판매 리스트 출력 끝 -->
-				<div class="col-md-12">
-					<a href="useRevwInsertForm.do" class="view-more"
-						style="color: white; cursor: pointer;">이용후기 등록 버튼</a>
-				</div>
+				<sec:authorize access="isAuthenticated()">
+					<div class="col-md-12">
+						<a href="useRevwInsertForm.do" class="view-more"
+							style="color: white; cursor: pointer;">이용후기 등록</a>
+					</div>
+				</sec:authorize>
 			</div>
 
 			<div class="row">

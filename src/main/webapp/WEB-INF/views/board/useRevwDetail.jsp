@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 
@@ -20,12 +22,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row">
+			<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email eq useRevwDetail.mem_email}">
 				<div class="col-md-12">
 					<a href="useRevwDelete.do?useRevwNo=${useRevwDetail.use_revw_no }" class="view-more"
 						style="color: white; cursor: pointer;">삭제</a> <a
 						href="useRevwUpdateForm.do?useRevwNo=${useRevwDetail.use_revw_no }&purHisNo=${useRevwDetail.pur_his_order_no }" class="view-more"
 						style="color: white; cursor: pointer; margin-right: 5px">수정</a>
 				</div>
+			</c:if>
 				<div class="col-md-6">
 					<div class="section-title-2">
 						<h5>이용후기</h5>
@@ -50,9 +54,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 				</div>
 				<div class="wf100 comment-form">
 					<h4>이용후기 댓글</h4>
+					
 					<ul>
 						<li class="w3"><input type="text" class="form-control"
-							placeholder="${member.mem_name }"></li>
+							placeholder="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name }"></li>
 						<li class="full"><textarea class="form-control"
 								placeholder="댓글 작성"></textarea></li>
 						<li class="full">
