@@ -12,4 +12,9 @@ public interface PlantSaleService {
 	PlantSaleVO plantSaleSelectOneByNo(int plantSaleNo);
 	PlantSaleVO plantSaleSelectOne(int plantSaleNo);//plant_sale, plant 조인함
 	int plantSaleUpdate(PlantSaleVO plantSaleVo);
+	int plantDelete(int plantSaleNo);
+	List<PlantSaleVO> plantSaleSelectBiggerNo(int plantSaleNo);
+	int plantSaleUpdateNo(List<PlantSaleVO> list); // delete 후 번호 하나씩 당기기
+	
+	List<PlantSaleVO> plantSaleSearch(String plantSaleTitle);
 }

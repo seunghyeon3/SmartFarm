@@ -38,23 +38,28 @@
 							</div>
 
 							<div class="input-group form-check">
-								<a href="findEmail.do" class="fp">아이디 찾기</a> <a href="findPw.do" class="fp">비밀번호
-									찾기</a> <a href="register.do" class="fp">회원가입</a>
+								<a href="findEmail.do" class="fp">아이디 찾기</a> <a href="findPw.do"
+									class="fp">비밀번호 찾기</a> <a href="register.do" class="fp">회원가입</a>
 							</div>
-							<div class="input-group">
-								<button class="login-btn" type="submit">로그인</button>
+							<div class="input-group"style="height:100%;object-fit: fill;">
+								<button class="login-btn" type="submit" style="height:72px;font-size:1.4em;" >로그인</button>
 							</div>
 						</form>
-						<ul style="list-style:none;">
-							<li onclick="kakaoLogin();">  <a href="javascript:void(0)">
-									<img alt="카카오 로그인" src="resources/images/login/kakao_login_medium.png">
-							</a></li>
-							
-							<!-- 추후수정 작업 끝나면 카카오 로그아웃 없애도 됨 -->
-							<li onclick="kakaoLogout();"><a href="javascript:void(0)">
-									<span>카카오 로그아웃</span>
-							</a></li>
-						</ul>
+
+						<div class="input-group" onclick="kakaoLogin();">
+							<a href="javascript:void(0)"> <img alt="카카오 로그인"
+								style="width: 100%; height: 100%; object-fit: fill;"
+								src="resources/images/login/kakao_login_large_wide.png">
+
+							</a>
+						</div>
+
+						<!-- 추후수정 작업 끝나면 카카오 로그아웃 없애도 됨 -->
+						<!-- <div onclick="kakaoLogout();">
+							<a href="javascript:void(0)"> <span>카카오 로그아웃</span>
+							</a>
+						</div> -->
+
 
 					</div>
 				</div>

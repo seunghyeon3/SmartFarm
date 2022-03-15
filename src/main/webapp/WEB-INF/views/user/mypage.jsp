@@ -19,31 +19,34 @@
 		<div class="causes-listing">
 			<div class="container">
 				<h1>마이페이지</h1>
-				<br>
-				<h2>&lt; 판매현황 &gt;</h2>
-				<br> <br>
+				<br><br><br>
 
 				<div class="row">
-					<!-- 차트 출력 -->
 
-					<div class="col-lg-9 col-md-8">
-						<canvas id="myChart" style="z-index: 1;"></canvas>
-					</div>
-
-					<div class="col-lg-3 col-md-4">
+					<div class="col-lg-6 col-md-2">
 						<div class="sidebar">
 							<div class="side-widget project-list-widget">
 
-								<ul>
-									<li><a href="javascript:void(0)" onclick="editMember()">회원정보수정</a></li>
-									<li><a href="javascript:void(0)"
+								<ul >
+									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)" 
+										onclick="editMember()">회원정보수정</a></li>
+									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="cultivationHistory()">재배내역</a></li>
-									<li><a href="javascript:void(0)"
+									<li><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="purchaseHistory()">구매내역</a></li>
-									<li><a href="javascript:void(0)"
+								</ul>
+							</div>
+						</div>
+					</div>
+						<div class="col-lg-6 col-md-2">
+						<div class="sidebar">
+							<div class="side-widget project-list-widget">
+
+								<ul>		
+									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="farmerApplicationStatus()">농부신청현황</a></li>
-									<li><a href="nftholdings.do">NFT보유현황</a></li>
-									<li><a href="javascript:void(0)" onclick="withdrawal()">회원탈퇴</a></li>
+									<li style="margin-bottom:50px"><a style="font-size:25px;" href="nftholdings.do">NFT보유현황</a></li>
+									<li><a style="font-size:25px;" href="javascript:void(0)" onclick="withdrawal()">회원탈퇴</a></li>
 								</ul>
 							</div>
 						</div>
@@ -122,7 +125,8 @@
 			editForm =  `<section class="contact-page wf100 p80" style="padding-top: 0px;">
 				<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+				<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<div class="contact-form mb60">
 							<h3 style="margin-bottom: 40px;">
 							회원정보수정</h3>
@@ -382,15 +386,24 @@
 			createPopup();
 			
 			var content = document.getElementById('content');
-			if('${member.mem_athr}' == "B2"){
+			if('${member.mem_athr}' == 'B2'){
 				document.getElementById('fade').style.display = 'none';
 				
 				farmer = `<h1> ${member.mem_name} 귀하는 농부이십니다. </h1>`
 				$("#content").html(farmer);
 				
-			}else if('${member.mem_athr}' == "B1" && '${member.mem_fm_req}' != null){
+			}else if('${member.mem_athr}' == 'B1' && '${member.mem_fm_req}' == 'Reject'){
 				
 				document.getElementById('fade').style.display = 'none';
+				
+				farmer = `<h1> ${member.mem_name} 님 아쉽게도 신청이 거절되었습니다 </h1>
+						<h1> 자세한 사항은 고객센터에 문의 바랍니다 </h1>`
+				$("#content").html(farmer);
+		
+			}else if('${member.mem_athr}' == 'B1' && '${member.mem_fm_req}' != ''){
+				
+				document.getElementById('fade').style.display = 'none';
+				
 				farmerIng = `<img src="/prj/resources/images/memberDelete.gif">
 								<br>
 								<h5> 아직 관리자가 농부 승인을 하지않았습니다. </h5>`
@@ -457,12 +470,13 @@
 			//팝업
 			createPopup();
 			
-			var withdrawForm = `<p>사용하고 계신 아이디 ${member.mem_email} 는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
+			var withdrawForm = `
+				<div class="col-md-10">
+				<p>사용하고 계신 아이디 ${member.mem_email} 는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
 				<p>탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.</p>
 				<p>탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다.</p>
 				<p>회원정보 및 메일, 블로그, 주소록 등 개인형 서비스 이용기록은 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다.</p>
 				<p>삭제되는 내용을 확인하시고 필요한 데이터는 미리 백업을 해주세요.</p>
-				
 				<div class="login-box">
 				<form action="memberDelete.do" onsubmit="return passwordCheck()">
 				<div class="input-group">
@@ -474,6 +488,7 @@
 				</div>
 				</form>
 				<img src="/prj/resources/images/memberDelete.gif">
+				</div>
 				</div>
 				`
 			$("#content").html(withdrawForm);
@@ -507,56 +522,7 @@
 
 		}
 
-		//=====차트=====
-		var context = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(context, {
-
-			type : 'line', // 차트의 형태 line, pie, bar
-			data : { // 차트에 들어갈 데이터
-
-				labels : [ '1', '2', '3', '4', '5', '6', '7' ], //x 축
-				datasets : [ { //데이터
-					label : '총매출', //차트 제목
-					fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-					data : [ 21, 19, 25, 20, 23, 26, 25 //x축 label에 대응되는 데이터 값
-					],
-					backgroundColor : [
-					//색상
-					'rgba(255, 206, 86, 1)' ],
-					borderColor : [
-					//경계선 색상
-					'rgba(255, 206, 86, 1)' ],
-					borderWidth : 1
-				//경계선 굵기
-
-				}, { //데이터
-					label : '키트매출', //차트 제목
-					fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-					data : [ 2, 3, 14, 25, 13, 41, 12 //x축 label에 대응되는 데이터 값
-					],
-					backgroundColor : [
-					//색상
-					'rgba(75, 192, 192, 1)', ],
-					borderColor : [
-					//경계선 색상
-					'rgba(75, 192, 192, 1)', ],
-					borderWidth : 1
-				//경계선 굵기
-				} ]
-
-			},
-			options : {
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
-						}
-					} ]
-				}
-			}
-		});
-		
-		//회원정보수정
+ 		//회원정보수정
 		
 		// ===== 비밀번호 유효성 검사 =====
 		function checkPw() {

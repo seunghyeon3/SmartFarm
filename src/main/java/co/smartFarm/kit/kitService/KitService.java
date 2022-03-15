@@ -22,4 +22,5 @@ public interface KitService {
 	int kitInsert(KitVO kitVo);
 	
 	int kitUpdateHit(int kitNo);
+	List<KitVO> kitSelectOrderBy(String orderBy);
 }

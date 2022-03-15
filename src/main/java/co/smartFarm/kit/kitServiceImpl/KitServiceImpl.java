@@ -58,4 +58,9 @@ public class KitServiceImpl implements KitService{
 		return map.kitUpdateHit(kitNo);
 	}
 
+	@Override
+	public List<KitVO> kitSelectOrderBy(String orderBy) {
+		return map.kitSelectOrderBy(orderBy);
+	}
+
 }

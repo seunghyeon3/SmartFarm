@@ -532,13 +532,13 @@ section#home-slider img {
 	margin-right: 10px;
 }
 #home-slider.owl-theme .owl-nav button.owl-next:after, #home-slider.owl-theme .owl-nav button.owl-prev:after {
-	content: "\f060";
+	content: "<";
 	color: #fff;
 	font-size: 16px;
 	font-family: 'yg-jalnan',FontAwesome;
 }
 #home-slider.owl-theme .owl-nav button.owl-next:after {
-	content: "\f061";
+	content: ">";
 }
 /***************  Home 1 Slider End  *****************/
 
@@ -6213,10 +6213,10 @@ SideWidgets
 	font-family: 'yg-jalnan','Poppins', sans-serif;
 }
 .side-widget.archives ul li a:before, .project-list-widget ul li a:before {
-	content: "\f00c";
+	content: "★";
 	font-family: 'yg-jalnan',FontAwesome;
 	color: #66bb6a;
-	font-size: 14px;
+	font-size: 25px;
 	margin-right: 10px;
 }
 .side-widget.archives ul li a:hover, .project-list-widget ul li a:hover {

@@ -13,8 +13,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<a href="plantProductAdd.do" class="view-more"
-						style="color: white; cursor: pointer;">삭제</a> <a
+					<a onclick="deletePlant(${plantSaleDet.plant_sale_no })" class="view-more"
+						style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;">삭제</a> <a
 						href="plantProductUpdate.do?plant_sale_no=${plantSaleDet.plant_sale_no }" class="view-more"
 						style="color: white; cursor: pointer; margin-right: 5px">수정</a>
 				</div>
@@ -67,6 +67,29 @@
 			location.href = link + cartSaleCount;
 			toastr.success("상품이 장바구니에 담겼습니다.");
 			
+		}
+ 		
+ 		
+ 		// ===== 작물판매 삭제하기 ===== 
+ 		function deletePlant(plantSaleNo) {
+			if(confirm('삭제할 경우 데이터를 복구할 수 없습니다. 정말로 삭제하시겠습니까?')){
+				var url="plantSaleDelete.do?plantSaleNo="+plantSaleNo;
+				$.ajax({
+					url:url,
+					method:'get',
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					success: function (res) {
+						if (res == 1) {
+							alert('삭제되었습니다.');
+						} else {
+							alert('오류가 발생했습니다. 다시 시도해주세요.')
+						}
+						
+						location.href = "plantShopList.do";
+					}
+				})
+				
+			}
 		}
    </script>
 </body>

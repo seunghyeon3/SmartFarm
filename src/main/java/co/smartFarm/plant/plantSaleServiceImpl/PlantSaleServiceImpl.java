@@ -40,5 +40,21 @@ public class PlantSaleServiceImpl implements PlantSaleService{
 	public int plantSaleUpdate(PlantSaleVO plantSaleVo) {
 		return map.plantSaleUpdate(plantSaleVo);
 	}
+	@Override
+	public int plantDelete(int plantSaleNo) {
+		return map.plantDelete(plantSaleNo);
+	}
+	@Override
+	public List<PlantSaleVO> plantSaleSelectBiggerNo(int plantSaleNo) {
+		return map.plantSaleSelectBiggerNo(plantSaleNo);
+	}
+	@Override
+	public int plantSaleUpdateNo(List<PlantSaleVO> list) {
+		return map.plantSaleUpdateNo(list);
+	}
+	@Override
+	public List<PlantSaleVO> plantSaleSearch(String plantSaleTitle) {
+		return map.plantSaleSearch(plantSaleTitle);
+	}
 
 }

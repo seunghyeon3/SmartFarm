@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.smartFarm.plant.plantSaleService.PlantSaleMapper">
-	
+<mapper
+	namespace="co.smartFarm.plant.plantSaleService.PlantSaleMapper">
+
 	<!-- 220302 PSH Shopping-map -> PlantSale-map 구분 작업 -->
-	<insert id="plantSaleInsert" 
+	<insert id="plantSaleInsert"
 		parameterType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
-		<selectKey keyProperty="plant_sale_no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="plant_sale_no" resultType="int"
+			order="BEFORE">
 			SELECT NVL(MAX(PLANT_SALE_NO) + 1, 1) FROM PLANT_SALE
 		</selectKey>
-		INSERT INTO PLANT_SALE (PLANT_SALE_NO, PLANT_NO, PLANT_SALE_TITLE, PLANT_SALE_CON, PLANT_SALE_PRICE, 
-			PLANT_COUNT, PLANT_SALE_ORI_ROU, PLANT_SALE_PHY_ROU, PLANT_SALE_PLANT_CLASS, MEM_EMAIL, MEM_NAME, PLANT_SALE_WHET)
-		VALUES( #{plant_sale_no}, #{plant_no}, #{plant_sale_title}, #{plant_sale_con}, #{plant_sale_price}, 
-			#{plant_count}, #{plant_sale_ori_rou}, #{plant_sale_phy_rou}, #{plant_sale_plant_class}, #{mem_email}, #{mem_name}, 'N')
-	
+		INSERT INTO PLANT_SALE (PLANT_SALE_NO, PLANT_NO, PLANT_SALE_TITLE,
+		PLANT_SALE_CON, PLANT_SALE_PRICE,
+		PLANT_COUNT, PLANT_SALE_ORI_ROU, PLANT_SALE_PHY_ROU, PLANT_SALE_PLANT_CLASS,
+		MEM_EMAIL, MEM_NAME, PLANT_SALE_WHET)
+		VALUES( #{plant_sale_no},
+		#{plant_no}, #{plant_sale_title}, #{plant_sale_con},
+		#{plant_sale_price},
+		#{plant_count}, #{plant_sale_ori_rou}, #{plant_sale_phy_rou},
+		#{plant_sale_plant_class}, #{mem_email}, #{mem_name}, 'N')
+
 	</insert>
 	<!-- 220302 PSH Shopping-map -> PlantSale-map 구분 작업 -->
 	<select id="plantSaleSelectList"
@@ -20,36 +27,67 @@
 		SELECT * FROM PLANT_SALE
 		WHERE PLANT_SALE_WHET = 'N'
 	</select>
-		<!-- 220312 PSH 날짜별(no가 후순일수록 최근꺼) 작물 조회 하기 위해 추가 -->
-	<select id="plantSaleSelectListOrderNo" resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
-	SELECT * FROM PLANT_SALE ORDER BY PLANT_NO DESC
+	<!-- 220312 PSH 날짜별(no가 후순일수록 최근꺼) 작물 조회 하기 위해 추가 -->
+	<select id="plantSaleSelectListOrderNo"
+		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
+		SELECT * FROM PLANT_SALE ORDER BY PLANT_NO DESC
 	</select>
-	
-	<select id="plantSaleSelectOneByNo"
-		parameterType="int"
+
+	<select id="plantSaleSelectOneByNo" parameterType="int"
 		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
 		SELECT * FROM PLANT_SALE
-		WHERE PLANT_SALE_NO = #{plant_sale_no}
+		WHERE PLANT_SALE_NO =
+		#{plant_sale_no}
 	</select>
-	
-	
-	<select id="plantSaleSelectOne" 
-		parameterType="int"
+
+
+	<select id="plantSaleSelectOne" parameterType="int"
 		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
-		SELECT * 
+		SELECT *
 		FROM PLANT P JOIN PLANT_SALE PS
 		ON(P.PLANT_NO = PS.PLANT_NO)
-		WHERE PS.PLANT_SALE_NO = #{plant_sale_no}
+		WHERE
+		PS.PLANT_SALE_NO = #{plant_sale_no}
 	</select>
-	
+
 	<update id="plantSaleUpdate"
 		parameterType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
 		UPDATE PLANT_SALE
-		SET plant_sale_title = #{plant_sale_title},
-		    plant_sale_con = #{plant_sale_con},
-		    plant_sale_price = #{plant_sale_price},
-		    plant_count = #{plant_count},
-		    plant_sale_ori_rou = #{plant_sale_ori_rou}
+		SET plant_sale_title =
+		#{plant_sale_title},
+		plant_sale_con = #{plant_sale_con},
+		plant_sale_price = #{plant_sale_price},
+		plant_count = #{plant_count},
+		plant_sale_ori_rou = #{plant_sale_ori_rou}
 		WHERE plant_sale_no = #{plant_sale_no}
 	</update>
+
+	<delete id="plantDelete" parameterType="int">
+		DELETE FROM PLANT_SALE
+		WHERE PLANT_SALE_NO = #{plant_sale_no}
+	</delete>
+
+	<select id="plantSaleSelectBiggerNo" parameterType="int"
+		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
+
+		SELECT PLANT_SALE_NO FROM PLANT_SALE
+		WHERE PLANT_SALE_NO > #{plant_sale_no}
+
+	</select>
+
+	<update id="plantSaleUpdateNo" parameterType="java.util.List">
+		<foreach collection="list" item="li" index="index"
+			separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE PLANT_SALE
+			SET PLANT_SALE_NO = PLANT_SALE_NO - 1
+			WHERE PLANT_SALE_NO = #{li.plant_sale_no}
+		</foreach>
+	</update>
+	
+	<select id="plantSaleSearch"
+		parameterType="String"
+		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
+		SELECT * FROM PLANT_SALE
+		WHERE PLANT_SALE_TITLE LIKE '%' || #{plant_sale_title} || '%'
+	</select>
 </mapper>

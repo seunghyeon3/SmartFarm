@@ -85,7 +85,7 @@
                         <a class="nav-link dropdown-toggle" href="plantShopList.do" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 판매 </a>
                         <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/plantShopList.do">작물 판매</a></li>
-                           <li><a href="${pageContext.request.contextPath}/kitShopList.do">키트 판매</a></li>
+                           <li><a href="${pageContext.request.contextPath}/kitShopList.do?kitPrpos=">키트 판매</a></li>
                         </ul>
                      </li>
                      <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->

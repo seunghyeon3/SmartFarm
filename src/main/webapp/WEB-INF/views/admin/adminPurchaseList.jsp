@@ -49,9 +49,9 @@ h3 {
 				<br>
 				<div class="row">
 					<div class="single-post-tags wf50" style="float: left;">
-						<a onclick="clickA(this)" id="" class="clickBtn">전체보기</a>&nbsp;&nbsp;&nbsp;
-						<a onclick="clickA(this)" id="과일" class="clickBtn">과일류</a>&nbsp;&nbsp;&nbsp;
-						<a onclick="clickA(this)" id="채소" class="clickBtn">채소류</a>
+						<a onclick="clickA(this)" id="" class="clickBtn" style="margin-left:18px;margin-right:20px;">전체보기</a>
+						<a onclick="clickA(this)" id="과일" class="clickBtn" style="margin-right:20px;">과일류</a>
+						<a onclick="clickA(this)" id="채소" class="clickBtn" style="margin-right:20px;">채소류</a>
 					</div>
 
 
@@ -90,11 +90,10 @@ h3 {
 					</div>
 
 					<!-- 차트 -->
-					<div class="col-md-1 col-sm-6"></div>
-					<div class="col-md-10 col-sm-6">
+					
+					<div class="col-md-11 col-sm-6">
 						<canvas id="myChart"></canvas>
 					</div>
-
 
 
 				</div>
@@ -218,7 +217,7 @@ h3 {
 				data : { // 차트에 들어갈 데이터
 					labels : kitName,//x 축
 					datasets : [ { //데이터
-						label : '키트 판매량', //차트 제목
+						
 						fill : false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 						data : kitPurCount, //x축 label에 대응되는 데이터 값
 						backgroundColor : [
@@ -252,6 +251,16 @@ h3 {
 					} ]
 				},
 				options : {
+					legend: {//차트제목을 숨기기 위함
+				        display: false
+				    },
+				    tooltips: {
+				        callbacks: {
+				           label: function(tooltipItem) {
+				                  return tooltipItem.yLabel;
+				           }
+				        }
+				    },
 					scales : {
 						yAxes : [ {
 							ticks : {
