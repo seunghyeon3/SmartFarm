@@ -38,8 +38,8 @@
 							</li>
 							<li class="full" id="price"></li>
 							
-							<li class="full"><a href="plantProductAdd.do"
-								class="view-more" style="color: white; cursor: pointer;">구매</a>
+							<li class="full"><a
+								class="view-more" onclick="purchase()" style="color: white; cursor: pointer;">구매</a>
 								<a onclick="insertCart()" class="view-more"
 								style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
 							</li>
@@ -65,8 +65,15 @@
 			var cartSaleCount = ${plantSaleDet.plant_count}
 			console.log(link + cartSaleCount);	
 			location.href = link + cartSaleCount;
-			toastr.success("상품이 장바구니에 담겼습니다.");
+				alert('상품이 장바구니에 담겼습니다.')
 			
+		}
+ 		
+ 		// ===== 작물 바로 구매하기 =====
+ 		function purchase() {
+ 			var payList = ${payList};
+ 			localStorage.setItem("payList", JSON.stringify(payList));
+ 			location.href = "pay.do";
 		}
  		
  		
