@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -16,13 +15,12 @@
 	position: relative;
 	top: 25%;
 	color: #666666;
-	margin-left:13px;
+	margin-left: 13px;
 }
 
 .aTag:hover {
-	color:#66bb6a;
+	color: #66bb6a;
 }
-
 </style>
 </head>
 
@@ -65,12 +63,14 @@
 				</div> -->
 
 				<div class="col-lg-12"
-					style="height: 50px; background-color: #f7f7f7; margin: 10px;border-bottom: solid #666666;">
+					style="height: 50px; background-color: #f7f7f7; margin: 10px; border-bottom: solid #666666;">
 					<!-- -->
-					<a href="kitShopList.do?orderBy=name" class="orderByBtn aTag"> <span>이름순</span>
-					</a> <span class="orderByBtn">|</span>
-					<a href="kitShopList.do?orderBy=hit" class="orderByBtn aTag">조회수</a> <span class="orderByBtn">|</span>
-					<a href="kitShopList.do?orderBy=saleCount" class="orderByBtn aTag">판매순</a>
+					<a href="kitShopList.do?orderBy=name" class="orderByBtn aTag">
+						<span>이름순</span>
+					</a> <span class="orderByBtn">|</span> <a
+						href="kitShopList.do?orderBy=hit" class="orderByBtn aTag">조회수</a>
+					<span class="orderByBtn">|</span> <a
+						href="kitShopList.do?orderBy=saleCount" class="orderByBtn aTag">판매순</a>
 				</div>
 
 				<!-- 판매 리스트 출력 시작 -->
@@ -182,10 +182,12 @@
       function insertCart(link) {
          //console.log(e);
          //toastr.success("상품이 장바구니에 담겼습니다.");
-         
-         location.href = link;
-         toastr.success("상품이 장바구니에 담겼습니다.");
-         
+    	 if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' ==''){
+  			alert('로그인 후 사용해 주세요');
+  		} else {
+	         location.href = link;
+	         toastr.success("상품이 장바구니에 담겼습니다.");
+  		}
       }
       
       //===== 키트 검색 =====
