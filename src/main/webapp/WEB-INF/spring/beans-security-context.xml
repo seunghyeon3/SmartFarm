@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+ 
+ 	<http pattern="/resources/**" security="none"/>
+	<http>
+		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/**" access="permitAll()" />
+
+		<form-login login-page="/login.do" 	login-processing-url="/loginCheck.do" default-target-url="/home.do"
+			username-parameter="mem_email" password-parameter="mem_pw" />
+		<logout logout-url="/logout.do" logout-success-url="/home.do" />
+		<access-denied-handler
+			error-page="/home.do" />
+		<csrf disabled="true" />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="userService">
+			<password-encoder hash="bcrypt" />
+		</authentication-provider>
+	</authentication-manager>
+	<beans:bean class="co.smartFarm.security.CustomUserDetailsService" id="userService"></beans:bean>
+</beans:beans>

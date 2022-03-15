@@ -20,6 +20,12 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.smartFarm.grow.growDiaryService.GrowDiaryService;
 import co.smartFarm.grow.growDiaryService.GrowDiaryVO;
-import co.smartFarm.user.memberService.MemberMapper;
+import co.smartFarm.security.CustomUserDetailsService;
 import co.smartFarm.user.memberService.MemberService;
 import co.smartFarm.user.memberService.MemberVO;
 
@@ -45,6 +51,10 @@ public class MemberController {
 	// 220302 PSH MypageController -> MemberController 구분 작업
 	GrowDiaryService growDiaryDao;
 
+	//220315 PSH 비밀번호 암호화
+	BCryptPasswordEncoder bcryp = new BCryptPasswordEncoder(16);
+	@Autowired
+	CustomUserDetailsService cuds;
 	// 마이페이지 경로
 	// 220302 PSH MypageController -> MemberController 구분 작업
 	@RequestMapping("/mypage.do")
@@ -69,47 +79,38 @@ public class MemberController {
 		return "user/login";
 	}
 
+	//220315 PSH Spring Security로 인한 주석
 	// 로그인 체크
-	@PostMapping("/loginCheck.do")
-	public String loginCheck(MemberVO memberVo, Model model, HttpSession session) {
-		System.out.println(memberVo.getMem_email());
-		MemberVO resultVo = memberDao.loginCheck(memberVo);
-
-		if (resultVo != null) {// 이메일 조회했는데 리턴값 있음
-
-			// 비번 일치하는 경우
-			if (resultVo.getMem_pw().equals(memberVo.getMem_pw())) {
-
-				session.setAttribute("member", resultVo);
-
-				// 페이지 이동
-				if (resultVo.getMem_athr().equals("B0")) {// 관리자인 경우 : 관리자 페이지로 이동
-					System.out.println("관리자 로그인");
-					return "redirect:/admin/adminHome.do";
-
-				} else if (resultVo.getMem_athr().equals("B2")) {// 농부인 경우 : 관리 페이지로 이동
-					System.out.println("농부 로그인");
-					return "redirect:/grow.do";
-
-				} else {// 일반회원인 경우 : 홈으로 이동
-					System.out.println("일반회원 로그인");
-					return "redirect:/home.do";
-
-				}
-			} else {
-				// 비밀번호 불일치
-				model.addAttribute("error", "비밀번호를 확인해주세요");
-				return "user/login";
-			}
-
-		} else {
-			// 이메일 조회했는데 리턴값 없음
-			System.out.println("로그인 실패");
-			model.addAttribute("error", "아이디를 확인해주세요");
-			return "user/login";
-		}
-
-	}
+	/*
+	 * @PostMapping("/loginCheck.do") public String loginCheck(MemberVO memberVo,
+	 * Model model, HttpSession session) {
+	 * System.out.println(memberVo.getMem_email());
+	 * memberVo.setMem_pw(bcryp.encode(memberVo.getMem_pw())); MemberVO resultVo =
+	 * memberDao.loginCheck(memberVo);
+	 * 
+	 * if (resultVo != null) {// 이메일 조회했는데 리턴값 있음
+	 * 
+	 * // 비번 일치하는 경우 if (resultVo.getMem_pw().equals(memberVo.getMem_pw())) {
+	 * 
+	 * session.setAttribute("member", resultVo);
+	 * 
+	 * // 페이지 이동 if (resultVo.getMem_athr().equals("B0")) {// 관리자인 경우 : 관리자 페이지로 이동
+	 * System.out.println("관리자 로그인"); return "redirect:/admin/adminHome.do";
+	 * 
+	 * } else if (resultVo.getMem_athr().equals("B2")) {// 농부인 경우 : 관리 페이지로 이동
+	 * System.out.println("농부 로그인"); return "redirect:/grow.do";
+	 * 
+	 * } else {// 일반회원인 경우 : 홈으로 이동 System.out.println("일반회원 로그인"); return
+	 * "redirect:/home.do";
+	 * 
+	 * } } else { // 비밀번호 불일치 model.addAttribute("error", "비밀번호를 확인해주세요"); return
+	 * "user/login"; }
+	 * 
+	 * } else { // 이메일 조회했는데 리턴값 없음 System.out.println("로그인 실패");
+	 * model.addAttribute("error", "아이디를 확인해주세요"); return "user/login"; }
+	 * 
+	 * }
+	 */
 
 	// ===== 로그아웃 =====
 	@RequestMapping("/logout.do")
@@ -139,6 +140,8 @@ public class MemberController {
 		System.out.println("확인!!!! === " + memberVo.getMem_email());
 		System.out.println(memberVo.getMem_det_addr());
 		System.out.println(memberVo.getMem_addr());
+		//220315 PSH password 암호화
+		memberVo.setMem_pw(bcryp.encode(memberVo.getMem_pw())); 
 		memberDao.memberInsert(memberVo);
 		return "1";
 	}
@@ -173,13 +176,13 @@ public class MemberController {
 	// 이메일 체크 + 카카오 로그인시 member테이블에 저장되어 있는지 체크
 	@RequestMapping("/memberEmailCheck.do")
 	@ResponseBody
-	public String memberEmailCheck(@RequestBody String req, HttpSession session) {
+	public String memberEmailCheck(@RequestBody String req, HttpSession session, HttpServletRequest request) {
 		System.out.println(req);
 		JSONObject object = new JSONObject(req);
-
+	
 		MemberVO memberVo = new MemberVO();
 		memberVo.setMem_email(object.getString("mem_email"));
-
+		
 		System.out.println(memberVo.getMem_email());
 		memberVo = memberDao.emailCheck(memberVo);
 
@@ -201,9 +204,15 @@ public class MemberController {
 				System.out.println("사용 불가능");
 				return "0";
 
-			} else {
-
-				session.setAttribute("member", memberVo);
+			} else {				
+				//2203015 PSH spring security 적용을 위해 수정
+				UserDetails kakaoVO = (UserDetails)cuds.loadUserByUsername(memberVo.getMem_email());
+				Authentication authentication = new UsernamePasswordAuthenticationToken(kakaoVO, kakaoVO.getPassword(), kakaoVO.getAuthorities());
+				SecurityContext securityContext = SecurityContextHolder.getContext();
+				securityContext.setAuthentication(authentication);
+				session =request.getSession(true);
+				session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+				/* session.setAttribute("member", memberVo); */
 				System.out.println("카카오톡 계정으로 로그인 시키기");
 				return "0";
 			}
@@ -316,7 +325,8 @@ public class MemberController {
 			message.setFrom(new InternetAddress(user));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberVo.getMem_email())); // 메일 보낼 곳
 			message.setSubject("[똑장이] 임시 비밀번호 발송"); // 메일 제목
-			String tmpPwd = getRamdomPassword(13);
+			//220315 PSH 비밀번호 암호화
+			String tmpPwd = bcryp.encode(getRamdomPassword(13));
 
 			String content = "<div style=\" width: 550px; height: 350px; text-align: center;\">"
 					+ "<div style=\" display: inline-block; background-color: #66bb6a;  text-align:center; width: 350px; height: 200px;  border-radius: 5px; padding:50px;\">"

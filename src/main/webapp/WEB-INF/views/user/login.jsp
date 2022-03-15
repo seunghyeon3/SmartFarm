@@ -26,8 +26,7 @@
 						<h3>로그인</h3>
 
 
-						<form id="loginFrm" action="loginCheck.do" onsubmit="check()"
-							method="post">
+						<form id="loginFrm" action="loginCheck.do" onsubmit="check()" method="post">
 							<div class="input-group">
 								<input type="email" id="mem_email" name="mem_email"
 									class="form-control" placeholder="이메일" required>

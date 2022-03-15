@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -115,7 +116,7 @@
                          </ul>  
                      </li>
                        <!-- 220308 PSH 회원 일 경우만 사용 가능 하도록 구분 -->
-                     <c:if test="${member.mem_athr eq 'B1' || member.mem_athr eq 'B2'}">
+                     <sec:authorize access="hasAnyRole('MEMBER','FARMER')">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="blog.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 컨트롤 페이지 </a>
                         <ul class="dropdown-menu">
@@ -128,10 +129,9 @@
                            <li><a href="${pageContext.request.contextPath}/diary.do">영농 일지</a></li>
                         </ul>
                      </li>
-                     </c:if>
-                     
+                     </sec:authorize>
                        <!-- 220308 PSH 관리자 일 경우만 사용 가능 하도록 구분 -->
-                        <c:if test="${member.mem_athr eq 'B0'}">
+                    	<sec:authorize access="hasRole('ADMIN')">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
                         <ul class="dropdown-menu">
@@ -142,7 +142,7 @@
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 현황 조회</a> </li>
                         </ul>
                      </li>
-                     </c:if>
+                    </sec:authorize>
                   </ul>
                             <!-- 220308 PSH session 값에 따라 출력 다르게 함. -->
                   <ul class="topnav-right"  id="headerfont">

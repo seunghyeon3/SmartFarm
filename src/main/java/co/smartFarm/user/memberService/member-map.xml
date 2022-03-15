@@ -13,10 +13,12 @@
 	<select id="loginCheck"
 		parameterType="co.smartFarm.user.memberService.MemberVO"
 		resultType="co.smartFarm.user.memberService.MemberVO">
-		SELECT *
-		FROM MEMBER
+		SELECT M.MEM_EMAIL MEM_EMAIL, M.MEM_PW MEM_PW, M.MEM_ADDR MEM_ADDR,
+		       M.MEM_DET_ADDR MEM_DET_ADDR,M.MEM_NAME MEM_NAME ,M.MEM_FM_REQ MEM_FM_REQ ,
+		       M.MEM_TEL MEM_TEL,L.ROLE_ATHR ROLE_ATHR, M.MEM_ATHR
+		FROM MEMBER M JOIN MEM_ATHR_LIST L
+		ON (M.MEM_ATHR = L.MEM_ATHR)
 		WHERE MEM_EMAIL = #{mem_email}
-
 	</select>
 	
 	<!-- 전체 회원 조회 -->

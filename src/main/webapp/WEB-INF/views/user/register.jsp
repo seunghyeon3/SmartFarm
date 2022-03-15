@@ -145,9 +145,9 @@
 			<div class="single-post-tags"
 				style="padding: 0; margin: 0; text-align: center;">
 				<a onclick="accept()" id=""
-					style="background-color: #66bb6a; color: #ffffff;">동의</a>&nbsp; <a
+					style="background-color: #66bb6a; color: #ffffff; cursor: pointer;">동의</a>&nbsp; <a
 					onclick="closeFrm()" id=""
-					style="background-color: #e11f3e; color: #ffffff;">취소</a>
+					style="background-color: #e11f3e; color: #ffffff; cursor: pointer;">취소</a>
 			</div>
 
 		</div>
