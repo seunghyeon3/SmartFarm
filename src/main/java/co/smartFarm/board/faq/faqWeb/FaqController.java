@@ -29,11 +29,16 @@ public class FaqController {
 	// FAQ 리스트 
 	 @RequestMapping(value = "/faq.do") 
 	   public String faq(Model model) throws JsonProcessingException {
-	     // ObjectMapper map = new ObjectMapper();t
-	     // String returnStr = map.writeValueAsString(faqDao.faqSelectList());
+		 
+		 List<FaqVO> faq= faqDao.faqSelectList();
+		 
+			/* json object */
+	     ObjectMapper map = new ObjectMapper();
+			/* String returnStr = map.writeValueAsString(); */
 	     // model.addAttribute("faq", returnStr);
-		 System.out.println(faqDao.faqSelectList());
+	
 		 model.addAttribute("faq", faqDao.faqSelectList());
+//		 model.addAttribute("faqa", returnStr);
 	     return "board/faq";
 	   }
 	// FAQ 글쓰기 Form

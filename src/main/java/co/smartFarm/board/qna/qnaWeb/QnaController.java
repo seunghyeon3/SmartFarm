@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +100,7 @@ public class QnaController {
 
 	// QNA 글쓰기
 	@RequestMapping(value = "/qnainsert.do")
-	public String qnaInsert(QnaVO qna, Model model, MultipartFile qnafile)
+	public String qnaInsert(QnaVO qna, Model model, MultipartFile qnafile,HttpServletRequest request)
 			throws IllegalStateException, IOException {
 		// file 업로드
 		String uploadDir = "c:/Temp/";
@@ -112,10 +113,9 @@ public class QnaController {
 			qna.setQna_phy_rou(filename);
 		}
 		System.out.println(qna.toString());
-		String memName = "김길동";
-		String memEmail = "bbb@abc.com";
-		qna.setMem_name(memName);
-		qna.setMem_email(memEmail);
+		
+		String memName = "김길동"; String memEmail = "bbb@abc.com";
+		qna.setMem_name(memName); qna.setMem_email(memEmail); 
 		System.out.println(qna);
 		qnaDao.qnaInsert(qna);
 		model.addAttribute("qna", qnaDao.qnaSelectList());

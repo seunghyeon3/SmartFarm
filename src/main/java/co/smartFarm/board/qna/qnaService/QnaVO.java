@@ -20,4 +20,6 @@ public class QnaVO {
 	private String qna_ori_rou;//원본경로
 	private String qna_phy_rou;//물리경로
 	private String mem_email;//이메일
+	
+	private int count; //답글 수 
 }

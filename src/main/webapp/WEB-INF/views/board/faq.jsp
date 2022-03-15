@@ -78,47 +78,48 @@
 				</div>
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
-					<div id="grid"></div>
+					 <div id="grid">
+					<div class="accordion" id="accordionExample">
+						<c:forEach var="values" items="${faq}" varStatus="status">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h2 class="mb-0">
+										<button class="btn btn-link btn-block text-left" type="button"
+											data-toggle="collapse" data-target="#collapse${status.count}"
+											aria-expanded="false" aria-controls="collapse${status.count}">
+											${values.faq_no} ${values.faq_title}</button>
+									</h2>
+								</div>
+
+								<div id="collapse${status.count}" class="collapse"
+									aria-labelledby="headingOne" data-parent="#accordionExample">
+									<div class="card-body">${values.faq_con}</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
 					<c:if test="${member.mem_athr eq 'B0'}">
-					<a href="faqinsertForm.do" class="view-more"
-						style="color: white; cursor: pointer;">글쓰기</a> 
-					<a href="javascript:void(0)" onclick="deleteCheck()"
-						class="view-more" style="color: white; cursor: pointer;">삭제</a>
+						<a href="faqinsertForm.do" class="view-more"
+							style="color: white; cursor: pointer;">글쓰기</a>
+						<a href="javascript:void(0)" onclick="deleteCheck()"
+							class="view-more" style="color: white; cursor: pointer;">삭제</a>
 					</c:if>
 				</div>
-				</div>
 			</div>
+		</div>
 	</section>
-
 	<div></div>
 	<!-- 4 -->
 	<script>
 		//표 출력
-	const faqData = [ 
-		<c:forEach var="values" items="${faq}"  varStatus="status" >  //foreach for문 
-
-			 { 
-				faq_no : '${values.faq_no}' ,     //번호
-				faq_title : '${values.faq_title}' ,   //제목
-			    _children : [ 						//자식 안에 번호 내용
-			      { 
-			    	 faq_no : '${values.faq_no}' ,
-			        faq_title : '${values.faq_con}'
-			      } ,
-			      
-			    ] 
-			  }  
-
-			  <c:if test="${status.last ne ture}" >,</c:if>  
-		</c:forEach>
-	];
+	/* const faqData = ${faqa}
 	const grid = new tui.Grid({
 	  rowHeight : 'auto',
 	  rowWidth : 'auto',
       el: document.getElementById('grid'),
       //data: ${faq},
       data : faqData,
-      rowHeaders: ['checkbox'], 
+   //    rowHeaders: ['checkbox'],  
       bodyHeight: 500,
       treeColumnOptions: {
     	    name: 'faq_title',
@@ -127,17 +128,17 @@
     	    rowHeight : 50,
     	    },
       columns: [
-        /* {
+         {
           header: '번호',
           name: 'faq_no',
           width: 300
-        }, */
+        }, 
         {
-          header: '제목',
-          name: 'faq_title'
+           header: '제목', 
+          name: 'faq_title' 
         },{
-        	header:'버튼',
-        	name:'faq_button'
+         	header:'버튼', 
+         	name:'faq_button' 
         }],
       columnOptions : {
 			resizable : true
@@ -146,9 +147,7 @@
 	        useClient: true,
 	        perPage: 20
 	    }
-    });
-	
-
+    }); */
 	 function deleteCheck(){
 		var checkArr = [];
 		checkArr = grid.getCheckedRows();
@@ -158,7 +157,6 @@
 		console.log(checkArr[0].faq_no);
 		
 		location.href="faqdelete.do?faq_no="+testNo;
-	
 	}
 	function searchFnc() {
 		var searchKey = $("#key option:selected").val();
