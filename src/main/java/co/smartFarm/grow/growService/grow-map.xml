@@ -61,5 +61,9 @@
 		VALUES(#{grow_diary_grow_no}, #{email}, #{log}, #{score}, #{grade}, #{plant}, #{sday}, 'Y', #{kno})
 	</insert>
 	
+	<select id="nftList" parameterType="hashmap" resultType="co.smartFarm.grow.growService.GrowVO">
+		SELECT NFT_NO, GROW_DIARY_GRD, GROW_DIARY_LOG_ROU FROM NFT WHERE KIT_NO = #{kitNo} AND MEM_EMAIL = #{memEmail}
+	</select>
+	
 	
 </mapper>

@@ -9,6 +9,21 @@
 <title>Home</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style type="text/css">
+.orderByBtn {
+	padding: 10px;
+	position: relative;
+	top: 25%;
+	color: #666666;
+	margin-left:13px;
+}
+
+.aTag:hover {
+	color:#66bb6a;
+}
+
+</style>
 </head>
 
 <body>
@@ -17,7 +32,7 @@
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row" id="prolist">
-				<div class="container p80">
+				<div class="col-lg-12">
 					<div class="col-lg-9 col-md-8 side-widget">
 
 						<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
@@ -38,17 +53,26 @@
 						</button>
 					</div>
 				</div>
-				<div class="col-lg-8 col-md-8 "></div>
+				<!-- <div class="col-lg-8 col-md-8 "></div>
 				<div class="col-lg-4 col-md-8 ">
 
-						<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
-						<div class="single-post-tags">
-							<a href="kitShopList.do?orderBy=name">이름순</a> <a
-								href="kitShopList.do?orderBy=hit">조회수</a> <a
-								href="kitShopList.do?orderBy=saleCount">판매순</a>
-						</div>
-					</div>
-				
+					<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝>
+					<div class="single-post-tags">
+						<a href="kitShopList.do?orderBy=name">이름순</a> <a
+							href="kitShopList.do?orderBy=hit">조회수</a> <a
+							href="kitShopList.do?orderBy=saleCount">판매순</a>
+					</div> 
+				</div> -->
+
+				<div class="col-lg-12"
+					style="height: 50px; background-color: #f7f7f7; margin: 10px;border-bottom: solid #666666;">
+					<!-- -->
+					<a href="kitShopList.do?orderBy=name" class="orderByBtn aTag"> <span>이름순</span>
+					</a> <span class="orderByBtn">|</span>
+					<a href="kitShopList.do?orderBy=hit" class="orderByBtn aTag">조회수</a> <span class="orderByBtn">|</span>
+					<a href="kitShopList.do?orderBy=saleCount" class="orderByBtn aTag">판매순</a>
+				</div>
+
 				<!-- 판매 리스트 출력 시작 -->
 				<c:forEach items="${kitSelectList}" var="list">
 					<div class="col-lg-3 col-sm-6">
