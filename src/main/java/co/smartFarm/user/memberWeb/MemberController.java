@@ -66,10 +66,9 @@ public class MemberController {
 	// 220302 PSH MypageController -> MemberController 구분 작업
 	@RequestMapping("cultivationHistory.do")
 	@ResponseBody
-	public List<GrowDiaryVO> cultivationHistory(HttpSession session) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		String memEmail = member.getMem_email();
-		return growDiaryDao.growDiaryMyList(memEmail);
+	public List<GrowDiaryVO> cultivationHistory() {
+		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return growDiaryDao.growDiaryMyList(memberVo.getMem_email());
 	}
 
 	// ===== 로그인 =====
@@ -151,26 +150,25 @@ public class MemberController {
 	public String memberUpdate(MemberVO memberVo,HttpSession session) {
 		memberDao.memberUpdate(memberVo);
 		session.invalidate();
-		return "home/home";
+		return "redirect:logout.do";
 	}
 	
 	// 회원탈퇴
 	@RequestMapping("/memberDelete.do")
 	public String memberDelete(HttpSession session) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		String mem_email = member.getMem_email();
-		memberDao.memberDelete(mem_email);
+		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		memberDao.memberDelete(memberVo.getMem_email());
 		session.invalidate(); // 세션의 모든 속성을 삭제
-		return "redirect:home.do";
+		return "redirect:logout.do";
 	}
 	
 	// 회원농부신청
 	@RequestMapping("/memberFarmer.do")
-	public String memberFarmer(MemberVO memberVo, HttpSession session) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		memberVo.setMem_email(member.getMem_email());
+	public String memberFarmer(HttpSession session) {
+		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		memberVo.setMem_email(memberVo.getMem_email());
 		memberDao.memberUpdateFarmer(memberVo);
-		return "redirect:mypage.do";
+		return "redirect:logout.do";
 	}
 	
 	// 이메일 체크 + 카카오 로그인시 member테이블에 저장되어 있는지 체크

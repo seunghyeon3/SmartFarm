@@ -3,9 +3,9 @@ package co.smartFarm.board.useRevw.useRevwWeb;
 import java.io.File;
 import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,12 +38,9 @@ public class UseRevwController {
 	
 	//이용후기 등록페이지
 	@RequestMapping("useRevwInsertForm.do")
-	public String useRevwInsertForm(Model model, HttpSession session){
-		
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		String memEmail = member.getMem_email();
-		
-		model.addAttribute("purHisList", purHisDao.purHisRevwSelect(memEmail));
+	public String useRevwInsertForm(Model model){
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("purHisList", purHisDao.purHisRevwSelect(userDetails.getUsername()));
 		System.out.println(model.getAttribute("purHisList"));
 		
 		return "board/useRevwInsertForm";
@@ -51,14 +48,12 @@ public class UseRevwController {
 	
 	//이용후기 DB 등록 완료되면 다시 메인화면으로 고고
 	@RequestMapping("useRevwInsert.do")
-	public String useRevwInsert(UseRevwVO useRevw, HttpSession session, @RequestParam("file") MultipartFile file) {
+	public String useRevwInsert(UseRevwVO useRevw, MemberVO memberVo, @RequestParam("file") MultipartFile file) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		String memEmail = member.getMem_email();
-		String memName = member.getMem_name();
-		
-		useRevw.setMem_email(memEmail);
-		useRevw.setMem_name(memName);
+		useRevw.setMem_email(userDetails.getUsername());
+		useRevw.setMem_name(memberVo.getMem_name());
 		useRevw.setUse_revw_con(useRevw.getUse_revw_con().replace("\r\n", "<br>"));
 		String originalFileName = file.getOriginalFilename(); // 원본 파일명 찾기
 		if (!originalFileName.isEmpty()) {
@@ -91,27 +86,23 @@ public class UseRevwController {
 	//이용후기 수정페이지
 	@RequestMapping("useRevwUpdateForm.do")
 	public String useRevwUpdateForm(@RequestParam("useRevwNo") int useRevwNo, @RequestParam("purHisNo") int purHisNo, 
-										HttpSession session, Model model, UseRevwVO useRevw) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		String memEmail = member.getMem_email();
+										 Model model, UseRevwVO useRevw) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		model.addAttribute("useRevwOne", useRevwDao.useRevwDetail(useRevwNo));
 		useRevw.setPur_his_order_no(purHisNo);
-		useRevw.setMem_email(memEmail);
+		useRevw.setMem_email(userDetails.getUsername());
 		model.addAttribute("purHisSelect", useRevwDao.purHisSelectNo(useRevw));
 		return "board/useRevwUpdateForm";
 	}
 	
 	//이용후기 수정
 	@RequestMapping("useRevwUpdate.do")
-	public String useRevwUpdate(UseRevwVO useRevw, HttpSession session, @RequestParam("file") MultipartFile file) {
+	public String useRevwUpdate(UseRevwVO useRevw, @RequestParam("file") MultipartFile file, MemberVO memberVo) {
+		memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		String memEmail = member.getMem_email();
-		String memName = member.getMem_name();
-		
-		useRevw.setMem_email(memEmail);
-		useRevw.setMem_name(memName);
+		useRevw.setMem_email(memberVo.getMem_email());
+		useRevw.setMem_name(memberVo.getMem_name());
 		
 		String originalFileName = file.getOriginalFilename(); // 원본 파일명 찾기
 		if (!originalFileName.isEmpty()) {
