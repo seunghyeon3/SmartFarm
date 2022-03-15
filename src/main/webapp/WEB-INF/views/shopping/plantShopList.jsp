@@ -12,38 +12,35 @@
 </head>
 
 <body>
-	<div class="container p80">
-		<div class="col-lg-9 col-md-8 side-widget">
 
-			<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝>
-         <div class="single-post-tags">
-         	<a href="javascript:divisionList(product)">전체</a>
-            <a href="javascript:divisionList(product)">상업용</a>
-            <a href="javascript:divisionList(habbit)">취미용</a>
-         </div>  -->
-		</div>
-
-
-		<!-- 검색 버튼 추가 -->
-		<div class="col-lg-3 col-md-4 side-search">
-			<input type="search" class="form-control" placeholder="작물 이름을 입력해주세요"
-				id="plantSaleTitle">
-			<button onclick="searchFnc()">
-				<i class="fas fa-search"></i>
-			</button>
-		</div>
-	</div>
 
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row" id="prolist">
+
+
+				<div class="col-md-12">
+					<div class="col-lg-9 col-md-8 side-widget"></div>
+
+
+					<!-- 검색 버튼 추가 -->
+					<div class="col-lg-3 col-md-4 side-search" style="margin;margin-bottom: 70px;">
+						<input type="search" class="form-control"
+							placeholder="작물 이름을 입력해주세요" id="plantSaleTitle">
+						<button onclick="searchFnc()">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
+				</div>
+				<br> <br>
 				<!-- 판매 리스트 출력 시작 -->
+
 				<c:forEach items="${plantSaleList}" var="list">
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
 							<div class="pro-thumb">
 								<a href="#">장바구니 추가</a> <img
-									src="resources/images/shop/pro1.jpg" alt="">
+									src="resources/images/shop/pro1.jpg" alt=""> <!-- 추후수정(이미지 링크) -->
 							</div>
 							<div class="pro-txt">
 								<h6>
@@ -55,6 +52,7 @@
 						</div>
 					</div>
 				</c:forEach>
+
 				<!-- 판매 리스트 출력 끝 -->
 				<div class="col-md-12">
 					<a href="plantProductAdd.do" class="view-more"

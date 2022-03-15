@@ -54,12 +54,12 @@
 								<li class="half pl-15"><input type="text"
 									class="form-control"
 									style="width: 117px; float: left; -webkit-appearance: none;"
-									id="mem_tel1" name="mem_tel1" required> <span
+									id="mem_tel1" max="9999" name="mem_tel1" required> <span
 									style="float: left; margin: 15px;">&mdash;</span> <input
-									type="text" class="form-control"
+									type="text" max="9999" class="form-control"
 									style="width: 118px; float: left" id="mem_tel2" name="mem_tel2"
 									required><span style="float: left; margin: 15px;">&mdash;</span>
-									<input type="text" class="form-control"
+									<input type="text" class="form-control" max="9999"
 									style="width: 118px; float: left" id="mem_tel3" name="mem_tel3"
 									required> <input type="hidden" id="mem_tel"
 									name="mem_tel"></li>
@@ -171,7 +171,7 @@
 			
 		});
 		
-		// url 자르기
+		// ===== url 자르는 함수 ===== 
 		$.urlParam = function(name){
 		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
    		 	return results [1] || 0;

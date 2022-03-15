@@ -1,6 +1,10 @@
 package co.smartFarm.kit.kitWeb;
 
+import java.sql.Date;
 import java.util.List;
+
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import com.google.gson.Gson;
 
 import co.smartFarm.kit.kitService.KitService;
 import co.smartFarm.kit.kitService.KitVO;
+import co.smartFarm.shopping.cartService.CartVO;
+import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class KitController {
@@ -26,7 +32,7 @@ public class KitController {
 	@GetMapping("/kitShopList.do")
 	public String kitShopList(Model model, @Param("kitPrpos") String kitPrpos, @Param("kitName") String kitName,
 			@Param("orderBy") String orderBy) {
-		if (kitPrpos != null) { //키트 작물인 경우 
+		if (kitPrpos != null) { // 키트 작물인 경우
 			List<KitVO> list = kitDao.kitSelectList(kitPrpos);
 
 			// System.out.println(list);
@@ -39,12 +45,12 @@ public class KitController {
 			List<KitVO> list = kitDao.kitSelectOne(kitName);
 			model.addAttribute("kitSelectList", list);
 			return "shopping/kitShopList";
-			
+
 		} else if (orderBy != null) {
-			
-			List<KitVO> list= kitDao.kitSelectOrderBy(orderBy);
+
+			List<KitVO> list = kitDao.kitSelectOrderBy(orderBy);
 			model.addAttribute("kitSelectList", list);
-			
+
 			return "shopping/kitShopList";
 		}
 
@@ -54,13 +60,34 @@ public class KitController {
 	// 키트 상세조회
 	// 220302 PSH shoppingController -> kitController 구분 작업
 	@RequestMapping("/kitProductDetail.do")
-	public String kitProductDetail(@Param("kit_no") String kit_no, Model model) {
+	public String kitProductDetail(@Param("kit_no") String kit_no, Model model, HttpSession session) {
 
 		KitVO kitVo = kitDao.kitSelectOneByNo(Integer.parseInt(kit_no));
+		// 앞단에서 뿌려주기 위한 VO타입
 		System.out.println(kitVo);
 		model.addAttribute("kitSelectOne", kitVo);
 
+		// 조회수 올리기
 		kitDao.kitUpdateHit(Integer.parseInt(kit_no));
+
+		// 바로 구매를 위한 json 타입 만들기
+		CartVO cartVo = new CartVO();
+		String option = "K" + kitVo.getKit_no();
+		cartVo.setCart_detail(kitVo.getKit_name());
+		cartVo.setCart_day(new Date(0));
+		cartVo.setCart_option(option);
+		cartVo.setCart_price(kitVo.getKit_price());
+		cartVo.setCart_sale_count(1);
+		cartVo.setCart_sum(kitVo.getKit_price());
+
+		MemberVO memberVo = (MemberVO) session.getAttribute("member");
+		if (memberVo != null) {
+			cartVo.setMem_email(memberVo.getMem_email());
+
+			String gson = new Gson().toJson(cartVo);
+			gson = "[" + gson + "]";
+			model.addAttribute("payList", gson);
+		}
 		// return "redirect:/kitProductDetail.do?kit_no=" + kitVo.getKit_no();
 		return "shopping/kitProductDetail";
 	}
