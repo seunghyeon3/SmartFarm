@@ -86,9 +86,14 @@
 <script type="text/javascript">
 
 	$("#growKitList").on("click", "li", function(event)	{
-		$("input.value").removeAttr("disabled");
-		$("#auto").removeAttr("disabled");
+/* 		$("input.value").removeAttr("disabled");
+		$("#auto").removeAttr("disabled"); */
 		$("#nft").empty();
+		var dop = $("<option>");
+		dop.html("선택하세요");
+		dop.attr("value", "0");
+		$("#nft").append(dop);
+		$("#nft").val("0").trigger('change');
 		$("#name").html(event.target.innerText);
 		$("#complete").hide();
 		$("#cancel").hide();
@@ -143,14 +148,10 @@
 				"kit_no" : event.target.dataset.kit
 			},
 			error: function(){
-			    $("#nft").html("리스트를 불러오는 도중 오류가 발생하였습니다.");
+
 			}
 		}).done(function (result) {
-				console.log(result[0].nft_no);
-				var dop = $("<option>");
-				dop.html("선택하세요");
-				dop.attr("value", "0");
-				$("#nft").append(dop);
+
  			for (var i = 0; i<result.length; i++) {
 				var op = $("<option>");
 				op.html(result[i].nft_no + "(" + result[i].grow_diary_grd + ")");
@@ -201,6 +202,22 @@
 						"water":$("input#auto")[0].dataset.water,
 						"pes":$("input#auto")[0].dataset.pes,
 						"auto":$("input#auto")[0].dataset.auto
+				}
+			}).done( function (result) {
+				toastr.info(result);
+			})
+		}else if($("#nft option:selected").val() != "0") {
+			$.ajax({
+				type:'get',
+				url:event.target.dataset.url+"startGrow",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+						"temp":$("#nft")[0].dataset.tp,
+						"hum":$("#nft")[0].dataset.hd,
+						"light":$("#nft")[0].dataset.sun,
+						"water":$("#nft")[0].dataset.water,
+						"pes":$("#nft")[0].dataset.pes,
+						"auto":$("#nft")[0].dataset.auto
 				}
 			}).done( function (result) {
 				toastr.info(result);
@@ -292,6 +309,11 @@
 		$("#auto").attr("disabled",true);
         var sel_one = $("#nft option:selected").val();
         if(sel_one === "0"){
+        	$("#nft").removeAttr("data-tp")
+        	$("#nft").removeAttr("data-hd")
+        	$("#nft").removeAttr("data-sun")
+        	$("#nft").removeAttr("data-water")
+        	$("#nft").removeAttr("data-pes")
 			$("input.value").removeAttr("disabled");
 			$("#auto").removeAttr("disabled");
             return false;
@@ -308,7 +330,7 @@
                 $("#nft").attr("data-sun", data.light);
                 $("#nft").attr("data-water", data.water);
                 $("#nft").attr("data-pes", data.pes);
-            	
+                $("#nft").attr("data-auto", "1");
             },
             error: function () {
                 console.log('error');
