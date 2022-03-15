@@ -2,6 +2,7 @@ package co.smartFarm.plant.plantSaleWeb;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -86,12 +87,31 @@ public class PlantSaleController {
 
 	// ===== 작물 상세조회 창으로 넘어가기=====
 	@RequestMapping("/plantProductDetail.do")
-	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model) {
+	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model, HttpSession session) {
 		// 내용 조회하기
 		System.out.println("확인하기 === " + plant_sale_no);
 		PlantSaleVO plantSaleVo = plantSaleDao.plantSaleSelectOneByNo(Integer.parseInt(plant_sale_no));
 		System.out.println(plantSaleVo.toString());
 		model.addAttribute("plantSaleDet", plantSaleVo);
+
+		// 바로 구매를 위한 json 만들기
+		CartVO cartVo = new CartVO();
+		String option = "P" + plantSaleVo.getPlant_sale_no();
+		cartVo.setCart_detail(plantSaleVo.getPlant_sale_title());
+		cartVo.setCart_day(new Date(0));
+		cartVo.setCart_option(option);
+		cartVo.setCart_price(Integer.parseInt(plantSaleVo.getPlant_sale_price()));
+		cartVo.setCart_sale_count(1);
+		cartVo.setCart_sum(Integer.parseInt(plantSaleVo.getPlant_sale_price()));
+		MemberVO memberVo = (MemberVO) session.getAttribute("member");
+		if (memberVo != null) {
+			
+			cartVo.setMem_email(memberVo.getMem_email());
+			String gson = new Gson().toJson(cartVo);
+
+			gson = "[" + gson + "]";
+			model.addAttribute("payList", gson);
+		}
 		return "shopping/plantProductDetail";
 	}
 
@@ -165,7 +185,7 @@ public class PlantSaleController {
 		List<PlantSaleVO> list = plantSaleDao.plantSaleSearch(plantSaleTitle);
 
 		String gson = new Gson().toJson(list);
-		model.addAttribute("plantSaleList",list);
+		model.addAttribute("plantSaleList", list);
 
 		return "shopping/plantShopList";
 	}

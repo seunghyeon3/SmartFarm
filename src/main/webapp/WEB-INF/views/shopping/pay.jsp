@@ -164,7 +164,7 @@ input {
 	<script>
 		//console.log(localStorage.getItem("payList"));
 		var payList = JSON.parse(localStorage.getItem("payList"));
-
+		console.log(payList);
 		// ===== toast ui GRID =====
 		var grid = new tui.Grid(
 				{
@@ -173,7 +173,7 @@ input {
 					scrollY : false,
 					minBodyHeight : 40 * payList.length,
 					columns : [ {
-						header : '상품정보(사진 + 이름 링크달기)',
+						header : '상품정보',
 						name : 'cart_detail'
 					}, {
 						header : '판매가',

@@ -133,7 +133,12 @@ to {
   padding:4px;
   position: absolute;
   bottom:-15px;
-  left:-
+  left:-}
+
+input{
+border-radius: 15px;
+}  
+  
 </style>
 </head>
 <body>
