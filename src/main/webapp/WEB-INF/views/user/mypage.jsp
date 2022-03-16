@@ -32,8 +32,10 @@
 										onclick="editMember()">회원정보수정</a></li>
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="cultivationHistory()">재배내역</a></li>
-									<li><a style="font-size:25px;" href="javascript:void(0)"
+									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="purchaseHistory()">구매내역</a></li>
+									<li><a style="font-size:25px;" href="javascript:void(0)"
+										onclick="bidHistory()">입찰내역</a></li>	
 								</ul>
 							</div>
 						</div>
@@ -46,7 +48,7 @@
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="farmerApplicationStatus()">농부신청현황</a></li>
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="nftholdings.do">NFT보유현황</a></li>
-									<li><a style="font-size:25px;" href="javascript:void(0)" onclick="withdrawal()">회원탈퇴</a></li>
+									<li style="margin-bottom:80px"><a style="font-size:25px;" href="javascript:void(0)" onclick="withdrawal()">회원탈퇴</a></li>
 								</ul>
 							</div>
 						</div>
@@ -164,19 +166,20 @@
 									<li class="full"><p>&lt 핸드폰 번호 &gt</p>
 										<input type="text" class="form-control"
 										style="width: 126px; float: left; -webkit-appearance: none;"
-										id="mem_tel1" name="mem_tel1" required> <span
+										id="mem_tel1" name="mem_tel1" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(0,3)}"required> <span
 										style="float: left; margin-top: 15px;">&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
-										<input type="text" class="form-control"
+										<input type="text" class="form-control" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(4,8)}"
 										style="width: 126px; float: left" id="mem_tel2" name="mem_tel2"
 										required><span style="float: left; margin-top: 15px;">&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
-										<input type="text" class="form-control"
+										<input type="text" class="form-control" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(9)}"
 										style="width: 126px; float: left" id="mem_tel3" name="mem_tel3"
 										required> <input type="hidden" id="mem_tel"
-										name="mem_tel"></li>
-
+										name="mem_tel" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel}"></li>
+									
+										
 									<!-- 주소 -->
 									<li class="half pr-15"><input type="text"
-										class="form-control" id="mem_addr1" name="mem_addr1"
+										class="form-control" id="mem_addr1" name="mem_addr1" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_addr.substring(1,6)}"
 										placeholder="우편번호" required readonly></li>
 
 									<li class="half pl-15">
@@ -184,18 +187,18 @@
 											찾기</button>
 									</li>
 									<li class="full"><input type="text" id="mem_addr2"
-										name="mem_addr2" class="form-control" placeholder="주소" required
+										name="mem_addr2" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_addr.substring(8)}" class="form-control" placeholder="주소" required
 										readonly></li>
 
 									<li class="full"><input type="text" id="mem_det_addr"
-										name="mem_det_addr" class="form-control" placeholder="상세주소"
+										name="mem_det_addr" class="form-control" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_det_addr}" placeholder="상세주소"
 										required></li>
 									<li class="full"><input type="hidden" id="mem_addr3"
 										name="mem_addr3" class="form-control" placeholder=""></li>
 									
 									<li><input type="hidden" name="mem_email_check"
 										id="mem_email_check"> <input type="hidden"
-										name="mem_addr" id="mem_addr">
+										name="mem_addr" id="mem_addr" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_addr}">
 									</li>
 									
 									<li class="half pr-15">
@@ -374,6 +377,76 @@
 						} //success
 					});
 		}
+		
+		/* ----------입찰현황---------- */
+		function bidHistory() {
+			//클릭시 페이지 최상단으로 이동.
+			window.scrollTo(0,0);
+			//로딩창
+			createLoading();
+			//팝업
+			createPopup();
+			
+			//표 출력
+			var grid = new tui.Grid({
+				el : document.getElementById('content'),
+				rowHeight : 73,
+				rowWidth : 'auto',
+				rowHeaders : [ {
+					type : 'rowNum',
+					width : 80,
+					height : 73,
+					align : 'center',
+					valign : 'bottom'
+				} ],//번호 매기기
+				scrollX : false,
+				scrollY : false,
+				columns : [ {
+					header : '입찰금액',
+					name : 'bid_history_bid',
+					filter : 'select'
+				}, {
+					header : '출금여부',
+					name : 'withdraw_whet',
+					filter : 'select'
+				} ],
+				pageOptions : {
+					useClient : true,
+					perPage : 5
+				}
+			});
+
+			$.ajax({
+						type : "POST",
+						url : "bidHistory.do",
+						success : function(data) {
+							grid.resetData(data);
+							
+							//출금 가능할때 버튼생성 
+							for (var i = 0; i < data.length; i++) {
+								if (grid.getValue(i,
+										'withdraw_whet') == 'N') {
+									console.log(data[i]);
+									var bidHistory = data[i];
+									var input = `<div class="container" style="text-aline:center;">
+									<a id=bidHistoryWithdraw data-no=\${data[i].bid_history_no} href="javascript:withdraw('\${data[i].bid_history_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">출금가능</a></div>`;
+			
+									grid.setValue(i,
+											'withdraw_whet',
+											input, true);
+								}
+								}
+								document.getElementById('fade').style.display = 'none';
+
+
+							
+						} //success
+					});
+
+		}
+		
+		
+		
 		/* ----------농부신청현황---------- */
 		function farmerApplicationStatus() {
 			//클릭시 페이지 최상단으로 이동.
@@ -497,6 +570,7 @@
 			document.getElementById('fade').style.display = 'none';
 		}
 
+		//nft블록체인 생성, db입력
 		function nftGeneration(growDiary) {
 			//로딩창
 			createLoading();
@@ -522,6 +596,28 @@
 
 		}
 
+		//입찰내역 솔리디티출금, db 행 삭제
+		function withdraw(bidHistoryNo){
+			//로딩창
+			createLoading();
+			
+			$.ajax({
+				url : "withdraw.do",
+				data : {
+					"bidHistoryNo" : bidHistoryNo
+				}
+			}).done(function(result) {
+				console.log(result);
+				setTimeout( function(){
+					bidHistory();
+					document.getElementById('fade').style.display = 'none';
+					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
+					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:	
+				},5000);
+			});
+		}
+		
+		
  		//회원정보수정
 		
 		// ===== 비밀번호 유효성 검사 =====

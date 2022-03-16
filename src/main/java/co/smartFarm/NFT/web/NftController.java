@@ -9,9 +9,9 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +37,9 @@ public class NftController {
 	
 	//nft보유현황 페이지 mem 나중에 session으로 받아오기
 		@RequestMapping("/nftholdings.do")
-		public String nftholdings(Model model, HttpSession session) {
-			MemberVO member = (MemberVO) session.getAttribute("member");
-			String memEmail = member.getMem_email();
-			model.addAttribute("nftList", nftDao.selectNftMyList(memEmail));
+		public String nftholdings(Model model) {
+			MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("nftList", nftDao.selectNftMyList(memberVo.getMem_email()));
 			return "user/nftholdings";
 		}
 		
@@ -48,7 +47,7 @@ public class NftController {
 				@RequestMapping("/nftGeneration.do")
 				@ResponseBody
 				public int nftGeneration(@RequestParam(value = "growDiaryNo") int growDiaryNo, 
-													HttpServletRequest request, NftVO nft, GrowDiaryVO growDiary, HttpSession session) throws InterruptedException {
+													HttpServletRequest request, NftVO nft, GrowDiaryVO growDiary) throws InterruptedException {
 					try {
 						  growDiary = growDiaryDao.growDiaryNoList(growDiaryNo);
 						  
@@ -69,9 +68,23 @@ public class NftController {
 							  medal = request.getServletContext().getRealPath("resources/nft/Medal/fail.png");
 						  }
 						  
+						  String plant ="";
+						  //plant는 작물 이름에 따라 분류
+						  if (growDiary.getPlant_name().equals("토마토")) {
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/tomato.png");
+						  } else if (growDiary.getPlant_name().equals("딸기")) {
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/strawberry.png");
+						  } else if (growDiary.getPlant_name().equals("오이")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/cucumber.png");
+						  } else {
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/whitegrape.png");
+						  }
+						  
+						  
 						   BufferedImage backgroundImage = ImageIO.read(new File(background));
 						   BufferedImage bodyImage = ImageIO.read(new File(body));
 						   BufferedImage medalImage = ImageIO.read(new File(medal));
+						   BufferedImage plantImage = ImageIO.read(new File(plant));
 
 						   int width = backgroundImage.getWidth();
 						   int height = backgroundImage.getHeight();
@@ -83,13 +96,14 @@ public class NftController {
 						   graphics.drawImage(backgroundImage, 0, 0, null);
 						   graphics.drawImage(bodyImage, 0, 0, null);
 						   graphics.drawImage(medalImage, 0, 0, null);
+						   graphics.drawImage(plantImage, 0, 0, null);
 						   
 						   //이름은 uid로 랜덤생성
 						   String uid = UUID.randomUUID().toString();
 						   //머지이미지 나중에 서버경로로 바꾸기 지금은 git 저장 경로
-						   String merge = "D:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
+						   //String merge = "D:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
 						   //집경로
-						   //String merge = "C:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
+						   String merge = "C:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
 						   //String merge = request.getServletContext().getRealPath("resources/nft/merge/mergeImage.png");
 						    ImageIO.write(mergedImage, "png", new File(merge));
 						    System.out.println("NFT 생성이 완료되었습니다.");

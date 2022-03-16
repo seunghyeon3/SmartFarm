@@ -96,6 +96,7 @@
 		LEFT OUTER JOIN plant_sale s
 		ON (p.plant_sale_no = s.plant_sale_no)
 		WHERE p.mem_email = #{mem_email}
+		ORDER BY pur_his_pur_day desc
 	</select>
 	
 </mapper>

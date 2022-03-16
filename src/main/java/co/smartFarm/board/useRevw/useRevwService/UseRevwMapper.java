@@ -19,4 +19,14 @@ public interface UseRevwMapper {
 	int updateRevw(UseRevwVO useRevw);
 	//이용후기 삭제
 	int deleteRevw(int useRevwNo);
+	//이용후기 검색
+	List<UseRevwVO> useRevwSearchList(String useRevwTitle);
+	//이용후기 조회수
+	int updateRevwHit(int useRevwNo);
+	//이용후기 댓글 조회
+	List<UseRevwCommVO> useRevwCommList(int useRevwNo);
+	//이용후기 댓글 입력
+	int useRevwCommInsert(UseRevwCommVO useRevwComm);
+	//이용후기 댓글 삭제
+	int useRevwCommDelete(int useRevwCommNo);
 }

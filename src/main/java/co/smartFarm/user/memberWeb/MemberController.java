@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,10 +32,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.smartFarm.auction.aucnService.AucnService;
+import co.smartFarm.auction.aucnService.BidHistoryVO;
+import co.smartFarm.auction.aucnWeb.AucnController;
 import co.smartFarm.grow.growDiaryService.GrowDiaryService;
 import co.smartFarm.grow.growDiaryService.GrowDiaryVO;
+import co.smartFarm.prj.EthResultVO;
 import co.smartFarm.security.CustomUserDetailsService;
 import co.smartFarm.user.memberService.MemberService;
 import co.smartFarm.user.memberService.MemberVO;
@@ -50,6 +56,12 @@ public class MemberController {
 	@Autowired
 	// 220302 PSH MypageController -> MemberController 구분 작업
 	GrowDiaryService growDiaryDao;
+
+	@Autowired
+	AucnService aucnDao;
+	
+	@Autowired
+	AucnController aucnDa;
 
 	//220315 PSH 비밀번호 암호화
 	BCryptPasswordEncoder bcryp = new BCryptPasswordEncoder(16);
@@ -71,6 +83,62 @@ public class MemberController {
 		return growDiaryDao.growDiaryMyList(memberVo.getMem_email());
 	}
 
+	//입찰내역 팝업창 클릭시 입찰내역 표출
+	@RequestMapping("/bidHistory.do")
+	@ResponseBody
+	public List<BidHistoryVO> bidHistory() {
+		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return aucnDao.bidHistoryList(memberVo.getMem_email());
+	}
+	
+	//출금버튼 누르면 솔리디티 출금 메소드 실행하고 입찰내역 삭제
+	@RequestMapping("/withdraw.do")
+	@ResponseBody
+	public int withdraw(@RequestParam(value="bidHistoryNo") int bidHistoryNo) {
+		int aucnNo = aucnDao.bidHistoryAucnNo(bidHistoryNo);
+		
+		// 파라미터값 64byte로 변환 
+		String withdrawNo = Integer.toHexString(aucnNo);
+		
+		String zero = "";
+		
+		for (int i = 0; i < 64 - withdrawNo.length(); i++) {
+			zero = zero + "0";
+		}
+		String paramBid = zero + withdrawNo;
+		System.out.println(paramBid);
+		
+		JSONObject jsonInput = new JSONObject();
+		JSONArray data = new JSONArray();
+		
+		// 이 두친구도 고정값
+		jsonInput.put("jsonrpc", "2.0");
+		jsonInput.put("method", "eth_sendTransaction");
+		
+		JSONObject param = new JSONObject();
+		// from : 관리자 지갑주소 , to : smart contract Address
+		param.put("from", "0x13B770f414f4c5e547da9cE9382071Ebdd8f3F9a");
+		param.put("to", "0x243Ac993BD48280D420d3BfD27d1250d8A51530C");
+		// input 값 hash 변환 method+parameter(optional)
+		
+		//withdraw data ( 10번 경매 10 -> a (16진수) )
+		//param.put("data", "0x2e1a7d4d000000000000000000000000000000000000000000000000000000000000000a");
+		
+		String withdraw = "0x2e1a7d4d"; 
+		String withdrawData = withdraw+paramBid;
+		param.put("data", withdrawData);
+		
+		data.put(param);
+		jsonInput.put("params", data);
+		//data.put("latest");
+		// id는 아무거나 넣으슈
+		jsonInput.put("id", 67);
+		System.out.println(jsonInput.toString());
+        EthResultVO result = aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
+        System.out.println(result);
+		
+		return aucnDao.bidHistoryDelete(bidHistoryNo);
+	}
 	// ===== 로그인 =====
 	// 로그인창으로 이동
 	@RequestMapping("/login.do")
@@ -113,8 +181,8 @@ public class MemberController {
 
 	// ===== 로그아웃 =====
 	@RequestMapping("/logout.do")
-	public String logout(HttpSession session) {
-		session.invalidate(); // 세션의 모든 속성을 삭제
+	public String logout() {
+		//session.invalidate(); // 세션의 모든 속성을 삭제
 		return "redirect:/home.do";
 	}
 
@@ -147,24 +215,24 @@ public class MemberController {
 
 	// 회원정보 수정
 	@RequestMapping("/memberUpdate.do")
-	public String memberUpdate(MemberVO memberVo,HttpSession session) {
+	public String memberUpdate(MemberVO memberVo) {
 		memberDao.memberUpdate(memberVo);
-		session.invalidate();
+		//session.invalidate();
 		return "redirect:logout.do";
 	}
 	
 	// 회원탈퇴
 	@RequestMapping("/memberDelete.do")
-	public String memberDelete(HttpSession session) {
+	public String memberDelete() {
 		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		memberDao.memberDelete(memberVo.getMem_email());
-		session.invalidate(); // 세션의 모든 속성을 삭제
+		//session.invalidate(); // 세션의 모든 속성을 삭제
 		return "redirect:logout.do";
 	}
 	
 	// 회원농부신청
 	@RequestMapping("/memberFarmer.do")
-	public String memberFarmer(HttpSession session) {
+	public String memberFarmer() {
 		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		memberVo.setMem_email(memberVo.getMem_email());
 		memberDao.memberUpdateFarmer(memberVo);

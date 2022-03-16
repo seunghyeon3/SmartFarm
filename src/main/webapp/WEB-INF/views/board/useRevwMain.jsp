@@ -13,9 +13,9 @@
 		<div class="col-lg-9 col-md-8 side-widget"></div>
 		<!-- 검색 버튼 추가 -->
 		<div class="col-lg-3 col-md-4 side-search">
-			<input type="search" class="form-control" placeholder="Search"
-				id="autoCompt">
-			<button>
+			<input type="search" class="form-control"
+				placeholder="제목을 입력하세요" id="useRevwTitle">
+			<button onclick="searchUseRevw()">
 				<i class="fas fa-search"></i>
 			</button>
 		</div>
@@ -28,12 +28,12 @@
 				<c:forEach items="${useRevwList}" var="useRevw">
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
-								 <a href="useRevwDetail.do?useRevwNo=${useRevw.use_revw_no }">
+								 <a href="javascript:void(0)" onclick="useRevwHit('${useRevw.use_revw_no }')">
 									 <img src="resources/images/shop/pro1.jpg" alt="">
 								 </a>
 							<div class="pro-txt">
 								<h6>
-									<a href="useRevwDetail.do?useRevwNo=${useRevw.use_revw_no }">
+									<a href="javascript:void(0)" onclick="useRevwHit('${useRevw.use_revw_no }')">
 										${useRevw.use_revw_title}</a>
 								</h6>
 								<p class="pro-price">작성자 : ${useRevw.mem_name }</p>
@@ -73,6 +73,27 @@
 			</div>
 		</div>
 	</section>
+	
+	<script>
+		function searchUseRevw(){
+	    	var useRevwTitle = document.getElementById("useRevwTitle").value;
+	    	var url = "useRevwSearch.do?useRevwTitle="+useRevwTitle;
+			location.href=url;
+		}
+		
+		function useRevwHit(useRevwNo){
+			var useRevwHitUrl = "useRevwHit.do?useRevwNo="+useRevwNo;
+			var useRevwDetailUrl = "useRevwDetail.do?useRevwNo="+useRevwNo; 
+			$.ajax({
+				type : "POST",
+				url : useRevwHitUrl,
+				success : function() {
 
+					location.href = useRevwDetailUrl; 
+							
+				} //success
+			});
+		}
+	</script>
 </body>
 </html>

@@ -104,4 +104,24 @@
 		WHERE TO_CHAR(TO_DATE(AUCN_START_TIME, 'yyyy-MM-dd HH24:mi')+1, 'yyyy-MM-dd HH24:mi')
 		= TO_CHAR(SYSDATE+ 9/24, 'yyyy-MM-dd HH24:mi')
 	</select>
+	
+	<select id="bidHistoryList" parameterType="String" resultType="co.smartFarm.auction.aucnService.BidHistoryVO">
+		SELECT *
+		FROM bid_history
+		WHERE bid_history_mem_email = #{memEmail}
+		AND withdraw_whet = 'N'
+		AND aucn_whet = 'N'
+	</select>
+	
+	<delete id="bidHistoryDelete" parameterType="int">
+		DELETE 
+		FROM bid_history
+		WHERE bid_history_no = #{bidHistoryNo}
+	</delete>
+	
+	<select id="bidHistoryAucnNo" parameterType="int" resultType="int">
+		SELECT aucn_no
+		FROM bid_history
+		WHERE bid_history_no = #{bidHistoryNo}
+	</select>
 </mapper>

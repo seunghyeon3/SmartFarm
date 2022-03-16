@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import co.smartFarm.auction.aucnService.AucnMapper;
 import co.smartFarm.auction.aucnService.AucnService;
 import co.smartFarm.auction.aucnService.AucnVO;
+import co.smartFarm.auction.aucnService.BidHistoryVO;
 
 @Repository("aucnDao")
 public class AucnServiceImpl implements AucnService{
@@ -64,6 +65,21 @@ public class AucnServiceImpl implements AucnService{
 	@Override
 	public List<Map<String, Object>> aucnEndCheckdo() {
 		return map.aucnEndCheckdo();
+	}
+
+	@Override
+	public List<BidHistoryVO> bidHistoryList(String memEmail) {
+		return map.bidHistoryList(memEmail);
+	}
+
+	@Override
+	public int bidHistoryDelete(int BidHistoryNo) {
+		return map.bidHistoryDelete(BidHistoryNo);
+	}
+
+	@Override
+	public int bidHistoryAucnNo(int bidHistoryNo) {
+		return map.bidHistoryAucnNo(bidHistoryNo);
 	}
 
 	
