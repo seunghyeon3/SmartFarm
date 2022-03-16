@@ -77,6 +77,11 @@ public class GrowServiceImpl implements GrowService{
 		return map.nftList(val);
 		
 	}
+
+	@Override
+	public void plantWrite(Map<String, String> val) {
+		map.plantWrite(val);
+	}
 	
 	
 }

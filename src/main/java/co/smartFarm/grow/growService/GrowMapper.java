@@ -23,4 +23,6 @@ public interface GrowMapper {
 	
 	List<GrowVO> nftList(Map<String, String> val);
 	
+	void plantWrite(Map<String, String> val);
+	
 }
