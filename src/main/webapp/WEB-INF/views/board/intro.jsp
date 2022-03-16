@@ -51,11 +51,11 @@
 		</section>
 		<div align="right" class="bt_se">
 			<sec:authorize access="hasRole('ADMIN')">
-				<c:if test="${intro ne null}">
+				<c:if test="${!empty intro }">
 					<a class="aboutus"
 						href="introupdateForm.do?intro_no=${intro[0].intro_no }&intro_img=${intro[0].intro_img}">수정</a>
 				</c:if>
-			<c:if test="${intro eq null}">
+			<c:if test="${empty intro}">
 				<a class="aboutus" href="introinsertForm.do">글쓰기</a>
 			</c:if>
 			</sec:authorize>

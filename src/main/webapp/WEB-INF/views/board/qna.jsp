@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -83,12 +84,13 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
-					<c:if test="${member ne null }">
+					<sec:authorize access="hasRole('ADMIN')">
 					<a href="qnainsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
-					</c:if>
+					</sec:authorize>
 				</div>
 			</div>
+			
 		</div>
 	</section>
 
@@ -152,13 +154,18 @@
 		// GRID 에 데이터를 입력
 		var gridData = ${qna};   
       grid.resetData(gridData);
-      <c:if test="${member.mem_athr eq 'B0' || member.mem_athr eq 'B1' || member.mem_email}">
+      
       grid.on('click', (ev) => {
            if (ev.columnName === 'qna_title') {
-              location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no
+        	   if((gridData[ev.rowKey].count == "N" && gridData[ev.rowKey].mem_email == "${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}")
+        			   || "${SPRING_SECURITY_CONTEXT.authentication.principal.role_athr}" == "ROLE_ADMIN"){
+        		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
+        	   }else if(gridData[ev.rowKey].count == "Y")
+        		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
+              
            }
          });
-      </c:if>
+      
 		// ===== 검색 =====
 		function searchFnc() {
 			var searchKey = $("#key option:selected").val();

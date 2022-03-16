@@ -41,7 +41,6 @@
 }
 </style>
 <body>
-   ${qna}
    <section class="contact-page wf100 p80">
       <div class="container">
          <div class="row">
