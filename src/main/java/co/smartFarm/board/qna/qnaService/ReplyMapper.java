@@ -9,6 +9,5 @@ public interface ReplyMapper {
 	int replyInsert(ReplyVO reply);
 	int replyDelete(ReplyVO reply);
 	int replyUpdate(ReplyVO reply);
-	int replyUpdate(int reply_no);
 	/* int replySelectUnion(); */
 }

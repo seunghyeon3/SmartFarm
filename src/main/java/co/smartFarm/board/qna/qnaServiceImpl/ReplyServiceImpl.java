@@ -45,9 +45,5 @@ public class ReplyServiceImpl implements ReplyService{
 		return map.replyUpdate(reply);
 	}
 
-	@Override
-	public int replyUpdate(int reply_no) {
-		return map.replyUpdate(reply_no);
-	}
 
 }

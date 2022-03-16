@@ -53,26 +53,41 @@
 						<form action="plantSaleUpdate.do" method="post"
 							enctype="multipart/form-data">
 							<ul class="cform">
-								<li class="full"><input type="text" class="form-control"
+								<li class="full">
+								   	   <span style="margin:10px 15px;color:#666666;font-size:large;">작물</span>
+	               
+								<input type="text" style="margin-top:10px;" class="form-control"
 									value="작물 종류 : ${plantSale.plant_name } | 등급 : ${plantSale.plant_grd } | 재고 : ${plantSale.plant_ivy } | 총 재배량 : ${plantSale.plant_tot_grow_amnt }"
 									readonly></li>
-								<li class="full"><input type="text" id="plant_sale_title"
+								<li class="full">
+								   	   <span style="margin:10px 15px;color:#666666;font-size:large;">제목</span>
+	               
+								<input type="text" style="margin-top:10px;" id="plant_sale_title"
 									name="plant_sale_title" class="form-control" placeholder="제목"
 									value="${plantSale.plant_sale_title}"
 									oninvalid="toastr.error('제목을 입력해주세요')"></li>
 
-								<li class="half pr-15"><input type="number"
+								<li class="half pr-15">
+								   	   <span style="margin:10px 15px;color:#666666;font-size:large;">가격</span>
+	               
+								<input type="number"style="margin-top:10px;"
 									id="plant_sale_price" name="plant_sale_price"
 									class="form-control" placeholder="가격" min="0"
 									value="${plantSale.plant_sale_price }"
 									oninvalid="toastr.error('가격을 입력해주세요')"></li>
 
-								<li class="half pl-15"><input type="number"
+								<li class="half pl-15">
+								   	   <span style="margin:10px 15px;color:#666666;font-size:large;">수량</span>
+	               
+								<input type="number" style="margin-top:10px;"
 									id="plant_count" name="plant_count" class="form-control"
 									placeholder="수량" min="1" oninput="countCheck()"
 									value="${plantSale.plant_count }"
 									oninvalid="toastr.error('수량을 입력해주세요')"></li>
-								<li class="full"><textarea class="textarea-control"
+								<li class="full">
+								   	   <span style="margin:10px 15px;color:#666666;font-size:large;">내용</span>
+	               
+								<textarea class="textarea-control" style="margin-top:10px;"
 										id="plant_sale_con" name="plant_sale_con" placeholder="내용"
 										oninvalid="toastr.error('내용을 입력해주세요')">${plantSale.plant_sale_con }</textarea></li>
 								<!-- 파일업로드 버튼 구성 -->

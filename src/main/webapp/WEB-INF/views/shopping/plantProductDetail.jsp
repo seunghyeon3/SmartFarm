@@ -12,7 +12,7 @@
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12" id="update" style="display: none;">
 					<a onclick="deletePlant(${plantSaleDet.plant_sale_no })" class="view-more"
 						style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;">삭제</a> <a
 						href="plantProductUpdate.do?plant_sale_no=${plantSaleDet.plant_sale_no }" class="view-more"
@@ -57,6 +57,11 @@
 			$("#price").empty();
 			$("#price").append($("<h5>").text( "가격 : "+ (parseInt(${plantSaleDet.plant_sale_price } * 1)).toLocaleString('ko-KR') ),
 					$("<br>"), $("<hr>") );
+			
+			//세션과 작물을 판매하는 아이디가 같은 경우 수정,삭제 버튼을 보여줌
+			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' == '${plantSaleDet.mem_email}'){
+				document.getElementById('update').style.display="block";
+			}
 		});
  		
  		//장바구니에 입력

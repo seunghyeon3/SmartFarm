@@ -59,7 +59,6 @@ public class PurHisController {
          purhisVo.setPur_his_recv(memObj.getString("buyer_name"));
          purhisVo.setPur_his_price(jObject.getInt("cart_price"));
          purhisVo.setPur_his_sale_count(jObject.getInt("cart_sale_count"));
-
          purhisVo.setPur_his_tel(memObj.getString("buyer_tel"));
          list.add(purhisVo);
       }
