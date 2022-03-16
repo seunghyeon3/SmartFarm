@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -45,10 +47,16 @@
 			</div>
 		</section>
 		<div align="right" class="bt_se">
-		<c:if test="${member.mem_athr eq 'B0'}">
-			<a class="aboutus" href="introupdateFormg.do?intro_no=${introg[0].intro_no }&intro_img=${introg[0].intro_img}">수정</a>	
-			<a class="aboutus" href="introinsertgForm.do">글쓰기</a>
+		
+		<sec:authorize access="hasRole('ADMIN')">
+				<c:if test="${introg ne null}">
+					<a class="aboutus"
+						href="introupdateForm.do?intro_no=${introg[0].intro_no }&intro_img=${introg[0].intro_img}">수정</a>
+				</c:if>
+			<c:if test="${introg eq null}">
+				<a class="aboutus" href="introinsertForm.do">글쓰기</a>
 			</c:if>
+			</sec:authorize>
 		</div>
 	</div>
 </body>
