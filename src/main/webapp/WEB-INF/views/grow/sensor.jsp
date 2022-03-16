@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -49,7 +50,7 @@
 						<!--재배 관리 화면 출력부 시작-->
 						<div class="event-txt" style="width: 100%; padding: 0;">
 							<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
-								<ul class="funds">
+								<ul class="funds"">
 									<li class="text-left">재배 시작일<strong id="start">^^^</strong></li>
 									<li class="text-center">진행률<strong id="percent">상단 목록에서 키트를 선택해 주세요</strong></li>
 									<li class="text-right">예상 종료일<strong id="end">^^^</strong></li>
@@ -63,13 +64,17 @@
 						</div>
 											
 						<div style="display: block;">
-							<div>
-								<ul class="check-list" style="margin-top: 20px;">
-									<li>현재 온도:<strong></strong> 30</li>
-									<li>현재 습도:<strong></strong> 60</li>
-									<li>조명 여부:<strong></strong> ON</li>
-									<li>당일 급액량:<strong></strong> 30</li>
-									<li>당일 농약량:<strong></strong> 10</li>
+							<div style="display:flex; justify-content:space-between;">
+								<ul class="check-list" style="margin-top: 20px; width: 40%">
+									<li>현재 온도 : <strong id="temp"></strong></li>
+									<svg class="svg" width="400" height="200" style="margin-top: -30px; margin-bottom: -30px; margin-left: -50px;"></svg>
+									<li>현재 습도 : <strong id="hum"></strong></li>
+									<svg class="svg" width="400" height="200" style="margin-top: -30px; margin-bottom: -30px; margin-left: -50px;"></svg>
+								</ul>
+								<ul class="check-list" style="margin-top: 20px; width: 40%">
+									<li style="height: 110px;">조명 여부 : <strong id="light"></strong></li>
+									<li style="height: 110px;">당일 급액량 : <strong id="water"></strong></li>
+									<li style="height: 110px;">당일 농약량 : <strong id="pes"></strong></li>
 								</ul>
 							</div>
 						</div>
@@ -87,16 +92,154 @@
 		</div>
 	</section>
 	<!--본문 종료-->
-
+<button onclick="vsvs()"></button>
   
-<svg width="960" height="500"></svg>
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script>
+
+function vsvs() {
+	d3.selectAll(".line").transition();
+}
+
+var test;
+
 $("#growKitList").on("click", "li", function(event)	{
+	$(event.target).parent().children().css('background-color', '');
+	$(event.target).css('background-color', 'green');
+	$("#temp").html('');
+	$("#hum").html('');
+	$("#light").html('');
+	$("#water").html('');
+	$("#pes").html('');
+	vsvs();
+	
+	$("#svg").empty();
+	
+	
+	test = event.target.id;
+	
+	
+
+	var n = 40,
+	    random = function(){
+			return 0;
+/* 	    $.ajax({
+	        url: test+"sensorReady",
+	        type: 'get',
+	        success: function(result) {
+				for(var dat of result) {
+					data = d3.range(n).map(dat);
+					console.log(dat);
+				}
+	        },
+	        error: function(){
+	        	console.log("error");
+	        }
+	    })	 */
+		},
+		data = d3.range(n).map(random);
+	
+	
+	var svg = d3.select("svg"),
+	    margin = {top: 50, right: 50, bottom: 50, left: 100},
+	    width = +svg.attr("width") - margin.left - margin.right,
+	    height = +svg.attr("height") - margin.top - margin.bottom,
+	    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var x = d3.scaleLinear()
+	    .domain([0, n - 1])
+	    .range([0, width]);
+
+	var y = d3.scaleLinear()
+	    .domain([-10, 40])
+	    .range([height, 0]);
+
+	var line = d3.line()
+	    .x(function(d, i) { return x(i); })
+	    .y(function(d, i) { return y(d); });
+
+	g.append("defs").append("clipPath")
+	    .attr("id", "clip")
+	  .append("rect")
+	    .attr("width", width)
+	    .attr("height", height);
+
+	g.append("g")
+	    .attr("class", "axis axis--x")
+	    .attr("transform", "translate(0," + y(0) + ")")
+	    .call(d3.axisBottom(x));
+
+	g.append("g")
+	    .attr("class", "axis axis--y")
+	    .call(d3.axisLeft(y));
+
+    g.append("g")
+    .attr("clip-path", "url(#clip)")
+    .append("path")
+    .datum(data)
+    .attr("class", "line")
+    .transition()
+    .duration(1000)
+    .ease(d3.easeLinear)
+    .on("start", tick);
+
+	function tick() {
+
+		
+		
+	    $.ajax({
+	        url: test+"sensor",
+	        type: 'get',
+	        success: function(result) {
+	        	console.log(result);
+				data.push(result.temp);
+				$("#temp").html(result.temp);
+				$("#hum").html(result.hum);
+				$("#light").html(result.light);
+				$("#water").html(result.water);
+				$("#pes").html(result.pes);
+	        },
+	        error: function(){
+	        	d3.selectAll(".line").transition();
+	        	$("#temp").html('');
+	        	$("#hum").html('');
+	        	$("#light").html('');
+	        	$("#water").html('');
+	        	$("#pes").html('');
+	        }
+	    })	
+		
+	  // Push a new data point onto the back.
+	/*   data.push(random());
+	 */
+	  // Redraw the line.
+	  console.log(this);
+	  d3.select(this)
+	      .attr("d", line)
+	      .attr("transform", null);
+
+	  // Slide it to the left.
+	  d3.active(this)
+	      .attr("transform", "translate(" + x(-1) + ",0)")
+	    .transition()
+ 	      .on("start", tick);
+
+	  // Pop the old data point off the front.
+	  data.shift();
+/* 	  
+	  $("#svg").css("margin-left", "-60px");
+	  $("#svg").css("margin-top", "-50px");
+	  $("#svg").css("margin-bottom", "-50px");
+	   */
+
+	}
+
+	
 	$("#start").html("");
     $("#percent").html("연결중..");
     $("#end").html("");
     $("#p-bar").css("width","0%");
+    
 	$.ajax({
 		type:'get',
 		/* url:event.target.dataset.url+"checkGrow", */
@@ -111,6 +254,9 @@ $("#growKitList").on("click", "li", function(event)	{
 	    $("#percent").html(result.percent+ "%");
 	    $("#end").html(result.end);
 	    $("#p-bar").css("width",result.percent+"%");
+	    
+	    
+	console.log(data);
 		if(result.status == 2) {
 		}
 	})	
@@ -121,88 +267,6 @@ $("#growKitList").on("click", "li", function(event)	{
 
 
 
-var n = 40,
-    random = function(){
-	return 0;
-}
-    data = d3.range(n).map(random);
-
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 20, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-var x = d3.scaleLinear()
-    .domain([0, n - 1])
-    .range([0, width]);
-
-var y = d3.scaleLinear()
-    .domain([-100, 100])
-    .range([height, 0]);
-
-var line = d3.line()
-    .x(function(d, i) { return x(i); })
-    .y(function(d, i) { return y(d); });
-
-g.append("defs").append("clipPath")
-    .attr("id", "clip")
-  .append("rect")
-    .attr("width", width)
-    .attr("height", height);
-
-g.append("g")
-    .attr("class", "axis axis--x")
-    .attr("transform", "translate(0," + y(0) + ")")
-    .call(d3.axisBottom(x));
-
-g.append("g")
-    .attr("class", "axis axis--y")
-    .call(d3.axisLeft(y));
-
-g.append("g")
-    .attr("clip-path", "url(#clip)")
-  .append("path")
-    .datum(data)
-    .attr("class", "line")
-  .transition()
-    .duration(1000)
-    .ease(d3.easeLinear)
-    .on("start", tick);
-    
-console.log(data);
-
-
-function tick() {
-
-	
-	
-    $.ajax({
-        url: "http://localhost:81/sensor",
-        type: 'get',
-        success: function(result) {
-			data.push(result);
-        }
-    })	
-	
-  // Push a new data point onto the back.
-/*   data.push(random());
- */
-  // Redraw the line.
-  d3.select(this)
-      .attr("d", line)
-      .attr("transform", null);
-
-  // Slide it to the left.
-  d3.active(this)
-      .attr("transform", "translate(" + x(-1) + ",0)")
-    .transition()
-      .on("start", tick);
-
-  // Pop the old data point off the front.
-  data.shift();
-
-}
 
 </script>
 </body>

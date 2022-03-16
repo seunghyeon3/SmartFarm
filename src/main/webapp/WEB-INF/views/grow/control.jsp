@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -35,7 +36,7 @@
 						<!--재배 키트 목록 종료-->
 						
 						<!--재배 관리 화면 출력부 시작-->
-						<div class="event-txt" style="width: 100%; padding: 0;">
+						<div class="event-txt" style="width: 100%; padding: 0; margin-top: 50px; margin-bottom: 50px;">
 							<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
 								<ul class="funds">
 									<li class="text-left">재배 시작일<strong id="start">^^^</strong></li>
@@ -50,29 +51,26 @@
 							</div>
 						</div>
 											
-						<div style="display: block;">
+						<div style="display: inline-block; width: 60%; margin-right: 10%;">
 							<div>
 								<ul class="check-list" style="margin-top: 20px;">
-									<li><strong id="name"> </strong></li>
-									<li><strong>자동 재배:</strong><input id="auto" type="checkbox"></li>
-									<li><strong>NFT자동재배:</strong><select id="nft"></select></li>
-									<li><strong>온도(적정값: 1~40):</strong><input class="value" id="temp" name="temp" type="number" min="1" max="40"></li>
-									<li><strong>습도(적정값: 10~90):</strong><input class="value" id="hum" name="hum" type="number" min="10" max="90"></li>
-									<li><strong>하루 중 일사시간(적정값: 1~15):</strong><input class="value" id="light" name="light" type="number" min="1" max="15"></li>
-									<li><strong>하루 중 급액량(적정값: 10~500):</strong><input class="value" id="water" name="water" type="number" min="10" max="400"></li>
-									<li><strong>하루 중 농약량(적정값: 0~70):</strong><input class="value" id="pes" name="pes" type="number" min="0" max="70"></li>
+									<li><strong style="font-size: 30px;" id="name"> </strong></li><br><hr>
+									<li style="height: 40px;"><strong>자동 재배:</strong><input id="auto" type="checkbox"></li><hr>
+									<li style="height: 40px;"><strong>NFT 자동재배:</strong><select id="nft" style="float: right; width: 150px;"></select></li><hr>
+									<li style="height: 40px;"><strong>온도(적정값: 1~40):</strong><input style="float: right; width: 150px;" class="value" id="temp" name="temp" type="number" min="1" max="40"></li><hr>
+									<li style="height: 40px;"><strong>습도(적정값: 10~90):</strong><input style="float: right; width: 150px;" class="value" id="hum" name="hum" type="number" min="10" max="90"></li><hr>
+									<li style="height: 40px;"><strong>일사시간(적정값: 1~15):</strong><input style="float: right; width: 150px;" class="value" id="light" name="light" type="number" min="1" max="15"></li><hr>
+									<li style="height: 40px;"><strong>급액량(적정값: 10~500):</strong><input style="float: right; width: 150px;" class="value" id="water" name="water" type="number" min="10" max="400"></li><hr>
+									<li style="height: 40px;"><strong>농약량(적정값: 0~70):</strong><input style="float: right; width: 150px;" class="value" id="pes" name="pes" type="number" min="0" max="70"></li>
 								</ul>
 							</div>
-						</div>
-						
-						<div style="float: left;">
-							<a id="growstart" href="#" class="dn-btn">재배 시작</a>
-							<a id="growstop" href="#" class="dn-btn">재배 중지</a>
-							<a id="growchange" href="#" class="dn-btn">값 변경</a>
-							
-							<a style="display: none;" id="complete" href="#" class="dn-btn">재배 완료(일지 저장)</a>
-							<a style="display: none;" id="cancel" href="#" class="dn-btn">취소(일지 저장 안함)</a>
-							
+ 						</div>
+						<div style="height: 586px; display: flex; justify-content: flex-end; align-content:space-between; flex-direction: column; float: right; width: 19%">
+							<div id="score" style="font-size: 50px;"></div>
+							<a id="complete" href="#" class="dn-btn" style="margin-top: 10px; width: 150px; text-align: center; display: none;">재배 완료(일지 저장)</a>
+							<a id="growstart" href="#" class="dn-btn" style="margin-top: 10px; width: 150px; text-align: center;">재배 시작</a>
+							<a id="growstop" href="#" class="dn-btn" style="margin-top: 10px; width: 150px; text-align: center;">취소</a>
+							<a id="growchange" href="#" class="dn-btn" style="margin-top: 10px; width: 150px; text-align: center;">값 변경</a><br>
 						</div>
 						<!--재배 관리 화면 출력부 종료-->
 						
@@ -86,8 +84,11 @@
 <script type="text/javascript">
 
 	$("#growKitList").on("click", "li", function(event)	{
+		$(event.target).parent().children().css('background-color', '');
+		$(event.target).css('background-color', 'green');
 /* 		$("input.value").removeAttr("disabled");
 		$("#auto").removeAttr("disabled"); */
+		$("#score").html('');
 		$("#nft").empty();
 		var dop = $("<option>");
 		dop.html("선택하세요");
@@ -96,7 +97,6 @@
 		$("#nft").val("0").trigger('change');
 		$("#name").html(event.target.innerText);
 		$("#complete").hide();
-		$("#cancel").hide();
 /* 		$("#auto").prop("checked", false);
 		$("input.value").removeAttr("disabled"); */
 		if($("#auto").is(":checked")){
@@ -130,12 +130,15 @@
 		    $("#percent").html(result.percent+ "%");
 		    $("#end").html(result.end);
 		    $("#p-bar").css("width",result.percent+"%");
- 		    if(result.auto == 1) {
+		    $("#score").html("점수: "+result.score);
+		    if(result.score == undefined) {
+		    	$("#score").empty();
+		    }
+		    if(result.auto == 1) {
 				$("#auto").click();
 		    }
 			if(result.status == 2) {
 				$("#complete").show();
-				$("#cancel").show();				
 			}
 		})
 		
@@ -166,7 +169,6 @@
         $("#growstop").attr("data-url", event.target.id);
         $("#growchange").attr("data-url", event.target.id);
         $("#complete").attr("data-url", event.target.id);
-        $("#cancel").attr("data-url", event.target.id);
         /* if(!event.target.dataset.startdate){ */
 /* 	        $("#start").html("");
 	        $("#percent").html("재배를 시작해주세요");
@@ -233,7 +235,7 @@
 						"light":$("#light").val(),
 						"water":$("#water").val(),
 						"pes":$("#pes").val(),
-						"auto":$("input#auto")[0].dataset.auto
+						"auto":"0"
 				}
 			}).done( function (result) {
 				toastr.info(result);

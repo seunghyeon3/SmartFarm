@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -38,7 +39,7 @@
 						<!--재배 키트 목록 종료-->
 						
 						<!--재배 관리 화면 출력부 시작-->
-						<div class="event-txt" style="width: 100%; padding: 0;">
+						<div class="event-txt" style="width: 100%; padding: 0; margin-top: 50px;">
 							<div class="campaign-txt" style="margin-left: 10px; padding: 0;">
 								<ul class="funds">
 									<li class="text-left">재배 시작일<strong id="start">^^^</strong></li>
@@ -54,18 +55,18 @@
 						</div>
 											
 											
-											
-						<div style="display: inline-block; width: 20%;">
-							<ul id="daily" class="check-list" style="margin-top: 20px;">
-								<!-- 로그 리스트 -->
-							</ul>
-						</div>
-						
-						<div style="display: inline-block; width: 75%; border: 1px solid black;">
-							<ul id="log" class="check-list">
-								<!-- 로그 내용 -->
-							</ul>
-
+						<div style="display:flex; justify-content:space-between;">
+							<div style="display: inline-block; height: 400px; width: 20%;">
+								<ul id="daily" class="check-list" style="margin-top: 20px;">
+									<!-- 로그 리스트 -->
+								</ul>
+							</div>
+							
+							<div style="display: inline-block; width: 75%; border: 1px solid black; height: 400px; overflow: auto; white-space: nowrap;">
+								<ul id="log" class="check-list">
+									<!-- 로그 내용 -->
+								</ul>
+							</div>
 						</div>
 						
 						<!--재배 관리 화면 출력부 종료-->
@@ -86,6 +87,9 @@
 	}
 
 	$("#growKitList").on("click", "li", function(event)	{
+		$(event.target).parent().children().css('background-color', '');
+		$(event.target).css('background-color', 'green');
+        $("#log").empty();
 		$("#start").html("");
 	    $("#percent").html("연결중..");
 	    $("#end").html("");
@@ -120,7 +124,7 @@
 					var k = format(new Date(j.setDate(day1.getDate() + i)));
 					console.log(k);
 					var li = document.createElement("li");
-					var txt = '${member.mem_email}' + result.id +format(day2);
+					var txt = '${SPRING_SECURITY_CONTEXT.authentication.principal.username}' + result.id +format(day2);
 					console.log(txt);
 					li.data = txt;
 					li.setAttribute('data-log', txt);
