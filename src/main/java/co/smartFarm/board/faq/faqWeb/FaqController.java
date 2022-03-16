@@ -29,11 +29,15 @@ public class FaqController {
 	// FAQ 리스트 
 	 @RequestMapping(value = "/faq.do") 
 	   public String faq(Model model) throws JsonProcessingException {
-	     // ObjectMapper map = new ObjectMapper();t
-	     // String returnStr = map.writeValueAsString(faqDao.faqSelectList());
-	     // model.addAttribute("faq", returnStr);
-		 System.out.println(faqDao.faqSelectList());
-		 model.addAttribute("faq", faqDao.faqSelectList());
+		 
+	     ObjectMapper map = new ObjectMapper();
+	     List<FaqVO> faqvo = faqDao.faqSelectList();
+	     for( int i =0; i<faqvo.size(); i++) {
+	    	 faqvo.get(i).setFaq_title(faqvo.get(i).getFaq_title().replace("\r\n", "<br>"));
+	    	 faqvo.get(i).setFaq_con(faqvo.get(i).getFaq_con().replace("\r\n", "<br>"));
+	     }
+			 model.addAttribute("faq",faqvo);
+			 model.addAttribute("faqP", map.writeValueAsString(faqvo));
 	     return "board/faq";
 	   }
 	// FAQ 글쓰기 Form
@@ -41,7 +45,13 @@ public class FaqController {
 	   public String faqInsert() {
 	      return "board/faqinsertForm";
 	   }
-	 
+	// FAQ 글쓰기 업데이트
+	 @RequestMapping("/faqupdate.do")
+	   public String faqUpdate(FaqVO faq) {
+		 System.out.println(faq.toString());
+		 faqDao.faqUpdate(faq);
+	      return "redirect:/faq.do";
+	   }	 
 	// FAQ 글쓰기
 	 @RequestMapping(value = "/faqinsert.do")
 	 public String faqInsert(FaqVO faq, Model model) {
@@ -52,27 +62,13 @@ public class FaqController {
 	   }	 
 	 // FAQ 수정 Form
 	  @RequestMapping(value = "/faqupdateForm.do")
-	   public String faqupdateForm(@RequestParam("faq_no") String test, FaqVO faq, Model model){
-	      System.out.println(faq.toString());
-	      System.out.println(faqDao.faqSelect(faq));
+	   public String faqupdateForm(FaqVO faq, Model model){
 	      model.addAttribute("faq", faqDao.faqSelect(faq));
-	      return "board/faqupdateForm";
-	   }
-	  // FAQ 수정 
-	  @RequestMapping(value = "/faqupdate.do")
-	   public String archieveupdate(FaqVO faq, Model model) {
-	      System.out.println("sadacsdgdfdf================" + faq.toString());
-	      model.addAttribute("archieve", faqDao.faqUpdate(faq));
-	      List<FaqVO> list = faqDao.faqSelectList();
-	      model.addAttribute("list", list);
-	      return "redirect:/faq.do";
+	      return "board/faqUpdateForm";
 	   }
 	  // FAQ 삭제 
 	  @RequestMapping("/faqdelete.do")
-	   public String faqDelete(@RequestParam(value="faq_no")int faq_no,Model model) {
-	      System.out.println(faq_no);
-	      FaqVO faq = new FaqVO();
-	      faq.setFaq_no(faq_no);
+	   public String faqDelete(FaqVO faq,Model model) {
 	      faqDao.faqDelete(faq);
 	      model.addAttribute("faq", faqDao.faqSelectList());
 	      return "redirect:/faq.do";
@@ -89,5 +85,7 @@ public class FaqController {
 
 				return faqDao.faqSearch(key, val);
 			}
+			
+			
 	 
 }

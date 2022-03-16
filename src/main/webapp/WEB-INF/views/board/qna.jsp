@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -70,7 +71,8 @@
 							style="width: 120px; float: left">
 							<option value="qna_title">제목</option>
 							<option value="mem_email">이메일</option>
-						</select> <input type="search" id="val" name="val" class="form-control"
+						</select> 
+						<input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
 							style="margin: 0 10px; width: 380px; float: left;">
 						<button onclick="searchFnc()" type="submit">
@@ -82,12 +84,13 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
-					<c:if test="${member ne null }">
+					<sec:authorize access="hasRole('ADMIN')">
 					<a href="qnainsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
-					</c:if>
+					</sec:authorize>
 				</div>
 			</div>
+			
 		</div>
 	</section>
 
@@ -118,20 +121,21 @@
 			         width: 70
 	            },{
 	            	 header: '답글여부',
-				     name: 'reply_con',
-				     width: 70
+				     name: 'count',
+				     width: 70,
+				       formatter(object){	            	  	            		
+		            	   return object.value > 0 ? 'Y' : 'N';}
 	            },{
 	               header: '등록일',
 	               name: 'qna_day',
 	               width: 200
 	            },{
 	               header: '첨부파일',
-	               name: 'qna_phy_rou_img',
+	               name: 'qna_phy_rou',
 	               width: 70,
 	               formatter(object){	            	  
 	            	   return object.value != null ? 'Y' : 'N';}
 	    
-	         
 	            },{
 		               header: '조회',
 		               name: 'qna_hit',
@@ -148,14 +152,20 @@
 		});
 
 		// GRID 에 데이터를 입력
-		var gridData = ${qna};	
-		grid.resetData(gridData);
-		
-		grid.on('click', (ev) => {
-			  if (ev.columnName === 'qna_title') {
-				  location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no
-			  }
-			});
+		var gridData = ${qna};   
+      grid.resetData(gridData);
+      
+      grid.on('click', (ev) => {
+           if (ev.columnName === 'qna_title') {
+        	   if((gridData[ev.rowKey].count == "N" && gridData[ev.rowKey].mem_email == "${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}")
+        			   || "${SPRING_SECURITY_CONTEXT.authentication.principal.role_athr}" == "ROLE_ADMIN"){
+        		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
+        	   }else if(gridData[ev.rowKey].count == "Y")
+        		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
+              
+           }
+         });
+      
 		// ===== 검색 =====
 		function searchFnc() {
 			var searchKey = $("#key option:selected").val();

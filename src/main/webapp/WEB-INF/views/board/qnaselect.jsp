@@ -86,14 +86,13 @@ ul>li>p {
 							<h4>댓글</h4>
 							<ul>
 								<form id="commentForm" name="commentForm" method="post">
-									<br>
-									<br>
+									<br> <br>
 									<div>
 										<div>
 											<span><strong>Comments</strong></span> <span id="cCnt"></span>
 										</div>
 										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;  -->
-    									<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;  -->
+										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;  -->
 										<div>
 											<table class="table">
 												<tr>
@@ -101,16 +100,17 @@ ul>li>p {
 															id="reply_con" placeholder="댓글을 입력하세요" name="reply_con">${reply.reply_con}</textarea>
 														<br>
 														<div>
+															<!--  style="display:none;"> -->
 															<a href='#' onClick="fn_comment('${qna.qna_no}')"
-																class="btn pull-right btn-success">등록</a>
-														</div>
-												    </td>
+																class="btn pull-right btn-success">등록</a> <a href='#'
+																onClick="replyUpdate('${qna.qna_no}')">수정</a>
+														</div></td>
 												</tr>
 											</table>
 										</div>
 									</div>
 									<input type="hidden" id="qna_no" name="qna_no"
-										value="${qna.qna_no}"/>
+										value="${qna.qna_no}" />
 								</form>
 							</ul>
 					</div>
@@ -121,7 +121,12 @@ ul>li>p {
 		</div>
 	</section>
 	<script>
-		/*
+		
+	/*     function replyUpdate(comment_num){
+	    	window.name = "parentForm";
+	    	window.open("replyUpdate.do?qna_no="+reply_no);
+	    } */
+	    /*
 		 * 댓글 등록하기(Ajax)
 		 */
 		function fn_comment(code) {
@@ -151,14 +156,22 @@ ul>li>p {
 		 * 초기 페이지 로딩시 댓글 불러오기
 		 */
 		$(function() {
-
 			getCommentList();
-
+		
+			
 		});
 
 		/**
 		 * 댓글 불러오기(Ajax)
 		 */
+		 
+		function reply_con(reply_no){
+			console.log(reply_no, $('#'+reply_no).text());
+			// id로 접급
+			var reply_con = $('#'+reply_no).text();
+					console.log(reply_con);
+					$(".reply_con").val(reply_con);
+		}
 		function getCommentList() {
 
 			$.ajax({
@@ -179,10 +192,11 @@ ul>li>p {
 									html += "<div>";
 									html += "<div><table class='table'><h6><strong>"
 											+ data[i].mem_name + "</strong></h6>";
-									html += data[i].reply_con
+									html += "<span id="+data[i].reply_no+">" +data[i].reply_con +"</span>"
 											+ "<tr><td></td></tr>";
-								    html += "<a href='javascript:replyDelete();'>삭제</a>";
-					                html += "<a href='javascript:replyUpdate();'>수정</a>";
+								    html += "<a href='javascript:replyDelete("+data[i].reply_no+");'>삭제</a>";
+								    html += "<a href='javascript:reply_con("+data[i].reply_no+");'>수정</a>";
+					           /*      html += "<a href='javascript:replyUpdate("+data[i].reply_no+");'>수정</a>"; */
 									html += "</table></div>";
 									html += "</div>";
 								}
@@ -207,14 +221,13 @@ ul>li>p {
 					});
 		}
 	 function replyDelete(qna_no){
-				var paramData = {"reply_no": qna_no};
+				var paramData = {reply_no: qna_no};
 				$.ajax({
 					url: 'replydelete.do',
 					type : 'post',
 					data : paramData,
 					datatype : 'json',
-					success: function(data){
-						showReplyList();
+					success: function(){
 						alert("삭제 완료");
 						location.reload();
 					}, 
@@ -222,7 +235,23 @@ ul>li>p {
 						console.log("에러 : " + error);
 					}
 				}); 
-			}                                        
+			}   
+	 function replyUpdate(qna_no){
+		 var paramData = {reply_no: qna_no, reply_con: $('#reply_con').val()};
+		 $.ajax({
+			 url: 'replyUpdate.do', //요청 웹문서의 url주소
+			 type : 'post', //요청방식
+			 data : paramData, //전달할 변수와 값 설정(1. QueryString형식, 2.objest객체형식{})
+			 datatype : 'json', //요청에 대한 응답결과의 데이터 형식(HTML/XML/JSON)
+			 success: function(data){ //정상적인 응답결과를 제공받아 처리하는 함수 설정
+				 alert("수정 완료")  // 응답결과가 자동으로 함수의 매개변수에 전달되어 저장
+				 location.reload(); 
+			 },
+			 error: function(data){ //비정상적인 응답결과를 제공받아 처리하는 함수를 설정
+				 console.log("에러 : " + error);
+			 }
+		 })
+	 }
 	</script>
 </body>
 </html>

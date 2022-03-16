@@ -3,7 +3,8 @@
 <mapper namespace="co.smartFarm.board.qna.qnaService.QnaMapper">
 <!-- 전체리스트 -->
  <select id="qnaSelectList" resultType="co.smartFarm.board.qna.qnaService.QnaVO">
- SELECT * FROM QNA ORDER BY QNA_NO DESC
+SELECT Q.QNA_NO,Q.MEM_EMAIl, Q.QNA_OPEN_WHET,Q.QNA_TITLE,Q.MEM_NAME,Q.QNA_HIT,Q.QNA_DAY,Q.QNA_PHY_ROU, COUNT(R.REPLY_NO) AS COUNT FROM QNA Q LEFT JOIN REPLY R
+ON Q.QNA_NO = R.QNA_NO GROUP BY Q.QNA_NO,Q.MEM_EMAIl,Q.QNA_OPEN_WHET,Q.QNA_TITLE,Q.MEM_NAME,Q.QNA_HIT,Q.QNA_DAY,Q.QNA_PHY_ROU ORDER BY QNA_NO DESC
  </select>
 <!-- 단건조회 -->
 <select id="qnaSelect" resultType="co.smartFarm.board.qna.qnaService.QnaVO"

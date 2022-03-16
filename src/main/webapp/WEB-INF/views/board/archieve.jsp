@@ -82,10 +82,10 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
-					<c:if test="${member.mem_athr eq 'B0'}">
+					 <c:if test="${member.mem_athr eq 'B0'}"> 
 					<a href="archieveinsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
-					</c:if>
+					</c:if> 
 				</div>
 				</div>
 			</div>
@@ -136,12 +136,13 @@
 		// GRID 에 데이터를 입력
 		var gridData = ${archieve};	
 		grid.resetData(gridData);
-		
+		/* <c:if test="${member ne null }"> */
 		grid.on('click', (ev) => {
 			  if (ev.columnName === 'archieve_title') {
 				  location.href='archieveselect.do?archieve_no='+gridData[ev.rowKey].archieve_no
 			  }
 			});
+		/* </c:if> */
 		// ===== 검색 =====
 		function searchFnc() {
 			var searchKey = $("#key option:selected").val();
