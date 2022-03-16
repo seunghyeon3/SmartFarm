@@ -102,8 +102,7 @@ ul>li>p {
 														<div>
 															<!--  style="display:none;"> -->
 															<a href='#' onClick="fn_comment('${qna.qna_no}')"
-																class="btn pull-right btn-success">등록</a> <a href='#'
-																onClick="replyUpdate('${qna.qna_no}')">수정</a>
+																class="btn pull-right btn-success">등록</a> 
 														</div></td>
 												</tr>
 											</table>
@@ -121,11 +120,7 @@ ul>li>p {
 		</div>
 	</section>
 	<script>
-		
-	/*     function replyUpdate(comment_num){
-	    	window.name = "parentForm";
-	    	window.open("replyUpdate.do?qna_no="+reply_no);
-	    } */
+
 	    /*
 		 * 댓글 등록하기(Ajax)
 		 */
@@ -134,7 +129,7 @@ ul>li>p {
 			$.ajax({
 				type : 'POST', //post 방식 
 				url : "replyadd.do", 
-				data : JSON.stringify({ reply_con : $('#reply_con').val(), qna_no : Number($('#qna_no').val())}),
+				data : JSON.stringify({ reply_con : $('#reply_con').val(), qna_no : code}),
 				// reply_con : reply_con, qna_no:qna_no -> json 받음 
 				//data를 -> replycontroller로 보냄 
 				contentType:"application/json; charset=utf-8",
@@ -166,12 +161,21 @@ ul>li>p {
 		 */
 		 
 		function reply_con(reply_no){
-			console.log(reply_no, $('#'+reply_no).text());
-			// id로 접급
-			var reply_con = $('#'+reply_no).text();
-					console.log(reply_con);
-					$(".reply_con").val(reply_con);
+			if(document.getElementById(reply_no) != null){
+				var reply = document.getElementById(reply_no);
+				var modifyText = document.createElement("input");
+				modifyText.value = reply.textContent;
+				modifyText.setAttribute('id', 'modifyValue');
+				var abtn = document.createElement("a");
+				
+				abtn.setAttribute('onclick', 'replyUpdate('+reply_no+')');
+				abtn.style.cursor = "pointer";
+				abtn.textContent = "수정";
+				
+				reply.parentNode.append(modifyText, abtn);
+			}
 		}
+		
 		function getCommentList() {
 
 			$.ajax({
@@ -189,15 +193,13 @@ ul>li>p {
 							if (data.length > 0) {
 
 								for (i = 0; i < data.length; i++) {
-									html += "<div>";
-									html += "<div><table class='table'><h6><strong>"
+									html += "<div><h6><strong>"
 											+ data[i].mem_name + "</strong></h6>";
 									html += "<span id="+data[i].reply_no+">" +data[i].reply_con +"</span>"
 											+ "<tr><td></td></tr>";
 								    html += "<a href='javascript:replyDelete("+data[i].reply_no+");'>삭제</a>";
 								    html += "<a href='javascript:reply_con("+data[i].reply_no+");'>수정</a>";
 					           /*      html += "<a href='javascript:replyUpdate("+data[i].reply_no+");'>수정</a>"; */
-									html += "</table></div>";
 									html += "</div>";
 								}
 
@@ -236,16 +238,19 @@ ul>li>p {
 					}
 				}); 
 			}   
-	 function replyUpdate(qna_no){
-		 var paramData = {reply_no: qna_no, reply_con: $('#reply_con').val()};
+	 function replyUpdate(replyId){
+		 
+		 		 
+		 var paramData = JSON.stringify({reply_no: replyId, qna_no: $('#qna_no').val(), reply_con: $('#modifyValue').val()});
+		 
 		 $.ajax({
 			 url: 'replyUpdate.do', //요청 웹문서의 url주소
 			 type : 'post', //요청방식
 			 data : paramData, //전달할 변수와 값 설정(1. QueryString형식, 2.objest객체형식{})
-			 datatype : 'json', //요청에 대한 응답결과의 데이터 형식(HTML/XML/JSON)
+			 contentType:"application/json; charset=utf-8", // 한글 번역 
 			 success: function(data){ //정상적인 응답결과를 제공받아 처리하는 함수 설정
 				 alert("수정 완료")  // 응답결과가 자동으로 함수의 매개변수에 전달되어 저장
-				 location.reload(); 
+				 getCommentList(); 
 			 },
 			 error: function(data){ //비정상적인 응답결과를 제공받아 처리하는 함수를 설정
 				 console.log("에러 : " + error);
