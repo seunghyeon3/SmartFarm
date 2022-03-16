@@ -45,7 +45,7 @@
 			<sec:authorize access="hasRole('ADMIN')">
 				<c:if test="${!empty  intron}">
 					<a class="aboutus"
-						href="introupdateForm.do?intro_no=${intron[0].intro_no }&intro_img=${intron[0].intro_img}">수정</a>
+						href="introupdateFormn.do?intro_no=${intron[0].intro_no }&intro_img=${intron[0].intro_img}">수정</a>
 				</c:if>
 				<c:if test="${empty intron }">
 					<a class="aboutus" href="introninsertForm.do">글쓰기</a>

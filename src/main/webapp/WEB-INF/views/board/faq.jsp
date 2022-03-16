@@ -104,7 +104,7 @@
 	                	<sec:authorize access="hasRole('ADMIN')">
 	                	<br>
 	            	    <a href="faqdelete.do?faq_no=${item.faq_no}" class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">삭제</a>
-	            	    <a href="faqupdateForm.do?faq_no='${item.faq_no}"class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">수정</a>
+	            	    <a href="faqUpdateForm.do?faq_no='${item.faq_no}"class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">수정</a>
 	            	    </sec:authorize> </div></div></div>`;
 	            	    faq += temp
 	                });
