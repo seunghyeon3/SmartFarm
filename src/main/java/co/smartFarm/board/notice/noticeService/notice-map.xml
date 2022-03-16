@@ -17,7 +17,7 @@ SET
 NOTICE_TITLE = #{notice_title},
 NOTICE_CON = #{notice_con},
 NOTICE_IMG = #{notice_img}
-WHERE NOTICE_NO = #{notice_no}
+WHERE NOTICE_NO = #{notice_no} 
 </update>
 <!-- 글쓰기 -->
 <insert id="noticeInsert" parameterType="co.smartFarm.board.notice.noticeService.NoticeVO">
