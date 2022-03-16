@@ -52,7 +52,7 @@
 									<a
 										href="plantProductDetail.do?plant_sale_no=${list.plant_sale_no }">${list.plant_sale_title}</a>
 								</h6>
-								<p class="pro-price">${list.plant_sale_price }</p>
+								<p class="pro-price" id="plantSalePrice">${list.plant_sale_price }</p>
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 
 				<!-- 판매 리스트 출력 끝 -->
 				<sec:authorize access="hasRole('ROLE_FARMER')">
-					
+
 					<div class="col-md-12">
 						<a href="plantProductAdd.do" class="view-more"
 							style="color: white; cursor: pointer;">작물등록버튼</a>
@@ -104,11 +104,18 @@
             console.log(err);
          }
       }) */
+      //로딩되면 금액에 콤마넣기
+      $(document).ready(function () {
+    	  var price = document.querySelectorAll('#plantSalePrice');
+ 		 for(var i=0;i<price.length;i++) {
+ 			 
+ 			 price[i].innerText = (parseInt(price[i].innerText) * 1).toLocaleString('ko-KR');
+ 			
+ 		 }
+	})
       
      // 검색 창에 자동완성 기능
-      fetch(
-            "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101"
-         )
+      fetch("plantSaleTit.do")
          .then(result =>
             result.json()
          )
@@ -119,11 +126,11 @@
      // 자동완성 기능 함수
       function showAuto(lists) {
          var arr = [];
-         for (index in lists.boxOfficeResult.dailyBoxOfficeList) {
-            console.log(lists.boxOfficeResult.dailyBoxOfficeList[index].movieNm);
-            arr.push(lists.boxOfficeResult.dailyBoxOfficeList[index].movieNm);
+         for (index in lists) {
+            console.log(lists[index].plant_sale_title);
+            arr.push(lists[index].plant_sale_title);
          }
-         $("#autoCompt").autocomplete({
+         $("#plantSaleTitle").autocomplete({
             source: arr,
             select: function (event, ui) {
                console.log(ui.item);
@@ -149,9 +156,6 @@
       
       // ===== 장바구니 추가 =====
       function insertCart(link) {
-         //console.log(e);
-         //toastr.success("상품이 장바구니에 담겼습니다.");
-         alert('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}');
         
     	 if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' ==''){
   			alert('로그인 후 사용해 주세요');
@@ -165,8 +169,6 @@
       //검색 함수
       function searchFnc() {
     	 var plantSaleTitle = document.getElementById('plantSaleTitle').value;
-      	
-    	  
     	 var url = "plantSaleSearch.do?plantSaleTitle="+plantSaleTitle;
     	 location.href=url;
 		/* $.ajax({

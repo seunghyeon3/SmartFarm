@@ -89,5 +89,6 @@
 		resultType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
 		SELECT * FROM PLANT_SALE
 		WHERE PLANT_SALE_TITLE LIKE '%' || #{plant_sale_title} || '%'
+		AND PLANT_SALE_WHET = 'N'
 	</select>
 </mapper>

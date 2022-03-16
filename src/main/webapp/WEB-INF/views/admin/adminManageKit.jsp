@@ -66,7 +66,7 @@ input {
 						<div class="wf100 comment-form">
 							<ul>
 								<li class="w3 np"><button onclick="openInstP()"
-										class="post-btn" style="width: 200px; margin: 0 150px;">작물등록</button></li>
+										class="post-btn" style="width: 200px; margin: 0 150px;">키트등록</button></li>
 
 							</ul>
 						</div>
@@ -103,8 +103,9 @@ input {
 				enctype="multipart/form-data">
 
 				<div class="single-post-tags wf50">
-					<a onclick="changeCol(this)" id="com">상업용</a>&nbsp;&nbsp;&nbsp; <a
-						onclick="changeCol(this)" id="ho">취미용</a>
+				
+					<a onclick="changeCol(this)" id="business" style="background-color: #66bb6a;color:#f8f9fa">상업용</a>&nbsp;&nbsp;&nbsp; <a
+						onclick="changeCol(this)" id="hobby" style="background-color: #f8f9fa;color:#666666">취미용</a>
 				</div>
 
 				<table class="GeneratedTable" style="margin: 0;">
@@ -258,18 +259,24 @@ input {
 			}, {
 				header : '용도',
 				name : 'kit_prpos',
+				align: 'center',
+				width : '135',
 				filter : 'select'
 			},
 			
 			{
 				header : '분류',
 				name : 'kit_plant_class',
+				align: 'center',
+				width : '135',
 				filter : 'select'
 			}, 
 			
 			{
 				header:'조회수',
 				name : 'kit_hit',
+				align: 'right',
+				width : '145',
 				sortingType : 'desc',
 				sortable : true
 				
@@ -277,6 +284,8 @@ input {
 			{
 				header:'판매수',
 				name : 'kit_sale_count',
+				align: 'right',
+				width : '145',
 				sortingType : 'desc',
 				sortable : true
 				
@@ -284,7 +293,7 @@ input {
 			{
 				header : '관리',
 				name : 'kit_sale_whet',
-				width : '155',
+				width : '200',
 				sortingType : 'desc',
 				sortable : true
 
@@ -315,11 +324,11 @@ input {
 				console.log(grid.getValue(i, 'kit_sale_whet'));
 
 				if (grid.getValue(i, 'kit_sale_whet') == 'Y') {// 내리기
-					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px;  margin-left:23px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 
 				} else { //올리기
-					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; color: #f8f9fa; height:30px; padding:0 0px 12px 35px; margin-left:23px;">올리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 				}
 
@@ -352,11 +361,11 @@ input {
 						
 						if(result == '1'){//성공했을 때 버튼 바꾸기 (올리기->내리기 | 내리기->올리기)
 							if (id == 'Y') {//내리기
-								var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+key+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+								var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+key+' onclick="enroll(this)" class="read-post" style="margin-left:23px; padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 								grid.setValue(key, 'kit_sale_whet', input, true);
 	
 							} else { //올리기
-								var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+key+' onclick="enroll(this)" class="read-post" style="color:white;width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+								var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+key+' onclick="enroll(this)" class="read-post" style="margin-left:23px; color: #f8f9fa; width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
 								grid.setValue(key, 'kit_sale_whet', input, true);
 								
 							}
@@ -398,17 +407,29 @@ input {
 			var forC = document.getElementsByClassName('forC'); // 상업용 컬럼 가져오기
 			var cctv = document.getElementById('kit_cctv');
 			var kitPrpos = document.getElementById('kit_prpos');
-			if(id == 'com'){//상업용인 경우
+			if(id == 'business'){//상업용인 경우
+				//상업용 컬럼 보이게 하기
 				for(var i =0;i<forC.length;i++){
 					forC[i].style.display= '';
 				}
+				// 상업용 취미용 버튼 css 수정하기
+				document.getElementById('business').style.backgroundColor = '#66bb6a'
+				document.getElementById('business').style.color = '#f8f9fa' 
+				document.getElementById('hobby').style.backgroundColor = '#f8f9fa'
+				document.getElementById('hobby').style.color =  '#666666'
 				cctv.value = "Y";
 				kitPrpos.value="상업용";
 				
-			}else{// 취미용인경우
+			} else {// 취미용인경우
+				//상업용 컬럼 안보이게 하기
 				for(var i =0;i<forC.length;i++){
 					forC[i].style.display= 'none';
 				}
+				// 상업용 취미용 버튼 css 수정하기
+				document.getElementById('business').style.backgroundColor = '#f8f9fa'
+				document.getElementById('business').style.color =  '#666666'//66bb6a
+				document.getElementById('hobby').style.backgroundColor =  '#66bb6a'
+				document.getElementById('hobby').style.color = '#f8f9fa'
 				cctv.value = "";
 				kitPrpos.value="취미용";
 			}

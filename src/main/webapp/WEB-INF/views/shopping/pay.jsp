@@ -2,7 +2,8 @@
 <html lang="en">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -74,45 +75,55 @@ input {
 			<div class="projects-grid"></div>
 			<div class="container">
 				<h1>결제</h1>
-
 				<br> <br>
 				<div class="row">
 					<div class="col-md-12 col-sm-6"
 						style="padding: 20px; margin-bottom: 20px;">
 						<h3>배송정보</h3>
 						<br>
+
 						<table style="width: 60%;">
 							<tr>
 								<th>이름</th>
-								<td><input type="text" id="pur_his_recv"></td>
+								<td><input type="text" id="pur_his_recv"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}"></td>
 							</tr>
 							<tr>
 								<th>핸드폰</th>
-								<td><input type="text" id="pur_his_tel1" style="width: 80px;">
-								<span style="font-size: small">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
-								<input type="text" id="pur_his_tel2" style="width: 80px;">
+								<td><input type="text" id="pur_his_tel1"
+									style="width: 80px;"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(0,3)}">
 									<span style="font-size: small">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
-									<input type="text"id="pur_his_tel3" style="width: 80px;"> 
-									
-									<input type="hidden" id="pur_his_tel"></td>
-									
+									<input type="text" id="pur_his_tel2"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(4,8)}"
+									style="width: 80px;"> <span style="font-size: small">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+									<input type="text" id="pur_his_tel3"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(9)}"
+									style="width: 80px;"> <input type="hidden"
+									id="pur_his_tel"></td>
+
 							</tr>
 							<tr>
 								<th>우편번호</th>
-								<td><input type="text" id="mem_addr1" style="width: 100px;">
+								<td><input type="text" id="mem_addr1" style="width: 100px;"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_addr.substring(1,6)}">
 									<button type="button" id="findAddBtn" onclick="findAddr()">우편번호
 										찾기</button></td>
 							</tr>
 							<tr>
 								<th>주소</th>
-								<td><input type="text" id="mem_addr2" style="width: 90%;"></td>
+								<td><input type="text" id="mem_addr2" style="width: 90%;"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_addr.substring(8)}"></td>
 
 							</tr>
 							<tr>
 								<th>상세주소</th>
 								<td><input type="hidden" id="mem_addr3"><input
-									type="hidden" id="mem_addr"><input type="text"
-									id="mem_det_addr" style="width: 90%;"></td>
+									type="hidden" id="mem_addr"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_addr}"><input
+									type="text" id="mem_det_addr"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_det_addr}"
+									style="width: 90%;"></td>
 							</tr>
 						</table>
 					</div>
@@ -136,7 +147,6 @@ input {
 							style="padding: 10px 30px; background-color: #66bb6a; color: #f8f9fa; border: 1px solid #66bb6a; border-radius: 5px; cursor: pointer">
 
 					</div>
-
 				</div>
 			</div>
 		</section>
@@ -233,9 +243,6 @@ input {
 			}
 			return sum;
 		}
-		
-		
-	
 
 		// ===== 결제하기 ===== 
 		//가맹점 식별코드를 이용하여 IMP 객체를 초기화하기
@@ -255,8 +262,8 @@ input {
 
 			// 결제 정보
 			var pur_his_recv = $("#pur_his_recv").val();//구매자 이름
-			var pur_his_tel = $("#pur_his_tel1").val() + '-' + $("#pur_his_tel2").val()
-					+'-'+$("#pur_his_tel3").val();//전화번호
+			var pur_his_tel = $("#pur_his_tel1").val() + '-'
+					+ $("#pur_his_tel2").val() + '-' + $("#pur_his_tel3").val();//전화번호
 			$("#pur_his_tel").val(pur_his_tel);
 			var pur_his_addr = $("#mem_addr").val() + $("#mem_det_addr").val();// 구매자 주소 
 			var pur_postcode = $("mem_addr1").val();//우편번호
@@ -276,7 +283,8 @@ input {
 				buyer_name : pur_his_recv, // 구매자 이름
 				buyer_tel : pur_his_tel, // 구매자 전화번호
 				buyer_addr : pur_his_addr, //구매자 주소
-				buyer_postcode : pur_postcode //우편번호
+				buyer_postcode : pur_postcode
+			//우편번호
 			//구매자 우편번호
 			}, function(rsp) { // callback
 
@@ -297,7 +305,7 @@ input {
 		}
 
 		//삭제버튼에서 정보 받아와서 바꾸기!
-		
+
 		//===== 결제 완료 후 결제 내역을 cart에서 삭제하고 pur_his에 insert 하기 =====
 		function insertPurHis(purHis) {
 
@@ -313,7 +321,7 @@ input {
 				success : function(res) {
 					alert('결제가 완료되었습니다.')
 					location.href = "home.do";
-					
+
 				}
 			});
 		}
@@ -330,6 +338,7 @@ input {
 			new daum.Postcode(
 					{
 						oncomplete : function(data) {
+
 							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
 							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -386,6 +395,7 @@ input {
 							//console.log(resultAddr);
 
 							document.getElementById('mem_addr').value = resultAddr;
+
 						}
 					}).open();
 		}

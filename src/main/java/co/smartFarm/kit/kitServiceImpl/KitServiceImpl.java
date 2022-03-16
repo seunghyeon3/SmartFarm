@@ -1,6 +1,7 @@
 package co.smartFarm.kit.kitServiceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,8 +16,8 @@ public class KitServiceImpl implements KitService{
 	@Autowired
 	KitMapper map;
 	@Override
-	public List<KitVO> kitSelectList(String kitPrpos) {
-		return map.kitSelectList(kitPrpos);
+	public List<KitVO> kitSelectList(Map<String, String> maps) {
+		return map.kitSelectList(maps);
 	}
 
 	@Override
@@ -59,8 +60,8 @@ public class KitServiceImpl implements KitService{
 	}
 
 	@Override
-	public List<KitVO> kitSelectOrderBy(String orderBy) {
-		return map.kitSelectOrderBy(orderBy);
+	public List<KitVO> kitSelectNameDis() {
+		return map.kitSelectNameDis();
 	}
 
 }

@@ -262,30 +262,35 @@
 			console.log(check);
 			//체크된 값 가져오기
 			checkArr = grid.getCheckedRows();
-			
-			// pay로 보내기 전에 데이터 가공하기
-			var btnList = document.querySelectorAll('.delBtn');
-			
-			for(var i = 0; i < checkArr.length;i++){
-				//price, sum, count를 String에서 Number 형식으로 변환
-				var cartSum = (checkArr[i].cart_sum).replaceAll(",","");
-				checkArr[i].cart_sum = parseInt(cartSum);
+			console.log(JSON.stringify(checkArr));
+			if(JSON.stringify(checkArr) == '[]'){
+				toastr.error('항목을 하나 이상 체크해주세요.');
 				
-				var cartPrice = (checkArr[i].cart_price).replaceAll(",","");
-				checkArr[i].cart_price = parseInt(cartPrice);
-				
-				checkArr[i].cart_sale_count = parseInt(checkArr[i].cart_sale_count);
-				
-				//cart_option 정리하기
-				var row = checkArr[i].rowKey;
-				checkArr[i].cart_option = btnList[row].id;
-				
-			}//for
+			}else{
 			
-			console.log(checkArr);
-			localStorage.setItem("payList", JSON.stringify(checkArr));
-			location.href = "pay.do";
-			
+				// pay로 보내기 전에 데이터 가공하기
+				var btnList = document.querySelectorAll('.delBtn');
+				
+				for(var i = 0; i < checkArr.length;i++){
+					//price, sum, count를 String에서 Number 형식으로 변환
+					var cartSum = (checkArr[i].cart_sum).replaceAll(",","");
+					checkArr[i].cart_sum = parseInt(cartSum);
+					
+					var cartPrice = (checkArr[i].cart_price).replaceAll(",","");
+					checkArr[i].cart_price = parseInt(cartPrice);
+					
+					checkArr[i].cart_sale_count = parseInt(checkArr[i].cart_sale_count);
+					
+					//cart_option 정리하기
+					var row = checkArr[i].rowKey;
+					checkArr[i].cart_option = btnList[row].id;
+					
+				}//for
+				
+				console.log(checkArr);
+				localStorage.setItem("payList", JSON.stringify(checkArr));
+				location.href = "pay.do";
+			}
 		}
 	 
 	</script>

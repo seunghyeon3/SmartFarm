@@ -35,9 +35,9 @@
 
 						<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
 						<div class="single-post-tags">
-							<a href="kitShopList.do?kitPrpos=">전체</a> <a
-								href="kitShopList.do?kitPrpos=business">상업용</a> <a
-								href="kitShopList.do?kitPrpos=hobby">취미용</a>
+							<a href="kitShopList.do?kitPrpos=&orderBy=name" id="all">전체</a> <a
+								href="kitShopList.do?kitPrpos=business&orderBy=name" id="business">상업용</a> <a
+								href="kitShopList.do?kitPrpos=hobby&orderBy=name" id="hobby">취미용</a>
 						</div>
 					</div>
 
@@ -65,12 +65,12 @@
 				<div class="col-lg-12"
 					style="height: 50px; background-color: #f7f7f7; margin: 10px; border-bottom: solid #666666;">
 					<!-- -->
-					<a href="kitShopList.do?orderBy=name" class="orderByBtn aTag">
-						<span>이름순</span>
-					</a> <span class="orderByBtn">|</span> <a
-						href="kitShopList.do?orderBy=hit" class="orderByBtn aTag">조회수</a>
-					<span class="orderByBtn">|</span> <a
-						href="kitShopList.do?orderBy=saleCount" class="orderByBtn aTag">판매순</a>
+					<a href="" id="name" class="orderByBtn aTag"> <span
+						id="nameTag">이름순</span>
+					</a> <span class="orderByBtn">|</span> <a href="" id="hit"
+						class="orderByBtn aTag"> <span id="hitTag">조회순</span>
+					</a> <span class="orderByBtn">|</span> <a href="" id="saleCount"
+						class="orderByBtn aTag"> <span id="saleCountTag">판매순 </span></a>
 				</div>
 
 				<!-- 판매 리스트 출력 시작 -->
@@ -91,7 +91,7 @@
 									<a href="kitProductDetail.do?kit_no=${list.kit_no }">
 										${list.kit_name}</a>
 								</h6>
-								<p class="pro-price">${list.kit_price }</p>
+								<p class="pro-price" id="kitPrice">${list.kit_price}</p>
 							</div>
 						</div>
 					</div>
@@ -124,7 +124,61 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 	<script type="text/javascript">
-      /* //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
+	//페이지가 시작될 때 url 에 정보가 담겨있으면 색 바꾸기
+   
+    $(document).ready(function () {
+    	var kitPrpos = $.urlParam('kitPrpos');
+    	 
+ 		if(kitPrpos == ''){//전체
+    		 
+    		 //css 색 바꾸기
+    		 document.getElementById('all').style.backgroundColor='#66bb6a';
+    		 document.getElementById('all').style.color='#f8f9fa';
+    	 	 
+    		 kitPrpos='';
+    		 
+    	 } else if(kitPrpos=='hobby'){//취미용
+    		 document.getElementById('hobby').style.backgroundColor='#66bb6a';
+    		 document.getElementById('hobby').style.color='#f8f9fa';
+    		 
+    	 } else if(kitPrpos == 'business'){//상업용
+    		 document.getElementById('business').style.backgroundColor='#66bb6a';
+    		 document.getElementById('business').style.color='#f8f9fa';
+    	 }
+    	 
+    	 //키트 정렬별 색 바꾸기
+    	 var orderBy = $.urlParam('orderBy');
+    	 
+    	 if(orderBy == 'name'){
+    		 document.getElementById('nameTag').style.color='#66bb6a';
+    		 
+    	 }else if(orderBy =='saleCount'){
+    		 document.getElementById('saleCountTag').style.color='#66bb6a';
+    	 }else if(orderBy == 'hit'){
+    		 document.getElementById('hitTag').style.color='#66bb6a';
+    	 }
+    	 
+    	 
+    	 document.getElementById('saleCount').href = "kitShopList.do?kitPrpos="+kitPrpos+"&orderBy=saleCount";
+		 document.getElementById('hit').href =  "kitShopList.do?kitPrpos="+kitPrpos+"&orderBy=hit";
+		 document.getElementById('name').href =  "kitShopList.do?kitPrpos="+kitPrpos+"&orderBy=name";
+	
+		 //모든 돈에 콤마 넣기
+		 var price = document.querySelectorAll('#kitPrice');
+		 for(var i=0;i<price.length;i++) {
+			 
+			 price[i].innerText = (parseInt(price[i].innerText) * 1).toLocaleString('ko-KR');
+			
+		 }
+		 
+    });
+	// ===== url 자르는 함수 ===== 
+	$.urlParam = function(name){
+	    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		 	return results [1] || 0;
+	}
+	
+	  /* //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
       $.ajax({
          url: '',
          method: 'get',
@@ -137,9 +191,7 @@
       }) */
 
       // 검색 창에 자동완성 기능
-      fetch(
-            "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101"
-         )
+      fetch("kitSelectName.do")
          .then(result =>
             result.json()
          )
@@ -149,12 +201,13 @@
 
       // 자동완성 기능 함수
       function showAuto(lists) {
+    	 console.log(lists)
          var arr = [];
-         for (index in lists.boxOfficeResult.dailyBoxOfficeList) {
-            console.log(lists.boxOfficeResult.dailyBoxOfficeList[index].movieNm);
-            arr.push(lists.boxOfficeResult.dailyBoxOfficeList[index].movieNm);
+         for (index in lists) {
+            console.log(lists[index].kit_name);
+            arr.push(lists[index].kit_name);
          }
-         $("#autoCompt").autocomplete({
+         $("#kitName").autocomplete({
             source: arr,
             select: function (event, ui) {
                console.log(ui.item);

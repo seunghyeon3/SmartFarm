@@ -49,7 +49,7 @@ h3 {
 				<br>
 				<div class="row">
 					<div class="single-post-tags wf50" style="float: left;">
-						<a onclick="clickA(this)" id="" class="clickBtn" style="margin-left:18px;margin-right:20px;">전체보기</a>
+						<a onclick="clickA(this)" id="전체" class="clickBtn" style="margin-left:18px;margin-right:20px;">전체보기</a>
 						<a onclick="clickA(this)" id="과일" class="clickBtn" style="margin-right:20px;">과일류</a>
 						<a onclick="clickA(this)" id="채소" class="clickBtn" style="margin-right:20px;">채소류</a>
 					</div>
@@ -147,6 +147,22 @@ h3 {
 		//a 태그 onclick 하기전... 데이터 가공
 		function clickA(e) {
 			var kitPlantCalss = e.id;
+			
+			//버튼 눌린거 css 바꾸기
+			var clickBtn = document.querySelectorAll('.clickBtn');
+			for(var i = 0;i<clickBtn.length;i++){
+				clickBtn[i].style.backgroundColor = '#f8f9fa';// '#66bb6a';
+				clickBtn[i].style.color = '#666666';//'#f8f9fa';
+				
+			}
+			
+			document.getElementById(kitPlantCalss).style.backgroundColor = '#66bb6a';
+			document.getElementById(kitPlantCalss).style.color = '#f8f9fa';
+			
+			if(e.id=='전체'){
+				kitPlantCalss='';
+			}
+			//차트 그리기
 			getData(kitPlantCalss, '');
 		}
 
