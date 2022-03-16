@@ -191,5 +191,14 @@ public class PlantSaleController {
 
 		return "shopping/plantShopList";
 	}
+	
+	@GetMapping(value ="/plantSaleTit.do", produces = "application/text;charset=utf8")
+	@ResponseBody
+	public String plantSeleTit() {
+		List<PlantSaleVO> list = plantSaleDao.plantSaleSelectList();
+		String gson = new Gson().toJson(list);
+		return gson;
+		
+	}
 
 }

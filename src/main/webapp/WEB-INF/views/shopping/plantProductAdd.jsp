@@ -59,7 +59,9 @@
                         <form action="plantSaleInsert.do" onsubmit="return check();" method="post" enctype="multipart/form-data">
 	                        <ul class="cform">
 	                       	   <li class="full">
-	                       	   		<select class=" full form-control" id="plant_no" name="plant_no" onchange="selectFnc(this)">
+	                       	   <span style="margin:10px 15px;color:#666666;font-size:large;">작물목록</span>
+	                            
+	                       	   		<select style="margin-top:10px;" class=" full form-control" id="plant_no" name="plant_no" onchange="selectFnc(this)">
 	                       	   			<option value="-1">작물목록</option>
 		                       	   		<c:forEach var="list" items="${selectMemList}">
 											<option value="${list.plant_no }"> 작물 종류 : ${list.plant_name } | 등급 : ${list.plant_grd } | 재고 : ${list.plant_ivy } | 총 재배량 : ${list.plant_tot_grow_amnt }</option>
@@ -67,16 +69,20 @@
 									</select>
 	                       	   </li>
 	                           <li class="full">
-	                              <input type="text" id="plant_sale_title" name="plant_sale_title" class="form-control" placeholder="제목" oninvalid="toastr.error('제목을 입력해주세요')" >
+	                           		<span style="margin:10px 15px;color:#666666;font-size:large;">제목</span>
+	                              <input type="text" style="margin-top:10px;" id="plant_sale_title" name="plant_sale_title" class="form-control"  oninvalid="toastr.error('제목을 입력해주세요')" >
 	                           </li>
 	                           <li class="half pr-15">
-	                              <input type="number" id="plant_sale_price" name="plant_sale_price" class="form-control" placeholder="가격"  min="0" oninvalid="toastr.error('가격을 입력해주세요')"  >
+	                           		<span style="margin:10px 15px;color:#666666;font-size:large;">가격</span>
+	                              <input type="number" style="margin-top:10px;" id="plant_sale_price" name="plant_sale_price" class="form-control"   min="0" oninvalid="toastr.error('가격을 입력해주세요')"  >
 	                           </li>
 	                           <li class="half pl-15">
-	                              <input type="number" id="plant_count" name="plant_count" class="form-control" placeholder="수량"  min="1" oninput="countCheck()" oninvalid="toastr.error('수량을 입력해주세요')" >
+	                           	<span style="margin:10px 15px;color:#666666;font-size:large;">수량</span>
+	                              <input type="number" style="margin-top:10px;" id="plant_count" name="plant_count" class="form-control"   min="1" oninput="countCheck()" oninvalid="toastr.error('수량을 입력해주세요')" >
 	                           </li>
 	                            <li class="full">
-	                              <textarea class="textarea-control" id="plant_sale_con" name="plant_sale_con" placeholder="내용" oninvalid="toastr.error('내용을 입력해주세요')" ></textarea>
+	                            <span style="margin:10px 15px;color:#666666;font-size:large;">내용</span>
+	                              <textarea class="textarea-control" style="margin-top:10px;" id="plant_sale_con" name="plant_sale_con" oninvalid="toastr.error('내용을 입력해주세요')" ></textarea>
 	                           </li>
 	                           <!-- 파일업로드 버튼 구성 -->
 	                           <li>

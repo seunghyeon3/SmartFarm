@@ -1,7 +1,9 @@
 package co.smartFarm.kit.kitWeb;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
@@ -34,27 +36,35 @@ public class KitController {
 	@GetMapping("/kitShopList.do")
 	public String kitShopList(Model model, @Param("kitPrpos") String kitPrpos, @Param("kitName") String kitName,
 			@Param("orderBy") String orderBy) {
-		if (kitPrpos != null) { // 키트 작물인 경우
-			List<KitVO> list = kitDao.kitSelectList(kitPrpos);
 
-			// System.out.println(list);
+		Map<String, String> map = new HashMap();
+		map.put("kitPrpos", kitPrpos);
+		map.put("orderBy", orderBy);
+		map.put("kitName", kitName);
+		List<KitVO> list = kitDao.kitSelectList(map);
+		model.addAttribute("kitSelectList", list);
 
-			model.addAttribute("kitSelectList", list);
-
-			return "shopping/kitShopList";
-
-		} else if (kitName != null) {// 키트 이름 조회인 경우
-			List<KitVO> list = kitDao.kitSelectOne(kitName);
-			model.addAttribute("kitSelectList", list);
-			return "shopping/kitShopList";
-
-		} else if (orderBy != null) {
-
-			List<KitVO> list = kitDao.kitSelectOrderBy(orderBy);
-			model.addAttribute("kitSelectList", list);
-
-			return "shopping/kitShopList";
-		}
+//		if (kitPrpos != null) { // 키트 작물인 경우
+//			List<KitVO> list = kitDao.kitSelectList(kitPrpos);
+//
+//			// System.out.println(list);
+//
+//			model.addAttribute("kitSelectList", list);
+//
+//			return "shopping/kitShopList";
+//
+//		} else if (kitName != null) {// 키트 이름 조회인 경우
+//			List<KitVO> list = kitDao.kitSelectOne(kitName);
+//			model.addAttribute("kitSelectList", list);
+//			return "shopping/kitShopList";
+//
+//		} else if (orderBy != null) {
+//
+//			List<KitVO> list = kitDao.kitSelectOrderBy(orderBy);
+//			model.addAttribute("kitSelectList", list);
+//
+//			return "shopping/kitShopList";
+//		}
 
 		return "shopping/kitShopList";
 	}
@@ -91,11 +101,11 @@ public class KitController {
 			String gson = new Gson().toJson(cartVo);
 			gson = "[" + gson + "]";
 			model.addAttribute("payList", gson);
-		}else {
+		} else {
 			String json = "[]";
 			model.addAttribute("payList", json);
 		}
-		
+
 		return "shopping/kitProductDetail";
 	}
 
@@ -105,6 +115,14 @@ public class KitController {
 	public String searchKit(@Param("kit_name") String kit_name) {
 
 		return null;
+	}
+	
+	@GetMapping(value = "kitSelectName.do", produces = "application/text;charset=utf8")
+	@ResponseBody
+	public String kitSelectName() {
+		List<KitVO> list = kitDao.kitSelectNameDis();
+		String gson = new Gson().toJson(list);
+		return gson;
 	}
 
 }

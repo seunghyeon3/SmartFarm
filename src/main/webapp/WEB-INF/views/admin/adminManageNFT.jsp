@@ -77,7 +77,7 @@
 
 			<div class="projects-grid"></div>
 			<div class="container">
-				<h1>NFT 거래 현황</h1>
+				<h1>NFT 생성 현황</h1>
 
 				<br> <br>
 				<div class="row">
@@ -129,16 +129,27 @@
 					name: 'kit_name',
 					filter: 'select'
 				}, {
-					header: '작물종류',
-					name: 'kit_plant_class',
-					filter: 'select'
-				}, {
 					header: '등급',
 					name: 'grow_diary_grd',
+					width : '165',
 					filter: 'select'
 				}, {
-					header: '개수',
+					header : '용도',
+					name : 'kit_prpos',
+					align: 'center',
+					width : '165',
+					filter : 'select'
+				},{
+					header: '분류',
+					name: 'kit_plant_class',
+					align: 'center',
+					width : '165',
+					filter: 'select'
+				}, {
+					header: '생성수',
 					name: 'kit_sum',
+					align: 'right',
+					width : '165',
 					sortingType: 'desc',
 					sortable: true
 				}

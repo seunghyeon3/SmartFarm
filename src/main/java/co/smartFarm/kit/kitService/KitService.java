@@ -1,9 +1,10 @@
 package co.smartFarm.kit.kitService;
 
 import java.util.List;
+import java.util.Map;
 
 public interface KitService {
-	List<KitVO> kitSelectList(String kitPrpos);
+	List<KitVO> kitSelectList(Map<String, String> map);
 
 	KitVO kitSelectOneByNo(int kitNo);
 
@@ -22,5 +23,5 @@ public interface KitService {
 	int kitInsert(KitVO kitVo);
 	
 	int kitUpdateHit(int kitNo);
-	List<KitVO> kitSelectOrderBy(String orderBy);
+	List<KitVO> kitSelectNameDis();
 }

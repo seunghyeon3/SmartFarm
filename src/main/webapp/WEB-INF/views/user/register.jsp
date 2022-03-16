@@ -24,15 +24,21 @@
 							onsubmit="return checkRequired();"-->
 
 							<ul class="cform">
+								<!-- 이메일 -->
+								<li class="full" style="margin-bottom:5px;"><span
+									style="margin: 10px 15px; color: #666666; font-size: large;">이메일</span>
+								</li>
 								<li class="half pr-15"><input type="email"
 									class="form-control" id="mem_email" name="mem_email"
 									placeholder="이메일" required></li>
-
 								<li class="half pl-15">
 									<button type="button" onclick="checkEmail()" id="checkEmailFnc"
 										class="fsubmit">이메일 확인</button>
 								</li>
-
+								
+								<!-- 비밀번호 -->
+								<li class="full" style="margin-bottom:5px;"><span
+									style="color: #666666; font-size: large;">비밀번호</span></li>
 								<li class="half pr-15"
 									style="padding-bottom: 0; margin-bottom: 10px;"><input
 									type="password" class="form-control" id="mem_pw" name="mem_pw"
@@ -41,30 +47,40 @@
 									style="padding-bottom: 0; margin-bottom: 10px;"><input
 									type="password" class="form-control" id="mem_pw_check"
 									name="mem_pw_check" placeholder="비밀번호 확인" required></li>
-								<li class="full" style="margin-left: 10px;"><span
-									style="color: #f53738;">비밀번호는 대, 소문자, 숫자, 특수문자를 조합하여
-										입력해주세요</span></li>
-
+								<li class="full" style="margin-left: 10px;"><p
+										style="color: #f53738;">비밀번호는 대, 소문자, 숫자, 특수문자를 조합하여
+										입력해주세요</p></li>
+								<!-- 이름, 핸드폰 -->
+								<li class="half pr-15" style="margin-bottom:5px;"><span
+									style="margin: 10px 15px; color: #666666; font-size: large;">이름</span>
+								</li>
+								<li class="half pl-15" style="margin-bottom:5px;"><span
+									style="margin: 10px 15px; color: #666666; font-size: large;">핸드폰</span>
+								</li>
 								<li class="half pr-15"><input type="text"
 									class="form-control" id="mem_name" name="mem_name"
 									placeholder="이름" required></li>
 
 
 								<!-- 핸드폰 번호 -->
+
 								<li class="half pl-15"><input type="text"
-									class="form-control"
+									class="form-control telCheck"
 									style="width: 117px; float: left; -webkit-appearance: none;"
 									id="mem_tel1" max="9999" name="mem_tel1" required> <span
 									style="float: left; margin: 15px;">&mdash;</span> <input
-									type="text" max="9999" class="form-control"
+									type="text" max="9999" class="form-control telCheck"
 									style="width: 118px; float: left" id="mem_tel2" name="mem_tel2"
 									required><span style="float: left; margin: 15px;">&mdash;</span>
 									<input type="text" class="form-control" max="9999"
 									style="width: 118px; float: left" id="mem_tel3" name="mem_tel3"
-									required> <input type="hidden" id="mem_tel"
-									name="mem_tel"></li>
+									required> <input type="hidden" class="telCheck"
+									id="mem_tel" name="mem_tel"></li>
 
 								<!-- 주소 -->
+								<li class="full" style="margin-bottom:5px;"><span
+									style="margin: 10px 15px; color: #666666; font-size: large;">주소</span>
+								</li>
 								<li class="half pr-15"><input type="text"
 									class="form-control" id="mem_addr1" name="mem_addr1"
 									placeholder="우편번호" required readonly></li>
@@ -145,8 +161,8 @@
 			<div class="single-post-tags"
 				style="padding: 0; margin: 0; text-align: center;">
 				<a onclick="accept()" id=""
-					style="background-color: #66bb6a; color: #ffffff; cursor: pointer;">동의</a>&nbsp; <a
-					onclick="closeFrm()" id=""
+					style="background-color: #66bb6a; color: #ffffff; cursor: pointer;">동의</a>&nbsp;
+				<a onclick="closeFrm()" id=""
 					style="background-color: #e11f3e; color: #ffffff; cursor: pointer;">취소</a>
 			</div>
 
@@ -212,6 +228,37 @@
 	 		}
 		});
 		
+		// // ===== 핸드폰 번호 자릿수 확인 =====
+		$('#mem_tel1').focusout(function () {
+			var memTel1 = document.getElementById('mem_tel1').value;
+			if( memTel1.length != 3 ){
+				toastr.error('올바른 전화번호를 입력해주세요.');
+				document.getElementById('mem_tel1').value ='';
+				return false;
+				
+			} 
+		});
+		$('#mem_tel2').focusout(function () {
+			var memTel2 = document.getElementById('mem_tel2').value;
+			if( memTel2.length != 4 ){
+				toastr.error('올바른 전화번호를 입력해주세요.');
+				document.getElementById('mem_tel2').value ='';
+				return false;
+				
+			} 
+		});
+		$('#mem_tel3').focusout(function () {
+			var memTel3 = document.getElementById('mem_tel3').value;
+			if( memTel3.length != 3 ){
+				toastr.error('올바른 전화번호를 입력해주세요.');
+				document.getElementById('mem_tel3').value ='';
+				return false;
+				
+			} 
+		})
+		
+		
+		
 		//memberInsert하기!
 		function memberInsert() {
 			console.log("memberInsert 들어감!!!! ");
@@ -255,21 +302,27 @@
 	 	// ===== 회원가입 버튼 누르기 전에 확인하기 =====
 	   	function checkRequired() {
 			
-	 		//이메일 중복여부 확인
 	 		var mem_email_check = $('#mem_email_check').val();
 	 		var pInfoCheck = $("#pInfoCheck").val();
 	 		
+	 		//이메일 중복여부 확인
 	 		if(mem_email_check !== 'true'){
 	 			toastr.error('이메일 중복여부를 확인해주세요');
 	 			return false;
 	 			
-	 		} else if(pInfoCheck !== 'true'){
+	 		} 
+	 		
+	 		//개인정보 이용 동의안한 경우
+	 		if(pInfoCheck !== 'true'){
 	 			toastr.error('개인정보 이용을 동의해주세요');
 	 			return false;
 	 		} 
 	 		
-	 	
-	 		checkPw();
+	 		//비밀번호 유효성 검사 통과 못할 경우
+	 		if(checkPw() == false){
+	 			toastr.error('비밀번호를 다시 입력해 주세요');
+	 			return false;
+	 		}
 	 		
 	 		var mem_tel = document.getElementById('mem_tel1').value +"-"+document.getElementById('mem_tel2').value 
 			+"-"+document.getElementById('mem_tel2').value ;

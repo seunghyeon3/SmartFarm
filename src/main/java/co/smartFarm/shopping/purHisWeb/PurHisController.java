@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,9 +73,13 @@ public class PurHisController {
 	
 	@RequestMapping("purHisSelect.do")
 	@ResponseBody
-	public List<PurHisVO> purHisSelect(HttpSession session){
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		String mem_email = member.getMem_email();
-		return purHisDao.purHisSelect(mem_email);
+	public List<PurHisVO> purHisSelect(){
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()  instanceof MemberVO) {
+			MemberVO memberVo =  (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			return purHisDao.purHisSelect(memberVo.getMem_email());
+			
+		}
+		return null;
+		
 	}
 }

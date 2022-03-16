@@ -2,12 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.smartFarm.kit.kitService.KitMapper">
 	<select id="kitSelectList"
+		parameterType="hashMap"
 		resultType="co.smartFarm.kit.kitService.KitVO">
 		SELECT * FROM KIT
         WHERE KIT_SALE_WHET = 'Y'
-        <if test="key == ''">AND KIT_PRPOS LIKE '%%'</if>
-        <if test="key == 'hobby'">AND KIT_PRPOS LIKE '취미용'</if>
-        <if test="key == 'business'">AND KIT_PRPOS LIKE '상업용'</if>
+        <if test="kitPrpos == ''">AND KIT_PRPOS LIKE '%%'</if>
+        <if test="kitPrpos == 'hobby'">AND KIT_PRPOS LIKE '취미용'</if>
+        <if test="kitPrpos == 'business'">AND KIT_PRPOS LIKE '상업용'</if>
+        <if test="kitName != ''">AND KIT_NAME LIKE '%' || #{kitName} || '%'</if>
+        <trim prefix="ORDER BY">
+			<if test="orderBy =='name'"> KIT_NAME ASC</if>
+			<if test="orderBy =='hit'"> KIT_HIT DESC</if>
+			<if test="orderBy =='saleCount'"> KIT_SALE_COUNT DESC</if>
+		</trim>
 	</select>
 	
 	 <select id="kitSelectOneByNo" parameterType="int"
@@ -94,14 +101,10 @@
 		WHERE KIT_NO = #{kit_no}
 	</update>
 	
-	<select id="kitSelectOrderBy"
+	<select id="kitSelectNameDis"
 		resultType="co.smartFarm.kit.kitService.KitVO">
-		SELECT * FROM KIT
-		<trim prefix="ORDER BY">
-			<if test="orderBy =='name'"> kit_name asc</if>
-			<if test="orderBy =='hit'"> kit_hit desc</if>
-			<if test="orderBy =='saleCount'"> kit_sale_count desc</if>
-		</trim>
-	</select>
+		SELECT DISTINCT KIT_NAME
+		FROM KIT
+	</select> 
 	
 </mapper>
