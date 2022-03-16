@@ -53,10 +53,10 @@
 			<sec:authorize access="hasRole('ADMIN')">
 				<c:if test="${!empty introg}">
 					<a class="aboutus"
-						href="introupdateForm.do?intro_no=${introg[0].intro_no }&intro_img=${introg[0].intro_img}">수정</a>
+						href="introupdateFormg.do?intro_no=${introg[0].intro_no }&intro_img=${introg[0].intro_img}">수정</a>
 				</c:if>
 				<c:if test="${empty introg}">
-					<a class="aboutus" href="introinsertForm.do">글쓰기</a>
+					<a class="aboutus" href="introinsertgForm.do">글쓰기</a>
 				</c:if>
 			</sec:authorize>
 		</div>
