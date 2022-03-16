@@ -55,4 +55,34 @@
 	<delete id="deleteRevw" parameterType="int">
 		delete from use_revw where use_revw_no = #{use_revw_no}
 	</delete>
+	
+	<select id="useRevwSearchList" parameterType="String" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
+		SELECT * FROM USE_REVW
+		WHERE USE_REVW_TITLE LIKE '%' || #{useRevwTitle} || '%'
+	</select>
+	
+	<update id="updateRevwHit" parameterType="int">
+		UPDATE USE_REVW
+		SET USE_REVW_HIT = (SELECT USE_REVW_HIT+1 FROM USE_REVW WHERE USE_REVW_NO = #{use_revw_no})
+		WHERE USE_REVW_NO = #{use_revw_no}
+	</update>
+	
+	<select id="useRevwCommList" parameterType="int" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwCommVO">
+		SELECT * 
+		FROM USE_REVW_COMM 
+		WHERE USE_REVW_NO = #{use_revw_no}
+	</select>
+	
+	<insert id="useRevwCommInsert" parameterType="co.smartFarm.board.useRevw.useRevwService.UseRevwCommVO">
+		<selectKey keyProperty="use_revw_comm_no" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(USE_REVW_COMM_NO)+1,1) AS USE_REVW_COMM_NO FROM USE_REVW_COMM
+		</selectKey> 
+			INSERT INTO USE_REVW_COMM(USE_REVW_COMM_NO, MEM_NAME, MEM_EMAIL, USE_REVW_COMM_CON, USE_REVW_NO)
+			VALUES(#{use_revw_comm_no},#{mem_name},#{mem_email},#{use_revw_comm_con},#{use_revw_no})
+	</insert>
+	
+	<delete id="useRevwCommDelete" parameterType="int">
+		DELETE FROM USE_REVW_COMM WHERE USE_REVW_COMM_NO = #{useRevwCommNo}
+	</delete>
 </mapper>

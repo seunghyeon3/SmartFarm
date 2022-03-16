@@ -25,7 +25,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 			<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email eq useRevwDetail.mem_email}">
 				<div class="col-md-12">
 					<a href="useRevwDelete.do?useRevwNo=${useRevwDetail.use_revw_no }" class="view-more"
-						style="color: white; cursor: pointer;">삭제</a> <a
+						style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;">삭제</a> <a
 						href="useRevwUpdateForm.do?useRevwNo=${useRevwDetail.use_revw_no }&purHisNo=${useRevwDetail.pur_his_order_no }" class="view-more"
 						style="color: white; cursor: pointer; margin-right: 5px">수정</a>
 				</div>
@@ -41,60 +41,69 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					<div class="contact-form mb60">
 						<ul class="cform">
 							<li class="full">
-								<h5>제목</h5> <br>
 								<h3>${useRevwDetail.use_revw_title}</h3>
 								<hr>
 							</li>
 							<li class="full">
-								<h5>내용</h5> <br>
 								<div class="col-md-12">${useRevwDetail.use_revw_con}</div>
 							</li>
 						</ul>
 					</div>
 				</div>
+				<div class="col-md-8" style="margin-top:50px">
 				<div class="wf100 comment-form">
-					<h4>이용후기 댓글</h4>
-					
-					<ul>
-						<li class="w3"><input type="text" class="form-control"
-							placeholder="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name }"></li>
-						<li class="full"><textarea class="form-control"
-								placeholder="댓글 작성"></textarea></li>
-						<li class="full">
-							<button class="post-btn">Post Your Comment</button>
-						</li>
-					</ul>
-
-					<ul class="comments">
-						<li class="comment">
-							<div class="user-thumb">
-								<img src="images/auser.jpg" alt="">
-							</div>
-							<div class="comment-txt">
-								<h6>Harry Butler</h6>
-								<p>Personally I think a combination of all these methods is
-									most effective, but in today’s post I will be focusing
-									specifically on how to use and style WordPress’ built-in sticky
-									post feature and highlighting it’s best use case based on my
-									own experience.</p>
-								<ul class="comment-time">
-									<li>Posted: 09 July, 2018 at 2:37 pm</li>
-									<li><a href="#"><i class="fas fa-reply"></i> Reply</a></li>
-								</ul>
-
-
-							</div>
-						</li>
-
-					</ul>
+					<h5>이용후기 댓글</h5>
+					<br><br>
+					<sec:authorize access="isAuthenticated()">
+					<form action="useRevwCommInsert.do" method ="POST" enctype="application/x-www-form-urlencoded">
+						 <div class="form-group">
+							${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 
+			                <input type="text" class="form-control" name="use_revw_comm_con" id="use_revw_comm_con" placeholder="댓글을 입력하세요...">
+			                <input type="hidden" name="use_revw_no" id="use_revw_no" value= '${useRevwDetail.use_revw_no }' >
+			                <input style="float:right"type="submit" value="댓글등록" class="fsubmit">
+			              </div>	
+						</form>
+						<br><br>
+					</sec:authorize>
 				</div>
-
+				
+				 <c:forEach items="${useRevwComment }" var="useRevwComment">
+					<!--Author Comments Start-->
+					<div class="post-comments wf100">
+						<ul class="comments">
+							<!--Comment Start-->
+							<li class="comment" style="padding-left: 0px;">
+								<div class="comment-txt">
+									<h6>${useRevwComment.mem_name}</h6>
+									<p>${useRevwComment.use_revw_comm_con}</p>
+									<ul class="comment-time">
+										<li>${useRevwComment.use_revw_comm_write_day}</li>
+										<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email eq useRevwComment.mem_email}">
+										<li><a
+											href="useRevwCommDelete.do?useRevwCommNo=${useRevwComment.use_revw_comm_no}" style="float: right;">삭제</a></li>
+										</c:if>	
+									</ul>
+								</div>
+							</li>
+							<!--Comment End-->
+						</ul>
+					</div>
+					<!--Author Comments End-->
+					</c:forEach>
+			</div>
 			</div>
 		</div>
 	</section>
 
 	<script>
-		//아작스 호출해서 댓글 들고와서 #comments에 넣어주기
+	    
+	    function useRevwCommentCancel(e, id){
+	    	
+	    	  document.getElementById(id).style.display='none';
+	    	  e.parentNode.parentNode.parentNode.parentNode.parentNode.children[0].style.display='block';
+	    	  
+	    	//console.log(e.parentNode.parentNode.parentNode.parentNode.parentNode.children[0]);
+	    }
 	</script>
 	
 </body>

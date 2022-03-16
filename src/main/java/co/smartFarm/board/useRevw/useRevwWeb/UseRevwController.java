@@ -1,7 +1,10 @@
 package co.smartFarm.board.useRevw.useRevwWeb;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.smartFarm.board.useRevw.useRevwService.UseRevwCommVO;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwService;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwVO;
 import co.smartFarm.shopping.purHisService.PurHisService;
@@ -30,8 +35,15 @@ public class UseRevwController {
 	//이용후기 메인페이지 
 	@RequestMapping("useRevwMain.do")
 	public String UseRevwMain(Model model){
-		
 		model.addAttribute("useRevwList", useRevwDao.useRevwList());
+		
+		return "board/useRevwMain";
+	}
+	
+	//이용후기 검색페이지
+	@RequestMapping("useRevwSearch.do")
+	public String useRevwSearch(Model model, @RequestParam(value="useRevwTitle") String useRevwTitle) {
+		model.addAttribute("useRevwList", useRevwDao.useRevwSearchList(useRevwTitle));
 		
 		return "board/useRevwMain";
 	}
@@ -75,11 +87,18 @@ public class UseRevwController {
 		return "redirect:useRevwMain.do";
 	}
 	
+	@RequestMapping("useRevwHit.do")
+	@ResponseBody
+	public int useRevwHit(@RequestParam("useRevwNo") int useRevwNo) {
+		return useRevwDao.updateRevwHit(useRevwNo);
+	}
+	
 	//이용후기 메인페이지 
 	@RequestMapping("useRevwDetail.do")
 	public String useRevwDetail(@RequestParam("useRevwNo") int useRevwNo, UseRevwVO useRevw, Model model) {
 		useRevw = useRevwDao.useRevwDetail(useRevwNo);
 		model.addAttribute("useRevwDetail", useRevw);
+		model.addAttribute("useRevwComment", useRevwDao.useRevwCommList(useRevwNo));
 		return "board/useRevwDetail";
 		}
 	
@@ -131,4 +150,25 @@ public class UseRevwController {
 		useRevwDao.deleteRevw(useRevwNo);
 		return "redirect:useRevwMain.do";
 	}
+	
+	//이용후기댓글입력
+	@RequestMapping("useRevwCommInsert.do")
+	public String useRevwCommInsert(HttpServletRequest request, UseRevwCommVO useRevwComm) {
+		String referer = request.getHeader("Referer");
+		
+		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		useRevwComm.setMem_email(memberVo.getMem_email());
+		useRevwComm.setMem_name(memberVo.getMem_name());
+		useRevwDao.useRevwCommInsert(useRevwComm);
+		return "redirect:"+ referer;
+	}
+	//이용후기댓글삭제
+	@RequestMapping("useRevwCommDelete.do")
+	public String buseRevwCommDelete(HttpServletRequest request, @RequestParam("useRevwCommNo") int useRevwCommNo) {
+		String referer = request.getHeader("Referer");
+		useRevwDao.useRevwCommDelete(useRevwCommNo);
+		return "redirect:"+ referer;
+	}
+	
 }

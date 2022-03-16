@@ -24,4 +24,11 @@ public interface AucnService {
 	List<AucnVO> aucnEndNo();
 	
 	List<Map<String, Object>> aucnEndCheckdo();
+	
+	//경매가 끝난 입찰내역 불러오기
+	List<BidHistoryVO> bidHistoryList(String memEmail);
+	//출금시 입찰내역 삭제
+	int bidHistoryDelete(int bidHistoryNo);
+	//출금시 경매번호 들고오기
+	int bidHistoryAucnNo(int bidHistoryNo);
 }
