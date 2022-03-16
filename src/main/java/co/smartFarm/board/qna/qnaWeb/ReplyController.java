@@ -29,12 +29,12 @@ public class ReplyController {
 	
 	@Autowired
 	private MemberService memberDao;
-	UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	@RequestMapping(value = "/replyadd.do")
 	@ResponseBody
 	public String replyInsert(@RequestBody ReplyVO reply, HttpServletRequest request) // requestbody replyvo 맵핑 
 			throws IllegalStateException, IOException {
 		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMem_email(userDetails.getUsername());
 		memberVO = memberDao.loginCheck(memberVO);
@@ -71,7 +71,9 @@ public class ReplyController {
 	 @RequestMapping("/replyUpdate.do")
 	 @ResponseBody
 	 public String replyUpdate(@RequestBody ReplyVO replyvo, Model model) {
-			MemberVO memberVO = new MemberVO();
+		
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 MemberVO memberVO = new MemberVO();
 			memberVO.setMem_email(userDetails.getUsername());
 			memberVO = memberDao.loginCheck(memberVO);
 			replyvo.setMem_name(memberVO.getMem_name());
