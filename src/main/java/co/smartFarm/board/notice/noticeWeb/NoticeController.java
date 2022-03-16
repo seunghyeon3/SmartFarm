@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 //3
@@ -27,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 import co.smartFarm.board.notice.noticeService.NoticeService;
 import co.smartFarm.board.notice.noticeService.NoticeVO;
+import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class NoticeController {
@@ -86,11 +89,12 @@ public class NoticeController {
 		}
 	// 공지사항 글쓰기
 	 @RequestMapping(value = "/noticeinsert.do")
-	   public String archieveInsert(NoticeVO notice, Model model,  MultipartFile noticefile)
+	   public String archieveInsert(NoticeVO notice, Model model,  MultipartFile noticefile, HttpServletRequest request)
 	         throws IllegalStateException, IOException {
 	      // file 업로드
 	      String uploadDir = "c:/Temp/";
-	      // 경로 
+	     
+		// 경로 
 	      if (!noticefile.isEmpty()) {
 	         String filename = noticefile.getOriginalFilename();
 

@@ -70,7 +70,8 @@
 							style="width: 120px; float: left">
 							<option value="qna_title">제목</option>
 							<option value="mem_email">이메일</option>
-						</select> <input type="search" id="val" name="val" class="form-control"
+						</select> 
+						<input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
 							style="margin: 0 10px; width: 380px; float: left;">
 						<button onclick="searchFnc()" type="submit">
@@ -118,20 +119,21 @@
 			         width: 70
 	            },{
 	            	 header: '답글여부',
-				     name: 'reply_con',
-				     width: 70
+				     name: 'count',
+				     width: 70,
+				       formatter(object){	            	  	            		
+		            	   return object.value > 0 ? 'Y' : 'N';}
 	            },{
 	               header: '등록일',
 	               name: 'qna_day',
 	               width: 200
 	            },{
 	               header: '첨부파일',
-	               name: 'qna_phy_rou_img',
+	               name: 'qna_phy_rou',
 	               width: 70,
 	               formatter(object){	            	  
 	            	   return object.value != null ? 'Y' : 'N';}
 	    
-	         
 	            },{
 		               header: '조회',
 		               name: 'qna_hit',
@@ -148,14 +150,15 @@
 		});
 
 		// GRID 에 데이터를 입력
-		var gridData = ${qna};	
-		grid.resetData(gridData);
-		
-		grid.on('click', (ev) => {
-			  if (ev.columnName === 'qna_title') {
-				  location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no
-			  }
-			});
+		var gridData = ${qna};   
+      grid.resetData(gridData);
+      <c:if test="${member.mem_athr eq 'B0' || member.mem_athr eq 'B1' || member.mem_email}">
+      grid.on('click', (ev) => {
+           if (ev.columnName === 'qna_title') {
+              location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no
+           }
+         });
+      </c:if>
 		// ===== 검색 =====
 		function searchFnc() {
 			var searchKey = $("#key option:selected").val();
