@@ -1,4 +1,4 @@
-\<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -304,13 +304,12 @@
 					   <div class="item">
 						<div class="product-box">
 							<div class="pro-thumb">
-								<a href="#">Add To Cart</a>	
 								<%-- <img src="<c:url value='/resources/images/${plant.plant_sale_phy_rou }'/>" alt=""> --%>
 								<img src="<c:url value='/resources/images/shop/pro1.jpg'/>" alt="" style="width: 253px; height: 270px;">
 							</div>
 							<div class="pro-txt">
 								<h6>
-									<a href="#">${plant.plant_sale_title}</a>
+									<a href="plantProductDetail.do?plant_sale_no=${plant.plant_sale_no }">${plant.plant_sale_title}</a>
 								</h6>
 								<p class="pro-price">
 								${plant.plant_sale_price}
