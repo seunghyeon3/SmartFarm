@@ -101,6 +101,8 @@ public class QnaController {
 	}
 
 	// QNA 글쓰기
+	@Autowired
+	private MemberService memberDao;
 	@RequestMapping(value = "/qnainsert.do")
 	public String qnaInsert(QnaVO qna, Model model, MultipartFile qnafile,HttpServletRequest request)
 			throws IllegalStateException, IOException {
@@ -116,7 +118,16 @@ public class QnaController {
 		}
 		System.out.println(qna.toString());
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMem_email(userDetails.getUsername());
+		memberVO = memberDao.loginCheck(memberVO);
+		try {
+			qna.setMem_name(memberVO.getMem_name());
+			qnaDao.qnaInsert(qna);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String memEmail = userDetails.getUsername();
 		qna.setMem_email(memEmail); 
 		qnaDao.qnaInsert(qna);

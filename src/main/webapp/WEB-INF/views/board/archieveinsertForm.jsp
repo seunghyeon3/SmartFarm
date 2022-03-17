@@ -51,14 +51,14 @@
                         <form action="archieveinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목" name="archieve_title" value=${archieve.archieve_title}>
+                              <input type="text" class="form-control" placeholder="제목" name="archieve_title" required value=${archieve.archieve_title}>
                            </li>
                            <div class="filebox" style="float: right">
   								<label for="ex_file">사진 업로드</label>
   								<input type="file" id="ex_file" name="archievefile">
 						   </div>
                             <li class="full">
-                              <textarea class="textarea-control" placeholder="내용" name="archieve_con">${archieve.archieve_con}</textarea>
+                              <textarea class="textarea-control" placeholder="내용" name="archieve_con" required>${archieve.archieve_con}</textarea>
                            </li>
                            <li class="full">
                               <input type="submit" value="등록"  class="fsubmit">
