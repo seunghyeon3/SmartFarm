@@ -40,7 +40,7 @@
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -57,7 +57,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${org.springframework.security-version}</version>
 		</dependency>
-		
+
 		<!-- spring-jdbc 추가 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
@@ -320,6 +320,15 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
@@ -328,5 +337,16 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 </project>

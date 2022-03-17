@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+\<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -121,25 +121,25 @@
 					<div class="row">
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">1000000</p>
+								<p class="counter-count">${mainCount.member }</p>
 								<p class="ctxt">이용 회원</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">23547</p>
+								<p class="counter-count">${mainCount.aucn }</p>
 								<p class="ctxt">완료된 경매</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">300</p>
+								<p class="counter-count">${mainCount.plant }</p>
 								<p class="ctxt">작물 종류</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">1245678</p>
+								<p class="counter-count">${mainCount.plant_sale }</p>
 								<p class="ctxt">거래 된 작물</p>
 							</div>
 						</div>
@@ -328,8 +328,6 @@
 		<!--Online Products End-->
 	</div>
 	</body>
-	<!-- 220312 PSH 로딩 순서 문제로 인해 js 추가 다른 해결 방법 있는지? dom 객체 로딩 -> 외부 js 로딩 -> jstl loading -->
 	   <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	   <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	   <script src="${pageContext.request.contextPath}/resources/js/jquery.prettyPhoto.js"></script>
 </html>

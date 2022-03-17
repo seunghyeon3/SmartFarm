@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.smartFarm.prj.MainMapper">
+	<select id="getCount" resultType="co.smartFarm.prj.MainVO">
+SELECT 
+(SELECT COUNT(*) FROM MEMBER WHERE MEM_ATHR <![CDATA[<>]]> 'B0') MEMBER,
+(SELECT COUNT(*) FROM AUCN WHERE AUCN_WHET = 'Y') AUCN,
+(SELECT COUNT(*) FROM PLANT) PLANT,
+(SELECT COUNT(*) FROM PUR_HIS WHERE PLANT_SALE_NO <![CDATA[<>]]> 0) PLANT_SALE
+FROM DUAL
+	
+	</select>
+</mapper>
