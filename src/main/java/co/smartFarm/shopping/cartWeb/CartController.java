@@ -55,7 +55,7 @@ public class CartController {
 	@GetMapping("/cartInsert.do")
 	public String cartInsert(CartVO cartVo, HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
-		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberVO) {
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 			MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (memberVo != null) {
 				// cartVo.setMem_email("ddd@abc.com"); // 추후수정 나중에 이부분 지우고 위에 두줄 살리기
@@ -81,7 +81,7 @@ public class CartController {
 	@ResponseBody
 	public String cartDelete(CartVO cartVo) {
 
-		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberVO) {// 세션이 존재할 때
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {// 세션이 존재할 때
 			
 			MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			cartVo.setMem_email(memberVo.getMem_email());

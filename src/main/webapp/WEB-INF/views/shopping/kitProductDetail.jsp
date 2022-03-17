@@ -62,8 +62,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 							<!-- 장바구니 넣기 -->
 							<sec:authorize access="permitAll">
 								<sec:authentication property="principal" var="member" />
-								<li class="full"><a
-									onclick="purchase()" class="view-more"
+								<li class="full"><a onclick="purchase()" class="view-more"
 									style="color: white; cursor: pointer;">구매</a> <a
 									onclick="insertCart()" class="view-more"
 									style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
@@ -112,6 +111,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		
 		if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}'  ==''){
 			alert('로그인 후 사용해 주세요');
+			location.href = "login.do";
 		}else{
 			var link = "cartInsert.do?cart_kit_no="+${kitSelectOne.kit_no }+"&cart_price="+${kitSelectOne.kit_price}+"&cart_sale_count=";
 			var cartSaleCount = $("#cartCount").val();
@@ -123,12 +123,18 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		
 	}
 	
+	// ===== 키트 바로 구매하기 =====
 	function purchase() {
-		
+		// 로그인 안한 경우 alert 띄우고 login 페이지로 이동
 		if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' == ''){
 			alert('로그인 후 사용해 주세요');
-		}else{
+			location.href = "login.do";
+			
+		}else{//로그인 한 경우 cartCount, mem_email 가져와서 pay.do로 넘기기
 			var payList = ${payList};
+			console.log(payList);
+			payList[0].mem_email = '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}';
+			payList[0].cart_sale_count = document.getElementById('cartCount').value;
 			localStorage.setItem("payList", JSON.stringify(payList));
 			location.href = "pay.do";
 		}

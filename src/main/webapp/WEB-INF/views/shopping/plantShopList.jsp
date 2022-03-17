@@ -59,7 +59,7 @@
 				</c:forEach>
 
 				<!-- 판매 리스트 출력 끝 -->
-				<sec:authorize access="hasRole('ROLE_FARMER')">
+				<sec:authorize access="hasRole('FARMER')">
 
 					<div class="col-md-12">
 						<a href="plantProductAdd.do" class="view-more"

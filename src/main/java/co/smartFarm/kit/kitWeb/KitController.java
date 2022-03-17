@@ -92,20 +92,19 @@ public class KitController {
 		cartVo.setCart_sale_count(1);
 		cartVo.setCart_sum(kitVo.getKit_price());
 
-		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
-			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-					.getPrincipal();
-
-			cartVo.setMem_email(userDetails.getUsername());
-
-			String gson = new Gson().toJson(cartVo);
-			gson = "[" + gson + "]";
-			model.addAttribute("payList", gson);
-		} else {
-			String json = "[]";
-			model.addAttribute("payList", json);
-		}
-
+//		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+//			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+//					.getPrincipal();
+//
+//			cartVo.setMem_email(userDetails.getUsername());
+//			
+//		} else {
+//			String json = "[]";
+//			model.addAttribute("payList", json);
+//		}
+		String gson = new Gson().toJson(cartVo);
+		gson = "[" + gson + "]";
+		model.addAttribute("payList", gson);
 		return "shopping/kitProductDetail";
 	}
 

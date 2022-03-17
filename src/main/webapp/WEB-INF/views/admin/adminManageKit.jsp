@@ -198,7 +198,7 @@ input {
 				<div class="wf100 comment-form"
 					style="width: 80%; text-align: center;">
 
-					<ul style="width: 100%; padding: 20px;">
+					<ul style="width: 100%; height:80px;">
 						<li class="w2 np"></li>
 						<li class="w3 np" style="float: right"><button
 								class="post-btn" type="submit">키트등록</button></li>

@@ -81,6 +81,10 @@ public class PlantSaleController {
 			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);
 			System.out.println(oriFile);
 		}
+		
+		//문단 엔터 처리하기
+		plantSaleVo.setPlant_sale_con(plantSaleVo.getPlant_sale_con().replace("\r\n", "<br>"));
+		
 		// 작물 등록하기
 		plantSaleDao.plantSaleInsert(plantSaleVo);
 
@@ -106,20 +110,22 @@ public class PlantSaleController {
 		cartVo.setCart_sale_count(1);
 		cartVo.setCart_sum(Integer.parseInt(plantSaleVo.getPlant_sale_price()));
 		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+//			MemberVO memberVo =  (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//			if (memberVo != null) {
+//				
+//				cartVo.setMem_email(memberVo.getMem_email());
+	
+//			}
+//		}
+		String gson = new Gson().toJson(cartVo);
+		gson = "[" + gson + "]";
+		model.addAttribute("payList", gson);
 		
-		if (userDetails != null) {
-			
-			cartVo.setMem_email(userDetails.getUsername());
-			String gson = new Gson().toJson(cartVo);
-
-			gson = "[" + gson + "]";
-			model.addAttribute("payList", gson);
-		}
 		return "shopping/plantProductDetail";
 	}
 
-	// 작물 수정창
+	//===== 작물 수정창으로 이동 =====
 	// 220302 PSH shoppingController -> plantController 구분 작업
 	// 220313 LS plantController -> plantSaleController 이동 작업
 	@RequestMapping("/plantProductUpdate.do")
@@ -129,6 +135,7 @@ public class PlantSaleController {
 		plantVo.setPlant_no(plant_sale_no);
 
 		PlantSaleVO resultVo = plantSaleDao.plantSaleSelectOne(Integer.parseInt(plant_sale_no));
+		resultVo.setPlant_sale_con(resultVo.getPlant_sale_con().replace("<br>", "\r\n"));
 		String jsonSelectPlantList = new Gson().toJson(resultVo);
 
 		model.addAttribute("plantSale", resultVo);
@@ -137,12 +144,13 @@ public class PlantSaleController {
 		return "shopping/plantProductUpdate";
 	}
 
+	//===== 작물판매 업데이트 하기 =====
 	@PostMapping("/plantSaleUpdate.do")
 	public String plantSaleUpdate(PlantSaleVO plantSaleVo, MultipartFile oriFile, HttpServletRequest req)
 			throws IllegalStateException, IOException {
 
 		// 사진 저장
-		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/plant"); // 추후수정
+		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/plant"); // 경로 추후수정
 
 		if (!oriFile.isEmpty()) {
 			String originRou = oriFile.getOriginalFilename();
@@ -155,6 +163,9 @@ public class PlantSaleController {
 			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);
 			System.out.println(oriFile);
 		}
+		
+		//문단 엔터 처리하기
+		plantSaleVo.setPlant_sale_con(plantSaleVo.getPlant_sale_con().replace("\r\n", "<br>"));
 
 		// update하기
 		plantSaleDao.plantSaleUpdate(plantSaleVo);
