@@ -43,33 +43,7 @@
 					</div>
 				</div> -->
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
-					<!-- grid 불러오기 -->
 						<div class="accordion" id="accordionExample">
-		<%-- 					<c:forEach var="values" items="${faq}" varStatus="status">
-								<div class="card">
-									<div class="card-header" id="headingOne">
-										<h2 class="mb-0">
-											<button class="btn btn-link btn-block text-left"
-												type="button" data-toggle="collapse"
-												data-target="#collapse${status.count}" aria-expanded="false"
-												aria-controls="collapse${status.count}">
-												${values.faq_no} ${values.faq_title}</button>
-										</h2>
-									</div>
-
-									<div id="collapse${status.count}" class="collapse"
-										aria-labelledby="headingOne" data-parent="#accordionExample">
-										<div class="card-body">${values.faq_con}
-											<sec:authorize access="hasRole('ADMIN')">
-												<a href="faqdelete.do?faq_no=${values.faq_no}"
-													class="view-more" style="color: white; cursor: pointer;">삭제</a>
-												<a href="faqupdateForm.do?faq_no=${values.faq_no}"
-													class="view-more" style="color: white; cursor: pointer;">수정</a>
-											</sec:authorize>
-										</div>
-									</div>
-								</div>
-							</c:forEach> --%>
 						</div>
 						<sec:authorize access="hasRole('ADMIN')">
 							<a href="faqinsertForm.do" class="view-more"
@@ -103,8 +77,8 @@
 	                	<div class="card-body"> \${ item.faq_con}
 	                	<sec:authorize access="hasRole('ADMIN')">
 	                	<br>
-	            	    <a href="faqdelete.do?faq_no=${item.faq_no}" class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">삭제</a>
-	            	    <a href="faqUpdateForm.do?faq_no='${item.faq_no}"class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">수정</a>
+	            	    <a href="faqdelete.do?faq_no=\${item.faq_no}" class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">삭제</a>
+	            	    <a href="faqupdateForm.do?faq_no=\${item.faq_no}"class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">수정</a>
 	            	    </sec:authorize> </div></div></div>`;
 	            	    faq += temp
 	                });

@@ -50,14 +50,14 @@
                   <h3>수정페이지</h3>
                   <form action="qnaupdate.do" method="post"
                      enctype="multipart/form-data">
-                     <input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    				 <input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;
+                     <input type="radio" name="qna_open_whet" id="qna_open_whet" required value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    				 <input type="radio" name="qna_open_whet" id="qna_open_whet" required value="N"/><span class="ml_10">비공개</span>&nbsp;
                      <ul class="cform">
                         <li class="full"><input type='hidden' name="qna_no"value=${qna.qna_no}> 
-                        <input type="text"class="form-control" placeholder="제목" name="qna_title"value=${qna.qna_title}></li>
+                        <input type="text"class="form-control" placeholder="제목" name="qna_title" required value=${qna.qna_title}></li>
                         <div class="filebox" style="float: right"><label for="ex_file">사진 업로드</label><input type="file"id="ex_file" name="qnafile">
                         </div>
-                        <li class="full"><textarea class="textarea-control"placeholder="내용" name="qna_con">${qna.qna_con}</textarea>
+                        <li class="full"><textarea class="textarea-control"placeholder="내용" name="qna_con" required>${qna.qna_con}</textarea>
                         </li>
                        <li class="half pr-15">
                        <input type="submit" value="확인" onclick="location.href=qnaupdate.do" class="fsubmit">

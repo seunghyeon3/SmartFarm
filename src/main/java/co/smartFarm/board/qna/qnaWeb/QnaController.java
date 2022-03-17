@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,6 +101,8 @@ public class QnaController {
 	}
 
 	// QNA 글쓰기
+	@Autowired
+	private MemberService memberDao;
 	@RequestMapping(value = "/qnainsert.do")
 	public String qnaInsert(QnaVO qna, Model model, MultipartFile qnafile,HttpServletRequest request)
 			throws IllegalStateException, IOException {
@@ -113,10 +117,19 @@ public class QnaController {
 			qna.setQna_phy_rou(filename);
 		}
 		System.out.println(qna.toString());
-		
-		String memName = "김길동"; String memEmail = "bbb@abc.com";
-		qna.setMem_name(memName); qna.setMem_email(memEmail); 
-		System.out.println(qna);
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMem_email(userDetails.getUsername());
+		memberVO = memberDao.loginCheck(memberVO);
+		try {
+			qna.setMem_name(memberVO.getMem_name());
+			qnaDao.qnaInsert(qna);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String memEmail = userDetails.getUsername();
+		qna.setMem_email(memEmail); 
 		qnaDao.qnaInsert(qna);
 		model.addAttribute("qna", qnaDao.qnaSelectList());
 		return "redirect:/qna.do?qna_phy_rou";

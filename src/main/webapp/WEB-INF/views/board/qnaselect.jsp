@@ -54,6 +54,7 @@ ul>li>p {
 }
 </style>
 <body>
+							
 	<section class="contact-page wf100 p80">
 		<div class="container">
 			<div class="row">
@@ -77,11 +78,14 @@ ul>li>p {
 							<li class="full"><a
 								href="downloadq.do?img=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a>
 							</li>
-							<li class="half pr-15"><input type="button" value="수정하기"
+							
+							<li id="modi"><input type="button" value="수정하기"
 								onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
 								class="fsubmit"></li>
-							<li class="half pr-15"><input type="button" value="뒤로가기"
+					
+							<li id="back"><input type="button" value="뒤로가기"
 								onclick="history.back(-1);" class="fsubmit"></li>
+								
 							<!--Leave a Comment Start-->
 							<h4>댓글</h4>
 							<ul>
@@ -124,6 +128,17 @@ ul>li>p {
 	    /*
 		 * 댓글 등록하기(Ajax)
 		 */
+		 
+		 if('${qna.mem_email}' == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}'){
+			 document.getElementById('modi').setAttribute('class', 'half pr-15')
+			 document.getElementById('back').setAttribute('class', 'half pr-15')
+			 
+		 }else{
+			 document.getElementById('modi').remove();
+			 document.getElementById('back').setAttribute('class', 'full')
+		 }
+		 
+		 
 		function fn_comment(code) {
 
 			$.ajax({
@@ -161,11 +176,12 @@ ul>li>p {
 		 */
 		 
 		function reply_con(reply_no){
-			if(document.getElementById(reply_no) != null){
+			
+			 if(!document.getElementById('m'+reply_no)){
 				var reply = document.getElementById(reply_no);
 				var modifyText = document.createElement("input");
 				modifyText.value = reply.textContent;
-				modifyText.setAttribute('id', 'modifyValue');
+				modifyText.setAttribute('id', 'm'+reply_no);
 				var abtn = document.createElement("a");
 				
 				abtn.setAttribute('onclick', 'replyUpdate('+reply_no+')');
@@ -174,7 +190,7 @@ ul>li>p {
 				
 				reply.parentNode.append(modifyText, abtn);
 			}
-		}
+		 } 
 		
 		function getCommentList() {
 
@@ -193,22 +209,21 @@ ul>li>p {
 							if (data.length > 0) {
 
 								for (i = 0; i < data.length; i++) {
-									html += "<div><h6><strong>"
-											+ data[i].mem_name + "</strong></h6>";
-									html += "<span id="+data[i].reply_no+">" +data[i].reply_con +"</span>"
-											+ "<tr><td></td></tr>";
-								    html += "<a href='javascript:replyDelete("+data[i].reply_no+");'>삭제</a>";
-								    html += "<a href='javascript:reply_con("+data[i].reply_no+");'>수정</a>";
-					           /*      html += "<a href='javascript:replyUpdate("+data[i].reply_no+");'>수정</a>"; */
-									html += "</div>";
+									html = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
+									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
+									<tr><td></td></tr>
+									<sec:authorize access="hasRole('ADMIN')">
+								    <a href='javascript:replyDelete("\${data[i].reply_no}");'>삭제</a>
+								    <a href='javascript:reply_con("\${data[i].reply_no}");'>수정</a>
+								    </sec:authorize>
+									</div>`;
 								}
 
 							} else {
 
-								html += "<div>";
-								html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
-								html += "</table></div>";
-								html += "</div>";
+								html =`<div>
+								<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>
+								</table></div></div>`
 
 							}
 
@@ -241,7 +256,7 @@ ul>li>p {
 	 function replyUpdate(replyId){
 		 
 		 		 
-		 var paramData = JSON.stringify({reply_no: replyId, qna_no: $('#qna_no').val(), reply_con: $('#modifyValue').val()});
+		 var paramData = JSON.stringify({reply_no: replyId, qna_no: $('#qna_no').val(), reply_con: $('#m'+replyId).val()});
 		 
 		 $.ajax({
 			 url: 'replyUpdate.do', //요청 웹문서의 url주소

@@ -49,8 +49,8 @@
          color: red;
       }
       #headerfont > li > a{
-      padding: 14px;
-      font-size: 22px;
+      padding: 30px;
+      font-size: 16px;
       }
    </style>
 
@@ -63,8 +63,10 @@
    
   <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
-               <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="max-width: 100%; height: auto;"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do" style="width: 200px;">
+               <img src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="max-width: 60%; height: auto;"></a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                   <ul class="navbar-nav mr-auto" id = "headerfont">
                      <li class="nav-item dropdown">
