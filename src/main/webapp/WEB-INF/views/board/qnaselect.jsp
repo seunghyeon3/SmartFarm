@@ -161,7 +161,7 @@ ul>li>p {
 		 */
 		 
 		function reply_con(reply_no){
-			if(document.getElementById(reply_no) != null){
+			 if(document.getElementById('modifyValue') != null){
 				var reply = document.getElementById(reply_no);
 				var modifyText = document.createElement("input");
 				modifyText.value = reply.textContent;
@@ -174,7 +174,7 @@ ul>li>p {
 				
 				reply.parentNode.append(modifyText, abtn);
 			}
-		}
+		 } 
 		
 		function getCommentList() {
 

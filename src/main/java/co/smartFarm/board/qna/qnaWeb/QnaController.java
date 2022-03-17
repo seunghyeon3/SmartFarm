@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -113,10 +115,10 @@ public class QnaController {
 			qna.setQna_phy_rou(filename);
 		}
 		System.out.println(qna.toString());
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		String memName = "김길동"; String memEmail = "bbb@abc.com";
-		qna.setMem_name(memName); qna.setMem_email(memEmail); 
-		System.out.println(qna);
+		String memEmail = userDetails.getUsername();
+		qna.setMem_email(memEmail); 
 		qnaDao.qnaInsert(qna);
 		model.addAttribute("qna", qnaDao.qnaSelectList());
 		return "redirect:/qna.do?qna_phy_rou";

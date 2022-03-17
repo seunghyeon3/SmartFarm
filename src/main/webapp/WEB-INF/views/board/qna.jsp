@@ -84,10 +84,8 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
-					<sec:authorize access="hasRole('ADMIN')">
 					<a href="qnainsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
-					</sec:authorize>
 				</div>
 			</div>
 			
@@ -156,9 +154,10 @@
       grid.resetData(gridData);
       
       grid.on('click', (ev) => {
+    	 console.log(' ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}');
            if (ev.columnName === 'qna_title') {
-        	   if((gridData[ev.rowKey].count == "N" && gridData[ev.rowKey].mem_email == "${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}")
-        			   || "${SPRING_SECURITY_CONTEXT.authentication.principal.role_athr}" == "ROLE_ADMIN"){
+        	   if((gridData[ev.rowKey].qna_open_whet == "N" && gridData[ev.rowKey].mem_email == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}')
+        			   || '${SPRING_SECURITY_CONTEXT.authentication.principal.role_athr}' == "ROLE_ADMIN"){
         		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
         	   }else if(gridData[ev.rowKey].count == "Y")
         		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
