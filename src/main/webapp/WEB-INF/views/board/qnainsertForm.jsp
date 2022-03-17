@@ -55,14 +55,14 @@
     					<input type="radio" name="qna_open_whet" id="qna_open_whet" required value="N"/><span class="ml_10">비공개</span>&nbsp;
 						</td>
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목" name="qna_title" value=${qna.qna_title}>
+                              <input type="text" class="form-control" placeholder="제목" name="qna_title" required value=${qna.qna_title} >
                            </li>
                            <div class="filebox" style="float: right">
   								<label for="ex_file">사진 업로드</label>
   								<input type="file" id="ex_file" name="qnafile">
 						   </div>
                             <li class="full">
-                              <textarea class="textarea-control" placeholder="내용" name="qna_con">${qna.qna_con}</textarea>
+                              <textarea class="textarea-control" placeholder="내용" required name="qna_con">${qna.qna_con}</textarea>
                            </li>
                            <li class="full">
                               <input type="submit" value="등록"  class="fsubmit">
