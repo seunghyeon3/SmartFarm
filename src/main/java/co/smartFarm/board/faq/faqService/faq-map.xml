@@ -3,7 +3,7 @@
 <mapper namespace="co.smartFarm.board.faq.faqService.FaqMapper">
 <!-- 전체리스트 -->
  <select id="faqSelectList" resultType="co.smartFarm.board.faq.faqService.FaqVO">
-SELECT REPLACE(FAQ_CON,CHR(13) || CHR(10),'') FAQ_CON, FAQ_NO,FAQ_TITLE FROM FAQ ORDER BY FAQ_NO<!--다시 수정 -->
+SELECT REPLACE(FAQ_CON,CHR(13) || CHR(10),'') FAQ_CON, FAQ_NO,FAQ_TITLE FROM FAQ ORDER BY FAQ_NO DESC<!--다시 수정 -->
  </select>
  <!-- 단건조회 -->
  <select id="faqSelect" resultType="co.smartFarm.board.faq.faqService.FaqVO">
