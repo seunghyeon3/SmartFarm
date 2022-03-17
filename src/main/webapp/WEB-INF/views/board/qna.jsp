@@ -159,7 +159,7 @@
         	   if((gridData[ev.rowKey].qna_open_whet == "N" && gridData[ev.rowKey].mem_email == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}')
         			   || '${SPRING_SECURITY_CONTEXT.authentication.principal.role_athr}' == "ROLE_ADMIN"){
         		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
-        	   }else if(gridData[ev.rowKey].count == "Y")
+        	   }else if(gridData[ev.rowKey].qna_open_whet == "Y")
         		   location.href='qnaselect.do?qna_no='+gridData[ev.rowKey].qna_no;
               
            }

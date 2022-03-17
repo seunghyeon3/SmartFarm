@@ -161,11 +161,12 @@ ul>li>p {
 		 */
 		 
 		function reply_con(reply_no){
-			 if(document.getElementById('modifyValue') != null){
+			
+			 if(!document.getElementById('m'+reply_no)){
 				var reply = document.getElementById(reply_no);
 				var modifyText = document.createElement("input");
 				modifyText.value = reply.textContent;
-				modifyText.setAttribute('id', 'modifyValue');
+				modifyText.setAttribute('id', 'm'+reply_no);
 				var abtn = document.createElement("a");
 				
 				abtn.setAttribute('onclick', 'replyUpdate('+reply_no+')');
@@ -241,7 +242,7 @@ ul>li>p {
 	 function replyUpdate(replyId){
 		 
 		 		 
-		 var paramData = JSON.stringify({reply_no: replyId, qna_no: $('#qna_no').val(), reply_con: $('#modifyValue').val()});
+		 var paramData = JSON.stringify({reply_no: replyId, qna_no: $('#qna_no').val(), reply_con: $('#m'+replyId).val()});
 		 
 		 $.ajax({
 			 url: 'replyUpdate.do', //요청 웹문서의 url주소

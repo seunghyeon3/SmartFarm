@@ -25,7 +25,7 @@ VALUES(#{reply_no},#{qna_no},#{mem_name}, #{reply_con})
 UPDATE REPLY
 SET
 REPLY_CON = #{reply_con}
-WHERE  REPLY_NO = #{reply_no} AND QNA_NO = #{qna_no} AND MEM_NAME =#{mem_name}
+WHERE  REPLY_NO = #{reply_no} AND QNA_NO = #{qna_no}
 </update>
 <!-- 삭제 -->
 <delete id="replyDelete" parameterType="co.smartFarm.board.qna.qnaService.ReplyVO">

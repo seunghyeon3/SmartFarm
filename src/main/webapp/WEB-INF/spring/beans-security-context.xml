@@ -16,6 +16,8 @@
 
 		<form-login login-page="/login.do" 	login-processing-url="/loginCheck.do" default-target-url="/home.do"
 			username-parameter="mem_email" password-parameter="mem_pw" />
+			
+			
 		<logout logout-url="/logout.do" logout-success-url="/home.do" />
 		<access-denied-handler
 			error-page="/home.do" />
