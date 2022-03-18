@@ -11,7 +11,7 @@
 		ON(N.NFT_NO = A.NFT_NO)
 	</select>
 	<!-- SYSDATE 로 비교하여 설정시간부터 하루가 지나지 않은 경매 품목만 출력 -->
-	<select id="aucnEnable"
+	 <select id="aucnEnable"
 		resultType="co.smartFarm.auction.aucnService.AucnVO">
 		SELECT *
 		FROM(
