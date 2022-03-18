@@ -29,7 +29,7 @@ function movePage(url, realPath){
                   )
             )
          }
-         else if(url.substring(0,14) == realPath+"/plantShop" || url.substring(0,8) == realPath+"/kit")
+         else if(url.substring(0,14) == realPath+"/plantShop" || url.substring(0,8) == realPath+"/kit"){
              $("#menuPan").append(
                 $("<h1>").text("판매"),
                 $('<br>'),
@@ -50,14 +50,14 @@ function movePage(url, realPath){
              )
           }  
          //220308 PSH 이용후기 수정 예정
-         else if(url.substring(0,9) == realPath+"/free" || url == "leeyoung.do"){
+         else if(url.substring(0,9) == realPath+"/free" || url.substring(0,8) == realPath+"/use"){
               $("#menuPan").append(
                       $("<h1>").text("커뮤니티"),
                       $('<br>'),
                       $("<h3>").append(
                          $("<a>").attr("href", realPath+"/free.do").text("자유 게시판"),
                          $("<span>").text(" | "),   
-                         $("<a>").attr("href", "#").text("이용 후기")
+                         $("<a>").attr("href", realPath+"/useRevwMain.do").text("이용 후기")
                          )
                    )
          }
@@ -113,6 +113,6 @@ function movePage(url, realPath){
                   )
         }
     }
-    
+   } 
     
 var tempvalue= "abcd";

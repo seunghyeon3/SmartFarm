@@ -1,7 +1,17 @@
 //블록체인 연결
 console.log('starting...');
 
-web3 = new Web3(new Web3.providers.HttpProvider('HTTP://127.0.0.1:8545')); // 메타마스크 연결
+//web3 = new Web3(new Web3.providers.HttpProvider('HTTP://127.0.0.1:8545')); // 메타마스크 연결
+
+if (typeof web3 !== 'undefined') {
+        // Mist/MetaMask의 프로바이더 사용
+        web3 = new Web3(window.web3.currentProvider);
+        //alert('web3가 연결되었습니다.');
+    } else {
+        // 사용자가 Metamask를 설치하지 않은 경우에 대해 처리
+        // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
+        web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+}
 
 if (web3)
 	console.log('connected');
@@ -184,7 +194,7 @@ var abi = [
 
 //var NFTAuctionContract = web3.eth.contract(abi)
 
-var contractAddress = "0x243Ac993BD48280D420d3BfD27d1250d8A51530C"; /* our contract address on Ethereum after deploying */
+var contractAddress = "0xb7FE3E7FB00689A14FEF0dfd085331DfE943A2d7"; /* our contract address on Ethereum after deploying */
 
 var NFTAuction = new web3.eth.Contract(abi, contractAddress);//NFTAuctionContract.at(contractAddress)
 // `NFTAuction`는 우리 컨트랙트의 public 함수와 이벤트에 접근할 수 있다.

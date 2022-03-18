@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import co.smartFarm.board.faq.faqService.FaqVO;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwCommVO;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwService;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwVO;
@@ -34,16 +38,25 @@ public class UseRevwController {
 	
 	//이용후기 메인페이지 
 	@RequestMapping("useRevwMain.do")
-	public String UseRevwMain(Model model){
-		model.addAttribute("useRevwList", useRevwDao.useRevwList());
+	public String UseRevwMain(Model model) throws JsonProcessingException{
+		ObjectMapper map = new ObjectMapper();
+	     List<UseRevwVO> useRevwvo = useRevwDao.useRevwList();
+	     
+		model.addAttribute("useRevwList", map.writeValueAsString(useRevwvo));
 		
 		return "board/useRevwMain";
 	}
 	
 	//이용후기 검색페이지
 	@RequestMapping("useRevwSearch.do")
-	public String useRevwSearch(Model model, @RequestParam(value="useRevwTitle") String useRevwTitle) {
-		model.addAttribute("useRevwList", useRevwDao.useRevwSearchList(useRevwTitle));
+	public String useRevwSearch(Model model, @RequestParam(value="useRevwTitle") String useRevwTitle) throws JsonProcessingException {
+		ObjectMapper map = new ObjectMapper();
+	     List<UseRevwVO> useRevwvo = useRevwDao.useRevwSearchList(useRevwTitle);
+		try {
+			model.addAttribute("useRevwList", map.writeValueAsString(useRevwvo));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		
 		return "board/useRevwMain";
 	}

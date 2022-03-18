@@ -38,6 +38,8 @@ public class ReplyController {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMem_email(userDetails.getUsername());
 		memberVO = memberDao.loginCheck(memberVO);
+		reply.setReply_con(reply.getReply_con().replace("\r\n", "<br>"));
+		System.out.println(reply.toString());
 		try {
 			reply.setMem_name(memberVO.getMem_name());
 			replyDao.replyInsert(reply);
