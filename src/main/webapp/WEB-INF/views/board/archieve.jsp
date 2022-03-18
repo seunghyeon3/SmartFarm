@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,10 +83,11 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
-					 <c:if test="${member.mem_athr ne 'B0'}"> 
+					  <sec:authorize access="hasRole('ADMIN')">
 					<a href="archieveinsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
-					</c:if> 
+						</sec:authorize>
+					
 				</div>
 				</div>
 			</div>
@@ -136,13 +138,13 @@
 		// GRID 에 데이터를 입력
 		var gridData = ${archieve};	
 		grid.resetData(gridData);
-		/* <c:if test="${member ne null }"> */
+		<sec:authorize access="isAuthenticated()">
 		grid.on('click', (ev) => {
 			  if (ev.columnName === 'archieve_title') {
 				  location.href='archieveselect.do?archieve_no='+gridData[ev.rowKey].archieve_no
 			  }
 			});
-		/* </c:if> */
+		</sec:authorize>
 		// ===== 검색 =====
 		function searchFnc() {
 			var searchKey = $("#key option:selected").val();

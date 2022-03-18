@@ -89,7 +89,7 @@ ul>li>p {
 								onclick="history.back(-1);" class="fsubmit"></li>
 
 							<!--Leave a Comment Start-->
-							<h4>댓글</h4>
+							<h4>답글</h4>
 							<ul>
 								<form id="commentForm" name="commentForm" method="post">
 									<br> <br>
