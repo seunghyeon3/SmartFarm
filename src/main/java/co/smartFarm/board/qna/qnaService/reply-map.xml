@@ -10,7 +10,7 @@ SELECT * FROM REPLY WHERE REPLY_NO = #{reply_no}
 <!-- 전체조회 -->
 <select id="replySelectList" resultType="co.smartFarm.board.qna.qnaService.ReplyVO"
 parameterType="co.smartFarm.board.qna.qnaService.ReplyVO">
-SELECT * FROM REPLY WHERE QNA_NO = #{qna_no}
+SELECT * FROM REPLY WHERE QNA_NO = #{qna_no} ORDER BY  REPLY_DAY DESC 
 </select>
 <!-- 글쓰기 -->
 <insert id="replyInsert" parameterType="co.smartFarm.board.qna.qnaService.ReplyVO">

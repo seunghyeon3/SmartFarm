@@ -211,7 +211,7 @@ ul>li>p {
 							if (data.length > 0) {
 
 								for (i = 0; i < data.length; i++) {
-									commentlist = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
+									commentlist += `<div><h6><strong> \${data[i].mem_name}</strong></h6>
 									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
 									<tr><td></td></tr>
 									<sec:authorize access="hasRole('ADMIN')">
@@ -229,7 +229,8 @@ ul>li>p {
 								</table></div></div>`
 							}
 
-							$("#cCnt").html(commentlist);
+									$("#cCnt").html(commentlist);
+							
 
 							},
 
