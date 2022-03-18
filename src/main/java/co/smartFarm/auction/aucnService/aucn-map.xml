@@ -59,7 +59,7 @@
 		VALUES(#{aucn_no}, #{aucn_title}, #{aucn_con},
 		#{aucn_start_time}, #{first_bid}, #{now_bid},
 		#{now_bid_mem_email},
-		#{aucn_whet}, #{mem_email}, #{nft_no})
+		'Y', #{mem_email}, #{nft_no})
 	</insert>
 
 	<select id="aucnBid"
