@@ -50,8 +50,6 @@
 </head>
 <body>
 	<div class="wrapper">
-		<!--Inner Header End-->
-		<!--About Start-->
 		<section class="contact-page wf100 p80">
 			<div class="container">
 				<div class="row">
@@ -61,11 +59,10 @@
 							<h3>수정</h3>
 							<ul class="cform">
 							<!-- 파일업로드 버튼 구성 -->
-						    
 							<div class="filebox">
 								<form action="introupdateg.do" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="intro_no" value="${introg.intro_no }"> 
-										<img src="resources/images/${introg.intro_img}" alt="내용을 등록 해주세요">
+										<img src="resources/images/${introg.intro_img}" >
 										<span>${introg.intro_img}</span> 
 										<input class="upload-name" value="파일선택" disabled="disabled">
 										<label for="ex_filename">업로드</label> <input type="file"

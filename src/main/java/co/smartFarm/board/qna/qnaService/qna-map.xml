@@ -43,6 +43,6 @@ WHERE QNA_NO = #{qna_no}
 		SELECT * FROM QNA
 		<if test="key == ''"> WHERE 1 = 1</if>
 		<if test="key == 'qna_title'">WHERE QNA_TITLE LIKE '%' || #{val} || '%'</if>
-		<if test="key == 'mem_name'">WHERE MEM_NAME LIKE '%' || #{val} || '%'</if>
+		<if test="key == 'mem_email'">WHERE MEM_EMAIL LIKE '%' || #{val} || '%'</if>
 	</select>
  </mapper>

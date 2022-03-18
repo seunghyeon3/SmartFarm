@@ -60,7 +60,7 @@
                            <div class="filebox">
                            <form action="intronupdate.do" method="post" enctype="multipart/form-data">
                               <input type="hidden" name="intro_no" value="${intron.intro_no }">
-  								 <img src="resources/images/${intron.intro_img}" alt="내용을 등록 해주세요">
+  								 <img src="resources/images/${intron.intro_img}" >
   								 <span>${intron.intro_img}</span> 
   								<input class="upload-name" value="파일선택" disabled="disabled">
 										<label for="ex_filename">업로드</label> <input type="file"

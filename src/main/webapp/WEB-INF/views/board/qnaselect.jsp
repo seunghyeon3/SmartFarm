@@ -97,8 +97,6 @@ ul>li>p {
 										<div>
 											<span id="cCnt"></span>
 										</div>
-										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;  -->
-										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;  -->
 
 										<sec:authorize access="hasRole('ADMIN')">
 											<div>
@@ -225,7 +223,7 @@ ul>li>p {
 							
 							else {
 								commentlist =`<div>
-								<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>
+								<div><table class='table'><h6><strong>등록된 답글이 없습니다.</strong></h6>
 								</table></div></div>`
 							}
 

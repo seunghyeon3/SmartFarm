@@ -115,16 +115,19 @@
 	            },{
 	               header: '등록일',
 	               name: 'notice_day',
+	               align: 'center',
 	               width: 270
 	            },{
 	               header: '첨부파일',
 	               name: 'notice_img',
+	               align: 'center',
 	               width: 100,
 	               formatter(object){	            	  
 	            	   return object.value != null ? 'Y' : 'N';}
 	            },{
 		               header: '조회',
 		               name: 'notice_hit',
+		               align: 'right',
 		               width: 70
 		            }],
 	            columnOptions : {

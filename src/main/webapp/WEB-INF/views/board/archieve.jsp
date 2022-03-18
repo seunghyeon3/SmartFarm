@@ -69,7 +69,7 @@
 						<!--<form action="archieveSearch.do" method="post"> -->
 						<select class="form-control" id="key" name="key"
 							style="width: 120px; float: left">
-							<option value="archieve_day">등록일</option>
+						<!-- 	<option value="archieve_day">등록일</option> -->
 							<option value="archieve_title">제목</option>
 						</select> <input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
@@ -113,16 +113,19 @@
 	            },{
 	               header: '등록일',
 	               name: 'archieve_day',
+	               align: 'center',
 	               width: 270
 	            },{
 	               header: '첨부파일',
 	               name: 'archieve_img',
+	               align: 'center',
 	               width: 100,
 	               formatter(object){	            	  
 	            	   return object.value != null ? 'Y' : 'N';}
 	            },{
 		               header: '조회',
 		               name: 'archieve_hit',
+		               align: 'right',
 		               width: 70
 		        }],
 			columnOptions : {
