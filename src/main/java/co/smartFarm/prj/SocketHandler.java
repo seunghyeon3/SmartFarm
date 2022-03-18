@@ -101,17 +101,20 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		/*
 		 * // metamask 지갑주소들고오기 20220318 ropsten testnet 지갑주소가 빈값
 		 * 
-		 * JSONObject jsonInput = new JSONObject(); jsonInput.put("jsonrpc", "2.0");
-		 * jsonInput.put("method", "eth_accounts"); JSONArray param = new JSONArray();
-		 * jsonInput.put("params",param); jsonInput.put("id", 0);
-		 * System.out.println(jsonInput); EthResultVO result =
-		 * aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
-		 * System.out.println("지갑 배열형식으로 반환 ===" + result.getResult().toString());
+		 * JSONObject jsonInput2 = new JSONObject(); 
+		 * jsonInput2.put("jsonrpc", "2.0");
+		 * jsonInput2.put("method", "eth_accounts"); 
+		 * JSONArray param2 = new JSONArray();
+		 * jsonInput2.put("params",param2); 
+		 * jsonInput2.put("id", 0);
+		 * System.out.println(jsonInput2); 
+		 * EthResultVO result2 = aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
+		 * System.out.println("지갑 배열형식으로 반환 ===" + result2.getResult().toString());
 		 */
 		
 		  // 솔리디티 넣어주기 
-		 JSONObject jsonInput = new JSONObject(); JSONArray data = new
-		 JSONArray();
+		 JSONObject jsonInput = new JSONObject(); 
+		 JSONArray data = new JSONArray();
 		  
 		 // 경매번호 10진수에서 16진수로 변환 
 		 String hexAucnNo = Integer.toHexString(aucnNo);
@@ -134,16 +137,19 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		 // smart contract Address (MultiAuction)
 		 // from : 지갑주소 , to : smart contract Address
 		 param.put("from", "0x8324b648E446a06e963604D35c6621df60835374");
-		 param.put("to", "0xb7FE3E7FB00689A14FEF0dfd085331DfE943A2d7"); 
+		 param.put("to", "0xD951b9dd9f8a5acc061a781C5a0239d5747C771E"); 
 		 
 		 // val 16진수로변환한 wei 값을 넘긴다 이더로 보내고 싶으면 웨이값으로 환산한 후 보내기 
 		 String NaN = "0x";
 		 param.put("value", NaN+hexBid); // input 값 hash 변환 method+parameter(optional)
-		 String auctionBid = "0x454a2ab3"; String auctionBidData = auctionBid+
-		 paramAucnNo; param.put("data", auctionBidData); data.put(param);
-		 jsonInput.put("params", data); // id는 아무거나 넣으슈 jsonInput.put("id", 1);
-		 System.out.println("입찰 전송 : "+jsonInput.toString()); EthResultVO result =
-		 aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
+		 String auctionBid = "0x454a2ab3"; 
+		 String auctionBidData = auctionBid+paramAucnNo;
+		 param.put("data", auctionBidData); data.put(param);
+		 jsonInput.put("params", data); 
+		 // id는 아무거나
+		 jsonInput.put("id", 67);
+		 System.out.println("입찰 전송 : "+jsonInput.toString()); 
+		 EthResultVO result = aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
 		 System.out.println(result);
 		 
 	}
