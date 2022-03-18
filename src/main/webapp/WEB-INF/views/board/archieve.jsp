@@ -82,7 +82,7 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
-					 <c:if test="${member.mem_athr eq 'B0'}"> 
+					 <c:if test="${member.mem_athr ne 'B0'}"> 
 					<a href="archieveinsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
 					</c:if> 

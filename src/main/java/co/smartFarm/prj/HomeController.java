@@ -37,6 +37,9 @@ public class HomeController {
 	
 	@Autowired
 	private PlantSaleService plantSaleDao;
+	
+	@Autowired
+	private MainMapper MainDao;
 	//220309 PSH 메인페이지 슬라이드, 공지사항, 자유게시판, 이용후기 리스트 출력	
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -48,7 +51,7 @@ public class HomeController {
 		model.addAttribute("recentlyFree", freeDao.recentlyFree());
 		model.addAttribute("recentlyUseRevw", useRevwDao.recentlyUseRevw());
 		model.addAttribute("recentlyPlantSale" , plantSaleDao.plantSaleSelectListOrderNo());
-		System.out.println(plantSaleDao.plantSaleSelectListOrderNo().toString());
+		model.addAttribute("mainCount",MainDao.getCount());
 		return "home/home";
 	}
 }

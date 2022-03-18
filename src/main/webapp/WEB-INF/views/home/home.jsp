@@ -121,25 +121,25 @@
 					<div class="row">
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">1000000</p>
+								<p class="counter-count">${mainCount.member }</p>
 								<p class="ctxt">이용 회원</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">23547</p>
+								<p class="counter-count">${mainCount.aucn }</p>
 								<p class="ctxt">완료된 경매</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">300</p>
+								<p class="counter-count">${mainCount.plant }</p>
 								<p class="ctxt">작물 종류</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">1245678</p>
+								<p class="counter-count">${mainCount.plant_sale }</p>
 								<p class="ctxt">거래 된 작물</p>
 							</div>
 						</div>
@@ -173,7 +173,6 @@
                   <div class="col-md-6">
                      <!--Blog Small Post Start-->
                      <div class="blog-small-post">
-                     <h1>이미지가 없어서 이상하게나옴</h1>
                         <div class="post-thumb"> <a href="noticeselect.do?notice_no= ${recentlyNotice[0].notice_no }"><i class="fas fa-link"></i></a> <img src="<c:url value='/resources/images/${recentlyNotice[0].notice_img }'/>" alt=""> </div>
                         <div class="post-txt">
                            <span class="pdate"> <i class="fas fa-calendar-alt"></i> ${recentlyNotice[0].notice_day }</span>
@@ -305,13 +304,12 @@
 					   <div class="item">
 						<div class="product-box">
 							<div class="pro-thumb">
-								<a href="#">Add To Cart</a>	
 								<%-- <img src="<c:url value='/resources/images/${plant.plant_sale_phy_rou }'/>" alt=""> --%>
 								<img src="<c:url value='/resources/images/shop/pro1.jpg'/>" alt="" style="width: 253px; height: 270px;">
 							</div>
 							<div class="pro-txt">
 								<h6>
-									<a href="#">${plant.plant_sale_title}</a>
+									<a href="plantProductDetail.do?plant_sale_no=${plant.plant_sale_no }">${plant.plant_sale_title}</a>
 								</h6>
 								<p class="pro-price">
 								${plant.plant_sale_price}
@@ -329,8 +327,6 @@
 		<!--Online Products End-->
 	</div>
 	</body>
-	<!-- 220312 PSH 로딩 순서 문제로 인해 js 추가 다른 해결 방법 있는지? dom 객체 로딩 -> 외부 js 로딩 -> jstl loading -->
 	   <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	   <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	   <script src="${pageContext.request.contextPath}/resources/js/jquery.prettyPhoto.js"></script>
 </html>

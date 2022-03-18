@@ -49,8 +49,8 @@
          color: red;
       }
       #headerfont > li > a{
-      padding: 14px;
-      font-size: 22px;
+      padding: 30px;
+      font-size: 16px;
       }
    </style>
 
@@ -63,8 +63,10 @@
    
   <header class="header-style-2">
             <nav class="navbar navbar-expand-lg">
-               <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do"><img src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="max-width: 100%; height: auto;"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars"></i> </button>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do" style="width: 200px;">
+               <img src="<c:url value='/resources/images/smartlogo.png'/>" alt="" style="max-width: 60%; height: auto;"></a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="fas fa-bars"></i> </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                   <ul class="navbar-nav mr-auto" id = "headerfont">
                      <li class="nav-item dropdown">
@@ -139,7 +141,7 @@
                            <li><a href="${pageContext.request.contextPath}/admin/adminPurchaseList.do">키트 구매 현황</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageMember.do ">회원관리</a> </li>
                            <li><a href="${pageContext.request.contextPath}/admin/adminManageKit.do">키트관리</a> </li>
-                           <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 현황 조회</a> </li>
+                           <li><a href="${pageContext.request.contextPath}/admin/adminManageNFT.do">NFT 생성 현황</a> </li>
                         </ul>
                      </li>
                     </sec:authorize>
@@ -154,10 +156,12 @@
 					<sec:authorize access="isAuthenticated()">
 					<!-- 220308 PSH mypage -> mem_name 대체 -->
 					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
+					 </sec:authorize>
+					 <sec:authorize access="hasAnyRole('FARMER','MEMBER')">
 					 <li class="dropdown">
                         <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown"  style="padding: 0px;"> <i class="fas fa-shopping-cart"></i></a> 
                      </li>					 
-					</sec:authorize>
+					 </sec:authorize>
                   </ul>
                </div>
             </nav>

@@ -38,6 +38,8 @@ public class ReplyController {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMem_email(userDetails.getUsername());
 		memberVO = memberDao.loginCheck(memberVO);
+		reply.setReply_con(reply.getReply_con().replace("\r\n", "<br>"));
+		System.out.println(reply.toString());
 		try {
 			reply.setMem_name(memberVO.getMem_name());
 			replyDao.replyInsert(reply);
@@ -73,7 +75,7 @@ public class ReplyController {
 	 public String replyUpdate(@RequestBody ReplyVO replyvo, Model model) {
 		
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		 MemberVO memberVO = new MemberVO();
+			MemberVO memberVO = new MemberVO();
 			memberVO.setMem_email(userDetails.getUsername());
 			memberVO = memberDao.loginCheck(memberVO);
 			replyvo.setMem_name(memberVO.getMem_name());

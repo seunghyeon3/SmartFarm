@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +55,7 @@ ul>li>p {
 }
 </style>
 <body>
+
 	<section class="contact-page wf100 p80">
 		<div class="container">
 			<div class="row">
@@ -77,11 +79,14 @@ ul>li>p {
 							<li class="full"><a
 								href="downloadq.do?img=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a>
 							</li>
-							<li class="half pr-15"><input type="button" value="수정하기"
+
+							<li id="modi"><input type="button" value="수정하기"
 								onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
 								class="fsubmit"></li>
-							<li class="half pr-15"><input type="button" value="뒤로가기"
+
+							<li id="back"><input type="button" value="뒤로가기"
 								onclick="history.back(-1);" class="fsubmit"></li>
+
 							<!--Leave a Comment Start-->
 							<h4>댓글</h4>
 							<ul>
@@ -89,10 +94,12 @@ ul>li>p {
 									<br> <br>
 									<div>
 										<div>
-											<span><strong>Comments</strong></span> <span id="cCnt"></span>
+											<span id="cCnt"></span>
 										</div>
 										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;  -->
 										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;  -->
+										
+										<sec:authorize access="hasRole('ADMIN')">
 										<div>
 											<table class="table">
 												<tr>
@@ -102,11 +109,12 @@ ul>li>p {
 														<div>
 															<!--  style="display:none;"> -->
 															<a href='#' onClick="fn_comment('${qna.qna_no}')"
-																class="btn pull-right btn-success">등록</a> 
+																class="btn pull-right btn-success">등록</a>
 														</div></td>
 												</tr>
 											</table>
 										</div>
+										 </sec:authorize>
 									</div>
 									<input type="hidden" id="qna_no" name="qna_no"
 										value="${qna.qna_no}" />
@@ -124,6 +132,17 @@ ul>li>p {
 	    /*
 		 * 댓글 등록하기(Ajax)
 		 */
+		 
+		 if('${qna.mem_email}' == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}'){
+			 document.getElementById('modi').setAttribute('class', 'half pr-15')
+			 document.getElementById('back').setAttribute('class', 'half pr-15')
+			 
+		 }else{
+			 document.getElementById('modi').remove();
+			 document.getElementById('back').setAttribute('class', 'full')
+		 }
+		 
+		 
 		function fn_comment(code) {
 
 			$.ajax({
@@ -161,11 +180,12 @@ ul>li>p {
 		 */
 		 
 		function reply_con(reply_no){
-			if(document.getElementById(reply_no) != null){
+			
+			 if(!document.getElementById('m'+reply_no)){
 				var reply = document.getElementById(reply_no);
 				var modifyText = document.createElement("input");
 				modifyText.value = reply.textContent;
-				modifyText.setAttribute('id', 'modifyValue');
+				modifyText.setAttribute('id', 'm'+reply_no);
 				var abtn = document.createElement("a");
 				
 				abtn.setAttribute('onclick', 'replyUpdate('+reply_no+')');
@@ -174,7 +194,7 @@ ul>li>p {
 				
 				reply.parentNode.append(modifyText, abtn);
 			}
-		}
+		 } 
 		
 		function getCommentList() {
 
@@ -189,32 +209,40 @@ ul>li>p {
 							console.log(data);
 							var html = "";
 							var cCnt = data.length;
-
+							if( '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'ADMIN' ){
+								
 							if (data.length > 0) {
 
 								for (i = 0; i < data.length; i++) {
-									html += "<div><h6><strong>"
-											+ data[i].mem_name + "</strong></h6>";
-									html += "<span id="+data[i].reply_no+">" +data[i].reply_con +"</span>"
-											+ "<tr><td></td></tr>";
-								    html += "<a href='javascript:replyDelete("+data[i].reply_no+");'>삭제</a>";
-								    html += "<a href='javascript:reply_con("+data[i].reply_no+");'>수정</a>";
-					           /*      html += "<a href='javascript:replyUpdate("+data[i].reply_no+");'>수정</a>"; */
-									html += "</div>";
+									html = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
+									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
+									<tr><td></td></tr>
+								    <a href='javascript:replyDelete("\${data[i].reply_no}");'>삭제</a>
+								    <a href='javascript:reply_con("\${data[i].reply_no}");'>수정</a>
+									</div>`;
 								}
 
-							} else {
+							} else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' != 'ADMIN' ){
+							
+								for (i = 0; i < data.length; i++) {
+									html = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
+									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
+									<tr><td></td></tr>
+									</div>`;
+								}
+							}
+							
+							
+							else {
+							}
 
-								html += "<div>";
-								html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
-								html += "</table></div>";
-								html += "</div>";
+								html =`<div>
+								<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>
+								</table></div></div>`
 
 							}
 
 							$("#cCnt").html(html);
-							//$("#commentList").html(html);
-
 						},
 						error : function(request, status, error) {
 
@@ -241,7 +269,7 @@ ul>li>p {
 	 function replyUpdate(replyId){
 		 
 		 		 
-		 var paramData = JSON.stringify({reply_no: replyId, qna_no: $('#qna_no').val(), reply_con: $('#modifyValue').val()});
+		 var paramData = JSON.stringify({reply_no: replyId, qna_no: $('#qna_no').val(), reply_con: $('#m'+replyId).val()});
 		 
 		 $.ajax({
 			 url: 'replyUpdate.do', //요청 웹문서의 url주소

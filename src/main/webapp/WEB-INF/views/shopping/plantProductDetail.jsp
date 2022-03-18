@@ -14,9 +14,9 @@
 			<div class="row">
 				<div class="col-md-12" id="update" style="display: none;">
 					<a onclick="deletePlant(${plantSaleDet.plant_sale_no })" class="view-more"
-						style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;">삭제</a> <a
+						style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;  width:100px; text-align:center;">삭제</a> <a
 						href="plantProductUpdate.do?plant_sale_no=${plantSaleDet.plant_sale_no }" class="view-more"
-						style="color: white; cursor: pointer; margin-right: 5px">수정</a>
+						style="color: white; cursor: pointer; margin-right: 5px;  width:100px; text-align:center;">수정</a>
 				</div>
 				<div class="col-md-6">
 					<div class="section-title-2">
@@ -39,9 +39,9 @@
 							<li class="full" id="price"></li>
 							
 							<li class="full"><a
-								class="view-more" onclick="purchase()" style="color: white; cursor: pointer;">구매</a>
+								class="view-more" onclick="purchase()" style="color: white; cursor: pointer; width:100px; text-align:center;">구매</a>
 								<a onclick="insertCart()" class="view-more"
-								style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
+								style="color: white; cursor: pointer; margin-right: 5px; border: 1px solid #66bb6a; width:100px;  background-color: #f8f9fa; color: #66bb6a;">장바구니</a>
 							</li>
 						</ul>
 					</div>
@@ -66,26 +66,38 @@
  		
  		//장바구니에 입력
 		function insertCart() {
-			var link = "cartInsert.do?cart_plant_no="+${plantSaleDet.plant_sale_no }+"&cart_price="+${plantSaleDet.plant_sale_price}+"&cart_sale_count=";
-			var cartSaleCount = ${plantSaleDet.plant_count}
-			console.log(link + cartSaleCount);	
-			location.href = link + cartSaleCount;
-				alert('상품이 장바구니에 담겼습니다.')
+			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}'  ==''){
+				alert('로그인 후 사용해 주세요');
+				location.href = "login.do";
+			}else{
+				var link = "cartInsert.do?cart_plant_no="+${plantSaleDet.plant_sale_no }+"&cart_price="+${plantSaleDet.plant_sale_price}+"&cart_sale_count=";
+				var cartSaleCount = ${plantSaleDet.plant_count}
+				console.log(link + cartSaleCount);	
+				location.href = link + cartSaleCount;
+				alert('상품이 장바구니에 담겼습니다.');
+			}
 			
 		}
  		
  		// ===== 작물 바로 구매하기 =====
  		function purchase() {
- 			var payList = ${payList};
- 			localStorage.setItem("payList", JSON.stringify(payList));
- 			location.href = "pay.do";
+ 			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' == ''){
+ 				alert('로그인 후 사용해 주세요');
+ 				location.href = "login.do";
+ 				
+ 			}else{
+	 			var payList = ${payList};
+	 			payList[0].mem_email = '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}';
+	 			localStorage.setItem("payList", JSON.stringify(payList));
+	 			location.href = "pay.do";
+ 			}
 		}
  		
  		
  		// ===== 작물판매 삭제하기 ===== 
  		function deletePlant(plantSaleNo) {
 			if(confirm('삭제할 경우 데이터를 복구할 수 없습니다. 정말로 삭제하시겠습니까?')){
-				var url="plantSaleDelete.do?plantSaleNo="+plantSaleNo;
+				var url = "plantSaleDelete.do?plantSaleNo="+plantSaleNo;
 				$.ajax({
 					url:url,
 					method:'get',
@@ -94,7 +106,7 @@
 						if (res == 1) {
 							alert('삭제되었습니다.');
 						} else {
-							alert('오류가 발생했습니다. 다시 시도해주세요.')
+							alert('오류가 발생했습니다. 다시 시도해주세요.');
 						}
 						
 						location.href = "plantShopList.do";
