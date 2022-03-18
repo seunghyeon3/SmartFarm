@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>이용후기 메인페이지</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
+
 </head>
 <body>
 	<div class="container p80">
@@ -25,7 +30,7 @@
 		<div class="container">
 			<div class="row" id="prolist">
 				<!-- 판매 리스트 출력 시작 -->
-				<c:forEach items="${useRevwList}" var="useRevw">
+				<%-- <c:forEach items="${useRevwList}" var="useRevw">
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
 								 <a href="javascript:void(0)" onclick="useRevwHit('${useRevw.use_revw_no }')">
@@ -42,7 +47,7 @@
 							</div>
 						</div>
 					</div>
-				</c:forEach>
+				</c:forEach> --%>
 				<!-- 판매 리스트 출력 끝 -->
 				<sec:authorize access="isAuthenticated()">
 					<div class="col-md-12">
@@ -52,29 +57,46 @@
 				</sec:authorize>
 			</div>
 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="gt-pagination">
-						<nav>
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <i class="fas fa-angle-left"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <i class="fas fa-angle-right"></i>
-								</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
+		<!--페이징처리 시작-->
+		<div class="row" style="display: flex; justify-content: center;">
+				<div id="pagination" style="margin: 0 auto;"></div>
+		</div>
+		<!--페이징처리 종료-->
+		
 		</div>
 	</section>
 	
 	<script>
+	    $(function () {
+	        let container = $('#pagination');
+	        container.pagination({
+	            dataSource: ${useRevwList},
+	            callback: function (data, pagination) {
+				var useRevw ="";
+				var temp = "";
+	                $.each(data, function (index, item) {
+	                	temp = `<div class="col-lg-3 col-sm-6">
+							<div class="product-box">
+							 <a href="javascript:void(0)" onclick="useRevwHit('\${item.use_revw_no }')">
+								 <img src="resources/images/shop/pro1.jpg" alt="">
+							 </a>
+						<div class="pro-txt">
+							<h6>
+								<a href="javascript:void(0)" onclick="useRevwHit('\${item.use_revw_no }')">
+									\${item.use_revw_title}</a>
+							</h6>
+							<p class="pro-price">작성자 : \${item.mem_name }</p>
+							<p class="pro-price">조회수 : \${item.use_revw_hit }</p>
+						</div>
+					</div>
+				</div>`;
+				useRevw += temp
+	                });
+	                $("#prolist").html(useRevw);
+	            },
+	        })
+	    })
+	
 		function searchUseRevw(){
 	    	var useRevwTitle = document.getElementById("useRevwTitle").value;
 	    	var url = "useRevwSearch.do?useRevwTitle="+useRevwTitle;

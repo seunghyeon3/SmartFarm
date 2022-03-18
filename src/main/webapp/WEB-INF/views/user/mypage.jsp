@@ -70,8 +70,6 @@
 	<script type="text/javascript"
 		src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 	<script>
 

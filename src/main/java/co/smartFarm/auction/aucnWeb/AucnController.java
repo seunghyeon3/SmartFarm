@@ -28,7 +28,7 @@ import co.smartFarm.user.memberService.MemberVO;
 public class AucnController {
 	
 	//web3 provider
-	private static final String LOCAL = "http://127.0.0.1:8545";
+	private static final String LOCAL = "https://ropsten.infura.io/v3/33f4fa08aa5f49a69e1ea3ddac9d8c98";
 	
 	@Autowired
 	private AucnService aucnDao;
@@ -79,7 +79,6 @@ public class AucnController {
 	// GrowDiary 솔리디티 method 호출후 ownerUpdate(nftNo, newOwner) 실행해서 NFT소유주 변경
 	//@Scheduled(cron="10 0/1 * * * *")
 	public void nftAuctionEnd() throws IOException {
-		//System.out.println("test");
 			GetClientVersion();
 	}
 	
@@ -95,11 +94,10 @@ public class AucnController {
 	}
 	
 	public void GetClientVersion() throws IOException{
+	
 		//db 조회해서 경매가 종료되었나 안되었나 카운트 체크
 		int aucnEndCount = aucnDao.aucnEndCheck();
-		//System.out.println("test : " + aucnDao.aucnEndCheckdo());
-		//System.out.println("경매종료"+aucnEndCount);
-		//System.out.println(aucnDao.aucnEnd());
+
 		//종료된 경매가 카운트 될시 프로시저를 호출해 db 경매현황 업데이트, nft 소유주 변경이 되고 
 		//경매 번호를 가져와 반복문을 돌려 솔리디티 경매 또한 종료시키며 최고입찰가가 경매를 입찰한 사람에게 입금이 됩니다.
 		if(aucnEndCount != 0) {
@@ -132,8 +130,8 @@ public class AucnController {
 			
 			JSONObject param = new JSONObject();
 			// from : 관리자 지갑주소 , to : smart contract Address
-			param.put("from", "0x13B770f414f4c5e547da9cE9382071Ebdd8f3F9a");
-			param.put("to", "0x243Ac993BD48280D420d3BfD27d1250d8A51530C");
+			param.put("from", "0x8324b648E446a06e963604D35c6621df60835374");
+			param.put("to", "0xb7FE3E7FB00689A14FEF0dfd085331DfE943A2d7");
 			// input 값 hash 변환 method+parameter(optional)
 			
 			//withdraw data ( 10번 경매 10 -> a (16진수) )
