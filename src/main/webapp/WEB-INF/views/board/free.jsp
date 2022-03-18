@@ -55,6 +55,14 @@
 				</div>
 				<!--페이징처리 종료-->
 				
+				<!--글쓰기 버튼 시작-->
+				<sec:authorize access="isAuthenticated()">
+					<div class="col-md-12">
+						<a href="freeInsertForm.do" class="view-more" style="color: white; cursor: pointer;">글쓰기</a>
+					</div>
+				</sec:authorize>
+				<!--글쓰기 버튼 종료-->
+				
 			</div>
 		</div>
 	</section>

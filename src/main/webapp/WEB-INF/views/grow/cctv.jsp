@@ -40,8 +40,7 @@
 						<h3>CCTV 화면</h3><br><br>
 						
 						
-						<div>
-								<iframe style="width: 800px; height: 450px;" src="https://player.vimeo.com/video/89009039"></iframe>
+						<div id="cctv">
 						</div>
 						<!--cctv 화면 출력부 종료-->
 
@@ -56,7 +55,9 @@
 $("#growKitList").on("click", "li", function(event)	{
 	$(event.target).parent().children().css('background-color', '');
 	$(event.target).css('background-color', 'green');
-		})
+	
+	$("#cctv").html('<iframe style="width: 800px; height: 450px;" src="https://player.vimeo.com/video/89009039"></iframe>');
+})
 
 </script>
 </body>

@@ -257,20 +257,55 @@
 	$("#growchange").on("click",function(event) {
 		
 		console.log(event.target.dataset.url);
-		$.ajax({
-			type:'get',
-			url:event.target.dataset.url+"changeValue",
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-			data :{
-				"temp":$("#temp").val(),
-				"hum":$("#hum").val(),
-				"light":$("#light").val(),
-				"water":$("#water").val(),
-				"pes":$("#pes").val()
-			}
-		}).done( function (result) {
-			toastr.info(result);
-		})		
+		if($("input#auto").is(":checked")){
+			$.ajax({
+				type:'get',
+				url:event.target.dataset.url+"changeValue",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+					"temp":$("input#auto")[0].dataset.tp,
+					"hum":$("input#auto")[0].dataset.hd,
+					"light":$("input#auto")[0].dataset.sun,
+					"water":$("input#auto")[0].dataset.water,
+					"pes":$("input#auto")[0].dataset.pes,
+					"auto":$("input#auto")[0].dataset.auto
+				}
+			}).done( function (result) {
+				toastr.info(result);
+			})
+		}else if($("#nft option:selected").val() != "0") {
+			$.ajax({
+				type:'get',
+				url:event.target.dataset.url+"changeValue",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+					"temp":$("#nft")[0].dataset.tp,
+					"hum":$("#nft")[0].dataset.hd,
+					"light":$("#nft")[0].dataset.sun,
+					"water":$("#nft")[0].dataset.water,
+					"pes":$("#nft")[0].dataset.pes,
+					"auto":$("#nft")[0].dataset.auto
+				}
+			}).done( function (result) {
+				toastr.info(result);
+			})
+		}else {
+			$.ajax({
+				type:'get',
+				url:event.target.dataset.url+"changeValue",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+					"temp":$("#temp").val(),
+					"hum":$("#hum").val(),
+					"light":$("#light").val(),
+					"water":$("#water").val(),
+					"pes":$("#pes").val(),
+					"auto":"0"
+				}
+			}).done( function (result) {
+				toastr.info(result);
+			})			
+		}
 	})
 	
 	$("#auto").on("click",function(event) {

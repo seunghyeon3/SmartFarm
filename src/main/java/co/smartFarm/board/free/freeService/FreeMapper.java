@@ -11,7 +11,9 @@ public interface FreeMapper {
     FreeVO freeOne(int free_no);
 
     FreeVO freeSelect(FreeVO free);
-    int noticeInsert(FreeVO free);
+    
+    int freeInsert(FreeVO free);
+    
     int noticeDelete(FreeVO free);
     int freeUpdate(FreeVO free);
     int freeNoUpdate(int free_no); 

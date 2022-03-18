@@ -5,7 +5,7 @@
     <!-- 전체리스트 -->
     <select id="freeList"
         resultType="co.smartFarm.board.free.freeService.FreeVO">
-        SELECT FREE_NO, FREE_TITLE, MEM_NAME, FREE_DAY, FREE_HIT FROM FREE
+        SELECT FREE_NO, FREE_TITLE, MEM_NAME, FREE_DAY, FREE_HIT FROM FREE ORDER BY FREE_NO DESC
     </select>
 
     <!-- 단건조회 -->
@@ -19,4 +19,12 @@
 	FROM FREE
 	ORDER BY FREE_DAY DESC
     </select>
+    
+   	<insert id="freeInsert" parameterType="co.smartFarm.board.free.freeService.FreeVO">
+		<selectKey keyProperty="free_no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(FREE_NO)+1,1) AS FREE_NO FROM FREE
+		</selectKey> 
+			INSERT INTO FREE(FREE_NO, FREE_TITLE, FREE_CON, MEM_NAME, FREE_HIT, FREE_DAY, FREE_ORI_ROU, FREE_PHY_ROU, MEM_EMAIL)
+			VALUES(#{free_no},#{free_title},#{free_con},#{mem_name},0,sysdate,#{free_ori_rou},#{free_phy_rou},#{mem_email})
+    </insert>
 </mapper>

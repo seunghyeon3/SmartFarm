@@ -266,7 +266,12 @@ $("#growKitList").on("click", "li", function(event)	{
 })
 
 
-
+	
+$(function() {
+	console.log(${no});
+		console.log($("#${no}").parent());
+		$("#${no}").parent().click();
+});
 
 </script>
 </body>
