@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,9 +76,11 @@ ul>li>p{
                             <li class="full">
                             <a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a>
                             </li>
+                            <sec:authorize access="hasRole('ADMIN')">
                            <li class="half pr-15">
  								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
                                </li>
+                               </sec:authorize>
                                 <li class="half pr-15">
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
                            </li>

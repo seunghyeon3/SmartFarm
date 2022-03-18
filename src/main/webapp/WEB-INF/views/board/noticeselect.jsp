@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,11 +73,11 @@ ul>li>p{
                             <li class="full">
                              <a href="download.do?img=${notice.notice_img}">${notice.notice_img}</a>
                             </li>
-					<%-- <p>${notice.notice_con}</p> --%>
+						<sec:authorize access="hasRole('ADMIN')">
                          <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit"> 
-                             
+                             </sec:authorize>
                          <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
-			 		<!--Author Comments Start-->
+			 		
 					<!--  <div class="post-comments wf100">
 						<h4>Comments on Post</h4>
 						<ul class="comments">
