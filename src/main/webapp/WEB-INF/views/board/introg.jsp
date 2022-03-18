@@ -41,7 +41,7 @@
 						<div class="row">
 							<div class="about-text">
 								<img src="resources/images/${introg[0].intro_img}"
-									style="width: 1000px" alt="내용을 등록 해주세요">
+									style="width: 1000px" >
 							</div>
 						</div>
 					</div>

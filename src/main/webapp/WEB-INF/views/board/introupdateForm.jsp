@@ -61,7 +61,7 @@
 							<div class="filebox">
 							<form action="introupdate.do" method="post" enctype="multipart/form-data">
 								<input type="hidden" name="intro_no" value="${intro.intro_no }"> 
-									<img src="resources/images/${intro.intro_img}" alt="내용을 등록 해주세요">
+									<img src="resources/images/${intro.intro_img}"> <!-- alt="내용을 등록 해주세요" -->
 									<span>${intro.intro_img}</span> 
 									<!-- <label for="ex_file">사진업로드</label> 
 									<input type="file" id="ex_file" name="introfile"> -->
