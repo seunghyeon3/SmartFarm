@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@ ul>li>p {
 }
 </style>
 <body>
-							
+
 	<section class="contact-page wf100 p80">
 		<div class="container">
 			<div class="row">
@@ -78,14 +79,14 @@ ul>li>p {
 							<li class="full"><a
 								href="downloadq.do?img=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a>
 							</li>
-							
+
 							<li id="modi"><input type="button" value="수정하기"
 								onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
 								class="fsubmit"></li>
-					
+
 							<li id="back"><input type="button" value="뒤로가기"
 								onclick="history.back(-1);" class="fsubmit"></li>
-								
+
 							<!--Leave a Comment Start-->
 							<h4>댓글</h4>
 							<ul>
@@ -93,10 +94,12 @@ ul>li>p {
 									<br> <br>
 									<div>
 										<div>
-											<span><strong>Comments</strong></span> <span id="cCnt"></span>
+											<span id="cCnt"></span>
 										</div>
 										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;  -->
 										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;  -->
+										
+										<sec:authorize access="hasRole('ADMIN')">
 										<div>
 											<table class="table">
 												<tr>
@@ -106,11 +109,12 @@ ul>li>p {
 														<div>
 															<!--  style="display:none;"> -->
 															<a href='#' onClick="fn_comment('${qna.qna_no}')"
-																class="btn pull-right btn-success">등록</a> 
+																class="btn pull-right btn-success">등록</a>
 														</div></td>
 												</tr>
 											</table>
 										</div>
+										 </sec:authorize>
 									</div>
 									<input type="hidden" id="qna_no" name="qna_no"
 										value="${qna.qna_no}" />
@@ -205,21 +209,32 @@ ul>li>p {
 							console.log(data);
 							var html = "";
 							var cCnt = data.length;
-
+							if( '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'ADMIN' ){
+								
 							if (data.length > 0) {
 
 								for (i = 0; i < data.length; i++) {
 									html = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
 									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
 									<tr><td></td></tr>
-									<sec:authorize access="hasRole('ADMIN')">
 								    <a href='javascript:replyDelete("\${data[i].reply_no}");'>삭제</a>
 								    <a href='javascript:reply_con("\${data[i].reply_no}");'>수정</a>
-								    </sec:authorize>
 									</div>`;
 								}
 
-							} else {
+							} else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' != 'ADMIN' ){
+							
+								for (i = 0; i < data.length; i++) {
+									html = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
+									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
+									<tr><td></td></tr>
+									</div>`;
+								}
+							}
+							
+							
+							else {
+							}
 
 								html =`<div>
 								<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>
@@ -228,8 +243,6 @@ ul>li>p {
 							}
 
 							$("#cCnt").html(html);
-							//$("#commentList").html(html);
-
 						},
 						error : function(request, status, error) {
 
