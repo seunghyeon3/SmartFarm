@@ -55,29 +55,42 @@
 			var mem_email = $("#mem_email").val();
 			var mem_name = $("#mem_name").val();
 			var data = JSON.stringify({mem_email : mem_email, mem_name : mem_name});
+			//이메일 양식 유효성 검사
+			var mem_email_reg = mem_email.search(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 			
-			fetch("findMemberPw.do",
-				{
-				method:'post',
-				headers:{
-					 'Content-Type': 'application/json;charset=utf-8'
-				},
-				body : data
-			})
-			.then(response => response.json())
-			.then(function (result) {
-				console.log(result);
+			if(mem_name == ''){
+				toastr.error('이름을 입력해주세요');
 				
-				if(result == '0'){
-					toastr.error('유효하지 않은 이메일입니다');
+			}else if(mem_email ==''){
+				toastr.error('이메일을 입력해주세요');
+				
+			}else if(mem_email_reg < 0){
+				toastr.error('유효한 이메일 형식을 입력하세요');
+				
+			}else{
+				fetch("findMemberPw.do",
+					{
+					method:'post',
+					headers:{
+						 'Content-Type': 'application/json;charset=utf-8'
+					},
+					body : data
+				})
+				.then(response => response.json())
+				.then(function (result) {
+					console.log(result);
 					
-				} else if(result == '1') {
-					toastr.success('임시비밀번호가 메일로 발송되었습니다');
-				} else if(result == '2'){
-					toastr.error('임시비밀번호 발송에 실패했습니다.\n다시 시도해주세요')
-				}
-				
-			});
+					if(result == '0'){
+						toastr.error('유효하지 않은 이메일입니다');
+						
+					} else if(result == '1') {
+						toastr.success('임시비밀번호가 메일로 발송되었습니다');
+					} else if(result == '2'){
+						toastr.error('임시비밀번호 발송에 실패했습니다.\n다시 시도해주세요')
+					}
+					
+				});
+			}
 			
 		}
 	</script>

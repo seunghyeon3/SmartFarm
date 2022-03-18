@@ -85,4 +85,13 @@
 	<delete id="useRevwCommDelete" parameterType="int">
 		DELETE FROM USE_REVW_COMM WHERE USE_REVW_COMM_NO = #{useRevwCommNo}
 	</delete>
+	
+	<select id="useRevwSelectListByNo"
+		parameterType="int"
+		resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
+		SELECT U.USE_REVW_NO, U.USE_REVW_TITLE, U.USE_REVW_CON, U.MEM_NAME, U.MEM_EMAIL, U.USE_REVW_HIT, USE_REVW_WRITE_DAY, U.USE_REVW_ORI_ROU, U.USE_REVW_PHY_ROU, U.PUR_HIS_ORDER_NO
+		FROM USE_REVW U JOIN PUR_HIS P
+		ON(U.PUR_HIS_ORDER_NO = P.PUR_HIS_ORDER_NO)
+		WHERE KIT_NO = #{kit_no}
+	</select>
 </mapper>
