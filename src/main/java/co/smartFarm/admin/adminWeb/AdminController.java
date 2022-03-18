@@ -230,13 +230,16 @@ public class AdminController {
 
 	}
 
-	// ===== 작물 관리 페이지 이동 =====
-	@RequestMapping("/admin/adminManagePlant.do")
-	public String adminManagePlant() {
-
-		return "admin/adminManagePlant";
-
-	}
+	/* 안써서 주석처리함
+	 * // ===== 작물 관리 페이지 이동 =====
+	 * 
+	 * @RequestMapping("/admin/adminManagePlant.do") public String
+	 * adminManagePlant() {
+	 * 
+	 * return "admin/adminManagePlant";
+	 * 
+	 * }
+	 */
 
 	// ===== 회원 검색 =====
 	@PostMapping("/admin/adminMemSearch.do")

@@ -64,7 +64,7 @@ ul>li>p{
 					<ul class="post-meta">
 						<li><i class="fas fa-user-circle"></i>${notice.mem_name}</li>
 						<li><i class="fas fa-calendar-alt"></i>${notice.notice_day}</li>
-			<%-- 			<li><i class="fas fa-comments"></i>${notice.notice_com}</li> --%>
+				<li><i class="fas fa-comments"></i>${notice.notice_con}</li> 
 					</ul> 
 					          <li class="full">
                              <img src="download.do?img=${notice.notice_img}"onError="this.style.visibility='hidden'">

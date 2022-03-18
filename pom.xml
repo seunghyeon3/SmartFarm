@@ -9,6 +9,7 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
+		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 		<java-version>11</java-version>
 		<org.springframework-version>5.3.10</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
@@ -334,12 +335,12 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>src/main/java</directory>
 				<includes>
 					<include>**/*.xml</include>
 				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
 			</resource>
 		</resources>
 	</build>
