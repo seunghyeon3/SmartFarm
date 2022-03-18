@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
@@ -52,12 +54,16 @@ public class PlantSaleController {
 
 	// 작물 전체 리스트
 	@RequestMapping("/plantShopList.do")
-	public String plantShopList(Model model) {
+	public String plantShopList(Model model) throws JsonProcessingException {
 		// 220302 PSH shoppingDao -> PlantSaleController 구분 작업 및 shoppingDao ->
 		// plantSaleDao 수정
 		/* List<PlantSaleVO> list = shoppingDao.plantSaleSelectList(); */
+		
+		ObjectMapper map = new ObjectMapper();
 		List<PlantSaleVO> list = plantSaleDao.plantSaleSelectList();
+		
 		model.addAttribute("plantSaleList", list);
+		model.addAttribute("plantSaleListP",map.writeValueAsString(list));
 		return "shopping/plantShopList";
 	}
 
@@ -193,12 +199,14 @@ public class PlantSaleController {
 	}
 
 	@GetMapping("/plantSaleSearch.do")
-	public String plantSaleSearch(@Param("plantSaleTitle") String plantSaleTitle, Model model) {
+	public String plantSaleSearch(@Param("plantSaleTitle") String plantSaleTitle, Model model) throws JsonProcessingException {
 
 		List<PlantSaleVO> list = plantSaleDao.plantSaleSearch(plantSaleTitle);
 
 		String gson = new Gson().toJson(list);
 		model.addAttribute("plantSaleList", list);
+		ObjectMapper map = new ObjectMapper();
+		model.addAttribute("plantSaleListP",map.writeValueAsString(list));
 
 		return "shopping/plantShopList";
 	}
