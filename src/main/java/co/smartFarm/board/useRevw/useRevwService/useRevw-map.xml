@@ -68,7 +68,7 @@
 	</update>
 	
 	<select id="useRevwCommList" parameterType="int" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwCommVO">
-		SELECT * 
+		SELECT USE_REVW_COMM_NO, MEM_NAME, MEM_EMAIL, USE_REVW_COMM_CON, TO_CHAR(USE_REVW_COMM_WRITE_DAY, 'yyyy/mm/dd') USE_REVW_COMM_WRITE_DAY, USE_REVW_NO 
 		FROM USE_REVW_COMM 
 		WHERE USE_REVW_NO = #{use_revw_no}
 	</select>
