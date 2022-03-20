@@ -100,14 +100,10 @@
       
       function aucnDetail(aucnNo){
     	  var countdownId = "countdown"+aucnNo ;
-    	  //console.log(countdownId);
     	  var countdownDisable = document.getElementById(countdownId);
-    	  console.log(countdownDisable);
-    	  console.log(countdownDisable.innerText)
     	   if(countdownDisable.innerText == "경매가 종료되었습니다."){
-    		  alert("까비 좀 늦었음 ^^");
+    		  alert("이미 종료된 경매입니다.");
     		  location.reload();
-    		  //toastr.warning("까비 좀 늦었음 ^^");
     	  }
     	  else {
     		  location.href="aucnDetail.do?aucnNo="+aucnNo;

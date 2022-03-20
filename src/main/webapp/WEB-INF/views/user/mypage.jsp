@@ -159,19 +159,18 @@
 										class="form-control" id="mem_name" name="mem_name"
 											value = "${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}" readonly></li>
 
-
 									<!-- 핸드폰 번호 -->
 									
-									<li class="full"><p>&lt 핸드폰 번호 &gt</p>
+									<li class="half pr-15"><p style="margin-bottom: 0px;">&lt 핸드폰 번호 &gt</p>
 										<input type="text" class="form-control"
-										style="width: 126px; float: left; -webkit-appearance: none;"
+										style="width: 85px; float: left; -webkit-appearance: none;"
 										id="mem_tel1" name="mem_tel1" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(0,3)}"required> <span
 										style="float: left; margin-top: 15px;">&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
 										<input type="text" class="form-control" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(4,8)}"
-										style="width: 126px; float: left" id="mem_tel2" name="mem_tel2"
+										style="width: 90px; float: left" id="mem_tel2" name="mem_tel2"
 										required><span style="float: left; margin-top: 15px;">&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
 										<input type="text" class="form-control" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel.substring(9)}"
-										style="width: 126px; float: left" id="mem_tel3" name="mem_tel3"
+										style="width: 90px; float: left" id="mem_tel3" name="mem_tel3"
 										required> <input type="hidden" id="mem_tel"
 										name="mem_tel" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_tel}"></li>
 									
@@ -315,7 +314,7 @@
 											input, true);
 								}
 								}
-								document.getElementById('fade').style.display = 'none';
+								//document.getElementById('fade').style.display = 'none';
 								document.getElementById('light').style.height = '80%';
 								
 								//메타마스크 로그인체크
@@ -336,7 +335,7 @@
 							
 						} //success
 					});
-
+			document.getElementById('fade').style.display = 'none';
 		}
 		/* ----------구매내역---------- */
 		function purchaseHistory() {
@@ -395,10 +394,11 @@
 							console.log(data);
 							grid.resetData(data);
 								
-							document.getElementById('fade').style.display = 'none';
+							//document.getElementById('fade').style.display = 'none';
 							document.getElementById('light').style.height = '80%';
 						} //success
 					});
+			document.getElementById('fade').style.display = 'none';
 		}
 		
 		/* ----------입찰내역---------- */
@@ -462,11 +462,12 @@
 											input, true);
 								}
 								}
-								document.getElementById('fade').style.display = 'none';
+								//document.getElementById('fade').style.display = 'none';
 								document.getElementById('light').style.height = '70%';
 							
 						} //success
 					});
+			document.getElementById('fade').style.display = 'none';
 
 		}
 		
