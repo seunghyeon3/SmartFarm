@@ -126,6 +126,9 @@
     $(function () {
     	console.log(${kitSelectListP});
     	
+    	var kitSelectListP = ${kitSelectListP};
+    	if (kitSelectListP.length > 0){ // 리스트가 있는 경우
+    	
     	let container = $('#pagination');
 	        container.pagination({
 	            dataSource: ${kitSelectListP},
@@ -144,10 +147,16 @@
 								<div class="pro-txt">
 									<p style="margin: 0;">(\${item.kit_prpos})</p>
 									<h6>
-										<a href="kitProductDetail.do?kit_no=\${item.kit_no }">
-											\${item.kit_name}</a>
+									<a href="kitProductDetail.do?kit_no=\${item.kit_no }">
+										\${item.kit_name}</a>
 									</h6>
 									<p class="pro-price" id="kitPrice">\${item.kit_price}</p>
+									<div style="height: 10px; margin: 10px 0 10px 0;">
+										<span style="float:left; font-size:small;">조회수 : \${item.kit_hit}</span>
+										<span style="float:left; font-size:small; padding: 0 10px 0 10px;">|</span>
+										<span style="float:left; font-size:small;">판매수 : \${item.kit_sale_count}</span>
+									</div>
+									
 								</div>
 							</div>
 						</div>`;
@@ -157,8 +166,13 @@
 	                $("#kitShopListP").html(kitList);
 	            },
 	            pageSize: 12
-	        })
+	        });
 	        
+    	} else {// 리스트가 없는 경우
+    		toastr.error('검색 결과가 없습니다');
+    		var temp = `<div class="col-lg-3 col-sm-6" style="float:left;"> <h5> 검색 결과가 없습니다 </h5> </div>`
+    		$("#kitShopListP").html(temp);
+    	}
 	      
 	
 		//페이지가 시작될 때 url 에 정보가 담겨있으면 색 바꾸기

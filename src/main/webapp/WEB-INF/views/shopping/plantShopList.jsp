@@ -106,6 +106,8 @@
       //로딩될 때 실행되는 함수
       $(function () {
     	  //페이징
+    	var kitSelectListP = ${plantSaleListP};
+    	if (kitSelectListP.length > 0){ // 리스트가 있는 경우
     	  let container = $('#pagination');
 	        container.pagination({
 	            dataSource: ${plantSaleListP},
@@ -136,8 +138,13 @@
 	                $("#psListP").html(psList);
 	            },
 	            pageSize: 12
-	        })
-	})
+	        });
+    	} else {// 리스트가 없는 경우
+    		toastr.error('검색 결과가 없습니다');
+    		var temp = `<div class="col-lg-3 col-sm-6" style="float:left;"> <h5> 검색 결과가 없습니다 </h5> </div>`
+    		$("#psListP").html(temp);
+    	}
+	});
       
       
       //로딩되면 금액에 콤마넣기
