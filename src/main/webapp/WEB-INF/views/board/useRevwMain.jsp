@@ -49,13 +49,13 @@
 					</div>
 				</c:forEach> --%>
 				<!-- 판매 리스트 출력 끝 -->
+			</div>
 				<sec:authorize access="isAuthenticated()">
 					<div class="col-md-12">
 						<a href="useRevwInsertForm.do" class="view-more"
 							style="color: white; cursor: pointer;">이용후기 등록</a>
 					</div>
 				</sec:authorize>
-			</div>
 
 		<!--페이징처리 시작-->
 		<div class="row" style="display: flex; justify-content: center;">

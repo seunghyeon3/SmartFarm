@@ -12,6 +12,7 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <style>
+
 </style>
 </head>
 <body>
@@ -54,7 +55,7 @@
 						</div>
 					</div>
 					<div id="light" class="col-md-12 white_content">
-					 <a href="javascript:void(0)" onclick="exitPopup()" onkeyup="escExit(event)" style="float:right">Close </a> <br> <br>
+					 <a href="javascript:void(0)" onclick="exitPopup()" onkeyup="escKeyExit(event)" style="float:right">Close </a> <br> <br>
 						<div id="content">123</div>
 					</div>
 					<div id="123"></div>
@@ -74,7 +75,7 @@
 	<script>
 
 		/* ----------팝업 esc로 닫기 ( 미 완 성 )---------- */
-		function escExit(e){
+		function escKeyExit(e){
 			console.log("123")
             if (e.keyCode == "27") {
                 alert("esc");
@@ -122,7 +123,7 @@
 			createPopup();
 			
 			var content = document.getElementById('content');
-			editForm =  `<section class="contact-page wf100 p80" style="padding-top: 0px;">
+			editForm =  `<section class="contact-page wf100 p80" style="padding-top: 0px; padding-bottom: 0px;">
 				<div class="container">
 				<div class="row">
 				<div class="col-md-1"></div>
@@ -232,6 +233,7 @@
 		$("#content").html(editForm);
 			//로딩끄기
 			document.getElementById('fade').style.display = 'none';
+			document.getElementById('light').style.height = '125%';
 		}
 		
 		/* ----------재배내역---------- */
@@ -243,6 +245,10 @@
 			//팝업
 			createPopup();
 			
+			cultivationHistoryTitle = `<h3 style="margin-bottom: 40px;">
+				재배내역</h3>`
+			$("#content").html(cultivationHistoryTitle); 
+				
 			//표 출력
 			var grid = new tui.Grid({
 				el : document.getElementById('content'),
@@ -310,8 +316,23 @@
 								}
 								}
 								document.getElementById('fade').style.display = 'none';
-
-
+								document.getElementById('light').style.height = '80%';
+								
+								//메타마스크 로그인체크
+								web3.eth.getAccounts(function(err,accs){
+						             if(err != null){
+						                 alert('There was an error fetching your accounts.')
+						                 exitPopup();
+						                 return
+						             }
+						             if(accs.length ===0){
+						                 alert("NFT 생산을 위해 메타마스크 로그인을 해주세요")
+						                 exitPopup();
+						                 return
+						             }
+						             account = accs[0];
+						             console.log(account);
+						         }) 
 							
 						} //success
 					});
@@ -327,6 +348,9 @@
 			
 			//팝업
 			createPopup();
+			purchaseHistoryTitle = `<h3 style="margin-bottom: 40px;">
+				구매내역</h3>`
+			$("#content").html(purchaseHistoryTitle); 
 			//표 출력
 			var grid = new tui.Grid({
 				el : document.getElementById('content'),
@@ -372,11 +396,12 @@
 							grid.resetData(data);
 								
 							document.getElementById('fade').style.display = 'none';
+							document.getElementById('light').style.height = '80%';
 						} //success
 					});
 		}
 		
-		/* ----------입찰현황---------- */
+		/* ----------입찰내역---------- */
 		function bidHistory() {
 			//클릭시 페이지 최상단으로 이동.
 			window.scrollTo(0,0);
@@ -385,6 +410,9 @@
 			//팝업
 			createPopup();
 			
+			bidHistoryTitle = `<h3 style="margin-bottom: 40px;">
+				입찰내역</h3>`
+			$("#content").html(bidHistoryTitle); 
 			//표 출력
 			var grid = new tui.Grid({
 				el : document.getElementById('content'),
@@ -435,8 +463,7 @@
 								}
 								}
 								document.getElementById('fade').style.display = 'none';
-
-
+								document.getElementById('light').style.height = '70%';
 							
 						} //success
 					});
@@ -460,27 +487,40 @@
 			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B2'){
 				document.getElementById('fade').style.display = 'none';
 				
-				farmer = `<h1> ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 귀하는 농부이십니다. </h1>`
+				farmer = `<p style="font-size:1.2em"> <span style="border-bottom: 3px solid #000000;">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 귀하는 농부이십니다. </span><br><br>
+														재배키트를 구매후 재배컨트롤러를 이용하여 재배가 가능하고<br>
+														생산된 작물을 판매할 수 있습니다.<br><br>
+														<strong class="trank">작물을 생성하시겠습니까?</strong>
+														<a
+														href="grow.do" class="view-more"
+														style="color: white; cursor: pointer; margin-right: 380px; margin-top: 20px; display:inline-block">재배하러가기</a>
+														</p>`
 				$("#content").html(farmer);
-				
+				document.getElementById('light').style.textAlign = "center";
+				document.getElementById('light').style.height = '40%';
 			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' == 'Reject'){
 				
 				document.getElementById('fade').style.display = 'none';
 				
-				farmer = `<h1> ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님 아쉽게도 신청이 거절되었습니다 </h1>
-						<h1> 자세한 사항은 고객센터에 문의 바랍니다 </h1>`
+				farmer = `<div class="col-md-12" style="text-align:center; font-size:1.5em">
+						${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님 농부 신청이 거절되었습니다 <br><br>
+						 자세한 사항은 고객센터에 문의 바랍니다 <br><br>
+						 (이메일) <span class="trank">yedam@yedam.ac</span><br>
+						 (전화) <span class="trank">053-421-2460</span>
+						 </div>`
 				$("#content").html(farmer);
-		
+				document.getElementById('light').style.height = '50%';
 			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' != ''){
 				
 				document.getElementById('fade').style.display = 'none';
 				
-				farmerIng = `<img src="/prj/resources/images/memberDelete.gif">
-								<br>
-								<h5> 아직 관리자가 농부 승인을 하지않았습니다. </h5>`
+				farmerIng = `<div class="col-md-12" style="text-align:center">
+								<strong class="trank" style="font-size:1.6em"> ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님은 이미 농부 신청을 하셨습니다. <br><br>
+														<span style="border-bottom: 2px solid #66BB6A;">관리자가 승인할 때까지 조금만 더 기다려주세요...</span></strong>
+							</div>`
 				$("#content").html(farmerIng);
-				
-			}else{
+				document.getElementById('light').style.height = '30%';
+			}else{ //권한이 일반인 농부신청
 			farmerForm =  `<section class="contact-page wf100 p80" style="padding-top: 0px;">
 				<div class="container">
 				<div class="row">
@@ -499,7 +539,7 @@
 									<li class="full">
 										&lt; 농부증명서등록 &gt;
 									<input type="file"
-										class="form-control" id="mem_fm_req" name="mem_fm_req"
+										class="form-control" id="mem_fm_req" name="mem_fm_req" style="height: 60px;"
 										 readonly>  </li>
 									
 									<li class="half pr-15">
@@ -527,6 +567,7 @@
 		$("#content").html(farmerForm);
 			//로딩끄기
 			document.getElementById('fade').style.display = 'none';
+			document.getElementById('light').style.height = '70%';
 			}
 			
 		}
@@ -542,23 +583,26 @@
 			createPopup();
 			
 			var withdrawForm = `
-				<div class="col-md-10">
-				<p>사용하고 계신 아이디 ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email} 는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
-				<p>탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.</p>
-				<p>탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다.</p>
-				<p>회원정보 및 메일, 블로그, 주소록 등 개인형 서비스 이용기록은 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다.</p>
-				<p>삭제되는 내용을 확인하시고 필요한 데이터는 미리 백업을 해주세요.</p>
-				<div class="login-box">
+				<div class="col-md-12">
+				<h3 style="margin-bottom: 40px;">
+				회원탈퇴</h3>
+				<div class="login-box" style="background-color:#dddddd">
+				<p style="font-size:1.1em">사용하고 계신 아이디 <span style="border-bottom: 3px solid #000000">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}</span> 는 탈퇴할 경우 재사용 및 복구가 불가능합니다.<br><br>
+					탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.<br><br>
+					탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다.<br><br>
+					회원정보 및 메일, 블로그, 주소록 등 개인형 서비스 이용기록은 모두 삭제되며<br><br>
+					<span style="color:#e11f3e; border-bottom: 3px solid #e11f3e;">삭제된 데이터는 복구되지 않습니다.</span><br><br>	
+					<span style="color:#e11f3e; border-bottom: 3px solid #e11f3e;">삭제되는 내용을 확인하시고 필요한 데이터는 미리 백업을 해주세요.</span><br>
+				
 				<form action="memberDelete.do" onsubmit="return passwordCheck()">
 				<div class="input-group">
 					<input id="password" type="password" class="form-control"
 						placeholder="마지막으로 비밀번호를 입력해주세요" required>
 				</div>
 				<div class="input-group">
-					<button class="login-btn" type="submit">탈퇴</button>
+					<button class="login-btn" style="cursor: pointer;background-color:#e11f3e;color:#ffffff;" type="submit">탈퇴</button>
 				</div>
 				</form>
-				<img src="/prj/resources/images/memberDelete.gif">
 				</div>
 				</div>
 				`
@@ -566,6 +610,7 @@
 			
 			//로딩끄기
 			document.getElementById('fade').style.display = 'none';
+			document.getElementById('light').style.height = '80%';
 		}
 
 		//nft블록체인 생성, db입력

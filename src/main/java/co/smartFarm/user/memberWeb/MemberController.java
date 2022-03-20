@@ -105,8 +105,8 @@ public class MemberController {
 		for (int i = 0; i < 64 - withdrawNo.length(); i++) {
 			zero = zero + "0";
 		}
-		String paramBid = zero + withdrawNo;
-		System.out.println(paramBid);
+		String paramAucnNo = zero + withdrawNo;
+		System.out.println(paramAucnNo);
 		
 		JSONObject jsonInput = new JSONObject();
 		JSONArray data = new JSONArray();
@@ -117,15 +117,15 @@ public class MemberController {
 		
 		JSONObject param = new JSONObject();
 		// from : 관리자 지갑주소 , to : smart contract Address
-		param.put("from", "0x13B770f414f4c5e547da9cE9382071Ebdd8f3F9a");
-		param.put("to", "0x243Ac993BD48280D420d3BfD27d1250d8A51530C");
+		param.put("from", "0x8324b648E446a06e963604D35c6621df60835374");
+		param.put("to", "0xD951b9dd9f8a5acc061a781C5a0239d5747C771E");
 		// input 값 hash 변환 method+parameter(optional)
 		
 		//withdraw data ( 10번 경매 10 -> a (16진수) )
 		//param.put("data", "0x2e1a7d4d000000000000000000000000000000000000000000000000000000000000000a");
 		
 		String withdraw = "0x2e1a7d4d"; 
-		String withdrawData = withdraw+paramBid;
+		String withdrawData = withdraw+paramAucnNo;
 		param.put("data", withdrawData);
 		
 		data.put(param);
@@ -232,9 +232,9 @@ public class MemberController {
 	
 	// 회원농부신청
 	@RequestMapping("/memberFarmer.do")
-	public String memberFarmer() {
-		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		memberVo.setMem_email(memberVo.getMem_email());
+	public String memberFarmer(MemberVO memberVo) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		memberVo.setMem_email(userDetails.getUsername());
 		memberDao.memberUpdateFarmer(memberVo);
 		return "redirect:logout.do";
 	}
