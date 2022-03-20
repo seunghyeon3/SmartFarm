@@ -29,11 +29,11 @@
 
 						<div class="input-group">
 							<input type="text" id="mem_name" name="mem_name"
-								class="form-control" placeholder="이름" required>
+								class="form-control" placeholder="이름" >
 						</div>
 						<div class="input-group">
 							<input type="email" id="mem_email" name="mem_email"
-								class="form-control" placeholder="이메일" required>
+								class="form-control" placeholder="이메일" >
 						</div>
 
 						<br>
@@ -52,29 +52,44 @@
 
 	<script type="text/javascript">
 		function findEmail() {
+			
 			var mem_email = $("#mem_email").val();
 			var mem_name = $("#mem_name").val();
-			var data = JSON.stringify({mem_email : mem_email, mem_name : mem_name});
+			//이메일 양식 유효성 검사
+			var mem_email_reg = mem_email.search(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 			
-			fetch("findMemberEmail.do",
-				{
-				method:'post',
-				headers:{
-					 'Content-Type': 'application/json;charset=utf-8'
-				},
-				body : data
-			})
-			.then(response => response.json())
-			.then(function (result) {
-				console.log(result);
+			if(mem_name == ''){
+				toastr.error('이름을 입력해주세요');
 				
-				if(result == '0'){
-					toastr.error('유효하지 않은 이메일입니다');
-				} else {
-					toastr.success('사용가능한 이메일 입니다')
-				}
+			}else if(mem_email ==''){
+				toastr.error('이메일을 입력해주세요');
 				
-			});
+			}else if(mem_email_reg < 0){
+				toastr.error('유효한 이메일 형식을 입력하세요');
+				
+			}else{
+				var data = JSON.stringify({mem_email : mem_email, mem_name : mem_name});
+				
+				fetch("findMemberEmail.do",
+					{
+					method:'post',
+					headers:{
+						 'Content-Type': 'application/json;charset=utf-8'
+					},
+					body : data
+				})
+				.then(response => response.json())
+				.then(function (result) {
+					console.log(result);
+					
+					if(result == '0'){
+						toastr.error('유효하지 않은 이메일입니다');
+					} else {
+						toastr.success('사용가능한 이메일 입니다')
+					}
+					
+				});
+			}
 			
 		}
 	</script>

@@ -84,8 +84,10 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
+						<sec:authorize access="isAuthenticated()">
 					<a href="qnainsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
+						</sec:authorize>
 				</div>
 			</div>
 			
@@ -112,24 +114,29 @@
 	            },{
 	            	header: '이메일',
 		            name: 'mem_email',
+		            align: 'center',
 		            width: 150
 	            },{
 	            	 header: '공개여부',
 			         name: 'qna_open_whet',
+			         align: 'center',
 			         width: 70
 	            },{
 	            	 header: '답글여부',
 				     name: 'count',
+				     align: 'center',
 				     width: 70,
 				       formatter(object){	            	  	            		
 		            	   return object.value > 0 ? 'Y' : 'N';}
 	            },{
 	               header: '등록일',
 	               name: 'qna_day',
+	               align: 'center',
 	               width: 200
 	            },{
 	               header: '첨부파일',
 	               name: 'qna_phy_rou',
+	               align: 'center',
 	               width: 70,
 	               formatter(object){	            	  
 	            	   return object.value != null ? 'Y' : 'N';}
@@ -137,6 +144,7 @@
 	            },{
 		               header: '조회',
 		               name: 'qna_hit',
+		               align: 'right',
 		               width: 30
 		            }],
 	            columnOptions : {

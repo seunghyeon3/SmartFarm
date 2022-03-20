@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,7 @@ ul>li>p {
 								onclick="history.back(-1);" class="fsubmit"></li>
 
 							<!--Leave a Comment Start-->
-							<h4>댓글</h4>
+							<h4>답글</h4>
 							<ul>
 								<form id="commentForm" name="commentForm" method="post">
 									<br> <br>
@@ -96,25 +97,23 @@ ul>li>p {
 										<div>
 											<span id="cCnt"></span>
 										</div>
-										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="Y"/><span class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;  -->
-										<!--<input type="radio" name="qna_open_whet" id="qna_open_whet" value="N"/><span class="ml_10">비공개</span>&nbsp;  -->
-										
+
 										<sec:authorize access="hasRole('ADMIN')">
-										<div>
-											<table class="table">
-												<tr>
-													<td><textarea style="width: 800px" rows="3" cols="30"
-															id="reply_con" placeholder="댓글을 입력하세요" name="reply_con">${reply.reply_con}</textarea>
-														<br>
-														<div>
-															<!--  style="display:none;"> -->
-															<a href='#' onClick="fn_comment('${qna.qna_no}')"
-																class="btn pull-right btn-success">등록</a>
-														</div></td>
-												</tr>
-											</table>
-										</div>
-										 </sec:authorize>
+											<div>
+												<table class="table">
+													<tr>
+														<td><textarea style="width: 800px" rows="3" cols="30"
+																id="reply_con" placeholder="댓글을 입력하세요" name="reply_con">${reply.reply_con}</textarea>
+															<br>
+															<div>
+																<!--  style="display:none;"> -->
+																<a href='#' onClick="fn_comment('${qna.qna_no}')"
+																	class="btn pull-right btn-success">등록</a>
+															</div></td>
+													</tr>
+												</table>
+											</div>
+										</sec:authorize>
 									</div>
 									<input type="hidden" id="qna_no" name="qna_no"
 										value="${qna.qna_no}" />
@@ -197,7 +196,6 @@ ul>li>p {
 		 } 
 		
 		function getCommentList() {
-
 			$.ajax({
 						type : 'POST',  //post 형식으로 보내고 
 						url : "replycommend.do", 
@@ -207,48 +205,37 @@ ul>li>p {
 						contentType:"application/json; charset=utf-8", // 한글 번역 
 						success : function(data) { 
 							console.log(data);
-							var html = "";
-							var cCnt = data.length;
-							if( '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'ADMIN' ){
-								
+							var commentlist = "";								
 							if (data.length > 0) {
 
 								for (i = 0; i < data.length; i++) {
-									html = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
+									commentlist += `<div><h6><strong> \${data[i].mem_name}</strong></h6>
 									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
 									<tr><td></td></tr>
+									<sec:authorize access="hasRole('ADMIN')">
 								    <a href='javascript:replyDelete("\${data[i].reply_no}");'>삭제</a>
 								    <a href='javascript:reply_con("\${data[i].reply_no}");'>수정</a>
+								    </sec:authorize>
 									</div>`;
 								}
 
-							} else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' != 'ADMIN' ){
-							
-								for (i = 0; i < data.length; i++) {
-									html = `<div><h6><strong> \${data[i].mem_name}</strong></h6>
-									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
-									<tr><td></td></tr>
-									</div>`;
-								}
 							}
-							
 							
 							else {
-							}
-
-								html =`<div>
-								<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>
+								commentlist =`<div>
+								<div><table class='table'><h6><strong>등록된 답글이 없습니다.</strong></h6>
 								</table></div></div>`
-
 							}
 
-							$("#cCnt").html(html);
-						},
-						error : function(request, status, error) {
+									$("#cCnt").html(commentlist);
+							
 
+							},
+
+						error : function(error) {
+							console.log(errer);
 						}
-
-					});
+						});
 		}
 	 function replyDelete(qna_no){
 				var paramData = {reply_no: qna_no};

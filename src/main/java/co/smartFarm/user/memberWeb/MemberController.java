@@ -370,14 +370,15 @@ public class MemberController {
 	}
 
 	public boolean sendEmail(MemberVO memberVo) {
-		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 SMTP 서버 정보를 설정한다. 
-		String user = "yisseol@naver.com"; // 이메일
-		String password = "추후수정"; // 비밀번호 추후수정
+		String host = "smtp.gmail.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 SMTP 서버 정보를 설정한다. 
+		String user = "grsmartfarm@gmail.com"; // 이메일
+		String password = "smartfarm"; // 비밀번호 추후수정
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", 587);
 		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");//구글 로그인으로 바꾸면서 추가
 		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
@@ -392,7 +393,7 @@ public class MemberController {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberVo.getMem_email())); // 메일 보낼 곳
 			message.setSubject("[똑장이] 임시 비밀번호 발송"); // 메일 제목
 			//220315 PSH 비밀번호 암호화
-			String tmpPwd = bcryp.encode(getRamdomPassword(13));
+			String tmpPwd = getRamdomPassword(13);
 
 			String content = "<div style=\" width: 550px; height: 350px; text-align: center;\">"
 					+ "<div style=\" display: inline-block; background-color: #66bb6a;  text-align:center; width: 350px; height: 200px;  border-radius: 5px; padding:50px;\">"
@@ -406,7 +407,7 @@ public class MemberController {
 			System.out.println("Success Message Send");
 
 			// 임시 비밀번호로 회원의 비밀번호 설정하기
-			memberVo.setMem_pw(tmpPwd);
+			memberVo.setMem_pw(bcryp.encode(tmpPwd));
 			memberDao.memberUpdatePw(memberVo);
 			
 		} catch (MessagingException e) {

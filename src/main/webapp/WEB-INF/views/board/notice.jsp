@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -69,7 +71,7 @@
 						<!--<form action="noticeSearch.do" method="post"> -->
 						<select class="form-control" id="key" name="key"
 							style="width: 120px; float: left">
-							<option value="notice_day">등록일</option>
+							<!-- <option value="notice_day">등록일</option> -->
 							<option value="notice_title">제목</option>
 						</select> <input type="search" id="val" name="val" class="form-control"
 							placeholder="검색"
@@ -83,10 +85,10 @@
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 					<!-- grid 불러오기 -->
 					<div id="grid"></div>
-					<c:if test="${member.mem_athr eq 'B0'}">
+					<sec:authorize access="hasRole('ADMIN')">
 					<a href="noticeinsertForm.do" class="view-more"
 						style="color: white; cursor: pointer;">글쓰기</a>
-					</c:if>
+					</sec:authorize>
 				</div>
 				</div>
 			</div>
@@ -113,16 +115,19 @@
 	            },{
 	               header: '등록일',
 	               name: 'notice_day',
+	               align: 'center',
 	               width: 270
 	            },{
 	               header: '첨부파일',
 	               name: 'notice_img',
+	               align: 'center',
 	               width: 100,
 	               formatter(object){	            	  
 	            	   return object.value != null ? 'Y' : 'N';}
 	            },{
 		               header: '조회',
 		               name: 'notice_hit',
+		               align: 'right',
 		               width: 70
 		            }],
 	            columnOptions : {

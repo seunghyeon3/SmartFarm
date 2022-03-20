@@ -8,6 +8,8 @@
 <title>Home</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
 
 <style type="text/css">
 .orderByBtn {
@@ -36,7 +38,8 @@
 						<!-- 상업용, 취미용 구분 할 수 있는 태그.. 매개변수에 따라 상품리스트 바뀔 예정, 매개변수 정하면 끝> -->
 						<div class="single-post-tags">
 							<a href="kitShopList.do?kitPrpos=&orderBy=name" id="all">전체</a> <a
-								href="kitShopList.do?kitPrpos=business&orderBy=name" id="business">상업용</a> <a
+								href="kitShopList.do?kitPrpos=business&orderBy=name"
+								id="business">상업용</a> <a
 								href="kitShopList.do?kitPrpos=hobby&orderBy=name" id="hobby">취미용</a>
 						</div>
 					</div>
@@ -74,7 +77,7 @@
 				</div>
 
 				<!-- 판매 리스트 출력 시작 -->
-				<c:forEach items="${kitSelectList}" var="list">
+				<%-- <c:forEach items="${kitSelectList}" var="list">
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
 
@@ -95,38 +98,71 @@
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-
-			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="gt-pagination">
-						<nav>
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <i class="fas fa-angle-left"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <i class="fas fa-angle-right"></i>
-								</a></li>
-							</ul>
-						</nav>
-					</div>
+				</c:forEach> --%>
+				<!-- 판매 리스트 출력 시작 -->
+				<div class="col-md-12" id="kitShopListP">
+				
 				</div>
 			</div>
+
+			
+
+			<!--페이징처리 시작-->
+			<div class="row" style="display: flex; justify-content: center;">
+				<div id="pagination" style="margin: 0 auto;"></div>
+			</div>
+			<!--페이징처리 종료-->
 		</div>
+
 	</section>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+
 	<script type="text/javascript">
-	//페이지가 시작될 때 url 에 정보가 담겨있으면 색 바꾸기
+	//페이징
+    $(function () {
+    	console.log(${kitSelectListP});
+    	
+    	let container = $('#pagination');
+	        container.pagination({
+	            dataSource: ${kitSelectListP},
+	            callback: function (data, pagination) {
+	            	var kitList ="";
+					var temp = "";
+	            	
+	                $.each(data, function (index, item) {
+	                	temp = `<div class="col-lg-3 col-sm-6" style="float:left;">
+							<div class="product-box">
+								<div class="pro-thumb">
+									<a onclick="insertCart('cartInsert.do?cart_kit_no=\${item.kit_no }&cart_price=\${item.kit_price}&cart_sale_count=1')"
+										href="javascript:void(0);">장바구니 추가</a> <img
+										src="resources/images/shop/pro1.jpg" alt="">
+								</div>
+								<div class="pro-txt">
+									<p style="margin: 0;">(\${item.kit_prpos})</p>
+									<h6>
+										<a href="kitProductDetail.do?kit_no=\${item.kit_no }">
+											\${item.kit_name}</a>
+									</h6>
+									<p class="pro-price" id="kitPrice">\${item.kit_price}</p>
+								</div>
+							</div>
+						</div>`;
+						kitList += temp;
+	                });
+	                
+	                $("#kitShopListP").html(kitList);
+	            },
+	            pageSize: 12
+	        })
+	        
+	      
+	
+		//페이지가 시작될 때 url 에 정보가 담겨있으면 색 바꾸기
    
-    $(document).ready(function () {
     	var kitPrpos = $.urlParam('kitPrpos');
     	 
  		if(kitPrpos == ''){//전체
@@ -171,7 +207,16 @@
 			
 		 }
 		 
-    });
+    }); // $(function (){})
+	
+ 	// 검색 창에 자동완성 기능
+    fetch("kitSelectName.do")
+       .then(result =>
+          result.json()
+       )
+       .then(result =>
+          showAuto(result)
+       );
 	// ===== url 자르는 함수 ===== 
 	$.urlParam = function(name){
 	    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -190,14 +235,7 @@
          }
       }) */
 
-      // 검색 창에 자동완성 기능
-      fetch("kitSelectName.do")
-         .then(result =>
-            result.json()
-         )
-         .then(result =>
-            showAuto(result)
-         );
+      
 
       // 자동완성 기능 함수
       function showAuto(lists) {
@@ -207,6 +245,7 @@
             console.log(lists[index].kit_name);
             arr.push(lists[index].kit_name);
          }
+         
          $("#kitName").autocomplete({
             source: arr,
             select: function (event, ui) {

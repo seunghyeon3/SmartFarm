@@ -76,5 +76,10 @@ public class UseRevwServiceImpl implements UseRevwService{
 	public int useRevwCommDelete(int useRevwCommNo) {
 		return map.useRevwCommDelete(useRevwCommNo);
 	}
+
+	@Override
+	public List<UseRevwVO> useRevwSelectListByNo(int kitNO) {
+		return map.useRevwSelectListByNo(kitNO);
+	}
 	
 }

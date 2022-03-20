@@ -172,10 +172,10 @@ public class ExcelService {
 				headerCell.setCellValue("일사량");
 
 				headerCell = headerRow.createCell(7);
-				headerCell.setCellValue("급액양");
+				headerCell.setCellValue("급액량");
 
 				headerCell = headerRow.createCell(8);
-				headerCell.setCellValue("농약양");
+				headerCell.setCellValue("농약량");
 
 				headerCell = headerRow.createCell(9);
 				headerCell.setCellValue("키트가격");
@@ -224,11 +224,11 @@ public class ExcelService {
 					bodyCell = bodyRow.createCell(6);
 					bodyCell.setCellValue(kitVo.getKit_sun());
 
-					// 급액양
+					// 급액량
 					bodyCell = bodyRow.createCell(7);
 					bodyCell.setCellValue(kitVo.getKit_water());
 
-					// 농약양
+					// 농약량
 					bodyCell = bodyRow.createCell(8);
 					bodyCell.setCellValue(kitVo.getKit_pes());
 

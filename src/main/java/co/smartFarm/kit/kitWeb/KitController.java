@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
+import co.smartFarm.board.useRevw.useRevwService.UseRevwService;
+import co.smartFarm.board.useRevw.useRevwService.UseRevwVO;
 import co.smartFarm.kit.kitService.KitService;
 import co.smartFarm.kit.kitService.KitVO;
 import co.smartFarm.shopping.cartService.CartVO;
@@ -30,12 +34,15 @@ public class KitController {
 
 	@Autowired
 	private KitService kitDao;
+	
+	@Autowired
+	private UseRevwService useRevwDao;
 
 	// 키트 전체조회
 	// 220302 PSH shoppingController -> kitController 구분 작업
 	@GetMapping("/kitShopList.do")
 	public String kitShopList(Model model, @Param("kitPrpos") String kitPrpos, @Param("kitName") String kitName,
-			@Param("orderBy") String orderBy) {
+			@Param("orderBy") String orderBy) throws JsonProcessingException {
 
 		Map<String, String> map = new HashMap();
 		map.put("kitPrpos", kitPrpos);
@@ -43,6 +50,8 @@ public class KitController {
 		map.put("kitName", kitName);
 		List<KitVO> list = kitDao.kitSelectList(map);
 		model.addAttribute("kitSelectList", list);
+		ObjectMapper mapP = new ObjectMapper();
+		model.addAttribute("kitSelectListP", mapP.writeValueAsString(list));
 
 //		if (kitPrpos != null) { // 키트 작물인 경우
 //			List<KitVO> list = kitDao.kitSelectList(kitPrpos);
@@ -116,12 +125,20 @@ public class KitController {
 		return null;
 	}
 	
-	@GetMapping(value = "kitSelectName.do", produces = "application/text;charset=utf8")
+	@GetMapping(value = "/kitSelectName.do", produces = "application/text;charset=utf8")
 	@ResponseBody
 	public String kitSelectName() {
 		List<KitVO> list = kitDao.kitSelectNameDis();
 		String gson = new Gson().toJson(list);
 		return gson;
+	}
+	
+	// ==== 이용후기 가져오기 =====
+	@GetMapping("/kitSelectRevwList.do")
+	@ResponseBody
+	public List<UseRevwVO> kitSelectRevwList(int kitNo){
+		return useRevwDao.useRevwSelectListByNo(kitNo);
+		
 	}
 
 }

@@ -205,7 +205,7 @@
 									</li>
 
 									<li class="half pl-15">
-										<button type="reset" class="fsubmit"
+										<button type="reset" class="fsubmit" onclick="exitPopup()"
 											style="background-color: #f8f9fa;; color: #66bb6a; border: 1px solid #66bb6a;">취소</button>
 									</li>
 
