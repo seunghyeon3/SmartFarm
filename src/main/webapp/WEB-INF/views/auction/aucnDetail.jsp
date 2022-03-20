@@ -234,7 +234,10 @@ border-radius: 15px;
 	</section>
 
 	<script type="text/javascript" src="resources/js/countdown.js"></script>
-
+    <script
+		src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js">
+	</script>
+	<script src="resources/js/NFTAuction.js"></script>
 	<!-- 웹소켓 기능 -->
 	<!-- 220310 PSH websocket.js로 이동 -->
 	 <script>
@@ -345,7 +348,6 @@ border-radius: 15px;
 		var countAucn = document.querySelectorAll('.countdown');
 
 		var efcc_countdown = {}
-		console.log(countAucn[0].attributes[1].textContent);
 
 		console.log(test);
 		for (var i = 0; i < countAucn.length; i++) {
@@ -361,14 +363,14 @@ border-radius: 15px;
 		
 		// 경매 남은 시간이 경과되었을때 입찰하기를 눌렀을때 경매 메인페이지로 돌려보내기 
 		 function aucnTimeCheck(aucnNo){
+			
 	    	  var countdownId = "countdown"+aucnNo ;
 	    	  var countdownDisable = document.getElementById(countdownId);
 	    	  console.log(countdownDisable);
 	    	  console.log(countdownDisable.innerText)
 	    	   if(countdownDisable.innerText == "경매가 종료되었습니다."){
-	    		   alert("좀만 더 빨리 누르지.. 수고~ ^^");
+	    		   alert("이미 종료된 경매입니다.");
 	    		  location.href="aucnMain.do";
-	    		   //toastr.warning('좀만 더 빨리 누르지.. 수고~ ^^');
 	    	  }
 	    	  else {
 	    		  aucnBid()
@@ -388,6 +390,20 @@ border-radius: 15px;
 				//로딩끄기
 				document.getElementById('fade').style.display = 'none';
 				
+				//메타마스크 로그인체크
+				web3.eth.getAccounts(function(err,accs){
+		             if(err != null){
+		                 alert('There was an error fetching your accounts.')
+		                 exitPopup();
+		                 return
+		             }
+		             if(accs.length ===0){
+		                 alert("입찰을 위해 메타마스크 로그인을 해주세요")
+		                 exitPopup();
+		                 return
+		             }
+		             account = accs[0];
+		         }) 
 /* 				function send(){
 					 // 서버로 전송할 데이터를 담을 msg 객체 생성.
 					 var msg ={
@@ -408,14 +424,7 @@ border-radius: 15px;
 			function countCheck() {
 				var inputAucnBid = parseInt(document.getElementById('inputMessage').value);
 				var aucnBid = parseInt(document.getElementById('popupBidWindow').dataset.bid);
-				//console.log(typeof(aucnBid));
-				//지갑잔고
-				console.log(aucnBid > inputAucnBid);
-				console.log(aucnBid);
-				console.log(inputAucnBid);
-				console.log(typeof(aucnBid));
-				console.log(typeof(inputAucnBid));
-				
+
 				if(aucnBid >= inputAucnBid){
 					alert("현재 최고 금액보다 높게 지정하세요.");
 					toastr.error("현재 최고 금액보다 높게 지정하세요.");
