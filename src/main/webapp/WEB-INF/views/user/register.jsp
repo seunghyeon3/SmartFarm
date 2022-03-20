@@ -144,7 +144,7 @@
 		style="padding: 20px; z-index: 2;">
 		<h5 style="padding: 20px;">
 			개인정보 동의 <a onclick="closeFrm()"
-				style="float: right; color: blue; font-size: medium"> X </a>
+				style="float: right; color: blue; font-size: medium"> Close </a>
 		</h5>
 		<br> <br>
 
