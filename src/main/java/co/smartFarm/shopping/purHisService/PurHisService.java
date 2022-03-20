@@ -11,4 +11,9 @@ public interface PurHisService {
 	List<PurHisVO> purHisRevwSelect(String memEmail);
 	//마이페이지 구매내역
 	List<PurHisVO> purHisSelect(String mem_email);
+	//구매내역 업데이트하기 전에 업데이트 할 거 있는지 확인하기
+	int selectPurHisCount();
+	//구매내역 상황 업데이트 하기
+	int purHisUpdateState();
+
 }

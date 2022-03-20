@@ -23,7 +23,7 @@
    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
       <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
    <link rel="stylesheet"
-   href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 
 
    <style type="text/css">
@@ -133,7 +133,7 @@
                      </li>
                      </sec:authorize>
                        <!-- 220308 PSH 관리자 일 경우만 사용 가능 하도록 구분 -->
-                       <sec:authorize access="hasRole('ADMIN')">
+                    	<sec:authorize access="hasRole('ADMIN')">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="contact.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리자 페이지 </a>
                         <ul class="dropdown-menu">
@@ -149,27 +149,27 @@
                             <!-- 220308 PSH session 값에 따라 출력 다르게 함. -->
                   <ul class="topnav-right"  id="headerfont">
                      
-               <sec:authorize access="isAnonymous()">
-                <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
-               </sec:authorize>
-               
-               <sec:authorize access="isAuthenticated()">
-               <!-- 220308 PSH mypage -> mem_name 대체 -->
-                <sec:authorize access="hasAnyRole('ADMIN')">
-                <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="javascript:void(0)" style="cursor: default; color:#cee5cb;">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
-                             
-                </sec:authorize>
-                <sec:authorize access="hasAnyRole('FARMER','MEMBER')">
-                  <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
-                             
-                </sec:authorize>
-                <%-- <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li> --%>
-                </sec:authorize>
-                <sec:authorize access="hasAnyRole('FARMER','MEMBER')">
-                <li class="dropdown">
+					<sec:authorize access="isAnonymous()">
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/login.do">Login</a> | <a href="${pageContext.request.contextPath}/register.do">Signup</a> </li>
+					</sec:authorize>
+					
+					<sec:authorize access="isAuthenticated()">
+					<!-- 220308 PSH mypage -> mem_name 대체 -->
+					 <sec:authorize access="hasAnyRole('ADMIN')">
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="javascript:void(0)" style="cursor: default; color:#cee5cb;">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
+					 				 
+					 </sec:authorize>
+					 <sec:authorize access="hasAnyRole('FARMER','MEMBER')">
+						<li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
+					 				 
+					 </sec:authorize>
+					 <%-- <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li> --%>
+					 </sec:authorize>
+					 <sec:authorize access="hasAnyRole('FARMER','MEMBER')">
+					 <li class="dropdown">
                         <a class="cart-icon" href="${pageContext.request.contextPath}/cartDetail.do" role="button" id="cartdropdown"  style="padding: 0px;"> <i class="fas fa-shopping-cart"></i></a> 
-                     </li>                
-                </sec:authorize>
+                     </li>					 
+					 </sec:authorize>
                   </ul>
                </div>
             </nav>
@@ -208,17 +208,17 @@
    
    <!-- toast ui pagination -->
    <script type="text/javascript"
-      src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.js"></script>
+		src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.js"></script>
    <script type="text/javascript"
-      src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
-   
+		src="https://uicdn.toast.com/tui.pagination/v3.3.0/tui-pagination.js"></script>
+	
     <script type="text/javascript">
     /* 220309 PSH home, header 통합 작업 진행, 외부 js 파일은 movePage.js 참고 */
     console.log(window.location.pathname);
-   console.log("${pageContext.request.contextPath}");
-   
-   console.log("${SPRING_SECURITY_CONTEXT.authentication.principal}");
-   
+	console.log("${pageContext.request.contextPath}");
+	
+	console.log("${SPRING_SECURITY_CONTEXT.authentication.principal}");
+	
     movePage(window.location.pathname, "${pageContext.request.contextPath}")
     
    </script> 

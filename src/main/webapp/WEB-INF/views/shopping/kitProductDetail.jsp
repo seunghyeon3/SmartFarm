@@ -150,10 +150,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 				<strong><a href="useRevwDetail.do?useRevwNo=\${list[index].use_revw_no}" style="font-size: large;">\${list[index].use_revw_title}</a>`;
 				
 				
-			if ('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' == `\${list[index].mem_email}`) {
+			/* if ('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' == `\${list[index].mem_email}` ) {
 				
 				tmp += `<a href="useRevwCommDelete.do?useRevwCommNo=\${list[index].use_revw_no}" style="float: right; color: #e11f3e">삭제</a>`;
-			}
+			} */
 			
 			var date = new Date(1 * `\${list[index].use_revw_write_day}`);
 			tmp += `</strong>  <p>\${list[index].use_revw_con}</p>
