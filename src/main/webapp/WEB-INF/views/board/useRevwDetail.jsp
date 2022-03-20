@@ -22,45 +22,47 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row">
+			
+			<!-- 삭제수정조건 -->
 			<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email eq useRevwDetail.mem_email}">
 				<div class="col-md-12">
 					<a href="useRevwDelete.do?useRevwNo=${useRevwDetail.use_revw_no }" class="view-more"
-						style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;">삭제</a> <a
+						style="cursor: pointer;background-color:#e11f3e;color:#ffffff;">삭제</a> <a
 						href="useRevwUpdateForm.do?useRevwNo=${useRevwDetail.use_revw_no }&purHisNo=${useRevwDetail.pur_his_order_no }" class="view-more"
 						style="color: white; cursor: pointer; margin-right: 5px">수정</a>
 				</div>
 			</c:if>
-				<div class="col-md-6">
-					<div class="section-title-2">
-						<h5>이용후기</h5>
-						<img alt="이미지 들어가야함" src="resources/images/aboutimg.jpg"
-							style="width: 300px">
+			
+			<!-- 이용후기시작 -->
+				<div class="blog-single-content">
+
+					<h3>${useRevwDetail.use_revw_title}</h3>
+					<ul class="post-meta">
+						<li><i class="fas fa-user-circle"></i>${useRevwDetail.mem_name}</li>
+						<li><i class="fas fa-calendar-alt"></i>${useRevwDetail.use_revw_write_day}</li>
+						<li><i class="fas fa-comments"></i>${useRevwDetail.use_revw_hit } 조회수</li>
+					</ul>
+
+					<div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;">
+						<img src="resources/images/blog/bf4.jpg" alt="">
 					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="contact-form mb60">
-						<ul class="cform">
-							<li class="full">
-								<h3>${useRevwDetail.use_revw_title}</h3>
-								<hr>
-							</li>
-							<li class="full">
-								<div class="col-md-12">${useRevwDetail.use_revw_con}</div>
-							</li>
-						</ul>
+
+					<h5 style="margin-top:80px">${useRevwDetail.use_revw_con}</h5>
+					
 					</div>
-				</div>
-				<div class="col-md-8" style="margin-top:50px">
-				<div class="wf100 comment-form">
+				
+				<!-- 댓글 -->
+				<div class="col-md-8" style="margin-top:100px">
+				<div class="wf100 comment-form" style="border-bottom: 1px solid #dddddd; margin-bottom:40px;">
 					<h5>이용후기 댓글</h5>
 					<br><br>
 					<sec:authorize access="isAuthenticated()">
 					<form action="useRevwCommInsert.do" method ="POST" enctype="application/x-www-form-urlencoded">
 						 <div class="form-group">
 							${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 
-			                <input type="text" class="form-control" name="use_revw_comm_con" id="use_revw_comm_con" placeholder="댓글을 입력하세요...">
+			                <input type="text" class="form-control" name="use_revw_comm_con" id="use_revw_comm_con" placeholder="댓글을 입력하세요..." style="margin-bottom:20px">
 			                <input type="hidden" name="use_revw_no" id="use_revw_no" value= '${useRevwDetail.use_revw_no }' >
-			                <input style="float:right"type="submit" value="댓글등록" class="fsubmit">
+			                <input style="float:right; cursor: pointer; background-color:#66ba6a; color:#ffffff;" type="submit" value="댓글등록" class="fsubmit">
 			              </div>	
 						</form>
 						<br><br>
@@ -80,7 +82,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 										<li>${useRevwComment.use_revw_comm_write_day}</li>
 										<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email eq useRevwComment.mem_email}">
 										<li><a
-											href="useRevwCommDelete.do?useRevwCommNo=${useRevwComment.use_revw_comm_no}" style="float: right;">삭제</a></li>
+											href="useRevwCommDelete.do?useRevwCommNo=${useRevwComment.use_revw_comm_no}"
+						style="cursor: pointer; color:#e11f3e; float:right; font-size:1.2em">삭제</a></li>
 										</c:if>	
 									</ul>
 								</div>

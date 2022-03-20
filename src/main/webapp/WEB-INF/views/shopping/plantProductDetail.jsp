@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div class="col-md-12">${plantSaleDet.plant_sale_con }</div>
-				<div class="col-md-12">내용 후기가 들어가유~~~</div>
+				
 			</div>
 		</div>
 	</section>

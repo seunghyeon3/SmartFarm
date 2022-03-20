@@ -29,4 +29,6 @@ public interface UseRevwMapper {
 	int useRevwCommInsert(UseRevwCommVO useRevwComm);
 	//이용후기 댓글 삭제
 	int useRevwCommDelete(int useRevwCommNo);
+	//kit 페이지에서 이용후기 출력
+	List<UseRevwVO> useRevwSelectListByNo(int kitNO);
 }

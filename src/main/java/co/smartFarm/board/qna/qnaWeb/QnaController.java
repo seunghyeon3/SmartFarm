@@ -156,13 +156,13 @@ public class QnaController {
 
 			String fullPath = uploadDir + "/" + filename;
 			qnafile.transferTo(new File(fullPath));
-			qna.setQna_phy_rou(fullPath);
+			qna.setQna_phy_rou(filename);
 		}
 		System.out.println("sadacsdgdfdf================" + qna.toString());
 		model.addAttribute("qna", qnaDao.qnaUpdate(qna));
 		List<QnaVO> list = qnaDao.qnaSelectList();
 		model.addAttribute("list", list);
-		return "redirect:/qna.do";
+		return "redirect:/qna.do?qna_phy_rou";
 	}
 
 	// QNA 삭제

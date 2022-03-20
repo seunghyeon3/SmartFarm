@@ -41,7 +41,7 @@
 }
 </style>
 <body>
-   ${archieve}
+   <%-- ${archieve} --%>
    <section class="contact-page wf100 p80">
       <div class="container">
          <div class="row">
@@ -54,7 +54,9 @@
                      <ul class="cform">
                         <li class="full"><input type='hidden' name="archieve_no"value=${archieve.archieve_no}> 
                         <input type="text"class="form-control" placeholder="제목" name="archieve_title" required value=${archieve.archieve_title}></li>
-                        <div class="filebox" style="float: right"><label for="ex_file">사진 업로드</label><input type="file"id="ex_file" name="archievefile">
+                        <div class="filebox" style="float: right">
+                        <input class="upload-name" value="파일선택" disabled="disabled">
+						<label for="ex_filename">업로드</label> <input type="file" id="ex_filename" class="upload-hidden" name="archievefile">
                         </div>
                         <li class="full"><textarea class="textarea-control"placeholder="내용" name="archieve_con" required>${archieve.archieve_con}</textarea>
                         </li>
@@ -71,4 +73,19 @@
       </div>
    </section>
 </body>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				var fileTarget = $('.filebox .upload-hidden');
+				fileTarget.on('change', function() { // 값이 변경되면 
+					if (window.FileReader) { // modern browser 
+						var filename = $(this)[0].files[0].name;
+					} else { // old IE 
+						var filename = $(this).val().split('/').pop().split(
+								'\\').pop(); // 파일명만 추출 
+					} // 추출한 파일명 삽입 
+					$(this).siblings('.upload-name').val(filename);
+				});
+			});
+</script>
 </html>
