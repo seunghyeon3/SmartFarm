@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>공지사항 상세페이지</title>
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
@@ -55,68 +55,29 @@ ul>li>p{
 </style>
 
 <body>
-	<section class="contact-page wf100 p80">
+	<section class="shop wf100 p80">
 		<div class="container">
-			<div class="col-lg-9 col-md-8">
+		 <div class="row">
 				<!--Blog Single Content Start-->
 				<div class="blog-single-content">
-
 					<h3>${notice.notice_title}</h3>
 					<ul class="post-meta">
 						<li><i class="fas fa-user-circle"></i>${notice.mem_name}</li>
 						<li><i class="fas fa-calendar-alt"></i>${notice.notice_day}</li>
-				<li><i class="fas fa-comments"></i>${notice.notice_con}</li> 
+						<li><i class="fas fa-comments"></i>${notice.notice_hit}</li> 
 					</ul> 
-					          <li class="full">
-                             <img src="download.do?img=${notice.notice_img}"onError="this.style.visibility='hidden'">
-                            </li>
-                            <li class="full">
-                             <a href="download.do?img=${notice.notice_img}">${notice.notice_img}</a>
-                            </li>
-						<sec:authorize access="hasRole('ADMIN')">
-                         <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit"> 
-                             </sec:authorize>
-                         <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
-			 		
-					<!--  <div class="post-comments wf100">
-						<h4>Comments on Post</h4>
-						<ul class="comments">
-							Comment Start
-							<li class="comment">
-								<div class="user-thumb">
-									<img src="images/auser.jpg" alt="">
-								</div>
-								<div class="comment-txt">
-									<h6>Harry Butler</h6>
-									<p>Personally I think a combination of all these methods is
-										most effective, but in today’s post I will be focusing
-										specifically on how to use and style WordPress’ built-in
-										sticky post feature and highlighting it’s best use case based
-										on my own experience.</p>
-									<ul class="comment-time">
-										<li>Posted: 09 July, 2018 at 2:37 pm</li>
-										<li><a href="#"><i class="fas fa-reply"></i> Reply</a></li>
-									</ul>
-								</div>
-							</li>
-							Comment End
-						</ul>
-					</div>
-					Author Comments End
 
-					Leave a Comment Start
-					<div class="wf100 comment-form">
-						<h4>Leave a Comment</h4>
-						<ul>
-							<li class="w3"><input type="text" class="form-control"
-								placeholder="Full Name"></li>
-							<li class="full"><textarea class="form-control"
-									placeholder="Write Comments"></textarea></li>
-							<li class="full">
-								<button class="post-btn">Post Your Comment</button>
-							</li>
-						</ul>
-					</div> -->
+                             <img src="download.do?img=${notice.notice_img}"onError="this.style.visibility='hidden'">
+                             <div>
+                             <a href="download.do?img=${notice.notice_img}"><p>${notice.notice_img}</p></a>
+                            </div>
+                            <h5 style="margin-top:80px">${notice.notice_con}</h5>
+						
+						<sec:authorize access="hasRole('ADMIN')">
+                         <input type="button" value="수정하기" onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'" class="fsubmit"
+                         style="cursor: pointer;background-color:#38761d;color:#ffffff;"> 
+                             </sec:authorize>
+                         <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit"style="cursor: pointer;background-color:#38761d;color:#ffffff;">
 					<!--Leave a Comment End-->
 				</div>
 				<!--Blog Single Content End-->

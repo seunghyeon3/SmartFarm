@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자료실 상세페이지</title>
+<title>Q&A상세페이지</title>
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
@@ -22,8 +22,8 @@
 	vertical-align: middle;
 	background-color: #5cb85c;
 	cursor: pointer;
-	border: 1px solid #4cae4c;
-	border-radius: .25em;
+ 	border: 1px solid #4cae4c; 
+    border-radius: .25em; 
 	-webkit-transition: background-color 0.2s;
 	transition: background-color 0.2s;
 }
@@ -43,7 +43,7 @@
 	padding: 0;
 	overflow: hidden;
 	clip: rect(0, 0, 0, 0);
-	border: 0;
+ 	border: 0; 
 }
 
 ul>li>p {
@@ -57,39 +57,34 @@ ul>li>p {
 </style>
 <body>
 
-	<section class="contact-page wf100 p80">
+	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<div class="contact-form mb60">
-						<h3>QNA</h3>
-						<ul class="cform">
-							<li class="half pr-15">
-								<p>제목: ${qna.qna_title}</p>
-							</li>
-							<li class="half pr-15">
-								<p>날짜: ${qna.qna_day}</p>
-							</li>
-							<li class="full">
-								<p>내용: ${qna.qna_con}</p>
-							</li>
-							<li class="full"><img
-								src="downloadq.do?img=${qna.qna_phy_rou}"
-								onError="this.style.visibility='hidden'"></li>
-							<li class="full"><a
-								href="downloadq.do?img=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a>
-							</li>
-
-							<li id="modi"><input type="button" value="수정하기"
+		<div class="blog-single-content">
+								<h3>${qna.qna_title}</h3>
+							<ul class="post-meta">
+							<li><i class="fas fa-user-circle"></i>${qna.mem_name}</li>
+							<li><i class="fas fa-calendar-alt"></i>${qna.qna_day}</li>
+							<li><i class="fas fa-comments"></i>${qna.qna_hit } 조회수</li>
+							</ul>
+							<!-- <div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;"> -->
+							<img src="downloadq.do?img=${qna.qna_phy_rou}"onError="this.style.visibility='hidden'">
+							<!-- </div> -->
+							<div>
+							<a href="downloadq.do?img=${qna.qna_phy_rou}"><p>${qna.qna_phy_rou}</p></a>
+							</div>
+							<h5 style="margin-top:80px">${qna.qna_con}</h5>
+							<div>
+							<input type="button" value="수정하기"
 								onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
-								class="fsubmit"></li>
-
-							<li id="back"><input type="button" value="뒤로가기"
-								onclick="history.back(-1);" class="fsubmit"></li>
-
-							<!--Leave a Comment Start-->
-							<h4>답글</h4>
+								id="modi" class="fsubmit"style="cursor: pointer;background-color:#38761d;color:#ffffff;">
+							<input type="button" value="뒤로가기"
+								onclick="history.back(-1);" id="back" class="fsubmit"style="cursor: pointer;background-color:#38761d;color:#ffffff;">
+							</div>
+							<!--답글-->
+							<div class="col-md-8" style="margin-top:100px">
+							<div class="wf100 comment-form" style="border-bottom: 1px solid #dddddd; margin-bottom:40px;">
+						 	<h4>답글</h4>
 							<ul>
 								<form id="commentForm" name="commentForm" method="post">
 									<br> <br>
@@ -213,8 +208,8 @@ ul>li>p {
 									<span id="\${data[i].reply_no}"> \${data[i].reply_con}</span>
 									<tr><td></td></tr>
 									<sec:authorize access="hasRole('ADMIN')">
-								    <a href='javascript:replyDelete("\${data[i].reply_no}");'>삭제</a>
-								    <a href='javascript:reply_con("\${data[i].reply_no}");'>수정</a>
+								    <a href='javascript:replyDelete("\${data[i].reply_no}");'style="cursor: pointer; color:#38761d; float:right; font-size:1.2em">삭제</a>
+								    <a href='javascript:reply_con("\${data[i].reply_no}");'style="cursor: pointer; color:#38761d; float:right; font-size:1.2em">수정</a>
 								    </sec:authorize>
 									</div>`;
 								}
@@ -272,6 +267,7 @@ ul>li>p {
 			 }
 		 })
 	 }
+	
 	</script>
 </body>
 </html>

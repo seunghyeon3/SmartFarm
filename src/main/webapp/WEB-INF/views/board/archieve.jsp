@@ -110,6 +110,7 @@
 	              header: '제목',
 	              name: 'archieve_title',
 	              width: 620
+	              
 	            },{
 	               header: '등록일',
 	               name: 'archieve_day',
@@ -143,7 +144,9 @@
 		grid.resetData(gridData);
 		<sec:authorize access="isAuthenticated()">
 		grid.on('click', (ev) => {
+			  
 			  if (ev.columnName === 'archieve_title') {
+				
 				  location.href='archieveselect.do?archieve_no='+gridData[ev.rowKey].archieve_no
 			  }
 			});
@@ -166,7 +169,8 @@
 					grid.resetData(result);
 				})
 		}
-			
+	 
+	 		
  </script>
 </body>
 </html>
