@@ -127,7 +127,9 @@
 		               header: '조회',
 		               name: 'archieve_hit',
 		               align: 'right',
-		               width: 70
+		               width: '70',
+		               sortingType : 'desc',
+						sortable : true
 		        }],
 			columnOptions : {
 				resizable : true,

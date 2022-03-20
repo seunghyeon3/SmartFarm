@@ -128,7 +128,9 @@
 		               header: '조회',
 		               name: 'notice_hit',
 		               align: 'right',
-		               width: 70
+		               width: '70',
+		               sortingType : 'desc',
+						sortable : true
 		            }],
 	            columnOptions : {
 					resizable : true

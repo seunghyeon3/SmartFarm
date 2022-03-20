@@ -145,7 +145,9 @@
                      header: '조회',
                      name: 'qna_hit',
                      align: 'right',
-                     width: 30
+                     width: '30',
+                     sortingType : 'desc',
+						sortable : true
                   }],
                columnOptions : {
                resizable : true,
