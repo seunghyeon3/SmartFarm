@@ -242,16 +242,17 @@ public class AdminController {
 	 */
 
 	// ===== 회원 검색 =====
-	@PostMapping("/admin/adminMemSearch.do")
+	@PostMapping(value = "/admin/adminMemSearch.do", produces= "text/plain; charset=UTF-8")
 	@ResponseBody
-	public List<MemberVO> adminMemSearch(@RequestBody String req) {
+	public String adminMemSearch(@RequestBody String req) {
 
 		JSONObject object = new JSONObject(req);
 
 		String key = object.getString("key");
 		String val = object.getString("val");
-
-		return memberDao.memberSelectKeyList(key, val);
+		
+		String gson = new Gson().toJson(memberDao.memberSelectKeyList(key, val));
+		return gson;
 	}
 
 	// ===== 올리기 내리기 =====
@@ -292,7 +293,7 @@ public class AdminController {
 	// ===== 키트 등록하기 =====
 	@PostMapping("/admin/kitInsert.do")
 	public String kitInsert(KitVO kitVo, HttpServletRequest req, MultipartHttpServletRequest mhsr) {
-
+		System.out.println(kitVo.toString());
 		List<MultipartFile> list = mhsr.getFiles("img");
 
 		System.out.println(list.toString());

@@ -155,7 +155,15 @@
 					
 					<sec:authorize access="isAuthenticated()">
 					<!-- 220308 PSH mypage -> mem_name 대체 -->
-					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
+					 <sec:authorize access="hasAnyRole('ADMIN')">
+					 <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="javascript:void(0)" style="cursor: default; color:#cee5cb;">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
+					 				 
+					 </sec:authorize>
+					 <sec:authorize access="hasAnyRole('FARMER','MEMBER')">
+						<li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li>
+					 				 
+					 </sec:authorize>
+					 <%-- <li class="login-reg"> <a href="${pageContext.request.contextPath}/logout.do">Logout</a> | <a href="enterPw.do">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}님</a> </li> --%>
 					 </sec:authorize>
 					 <sec:authorize access="hasAnyRole('FARMER','MEMBER')">
 					 <li class="dropdown">
