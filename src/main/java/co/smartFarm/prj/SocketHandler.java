@@ -98,21 +98,23 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		// 다시 실시간 채팅화면으로 메세지를 던져줌 던질때는 String 형식으로 보냄
 		sendMessage(sendBidJson.toString());
 
-		/*
-		 * // metamask 지갑주소들고오기 20220318 ropsten testnet 지갑주소가 빈값
-		 * 
-		 * JSONObject jsonInput2 = new JSONObject(); 
-		 * jsonInput2.put("jsonrpc", "2.0");
-		 * jsonInput2.put("method", "eth_accounts"); 
-		 * JSONArray param2 = new JSONArray();
-		 * jsonInput2.put("params",param2); 
-		 * jsonInput2.put("id", 0);
-		 * System.out.println(jsonInput2); 
-		 * EthResultVO result2 = aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
-		 * System.out.println("지갑 배열형식으로 반환 ===" + result2.getResult().toString());
+		
+		// 0321 view단에서 처리 (이동)
+		  // metamask 지갑주소들고오기 20220318 ropsten testnet 지갑주소가 빈값
+		  /*
+		  JSONObject jsonInput2 = new JSONObject(); 
+		  jsonInput2.put("jsonrpc", "2.0");
+		  jsonInput2.put("method", "eth_accounts"); 
+		  JSONArray param2 = new JSONArray();
+		  jsonInput2.put("params",param2); 
+		  jsonInput2.put("id", 0);
+		  System.out.println(jsonInput2); 
+		  EthResultVO result2 = aucnDa.callEthFunction(jsonInput2.toString(), EthResultVO.class);
+		  System.out.println("지갑 배열형식으로 반환 ===" + result2.getResult().toString());
 		 */
 		
-		  // 솔리디티 넣어주기 
+		 /*
+		 // 솔리디티 넣어주기 
 		 JSONObject jsonInput = new JSONObject(); 
 		 JSONArray data = new JSONArray();
 		  
@@ -151,7 +153,8 @@ public class SocketHandler extends TextWebSocketHandler implements InitializingB
 		 System.out.println("입찰 전송 : "+jsonInput.toString()); 
 		 EthResultVO result = aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
 		 System.out.println(result);
-		 
+		 */
+	
 	}
 
 	@Override

@@ -116,7 +116,9 @@
 	               header: '등록일',
 	               name: 'notice_day',
 	               align: 'center',
-	               width: 270
+	               width: '270',
+	               sortingType : 'desc',
+					sortable : true
 	            },{
 	               header: '첨부파일',
 	               name: 'notice_img',
@@ -128,7 +130,9 @@
 		               header: '조회',
 		               name: 'notice_hit',
 		               align: 'right',
-		               width: 70
+		               width: '70',
+		               sortingType : 'desc',
+						sortable : true
 		            }],
 	            columnOptions : {
 					resizable : true
@@ -142,7 +146,9 @@
 		// GRID 에 데이터를 입력
 		var gridData = ${notice};	
 		grid.resetData(gridData);
-		
+		grid.on('mouseover', (ev) => {
+	         document.getElementById('grid').style.cursor = "pointer";
+	      });
 		grid.on('click', (ev) => {
 			  if (ev.columnName === 'notice_title') {
 				  location.href='noticeselect.do?notice_no='+gridData[ev.rowKey].notice_no

@@ -69,7 +69,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					</sec:authorize>
 				</div>
 				
-				 <c:forEach items="${useRevwComment }" var="useRevwComment">
+				 <c:forEach items="${useRevwComment}" var="useRevwComment">
 					<!--Author Comments Start-->
 					<div class="post-comments wf100">
 						<ul class="comments">

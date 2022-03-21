@@ -11,10 +11,19 @@ public interface FreeMapper {
     FreeVO freeOne(int free_no);
 
     FreeVO freeSelect(FreeVO free);
-    int noticeInsert(FreeVO free);
-    int noticeDelete(FreeVO free);
+    
+    int freeInsert(FreeVO free);
+    
+    List<FreeVO> freeCommList(int free_no);
+    
+    int freeCommInsert(FreeVO free);
+
+    FreeVO freeCommCount(int free_no);
+    
     int freeUpdate(FreeVO free);
-    int freeNoUpdate(int free_no); 
-    List<FreeVO> freeSearch(@Param("key")String key, @Param("val") String val);
+    
+    int freeDelete(int free_no);
+
+
     List<FreeVO> recentlyFree();
 }

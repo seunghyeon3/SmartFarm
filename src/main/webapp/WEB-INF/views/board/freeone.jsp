@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,46 +22,45 @@
 					<ul class="post-meta">
 						<li><i class="fas fa-user-circle"></i>${freeVO.mem_name}</li>
 						<li><i class="fas fa-calendar-alt"></i>${freeVO.free_day}</li>
-						<li><i class="fas fa-comments"></i> 134 Comments</li>
+						<li id="count"><i class="fas fa-comments"></i> ${count.comm_count } Comments</li>
 					</ul>
 
 					<div class="blog-single-thumb">
 						<img src="resources/images/blog/bf4.jpg" alt="">
+						<img src="${freeVO.free_phy_rou }" alt="">
 					</div>
-
-					<p>${freeVO.free_con}</p>
-
-					<div>
-						<input type="button" value="수정하기"
-						onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'"
-						class="fsubmit"> <input type="button" value="뒤로가기"
-						onclick="history.back(-1);" class="fsubmit">
+					<div class="content" style="min-height: 300px;">
+						<p>${freeVO.free_con}</p>
 					</div>
+					<div style="display: flex; flex-direction: row-reverse;">
+						<a href='free.do' class="dn-btn" style="margin-top: 10px; width: 150px; text-align: center;">뒤로가기</a>
+						<a href='freeDelete.do?free_no=${freeVO.free_no}' class="dn-btn" style="margin-top: 10px; width: 150px; text-align: center;">삭제</a>
+						<a href='freeUpdateForm.do?free_no=${freeVO.free_no}' class="dn-btn" style="margin-top: 10px; width: 150px; text-align: center;">수정하기</a>
+					</div><br><hr>
 
 					<!--Author Comments Start-->
-					<div class="post-comments wf100">
+
+					<div id="comments" class="post-comments wf100">
 						<h4>Comments on Post</h4>
+						<c:forEach items="${comments }" var="comm">
 						<ul class="comments">
 							<!--Comment Start-->
+							
 							<li class="comment">
 								<div class="user-thumb">
 									<img src="images/auser.jpg" alt="">
 								</div>
 								<div class="comment-txt">
-									<h6>Harry Butler</h6>
-									<p>Personally I think a combination of all these methods is
-										most effective, but in today’s post I will be focusing
-										specifically on how to use and style WordPress’ built-in
-										sticky post feature and highlighting it’s best use case based
-										on my own experience.</p>
+									<h6>${comm.mem_name }</h6>
+									<p>${comm.free_comm_con }</p>
 									<ul class="comment-time">
-										<li>Posted: 09 July, 2018 at 2:37 pm</li>
-										<li><a href="#"><i class="fas fa-reply"></i> Reply</a></li>
+										<li>Posted: ${comm.free_comm_day }</li>
 									</ul>
 								</div>
 							</li>
 							<!--Comment End-->
 						</ul>
+						</c:forEach>
 					</div>
 					<!--Author Comments End-->
 
@@ -68,12 +68,10 @@
 					<div class="wf100 comment-form">
 						<h4>Leave a Comment</h4>
 						<ul>
-							<li class="w3"><input type="text" class="form-control"
-								placeholder="Full Name"></li>
-							<li class="full"><textarea class="form-control"
+							<li class="full"><textarea id="areacomm" class="form-control"
 									placeholder="Write Comments"></textarea></li>
 							<li class="full">
-								<button class="post-btn">Post Your Comment</button>
+								<button id="postcomm" class="post-btn">Post Your Comment</button>
 							</li>
 						</ul>
 					</div>
@@ -84,7 +82,39 @@
 		</div>
 	</section>
 
+<script type="text/javascript">
 
+$("#postcomm").on("click",function(event) {
+	if(!$("#areacomm").val()) {
+		alert("내용을 입력하시오");
+		return;
+	}
+	console.log($("#areacomm").val());
+	$.ajax({
+		type:'get',
+		url:"freeCommInsert.do",
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		data: {
+			"free_no":${freeVO.free_no},
+			"free_comm_con":$("#areacomm").val()
+		},
+		error: function() {
+			alert("fail");
+		}
+	}).done(function(result) {
+		$("#count").html('<i class="fas fa-comments"></i> '+ result.newcount[0].comm_count +' Comments');
+		$("#comments").empty();
+		$("#areacomm").val('');
+		$("#comments").append('<h4>Comments on Post</h4>');
+		for(var i = 0; i<result.newcomments.length; i++) {
+			console.log(result.newcomments[i].free_comm_con);
+ 			var html ='<ul id="comments" class="comments"><li class="comment"><div class="user-thumb"><img src="images/auser.jpg" alt=""></div><div class="comment-txt"><h6>'+result.newcomments[i].mem_name+'</h6><p>'+result.newcomments[i].free_comm_con+'</p><ul class="comment-time"><li>Posted: '+result.newcomments[i].free_comm_day+'</li></ul></div></li></ul>';
+ 			$("#comments").append(html);
+		}
+	})
+})
+
+</script>
 
 </body>
 </html>
