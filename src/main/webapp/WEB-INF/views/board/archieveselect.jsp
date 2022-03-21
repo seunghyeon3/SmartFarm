@@ -52,6 +52,10 @@ ul>li>p{
 	line-height: 49px;
 	padding: 0 20px;
 }
+.pre{
+  word-wrap: break-word;      /* IE 5.5-7 */
+  white-space: pre-wrap;      /* current browsers */
+}
 </style>
 <body>
 <section class="shop wf100 p80">
@@ -71,7 +75,7 @@ ul>li>p{
 							<div>
 							<a href="downloadq.do?img=${archieve.archieve_img}"><p>${archieve.archieve_img}</p></a>
 							</div>
-                           <h5 style="margin-top:80px">${archieve.archieve_con}</h5>	
+                            <p>${archieve.archieve_con}</p>
                             <ul class="cform">
                             <sec:authorize access="hasRole('ADMIN')">
                                <li class="half pr-15">
