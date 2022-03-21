@@ -14,6 +14,7 @@
 </head>
 <style>
 .filebox label {
+
    display: inline-block;
    padding: .5em .75em;
    color: #fff;
@@ -29,11 +30,11 @@
 }
 
 .filebox label:hover {
-   background-color: #6ed36e;
+	background-color: #6ed36e;
 }
 
 .filebox label:active {
-   background-color: #367c36;
+	background-color: #367c36;
 }
 
 .filebox input[type="file"] {
@@ -44,15 +45,16 @@
    overflow: hidden;
    clip: rect(0, 0, 0, 0);
    border: 0;
+>>>>>>> master
 }
 
 ul>li>p {
-   border: 2px solid #e1e1e1;
-   background: #fafafa;
-   color: #555555;
-   height: auto;
-   line-height: 49px;
-   padding: 0 20px;
+	border: 2px solid #e1e1e1;
+	background: #fafafa;
+	color: #555555;
+	height: auto;
+	line-height: 49px;
+	padding: 0 20px;
 }
 </style>
 <body>
@@ -85,7 +87,6 @@ ul>li>p {
 							<input type="button" value="뒤로가기"
 								onclick="history.back(-1);" class="fsubmit">
 								</li>
-							
 							</div>
 							<!--답글-->
 							<div class="col-md-8" style="margin-top:100px">
