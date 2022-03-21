@@ -170,7 +170,7 @@ public class GrowController {
 
 //	실시간 정보 페이지
 	@RequestMapping(value = "/sensor.do", method = RequestMethod.GET)
-	public String sensor(Locale locale, Model model, HttpSession session) {
+	public String sensor(Locale locale, Model model, HttpSession session, String no) {
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
 			return "redirect:login.do";
 		}
@@ -178,6 +178,9 @@ public class GrowController {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String memEmail = userDetails.getUsername();
 		model.addAttribute("kitList", growDao.growListing(memEmail));
+		if (no != null) {
+			model.addAttribute("no", no);
+		}
 		System.out.println(model);
 
 		return "grow/sensor";
@@ -214,6 +217,7 @@ public class GrowController {
 			model.addAttribute("no", no);
 		}
 		System.out.println(model);
+		
 		return "grow/log";
 	}
 

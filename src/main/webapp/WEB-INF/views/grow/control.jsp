@@ -18,7 +18,7 @@
 			
 			
 				<div class="row">
-					<div class="col-lg-12 col-md-12">
+					<div class="col-lg-9 col-md-8">
 
 						<!--재배 키트 목록 시작-->
 						<div id="growKitList" class="blog-single-content" style="overflow: auto; white-space: nowrap;">
@@ -75,6 +75,29 @@
 						<!--재배 관리 화면 출력부 종료-->
 						
 					</div>
+					
+					<!--TEST-->
+					<div class="col-lg-3 col-md-4">
+                        <div class="sidebar">
+                           <!--Widget Start-->
+                           <div class="side-widget project-list-widget">
+                              <h5>Current Projects</h5>
+                              <ul>
+                                 <li><a href="#">Waste Management</a></li>
+                                 <li><a href="#">Solar Energy</a></li>
+                                 <li><a href="#">Eco Ideas</a></li>
+                                 <li><a href="#">Recycling Materials</a></li>
+                                 <li><a href="#">Plant Ecology</a></li>
+                                 <li><a href="#">Saving Wildlife</a></li>
+                                 <li><a href="#">Water Resources</a></li>
+                                 <li><a href="#">Forest &amp; Tree Planting</a></li>
+                                 <li><a href="#">Wing Energy</a></li>
+                              </ul>
+                           </div>
+                           <!--Widget End--> 
+                        </div>
+                     </div>
+					<!--TEST END-->
 				</div>
 			</div>
 		</div>
@@ -257,20 +280,55 @@
 	$("#growchange").on("click",function(event) {
 		
 		console.log(event.target.dataset.url);
-		$.ajax({
-			type:'get',
-			url:event.target.dataset.url+"changeValue",
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-			data :{
-				"temp":$("#temp").val(),
-				"hum":$("#hum").val(),
-				"light":$("#light").val(),
-				"water":$("#water").val(),
-				"pes":$("#pes").val()
-			}
-		}).done( function (result) {
-			toastr.info(result);
-		})		
+		if($("input#auto").is(":checked")){
+			$.ajax({
+				type:'get',
+				url:event.target.dataset.url+"changeValue",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+					"temp":$("input#auto")[0].dataset.tp,
+					"hum":$("input#auto")[0].dataset.hd,
+					"light":$("input#auto")[0].dataset.sun,
+					"water":$("input#auto")[0].dataset.water,
+					"pes":$("input#auto")[0].dataset.pes,
+					"auto":$("input#auto")[0].dataset.auto
+				}
+			}).done( function (result) {
+				toastr.info(result);
+			})
+		}else if($("#nft option:selected").val() != "0") {
+			$.ajax({
+				type:'get',
+				url:event.target.dataset.url+"changeValue",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+					"temp":$("#nft")[0].dataset.tp,
+					"hum":$("#nft")[0].dataset.hd,
+					"light":$("#nft")[0].dataset.sun,
+					"water":$("#nft")[0].dataset.water,
+					"pes":$("#nft")[0].dataset.pes,
+					"auto":$("#nft")[0].dataset.auto
+				}
+			}).done( function (result) {
+				toastr.info(result);
+			})
+		}else {
+			$.ajax({
+				type:'get',
+				url:event.target.dataset.url+"changeValue",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				data :{
+					"temp":$("#temp").val(),
+					"hum":$("#hum").val(),
+					"light":$("#light").val(),
+					"water":$("#water").val(),
+					"pes":$("#pes").val(),
+					"auto":"0"
+				}
+			}).done( function (result) {
+				toastr.info(result);
+			})			
+		}
 	})
 	
 	$("#auto").on("click",function(event) {
