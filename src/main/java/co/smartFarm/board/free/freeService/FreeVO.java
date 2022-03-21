@@ -17,5 +17,11 @@ public class FreeVO {
     private String free_ori_rou;
     private String free_phy_rou;
     private String mem_email;
+    
+    private int free_comm_no;
+    private String free_comm_con;
+    private Date free_comm_day;
+    
+    private int comm_count;
 
 }

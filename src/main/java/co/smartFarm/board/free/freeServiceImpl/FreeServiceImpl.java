@@ -24,52 +24,46 @@ public class FreeServiceImpl implements FreeService{
 	public FreeVO freeOne(int free_no) {
 		return map.freeOne(free_no);
 	}
-
-	@Override
-	public FreeVO freeSelect(FreeVO free) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int noticeInsert(FreeVO free) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int noticeDelete(FreeVO free) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int freeUpdate(FreeVO free) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int freeNoUpdate(int free_no) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<FreeVO> freeSearch(String key, String val) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<FreeVO> recentlyFree() {
-		return map.recentlyFree();
-	}
-
+	
 	@Override
 	public int freeInsert(FreeVO free) {
 		return map.freeInsert(free);
 	}
 	
+	@Override
+	public FreeVO freeSelect(FreeVO free) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
+	@Override
+	public List<FreeVO> freeCommList(int free_no) {
+		return map.freeCommList(free_no);
+	}
+	
+	@Override
+	public int freeCommInsert(FreeVO free) {
+		return map.freeCommInsert(free);
+	}
+	
+	@Override
+	public FreeVO freeCommCount(int free_no) {
+		return map.freeCommCount(free_no);
+	}
+	
+	@Override
+	public int freeUpdate(FreeVO free) {
+		return map.freeUpdate(free);
+	}
+	
+	@Override
+	public int freeDelete(int free_no) {
+		return map.freeDelete(free_no);
+	}
+
+	
+	@Override
+	public List<FreeVO> recentlyFree() {
+		return map.recentlyFree();
+	}
 }

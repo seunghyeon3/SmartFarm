@@ -11,6 +11,13 @@
 		width: 68px;
 		height: 68px;	
 	}
+	.paginationjs .paginationjs-pages li.active>a {
+		background: rgb(102, 187, 106) !important;
+	}	
+	.paginationjs {
+		display: flex !important;
+		justify-content: center !important;
+	}	
 </style>
 </head>
 <body>
@@ -86,11 +93,11 @@
 	            	
 	                $.each(data, function (index, item) {
 	            	    trHtml += '<tr style="cursor:pointer;" id=' + item.free_no + '>';
-	                	trHtml += '<td style="background-image: url(resources/images/flp1.jpg); background-repeat: no-repeat; background-size: 100% 100%;">' + item.free_no + '</td>';
-	                	trHtml += '<td>' + item.free_title + '</td>';
-	                	trHtml += '<td>' + item.mem_name + '</td>';
-	                	trHtml += '<td><span class="pdate"><i class="fas fa-calendar-alt"></i>' + item.free_day + '</span></td>';
-	                	trHtml += '<td>' + item.free_hit + '</td>';
+	                	trHtml += '<td style="width: 50px; background-image: url(resources/images/flp1.jpg); background-repeat: no-repeat; background-size: 100% 100%;">' + item.free_no + '</td>';
+	                	trHtml += '<td style="width: 250px;">' + item.free_title + '</td>';
+	                	trHtml += '<td style="width: 70px;">' + item.mem_name + '</td>';
+	                	trHtml += '<td style="width: 70px;"><span class="pdate"><i class="fas fa-calendar-alt"></i>' + item.free_day + '</span></td>';
+	                	trHtml += '<td style="width: 50px;">' + item.free_hit + '</td>';
 	            	    trHtml += '</tr>';
 /* 	                    dataHtml += '<td><img src="resources/images/flp1.jpg" alt=""><strong><a href="#">' + item.free_title + '</a></strong><span class="pdate"><i class="fas fa-calendar-alt"></i>29 September, 2018</span>'; */
 	                });

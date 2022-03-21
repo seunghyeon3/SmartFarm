@@ -27,4 +27,32 @@
 			INSERT INTO FREE(FREE_NO, FREE_TITLE, FREE_CON, MEM_NAME, FREE_HIT, FREE_DAY, FREE_ORI_ROU, FREE_PHY_ROU, MEM_EMAIL)
 			VALUES(#{free_no},#{free_title},#{free_con},#{mem_name},0,sysdate,#{free_ori_rou},#{free_phy_rou},#{mem_email})
     </insert>
+    
+    <update id="freeUpdate" parameterType="co.smartFarm.board.free.freeService.FreeVO">
+   		UPDATE FREE
+   		SET FREE_TITLE=#{free_title}, FREE_CON=#{free_con}, FREE_ORI_ROU=#{free_ori_rou}, FREE_PHY_ROU=#{free_phy_rou}
+   		WHERE FREE_NO=#{free_no}
+    </update>
+    
+    <delete id="freeDelete">
+    	DELETE FROM FREE WHERE FREE_NO=#{free_no}
+    </delete>
+    
+    <select id="freeCommList" resultType="co.smartFarm.board.free.freeService.FreeVO">
+	 	SELECT * FROM FREE_COMM WHERE FREE_NO = #{free_no} ORDER BY FREE_COMM_NO
+    </select>
+    
+    <insert id="freeCommInsert" parameterType="co.smartFarm.board.free.freeService.FreeVO">
+		<selectKey keyProperty="free_comm_no" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(FREE_COMM_NO)+1,1) AS FREE_COMM_NO FROM FREE_COMM
+		</selectKey> 
+			INSERT INTO FREE_COMM(FREE_COMM_NO, MEM_NAME, MEM_EMAIL, FREE_COMM_CON, FREE_COMM_DAY, FREE_NO)
+			VALUES(#{free_comm_no},#{mem_name},#{mem_email},#{free_comm_con},sysdate,#{free_no})
+    </insert>
+    
+    <select id="freeCommCount" resultType="co.smartFarm.board.free.freeService.FreeVO">
+	    SELECT COUNT(FREE_COMM_NO) AS COMM_COUNT FROM FREE_COMM WHERE FREE_NO=#{free_no}
+    </select>
+    
+    
 </mapper>
