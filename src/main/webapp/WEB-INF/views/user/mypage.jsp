@@ -379,6 +379,11 @@
 				}, {
 					header : '수량',
 					name : 'pur_his_sale_count',
+				}, {
+					header : '배송현황',
+					name : 'pur_his_state',
+					sortable: true,
+				    sortingType: 'asc'
 				} ],
 				pageOptions : {
 					useClient : true,
@@ -391,10 +396,32 @@
 						url : "purHisSelect.do",
 						success : function(data) {
 							//데이터 입력
-							console.log(data);
 							grid.resetData(data);
+							
+							// 배송현황 
+							 for (var i = 0; i < data.length; i++) {
+								// 배송상태
+								if (grid.getValue(i,'pur_his_state') == 'C0') {
+									var input = `<span>배송전</span>`;
+									grid.setValue(i,
+											'pur_his_state',
+											input, true);
+								} else if (grid.getValue(i,'pur_his_state') == 'C1'){
+									var input = `<span>배송중</span>`;
+									grid.setValue(i,
+											'pur_his_state',
+											input, true);
+								} else{
+									var input = `<span>배송완료</span>`;
+									grid.setValue(i,
+											'pur_his_state',
+											input, true);
+								}
+								// 금액에 콤마찍기
+								var price = parseInt(grid.getValue(i, 'pur_his_price')).toLocaleString('ko-KR');
+								grid.setValue(i, 'pur_his_price', price, true);
 								
-							//document.getElementById('fade').style.display = 'none';
+								}	 
 							document.getElementById('light').style.height = '80%';
 						} //success
 					});
@@ -633,7 +660,9 @@
 					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
 					GrowDiary.methods.createGrowDiaryNft(nftNo, '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}')
 					.send({from: account, })
-					.then(function(result){console.log(result);})	
+					.then(function(result){
+						console.log(result);
+					})	
 				},5000);
 			});
 			
@@ -800,6 +829,8 @@
 				return false;
 			} 
 	  }
+	  
+   
 	</script>
 	
 
