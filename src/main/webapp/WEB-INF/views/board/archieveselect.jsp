@@ -65,19 +65,25 @@ ul>li>p{
 							<li><i class="fas fa-comments"></i>${archieve.archieve_hit} 조회수</li>
 					  </ul>
                            <!-- <div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;"> -->
-							<img src="downloadq.do?img=${archieve.archieve_img}"onError="this.style.visibility='hidden'">
+							<div style="width: 100%; text-align : center;">
+							<img src="downloadq.do?img=${archieve.archieve_img}"style="width: 100%; max-width: 1200px; vertical-align: middle"onError="this.style.visibility='hidden'">
 							<!-- </div> -->
 							<div>
 							<a href="downloadq.do?img=${archieve.archieve_img}"><p>${archieve.archieve_img}</p></a>
 							</div>
                            <h5 style="margin-top:80px">${archieve.archieve_con}</h5>	
+                            <ul class="cform">
                             <sec:authorize access="hasRole('ADMIN')">
-                           
- 								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit"
- 								 style="cursor: pointer;background-color:#38761d;color:#ffffff;">
-                             
+                               <li class="half pr-15">
+
+ 								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
+                             </li>
                                </sec:authorize>
-                               <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit"style="cursor: pointer;background-color:#38761d;color:#ffffff;">
+                                 <li class="half pr-15">
+
+                               <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
+                     		 </li>
+                     		</ul>
                      </div>
                   </div>
                </div>

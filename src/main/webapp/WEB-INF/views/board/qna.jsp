@@ -132,7 +132,9 @@
                   header: '등록일',
                   name: 'qna_day',
                   align: 'center',
-                  width: 200
+                  width: '200',
+                  sortingType : 'desc',
+					sortable : true
                },{
                   header: '첨부파일',
                   name: 'qna_phy_rou',
@@ -162,7 +164,9 @@
       // GRID 에 데이터를 입력
       var gridData = ${qna};   
       grid.resetData(gridData);
-      
+      grid.on('mouseover', (ev) => {
+	         document.getElementById('grid').style.cursor = "pointer";
+	      });
       grid.on('click', (ev) => {
       if('${SPRING_SECURITY_CONTEXT.authentication.principal}' == ''){
          alert('로그인이 필요한 서비스입니다');

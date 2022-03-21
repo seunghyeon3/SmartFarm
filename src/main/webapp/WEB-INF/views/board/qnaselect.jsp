@@ -14,18 +14,19 @@
 </head>
 <style>
 .filebox label {
-	display: inline-block;
-	padding: .5em .75em;
-	color: #fff;
-	font-size: inherit;
-	line-height: normal;
-	vertical-align: middle;
-	background-color: #5cb85c;
-	cursor: pointer;
- 	border: 1px solid #4cae4c; 
-    border-radius: .25em; 
-	-webkit-transition: background-color 0.2s;
-	transition: background-color 0.2s;
+
+   display: inline-block;
+   padding: .5em .75em;
+   color: #fff;
+   font-size: inherit;
+   line-height: normal;
+   vertical-align: middle;
+   background-color: #5cb85c;
+   cursor: pointer;
+   border: 1px solid #4cae4c;
+   border-radius: .25em;
+   -webkit-transition: background-color 0.2s;
+   transition: background-color 0.2s;
 }
 
 .filebox label:hover {
@@ -37,13 +38,14 @@
 }
 
 .filebox input[type="file"] {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
- 	border: 0; 
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
+>>>>>>> master
 }
 
 ul>li>p {
@@ -65,21 +67,26 @@ ul>li>p {
 							<ul class="post-meta">
 							<li><i class="fas fa-user-circle"></i>${qna.mem_name}</li>
 							<li><i class="fas fa-calendar-alt"></i>${qna.qna_day}</li>
-							<li><i class="fas fa-comments"></i>${qna.qna_hit } 조회수</li>
+							<li><i class="fas fa-comments"></i>${qna.qna_hit}</li>
 							</ul>
 							<!-- <div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;"> -->
-							<img src="downloadq.do?img=${qna.qna_phy_rou}"onError="this.style.visibility='hidden'">
-							<!-- </div> -->
+							<div style="width: 100%; text-align : center;">
+							<img src="downloadq.do?img=${qna.qna_phy_rou}"style="width: 100%; max-width: 1200px; vertical-align: middle"onError="this.style.visibility='hidden'">
+							</div> 
 							<div>
 							<a href="downloadq.do?img=${qna.qna_phy_rou}"><p>${qna.qna_phy_rou}</p></a>
 							</div>
 							<h5 style="margin-top:80px">${qna.qna_con}</h5>
 							<div>
-							<input type="button" value="수정하기"
+							<ul class="cform">
+							<li id="modi"><input type="button" value="수정하기"
 								onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
-								id="modi" class="fsubmit"style="cursor: pointer;background-color:#38761d;color:#ffffff;">
+								class="fsubmit">
+							</li>
+							<li id="back">
 							<input type="button" value="뒤로가기"
-								onclick="history.back(-1);" id="back" class="fsubmit"style="cursor: pointer;background-color:#38761d;color:#ffffff;">
+								onclick="history.back(-1);" class="fsubmit">
+								</li>
 							</div>
 							<!--답글-->
 							<div class="col-md-8" style="margin-top:100px">
