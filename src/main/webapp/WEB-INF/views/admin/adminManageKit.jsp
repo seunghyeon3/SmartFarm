@@ -117,7 +117,7 @@ input {
 
 							<input type="search" id="searchKit" class="form-control"
 								placeholder="키트 이름을 입력하세요" style="margin: 0 10px; float: left;">
-							<button onclick="searchKit()">
+							<button onclick="searchKit()" style="cursor:pointer;">
 								<i class="fas fa-search"></i>
 							</button>
 
@@ -484,11 +484,11 @@ input {
 				console.log(grid.getValue(i, 'kit_sale_whet'));
 
 				if (grid.getValue(i, 'kit_sale_whet') == 'Y') {// 내리기
-					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px;  margin-left:23px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; cursor:pointer; margin-left:23px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 
 				} else { //올리기
-					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; color: #f8f9fa; height:30px; padding:0 0px 12px 35px; margin-left:23px;">올리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; color: #f8f9fa; height:30px;cursor:pointer; padding:0 0px 12px 35px; margin-left:23px;">올리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 				}
 
@@ -521,11 +521,11 @@ input {
 						
 						if(result == '1'){//성공했을 때 버튼 바꾸기 (올리기->내리기 | 내리기->올리기)
 							if (id == 'Y') {//내리기
-								var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+key+' onclick="enroll(this)" class="read-post" style="margin-left:23px; padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+								var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+key+' onclick="enroll(this)" class="read-post" style="cursor:pointer; margin-left:23px; padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 								grid.setValue(key, 'kit_sale_whet', input, true);
 	
 							} else { //올리기
-								var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+key+' onclick="enroll(this)" class="read-post" style="margin-left:23px; color: #f8f9fa; width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
+								var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+key+' onclick="enroll(this)" class="read-post" style="cursor:pointer; margin-left:23px; color: #f8f9fa; width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
 								grid.setValue(key, 'kit_sale_whet', input, true);
 								
 							}

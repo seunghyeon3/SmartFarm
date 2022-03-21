@@ -187,9 +187,15 @@ public class PlantSaleController {
 
 		if (result > 0) {// 삭제됐을 경우 update
 			// 전체 조회하기
-			List<PlantSaleVO> list = plantSaleDao.plantSaleSelectBiggerNo(result);
-			// 한 자리씩 내리기
-			plantSaleDao.plantSaleUpdateNo(list);
+			List<PlantSaleVO> list = plantSaleDao.plantSaleSelectBiggerNo(Integer.parseInt(plantSaleNo));
+			
+			//전체 조회한 결과가 있을 때
+			if(!list.isEmpty()) {
+				// 한 자리씩 내리기
+				plantSaleDao.plantSaleUpdateNo(list);
+				
+			}
+			
 
 			return "1";
 
