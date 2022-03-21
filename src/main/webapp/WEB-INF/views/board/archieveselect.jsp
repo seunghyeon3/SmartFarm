@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
@@ -53,42 +54,39 @@ ul>li>p{
 }
 </style>
 <body>
-<section class="contact-page wf100 p80">
-            <div class="container">
-               <div class="row">
-                  <div class="col-md-1"></div>
-                  <div class="col-md-10">
-                     <div class="contact-form mb60">
-                        <h3>자료실</h3>
-                        <ul class="cform">
-                           <li class="half pr-15">
-                               <p>제목: ${archieve.archieve_title}</p>
-                           </li>
-                           <li class="half pr-15">
-                              <p>날짜: ${archieve.archieve_day}</p>
-                           </li>
-                           <li class="full">
-                               <p>내용: ${archieve.archieve_con}</p>
-                           </li>
-                           <li class="full">
-                          	<img src="resources/images/${archieve.archieve_img}"onError="this.style.visibility='hidden'">
-                           </li>
-                            <li class="full">
-                            <a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a>
-                            </li>
+<section class="shop wf100 p80">
+		<div class="container">
+			<div class="row">
+		<div class="blog-single-content">
+   		<h3>${archieve.archieve_title}</h3>
+                     <ul class="post-meta">
+							<li><i class="fas fa-user-circle"></i>${archieve.mem_name}</li>
+							<li><i class="fas fa-calendar-alt"></i>${archieve.archieve_day}</li>
+							<li><i class="fas fa-comments"></i>${archieve.archieve_hit} 조회수</li>
+					  </ul>
+                           <!-- <div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;"> -->
+							<div style="width: 100%; text-align : center;">
+							<img src="downloadq.do?img=${archieve.archieve_img}"style="width: 100%; max-width: 1200px; vertical-align: middle"onError="this.style.visibility='hidden'">
+							<!-- </div> -->
+							<div>
+							<a href="downloadq.do?img=${archieve.archieve_img}"><p>${archieve.archieve_img}</p></a>
+							</div>
+                           <h5 style="margin-top:80px">${archieve.archieve_con}</h5>	
+                            <ul class="cform">
                             <sec:authorize access="hasRole('ADMIN')">
-                           <li class="half pr-15">
+                               <li class="half pr-15">
+
  								 <input type="button" value="수정하기" onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'" class="fsubmit">
-                               </li>
+                             </li>
                                </sec:authorize>
-                                <li class="half pr-15">
+                                 <li class="half pr-15">
+
                                <input type="button" value="뒤로가기" onclick="history.back(-1);"class="fsubmit">
-                           </li>
-                        </ul>
+                     		 </li>
+                     		</ul>
                      </div>
                   </div>
                </div>
-            </div>
          </section>   
 </body>
 </html>
