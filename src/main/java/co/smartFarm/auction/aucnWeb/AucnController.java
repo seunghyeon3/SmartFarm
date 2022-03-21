@@ -44,15 +44,14 @@ public class AucnController {
 
 	@RequestMapping("/aucnInsert.do")
 	public String aucnInsert(AucnVO aucn, MemberVO mem) {
-		//if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		aucn.setMem_email(userDetails.getUsername());
 		aucn.setAucn_con(aucn.getAucn_con().replace("\r\n", "<br>"));
 		aucn.setNow_bid(aucn.getFirst_bid());
 		aucn.setNow_bid_mem_email(userDetails.getUsername());
 		aucnDao.aucnInsert(aucn);
-		//}
-	    return "redirect:nftholdings.do";
+
+		return "redirect:nftholdings.do";
 }
 	
 	@RequestMapping("/aucnDetail.do")

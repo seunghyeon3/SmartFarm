@@ -32,7 +32,7 @@
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)" 
 										onclick="editMember()">회원정보수정</a></li>
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
-										onclick="cultivationHistory()">재배내역</a></li>
+										onclick="metaMaskCheck()">재배내역</a></li>
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="purchaseHistory()">구매내역</a></li>
 									<li><a style="font-size:25px;" href="javascript:void(0)"
@@ -109,6 +109,12 @@
 		function exitPopup(){
 			document.getElementById('light').style.display='none';
 			document.getElementById('fade').style.display='none';
+		}
+		
+		/* ----------팝업 로딩종료---------- */
+		function exitLoading(){
+			document.getElementById('fade').innerHTML = "";
+			document.getElementById('fade').style.zIndex= 0;
 		}
 		
 		/* ----------회원정보수정---------- */
@@ -231,8 +237,23 @@
 		</div>`;
 		$("#content").html(editForm);
 			//로딩끄기
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 			document.getElementById('light').style.height = '125%';
+		}
+		
+		/* ----------메타마스크 로그인 체크--------- */
+		function metaMaskCheck(){
+			//메타마스크 로그인체크
+			web3.eth.getAccounts(function(err,accs){
+	             if(err != null){
+	                 alert('There was an error fetching your accounts.')
+	             }else if(accs.length ===0){
+	                 alert("재배내역 서비스를 이용하기 위해선 메타마스크 연결이 필요합니다.")
+	             }else{
+	             account = accs[0];
+	             cultivationHistory();
+	             }
+	         }) 
 		}
 		
 		/* ----------재배내역---------- */
@@ -317,25 +338,9 @@
 								//document.getElementById('fade').style.display = 'none';
 								document.getElementById('light').style.height = '80%';
 								
-								//메타마스크 로그인체크
-								web3.eth.getAccounts(function(err,accs){
-						             if(err != null){
-						                 alert('There was an error fetching your accounts.')
-						                 exitPopup();
-						                 return
-						             }
-						             if(accs.length ===0){
-						                 alert("NFT 생산을 위해 메타마스크 로그인을 해주세요")
-						                 exitPopup();
-						                 return
-						             }
-						             account = accs[0];
-						             console.log(account);
-						         }) 
-							
 						} //success
 					});
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 		}
 		/* ----------구매내역---------- */
 		function purchaseHistory() {
@@ -425,7 +430,7 @@
 							document.getElementById('light').style.height = '80%';
 						} //success
 					});
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 		}
 		
 		/* ----------입찰내역---------- */
@@ -494,7 +499,7 @@
 							
 						} //success
 					});
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 
 		}
 		
@@ -513,7 +518,7 @@
 			
 			var content = document.getElementById('content');
 			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B2'){
-				document.getElementById('fade').style.display = 'none';
+				exitLoading();
 				
 				farmer = `<p style="font-size:1.2em"> <span style="border-bottom: 3px solid #000000;">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 귀하는 농부이십니다. </span><br><br>
 														재배키트를 구매후 재배컨트롤러를 이용하여 재배가 가능하고<br>
@@ -528,7 +533,7 @@
 				document.getElementById('light').style.height = '40%';
 			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' == 'Reject'){
 				
-				document.getElementById('fade').style.display = 'none';
+				exitLoading();
 				
 				farmer = `<div class="col-md-12" style="text-align:center; font-size:1.5em">
 						${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님 농부 신청이 거절되었습니다 <br><br>
@@ -540,7 +545,7 @@
 				document.getElementById('light').style.height = '50%';
 			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' != ''){
 				
-				document.getElementById('fade').style.display = 'none';
+				exitLoading();
 				
 				farmerIng = `<div class="col-md-12" style="text-align:center">
 								<strong class="trank" style="font-size:1.6em"> ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님은 이미 농부 신청을 하셨습니다. <br><br>
@@ -594,7 +599,7 @@
 		`;
 		$("#content").html(farmerForm);
 			//로딩끄기
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 			document.getElementById('light').style.height = '70%';
 			}
 			
@@ -637,7 +642,7 @@
 			$("#content").html(withdrawForm);
 			
 			//로딩끄기
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 			document.getElementById('light').style.height = '80%';
 		}
 
@@ -655,7 +660,7 @@
 				console.log(nftNo);
 				setTimeout( function(){
 					cultivationHistory();
-					document.getElementById('fade').style.display = 'none';
+					exitLoading();
 					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
 					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
 					GrowDiary.methods.createGrowDiaryNft(nftNo, '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}')
@@ -683,7 +688,7 @@
 				console.log(result);
 				setTimeout( function(){
 					bidHistory();
-					document.getElementById('fade').style.display = 'none';
+					exitLoading();
 					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
 					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:	
 				},5000);
