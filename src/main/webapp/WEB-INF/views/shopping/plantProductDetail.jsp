@@ -22,11 +22,13 @@
 					<div class="section-title-2">
 						<h5>상품 판매</h5>
 						<h2>${plantSaleDet.plant_sale_title }</h2>
-						<img alt="resources/plant/${plantSaleDet.plant_sale_ori_rou}"
-							src="resources/images/aboutimg.jpg" style="width: 300px">
+						
+						<img style="width:550px; height:380px;"
+							src="resources/kit/${plantSaleDet.plant_sale_ori_rou}" alt="">
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-1"></div>
+				<div class="col-md-5" style="margin-top: 90px;">
 					<div class="contact-form mb60">
 						<ul class="cform">
 							<li class="full">
@@ -38,10 +40,11 @@
 							</li>
 							<li class="full" id="price"></li>
 							
-							<li class="full"><a
-								class="view-more" onclick="purchase()" style="color: white; cursor: pointer; width:100px; text-align:center;">구매</a>
-								<a onclick="insertCart()" class="view-more"
-								style="color: white; cursor: pointer; margin-right: 5px; border: 1px solid #66bb6a; width:100px;  background-color: #f8f9fa; color: #66bb6a;">장바구니</a>
+							<!-- 장바구니 넣기 -->
+							<li class="full" style="text-align: center;"><a onclick="insertCart()" class="view-more" 
+								style="cursor: pointer; margin-top: 0px;width: 120px; float:left; margin-left: 100px; margin-right: 20px;color: #66bb6a; background-color: #fff; border: 1px solid #66bb6a;">장바구니</a> <a
+								onclick="purchase()" class="view-more"
+								style="color: white; cursor: pointer; margin-right: 5px; width: 120px; float:left; margin-top: 0px;">구매</a>
 							</li>
 						</ul>
 					</div>

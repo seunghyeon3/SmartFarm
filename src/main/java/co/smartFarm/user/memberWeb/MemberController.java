@@ -377,7 +377,7 @@ public class MemberController {
 	public boolean sendEmail(MemberVO memberVo) {
 		String host = "smtp.gmail.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 SMTP 서버 정보를 설정한다. 
 		String user = "grsmartfarm@gmail.com"; // 이메일
-		String password = "smartfarm"; // 비밀번호 추후수정
+		String password = "smartfarm"; // 비밀번호 
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);

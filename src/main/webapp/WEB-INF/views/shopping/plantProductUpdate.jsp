@@ -213,6 +213,7 @@
 		    });
 		});
 	
+	//=====작물 수정 ===== 
 		function updatePlant() {
 			var plantSaleTitle = document.getElementById('plant_sale_title');
 			var plantSalePrice = document.getElementById('plant_sale_price');

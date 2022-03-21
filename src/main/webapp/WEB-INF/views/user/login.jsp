@@ -73,7 +73,13 @@
 
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
-	
+		$(document).ready(function () {
+			var error = (${param.error})
+			if(error > 0){
+				toastr.error("아이디와 비밀번호를 확인해주세요");
+			}
+			
+		})
 	
 		//=====카카오 로그인=====
 		Kakao.init('3a47d674ba79e60fad431786545dae12'); //발급받은 키 중 javascript키를 사용해준다.
@@ -115,6 +121,7 @@
 				Kakao.Auth.setAccessToken(undefined)
 			}
 		}
+		
 		
 		
 		// 카카오 로그인 후 회원가입 여부 알아보기
