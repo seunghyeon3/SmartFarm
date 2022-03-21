@@ -59,7 +59,7 @@
 											id="ex_filename" class="upload-hidden" name="archievefile">
 						   </div>
                             <li class="full">
-                              <textarea class="textarea-control" placeholder="내용" name="archieve_con" required>${archieve.archieve_con}</textarea>
+                              <textarea cols="50" rows="8"class="textarea-control" placeholder="내용" name="archieve_con" required>${archieve.archieve_con}</textarea>
                            </li>
                            <li class="full">
                               <input type="submit" value="등록"  class="fsubmit">
