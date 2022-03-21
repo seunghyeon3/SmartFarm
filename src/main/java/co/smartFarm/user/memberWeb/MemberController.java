@@ -145,6 +145,11 @@ public class MemberController {
 	public String login() {
 		return "user/login";
 	}
+	//220321 PSH 로그인 실패를 위해 추가
+	@RequestMapping("/loginfail.do")
+	public String loginfail() {
+		return "redirect:/login.do?error=1";
+	}
 
 	//220315 PSH Spring Security로 인한 주석
 	// 로그인 체크
