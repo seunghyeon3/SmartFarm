@@ -275,6 +275,12 @@ border-radius: 15px;
 			popupBidWindow.setAttribute('data-bid', aucnEventData.bid);
 			}
 			console.log(aucnEventData.bid);
+			
+			var solidityAucnNo = parseInt(modelAucnNo);
+			NFTAuction.methods.bid(solidityAucnNo)
+			.send({from: account, value: aucnEventData.bid})
+			.then(function(result){console.log(result);});
+		
 		}
 		
 		function onOpen(event) {

@@ -101,9 +101,9 @@ public class NftController {
 						   //이름은 uid로 랜덤생성
 						   String uid = UUID.randomUUID().toString();
 						   //머지이미지 나중에 서버경로로 바꾸기 지금은 git 저장 경로
-						   //String merge = "D:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
+						   String merge = "D:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
 						   //집경로
-						   String merge = "C:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
+						   //String merge = "C:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
 						   //String merge = request.getServletContext().getRealPath("resources/nft/merge/mergeImage.png");
 						    ImageIO.write(mergedImage, "png", new File(merge));
 						    System.out.println("NFT 생성이 완료되었습니다.");
