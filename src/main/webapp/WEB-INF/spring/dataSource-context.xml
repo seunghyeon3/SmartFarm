@@ -6,16 +6,16 @@
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	<context:property-placeholder
-		location="classpath:db.properties" />
+<!-- 	<context:property-placeholder
+		location="classpath:db.properties" /> -->
 
 	<!-- DBCP -->
 	<bean class="org.apache.commons.dbcp2.BasicDataSource"
 		id="dataSource" destroy-method="close">
-		<property name="driverClassName" value="${driver}" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${user}" />
-		<property name="password" value="${password}" />
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@yisseol.cvsqzhprfwby.ap-northeast-2.rds.amazonaws.com:1521:orcl" />
+		<property name="username" value="yisseol" />
+		<property name="password" value="smartfarm" />
 	</bean>
 
 	<!-- Mybatis define -->

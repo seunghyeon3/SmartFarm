@@ -110,11 +110,14 @@
 	              header: '제목',
 	              name: 'archieve_title',
 	              width: 620
+	              
 	            },{
 	               header: '등록일',
 	               name: 'archieve_day',
 	               align: 'center',
-	               width: 270
+	               width: '270',
+	               sortingType : 'desc',
+					sortable : true
 	            },{
 	               header: '첨부파일',
 	               name: 'archieve_img',
@@ -126,7 +129,9 @@
 		               header: '조회',
 		               name: 'archieve_hit',
 		               align: 'right',
-		               width: 70
+		               width: '70',
+		               sortingType : 'desc',
+						sortable : true
 		        }],
 			columnOptions : {
 				resizable : true,
@@ -141,13 +146,18 @@
 		// GRID 에 데이터를 입력
 		var gridData = ${archieve};	
 		grid.resetData(gridData);
-		<sec:authorize access="isAuthenticated()">
+		grid.on('mouseover', (ev) => {
+	         document.getElementById('grid').style.cursor = "pointer";
+	      });
 		grid.on('click', (ev) => {
-			  if (ev.columnName === 'archieve_title') {
+			/*  if('${SPRING_SECURITY_CONTEXT.authentication.principal}' == ''){
+		         alert('로그인이 필요한 서비스입니다');
+			 }else{ */
+			  if (ev.columnName === 'archieve_title'){
 				  location.href='archieveselect.do?archieve_no='+gridData[ev.rowKey].archieve_no
 			  }
+			 
 			});
-		</sec:authorize>
 		// ===== 검색 =====
 		function searchFnc() {
 			var searchKey = $("#key option:selected").val();
@@ -166,7 +176,8 @@
 					grid.resetData(result);
 				})
 		}
-			
+	 
+	 		
  </script>
 </body>
 </html>
