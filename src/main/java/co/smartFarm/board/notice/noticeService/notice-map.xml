@@ -25,7 +25,7 @@ WHERE NOTICE_NO = #{notice_no}
 SELECT NVL(MAX(NOTICE_NO) + 1, 1 ) AS NOTICE_NO FROM NOTICE
 </selectKey>
 INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,
-NOTICE_CON, NOTICE_IMG, MEM_NAME)
+NOTICE_CON, NOTICE_IMG, MEM_NAME, MEM_EMAIL)
 VALUES(#{notice_no}, #{notice_title}, #{notice_con}, #{notice_img}, #{mem_name})
 </insert>
 <!-- 삭제 -->
