@@ -12,12 +12,12 @@
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12" id="update" style="display: none;">
+				<%-- <div class="col-md-5" id="update" style="display: none;">
 					<a onclick="deletePlant(${plantSaleDet.plant_sale_no })" class="view-more"
 						style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;  width:100px; text-align:center;">삭제</a> <a
 						href="plantProductUpdate.do?plant_sale_no=${plantSaleDet.plant_sale_no }" class="view-more"
 						style="color: white; cursor: pointer; margin-right: 5px;  width:100px; text-align:center;">수정</a>
-				</div>
+				</div> --%>
 				<div class="col-md-6">
 					<div class="section-title-2">
 						<h5>상품 판매</h5>
@@ -28,12 +28,23 @@
 					</div>
 				</div>
 				<div class="col-md-1"></div>
-				<div class="col-md-5" style="margin-top: 90px;">
+				
+				<div class="col-md-5" style="margin-top: 0;">
+					<div class="col-md-12" id="update" style="height: 90px; margin-bottom: 30px;">
+						<a onclick="deletePlant(${plantSaleDet.plant_sale_no })" class="view-more"
+							style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;  width:100px; text-align:center;">삭제</a> <a
+							href="plantProductUpdate.do?plant_sale_no=${plantSaleDet.plant_sale_no }" class="view-more"
+							style="color: white; cursor: pointer; margin-right: 5px;  width:100px; text-align:center;">수정</a>
+					</div>
 					<div class="contact-form mb60">
 						<ul class="cform">
 							<li class="full">
 								<h3>${plantSaleDet.plant_sale_title }</h3>
 								<hr>
+							</li>
+							<li class="full">
+								<h5>판매자 : ${plantSaleDet.mem_name }</h5>
+								<%-- <p>${plantSaleDet.mem_email }</p> --%>
 							</li>
 							<li class="full">
 								<h5>수량 : ${plantSaleDet.plant_count}</h5>
@@ -49,7 +60,17 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-12">${plantSaleDet.plant_sale_con }</div>
+				
+				<div class="col-md-12" style="">
+					<hr>
+					<div class="col-md-12" style=" margin:20px 0 20px 0; padding:15px 0 15px 0; ">
+					
+						${plantSaleDet.plant_sale_con }
+					
+					</div>
+					<hr>
+					
+				</div>
 				
 			</div>
 		</div>
