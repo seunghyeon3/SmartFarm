@@ -60,7 +60,7 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>NFT 경매 등록</h3>
-                        <form action="aucnInsert.do" onsubmit="return metamaskCheck()" method="post">
+                        <form action= "aucnInsert.do" onsubmit="metamaskCheck(); return false" method="post">
 	                        <ul class="cform">
 		                        <li class="full">
 		                        	<input type="hidden" id="nft_no" name="nft_no" value="${nftVo.nft_no }">
@@ -118,17 +118,22 @@
  			document.getElementById('fade').appendChild(img);
  		}
          
-         	function metamaskCheck(){
+         async function metamaskCheck(){
 	        	//메타마스크 로그인체크
-	        	var a = test();
-	        	console.log(a);
-	        	return a ? true : false;
+	        	var a = await test();
+	        	if(a == true){
+	            	  return true;
+	              }else{
+	            	  alert('경매등록이 실패하였습니다.')
+	            	  location.reload();
+	            	  
+	              }
 	        	
 	         }
          	
-         	 function test(){
+         	async function test(){
          		 
-         		 web3.eth.getAccounts(function(err,accs){
+         		await web3.eth.getAccounts(async function(err,accs){
 	        		console.log(err);
 	        		console.log(accs);
 			             if(err != null){
@@ -141,18 +146,22 @@
 			             }else{
 			             	account = accs[0];
 			              console.log("-0-0-0-0-0");
-			              var b = solInsert();
-			              return b ? true : false;
+			              var b = await solInsert();
+			              if( b == true){
+			            	  return true;
+			              }else{
+			            	  return false;
+			              }
 							
 			             }
 			         })
          	}
          	 
-         	 async function solInsert(){
+         	async function solInsert(){
          		createLoading();
          		await NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
 					.send({from: account, })
-					.then(function(result){
+					.then(await function(result){
 						console.log(result);
 		        		alert("경매가 정상적으로 등록되었습니다.");
 		        		return true;
