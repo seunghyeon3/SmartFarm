@@ -34,7 +34,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 			</c:if>
 			
 			<!-- 이용후기시작 -->
-				<div class="blog-single-content">
+				<div class="col-md-1"></div>
+				<div class="blog-single-content col-md-10">
 
 					<h3>${useRevwDetail.use_revw_title}</h3>
 					<ul class="post-meta">
@@ -50,9 +51,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					<h5 style="margin-top:80px">${useRevwDetail.use_revw_con}</h5>
 					
 					</div>
-				
+				<div class="col-md-1"></div>
 				<!-- 댓글 -->
-				<div class="col-md-8" style="margin-top:100px">
+				<div class="col-md-1"></div>
+				<div class="col-md-10" style="margin-top:100px">
 				<div class="wf100 comment-form" style="border-bottom: 1px solid #dddddd; margin-bottom:40px;">
 					<h5>이용후기 댓글</h5>
 					<br><br>
