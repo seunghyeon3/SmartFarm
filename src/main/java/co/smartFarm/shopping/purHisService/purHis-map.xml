@@ -83,7 +83,7 @@
 	
 	<select id="purHisSelect" parameterType="String"
 		resultType="co.smartFarm.shopping.purHisService.PurHisVO">
-		SELECT p.pur_his_order_no, p.pur_his_price, TO_CHAR(p.pur_his_pur_day,'yyyy-MM-dd') pur_his_pur_day,pur_his_sale_count,
+		SELECT p.pur_his_order_no, p.pur_his_price, TO_CHAR(p.pur_his_pur_day,'yyyy-MM-dd') pur_his_pur_day, pur_his_sale_count,pur_his_state,
 		CASE WHEN p.plant_sale_no = 0
 		THEN k.kit_name
 		ELSE s.plant_sale_title

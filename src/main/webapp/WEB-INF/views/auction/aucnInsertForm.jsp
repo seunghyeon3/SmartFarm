@@ -96,6 +96,7 @@
 	                       </form>
                      </div>
                   </div>
+            <div id="fade" class="black_overlay loading"></div>
                </div>
             </div>
          </section>
@@ -104,6 +105,60 @@
 			</script>
 			<script src="resources/js/NFTAuction.js"></script>
          <script>
+         
+         function createLoading(){
+ 			<!-- 220308 PSH loading page 수정 -->
+ 			/* document.getElementById('fade').style.display = 'block'; */
+ 			document.getElementById('fade').innerHTML = "";
+ 			document.getElementById('fade').style.display="flex";
+ 			var img = document.createElement("img");
+ 			img.setAttribute("src","resources/images/loadingicon.gif");
+ 			img.setAttribute("alt","로딩중입니다");
+ 			img.setAttribute("class","mx-auto d-block");
+ 			document.getElementById('fade').appendChild(img);
+ 		}
+         
+         	function metamaskCheck(){
+	        	//메타마스크 로그인체크
+	        	var a = test();
+	        	console.log(a);
+	        	return a ? true : false;
+	        	
+	         }
+         	
+         	 function test(){
+         		 
+         		 web3.eth.getAccounts(function(err,accs){
+	        		console.log(err);
+	        		console.log(accs);
+			             if(err != null){
+			                 alert('There was an error fetching your accounts.');
+			                 return false;
+			             }else if(accs.length ===0){
+			                 alert("NFT 생산을 위해 메타마스크 로그인을 해주세요");
+			                 console.log("삐융삐융");
+			                 return false;
+			             }else{
+			             	account = accs[0];
+			              console.log("-0-0-0-0-0");
+			              var b = solInsert();
+			              return b ? true : false;
+							
+			             }
+			         })
+         	}
+         	 
+         	 async function solInsert(){
+         		createLoading();
+         		await NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
+					.send({from: account, })
+					.then(function(result){
+						console.log(result);
+		        		alert("경매가 정상적으로 등록되었습니다.");
+		        		return true;
+					});	
+         	 }
+         
 	         $(document).ready( function () {
 	             $('#aucn_start_time').dateTimePicker();
 	         })
@@ -128,29 +183,8 @@
 			       setTimeout(func, timer);
 			    }
 			}
-	         function metamaskCheck(){
-	        	//메타마스크 로그인체크
-					web3.eth.getAccounts(function(err,accs){
-			             if(err != null){
-			                 alert('There was an error fetching your accounts.');
-			                 return false;
-			             }
-			             if(accs.length ===0){
-			                 alert("NFT 생산을 위해 메타마스크 로그인을 해주세요");
-			                 return false;
-			             }
-			             account = accs[0];
-			             nftAuctionInsert();
-			         }) 
-	         }
 	         
-	         function nftAuctionInsert(){
-	        	 NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
-					.send({from: account, })
-					.then(function(result){console.log(result);});	
-	        	 alert("경매가 정상적으로 등록되었습니다.");
-	        	 return true;
-				}
+	       
 	         
          </script>
 </body>

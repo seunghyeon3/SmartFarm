@@ -45,7 +45,6 @@
    overflow: hidden;
    clip: rect(0, 0, 0, 0);
    border: 0;
->>>>>>> master
 }
 
 ul>li>p {

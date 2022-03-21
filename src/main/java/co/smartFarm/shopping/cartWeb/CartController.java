@@ -58,7 +58,6 @@ public class CartController {
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 			MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (memberVo != null) {
-				// cartVo.setMem_email("ddd@abc.com"); // 추후수정 나중에 이부분 지우고 위에 두줄 살리기
 				cartVo.setMem_email(memberVo.getMem_email());
 				System.out.println("확인할 부분! === " + cartVo.toString());
 				Integer result = cartDao.cartInsert(cartVo);

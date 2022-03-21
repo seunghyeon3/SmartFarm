@@ -130,7 +130,7 @@
 									</div>
 								</li>
 
-							   <!-- hidden 목록 추후수정 -->
+							   <!-- hidden 목록 -->
 		                       <sec:authorize access="isAuthenticated()">
 									<sec:authentication property="principal" var="member"/>
 									<input type="hidden" id="mem_email" name="mem_email"

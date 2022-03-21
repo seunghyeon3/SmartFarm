@@ -27,58 +27,60 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 				<div class="col-md-6">
 					<div class="section-title-2">
 						<h5>키트 판매</h5>
-						<h2>${kitSelectOne.kit_name }</h2>
-						<img alt="이미지 들어가야함" src="resources/images/aboutimg.jpg"
-							style="width: 300px">
+						<h2>(${kitSelectOne.kit_prpos })&nbsp;${kitSelectOne.kit_name }</h2>
+						<img style="width:550px; height:380px;"
+										src="resources/kit/${kitSelectOne.kit_main_img}" alt="">
 						<!-- 추후수정 -->
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-1"></div>
+				<div class="col-md-5" style="margin-top: 50px;">
 					<div class="contact-form mb60">
-						<ul class="cform">
+						<ul class="cform"  style="">
 							<li class="full">
-								<h3>${kitSelectOne.kit_name}</h3>
+								<h3>${kitSelectOne.kit_name }</h3>
 								<hr>
 							</li>
 							<li class="full">
-								<h5>수량</h5>
+								
+								<h5 style="margin-bottom: 10px;">수량</h5>
 								<div class="col-md-12">
 									<div class="col-md-2"
-										style="float: left; margin-right: 1px; margin-left: 0">
+										style="float: left; margin-right: 1px; ">
 										<a onclick="changeNum(this)" id="minus" class="view-more"
-											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px;">-</a>
+											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px; ">-</a>
 									</div>
 									<div class="col-md-2"
 										style="float: left; margin: 0; padding-left: 0px; padding-right: 0px;">
 										<input type="number" id="cartCount" min="1" value="1"
 											class="form-control" readonly>
 									</div>
-									<div class="col-md-2" style="float: left; margin-left: 0px;">
+									<div class="col-md-2" style="float: left; margin-left: 8px;">
 										<a onclick="changeNum(this)" id="plus" class="view-more"
 											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px;">+</a>
 									</div>
 								</div>
 							</li>
+							<li><h5>용도&nbsp;:&nbsp;${kitSelectOne.kit_prpos }</h5></li> 
 							<li class="full" id="price"></li>
 							<!-- 장바구니 넣기 -->
-							<sec:authorize access="permitAll">
-								<sec:authentication property="principal" var="member" />
-								<li class="full"><a onclick="purchase()" class="view-more"
-									style="color: white; cursor: pointer;">구매</a> <a
-									onclick="insertCart()" class="view-more"
-									style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
-								</li>
-							</sec:authorize>
+							<li class="full" style="text-align: center;"><a onclick="insertCart()" class="view-more" 
+								style="cursor: pointer; margin-top: 0px;width: 120px; float:left; margin-left: 100px; margin-right: 20px;color: #66bb6a; background-color: #fff; border: 1px solid #66bb6a;">장바구니</a> <a
+								onclick="purchase()" class="view-more"
+								style="color: white; cursor: pointer; margin-right: 5px; width: 120px; float:left; margin-top: 0px;">구매</a>
+							</li>
+								
+							
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-12">
-					<img alt="" src=" resources/kit/${kitSelectOne.kit_exp_img}">
-					<!-- 추후수정 -->
+					<img style="width:100%; border:2px solid black;"
+							src="resources/kit/${kitSelectOne.kit_exp_img}">
 				</div>
 
 				<!-- 리뷰 출력 -->
-				<div class="col-md-12" >
+				<div class="col-md-12" style="margin-top:80px">
 					
 					<div class="sidebar">
 						<!--이용후기-->

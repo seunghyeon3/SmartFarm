@@ -53,29 +53,33 @@ ul>li>p {
 	line-height: 49px;
 	padding: 0 20px;
 }
-
 </style>
 
 <body>
-	<section class="shop wf100 p80">
+	<section class="contact-page wf100 p80">
 		<div class="container">
-			<div class="row">
+		     <div class="row">
 				<!--Blog Single Content Start-->
 				<div class="blog-single-content">
+
 					<h3>${notice.notice_title}</h3>
 					<ul class="post-meta">
-						<li><i class="fas fa-user-circle"></i>${notice.mem_name}</li>
+						<li><i class="fas fa-user-circle"></i>${noticeVO.mem_name}</li>
 						<li><i class="fas fa-calendar-alt"></i>${notice.notice_day}</li>
-						<li><i class="fas fa-comments"></i>${notice.notice_hit}</li>
+						<li><i class="fas fa-comments"></i> ${notice.notice_hit } 조회수</li>
 					</ul>
- 					<div style="width: 100%; text-align : center;">
+
+					<div style="width: 100%; text-align : center;">
 					<img src="download.do?img=${notice.notice_img}"style="width: 100%; max-width: 1200px; vertical-align: middle"
 						onError="this.style.visibility='hidden'">
 					</div>
 					<div> <!-- style="text-align : center;" -->
 						<a href="download.do?img=${notice.notice_img}"><p>${notice.notice_img}</p></a>
 					</div>
-					<h5 style="margin-top: 80px">${notice.notice_con}</h5>
+					<div class="content"style="min-height: 300px;">
+						<p>${notice.notice_con}</p>
+					</div>
+					<br><hr>
 					<ul class="cform">
 					<sec:authorize access="hasRole('ADMIN')">
 					<li class="half pr-15">
@@ -85,7 +89,7 @@ ul>li>p {
 							class="fsubmit">
 					</li>
 					</sec:authorize>
-					<li class="full">
+					<li class="half pr-15">
 					
 					<input type="button" value="뒤로가기" onclick="history.back(-1);"
 						class="fsubmit">
