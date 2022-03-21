@@ -43,7 +43,7 @@
 											</div>
 											<div style="float: right;">
 												<h5 style="display: inline;">보유한 키트가 없습니다</h5>
-												<a href="#" class="dn-btn">키트 구매 바로가기</a>
+												<a href="kitShopList.do" class="dn-btn">키트 구매 바로가기</a>
 											</div>
 										</div>
 									</div>
@@ -73,7 +73,7 @@
 												</div>
 												<div style="float: right;">
 												<a href="control.do?no=${grow.pur_his_order_no }" class="dn-btn">재배 관리</a>
-												<a href="#" class="dn-btn">실시간 정보</a>
+												<a href="sensor.do?no=${grow.pur_his_order_no }" class="dn-btn">실시간 정보</a>
 												<a href="log.do?no=${grow.pur_his_order_no }" class="dn-btn">일별 로그</a>
 												</div>
 											</div>
