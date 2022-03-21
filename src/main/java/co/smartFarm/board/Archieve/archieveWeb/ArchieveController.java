@@ -40,7 +40,6 @@ public class ArchieveController {
 
    //파일업로드
    private static final String FILE_SERVER_PATH = "c:/Temp/";
-
    @RequestMapping("/download")
    public ModelAndView download(@RequestParam HashMap<Object, Object> params, ModelAndView mv) {
       String fileName = (String) params.get("fileName");

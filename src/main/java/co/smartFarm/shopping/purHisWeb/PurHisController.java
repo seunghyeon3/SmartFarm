@@ -2,10 +2,8 @@ package co.smartFarm.shopping.purHisWeb;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
+import org.springframework.scheduling.annotation.Scheduled;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-
-import co.smartFarm.shopping.purHisService.PurHisMapper;
 import co.smartFarm.shopping.purHisService.PurHisService;
 import co.smartFarm.shopping.purHisService.PurHisVO;
 import co.smartFarm.user.memberService.MemberVO;
@@ -80,5 +75,14 @@ public class PurHisController {
       }
       return null;
       
+   }
+   
+   // ===== 구매하고 하루 뒤에 배송상태를 C1(배송시작)으로 변경, 사흘 뒤에는 C2(배송완료)로 변경 =====
+   @Scheduled(cron="0 0 17 * * *")
+   public void changeState () {
+	   int result = purHisDao.selectPurHisCount();
+	   if(result>0) {
+		   purHisDao.purHisUpdateState();
+	   }
    }
 }

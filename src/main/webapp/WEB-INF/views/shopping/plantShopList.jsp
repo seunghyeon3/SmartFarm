@@ -10,6 +10,9 @@
 <title>Home</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
+
 </head>
 
 <body>
@@ -35,9 +38,12 @@
 					</div>
 				</div>
 				<br> <br>
-				<!-- 판매 리스트 출력 시작 -->
 
-				<c:forEach items="${plantSaleList}" var="list">
+				<!-- 판매 리스트 출력 시작 -->
+				<div class="col-md-12" id="psListP">
+					
+				</div>
+				<%-- <c:forEach items="${plantSaleList}" var="list">
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
 							<div class="pro-thumb">
@@ -56,9 +62,9 @@
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-
+				</c:forEach> --%>
 				<!-- 판매 리스트 출력 끝 -->
+
 				<sec:authorize access="hasRole('FARMER')">
 
 					<div class="col-md-12">
@@ -68,29 +74,21 @@
 				</sec:authorize>
 			</div>
 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="gt-pagination">
-						<nav>
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <i class="fas fa-angle-left"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <i class="fas fa-angle-right"></i>
-								</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
+			
+			<!-- 페이징 -->
 		</div>
+		<!--페이징처리 시작-->
+		<div class="row" style="display: flex; justify-content: center;">
+			<div id="pagination" style="margin: 0 auto;"></div>
+		</div>
+		<!--페이징처리 종료-->
 	</section>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+<script src='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/js/jquery.circliful.min.js'></script>
 
 	<script type="text/javascript">
    	/* //작물 판매 화면 올 때 전체 리스트 출력 하는 부분
@@ -104,6 +102,51 @@
             console.log(err);
          }
       }) */
+      
+      //로딩될 때 실행되는 함수
+      $(function () {
+    	  //페이징
+    	var kitSelectListP = ${plantSaleListP};
+    	if (kitSelectListP.length > 0){ // 리스트가 있는 경우
+    	  let container = $('#pagination');
+	        container.pagination({
+	            dataSource: ${plantSaleListP},
+	            callback: function (data, pagination) {
+				var psList ="";
+				var temp = "";
+	                $.each(data, function (index, list) {
+	                	temp = `<div class="col-lg-3 col-sm-6" style="float:left;">
+						<div class="product-box">
+							<div class="pro-thumb">
+								<a
+									onclick="insertCart('cartInsert.do?cart_plant_no=\${list.plant_sale_no }&cart_price=\${list.plant_sale_price}&cart_sale_count=1')"
+									href="javascript:void(0);">장바구니 추가</a> <img
+									src="resources/images/shop/pro1.jpg" alt="">
+							</div>
+							<div class="pro-txt">
+								<h6>
+									<a
+										href="plantProductDetail.do?plant_sale_no=\${list.plant_sale_no }">\${list.plant_sale_title}</a>
+								</h6>
+								<p class="pro-price" id="plantSalePrice">\${list.plant_sale_price }</p>
+							</div>
+						</div>
+					</div>`;
+	            	    psList += temp
+	                });
+	                
+	                $("#psListP").html(psList);
+	            },
+	            pageSize: 12
+	        });
+    	} else {// 리스트가 없는 경우
+    		toastr.error('검색 결과가 없습니다');
+    		var temp = `<div class="col-lg-3 col-sm-6" style="float:left;"> <h5> 검색 결과가 없습니다 </h5> </div>`
+    		$("#psListP").html(temp);
+    	}
+	});
+      
+      
       //로딩되면 금액에 콤마넣기
       $(document).ready(function () {
     	  var price = document.querySelectorAll('#plantSalePrice');

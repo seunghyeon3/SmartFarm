@@ -19,6 +19,76 @@ input {
 	border: none;
 	width: 100%;
 }
+.filebox input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: white;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #66bb6a;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+} /* named upload */
+.filebox .upload-name {
+	display: inline-block;
+	padding: .5em .75em; /* label의 패딩값과 일치 */
+	font-size: inherit;
+	font-family: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #f5f5f5;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+/* imaged preview */
+.filebox .upload-display { /* 이미지가 표시될 지역 */
+	margin-bottom: 5px;
+}
+
+@media ( min-width : 768px) {
+	.filebox .upload-display {
+		display: inline-block;
+		margin-right: 5px;
+		margin-bottom: 0;
+	}
+}
+
+.filebox .upload-thumb-wrap { /* 추가될 이미지를 감싸는 요소 */
+	display: inline-block;
+	width: 54px;
+	padding: 2px;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.filebox .upload-display img { /* 추가될 이미지 */
+	display: block;
+	max-width: 100%;
+	width: 100% \9;
+	height: auto;
+}
+
 </style>
 </head>
 
@@ -89,9 +159,7 @@ input {
 
 		<div style="text-align: center;">
 			<h3 style="text-align: center;">
-				키트등록 <a href="javascript:void(0)" style="float: right; font-size: small;"
-					onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
-				</a>
+				키트등록 <a href="javascript:void(0)" style="float: right; font-size: small;" onclick="closeP()">Close</a>
 			</h3>
 
 		</div>
@@ -99,10 +167,10 @@ input {
 
 		<div class="blog-single-content"
 			style="width: 80%; display: inline-block;">
-			<form action="kitInsert.do" method="post"
+			<form action="kitInsert.do" method="post" id="kitForm"
 				enctype="multipart/form-data">
 
-				<div class="single-post-tags wf50">
+				<div class="single-post-tags wf50" style="margin-bottom:15px;">
 				
 					<a onclick="changeCol(this)" id="business" style="background-color: #66bb6a;color:#f8f9fa">상업용</a>&nbsp;&nbsp;&nbsp; <a
 						onclick="changeCol(this)" id="hobby" style="background-color: #f8f9fa;color:#666666">취미용</a>
@@ -146,12 +214,12 @@ input {
 							<td><input type="number" id="kit_sun" name="kit_sun"></td>
 						</tr>
 						<tr>
-							<th>급액양</th>
+							<th>급액량</th>
 							<td><input type="number" id="kit_water" name="kit_water"></td>
 						</tr>
 						<!-- 상업용에만 있는 컬럼 -->
 						<tr class="forC">
-							<th>농약양</th>
+							<th>농약량</th>
 							<td><input type="number" id="kit_pes" name="kit_pes"></td>
 						</tr>
 						<!-- 상업용에만 있는 컬럼 -->
@@ -164,13 +232,27 @@ input {
 							<th>키트 가격</th>
 							<td><input type="number" id="kit_price" name="kit_price"></td>
 						</tr>
+						
+
+						
 						<tr>
 							<th>대표 이미지</th>
-							<td><input type="file" id="kit_main_img" name="img"></td>
+							<td><div class="filebox preview-image">
+									<input type="file" id="mainImg" name="img" class="upload-hidden" style="float:left; height:40px; width:20%;">
+									<label for="mainImg" style="float: right; height:35px; padding-top: 5px;">업로드</label>
+									<input class="upload-name" id="mainImg" value="파일선택" disabled="disabled" style="height:35px; width:60%; float: right; display:inline-block; margin-bottom:0;">
+								</div>
+							</td><!-- <input type="file" id="kit_main_img" name="img"> -->
 						</tr>
 						<tr>
 							<th>설명 이미지</th>
-							<td><input type="file" id="kit_exp_img" name="img"></td>
+							<td><div class="filebox preview-image" >
+									<input type="file" id="expImg" name="img" class="upload-hidden" style="float:left; height:40px; width:20%;">
+									<label for="expImg" style="float: right; height:35px; padding-top: 5px;">업로드</label>
+									<input class="upload-name" id="expImg" value="파일선택" disabled="disabled" style="height:35px; width:60%; float: right; display:inline-block; margin-bottom:0;">
+								
+								</div>
+						</td><!-- <input type="file" id="kit_exp_img" name="img"> -->
 						</tr>
 
 						<!-- hidden 영역 -->
@@ -204,9 +286,7 @@ input {
 								class="post-btn" type="submit">키트등록</button></li>
 
 						<li class="w3 np" style="float: right">
-							<button
-								onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'"
-								class="post-btn"
+							<button type="button" onclick="closeP()" class="post-btn"
 								style="background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">취소</button>
 						</li>
 					</ul>
@@ -228,11 +308,91 @@ input {
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script type="text/javascript">
 	
+	 // ===== 파일 업로드 =====
+    $(document).ready(function(){
+		   var fileTarget = $('.filebox .upload-hidden');
+
+		    fileTarget.on('change', function(){
+		        if(window.FileReader){
+		            // 파일명 추출
+		            var filename = $(this)[0].files[0].name;
+		        } 
+
+		        else {
+		            // Old IE 파일명 추출
+		            var filename = $(this).val().split('/').pop().split('\\').pop();
+		        };
+
+		        $(this).siblings('.upload-name').val(filename);
+		    });
+
+		    //preview image 
+		    var imgTarget = $('.preview-image .upload-hidden');
+
+		    imgTarget.on('change', function(){
+		        var parent = $(this).parent();
+		        parent.children('.upload-display').remove();
+
+		        if(window.FileReader){
+		            //image 파일만
+		            if (!$(this)[0].files[0].type.match(/image\//)) return;
+		            
+		            var reader = new FileReader();
+		            reader.onload = function(e){
+		                var src = e.target.result;
+		                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+		            }
+		            reader.readAsDataURL($(this)[0].files[0]);
+		        }
+
+		        else {
+		            $(this)[0].select();
+		            $(this)[0].blur();
+		            var imgSrc = document.selection.createRange().text;
+		            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+		            var img = $(this).siblings('.upload-display').find('img');
+		            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+		        }
+		    });
+		});
+	 
+	 
+  	//=====닫기 =====
+	function closeP() {
+		
+		//폼 내용 리셋
+		var f = document.getElementById('kitForm');
+		f.reset();
+		
+		//업로드 된 사진 지우기
+		$('.upload-display').remove();
+		
+		//상업용으로 버튼 수정
+		document.getElementById('business').style.backgroundColor = '#66bb6a';
+		document.getElementById('business').style.color = '#f8f9fa';
+		document.getElementById('hobby').style.backgroundColor = '#f8f9fa';
+		document.getElementById('hobby').style.color =  '#666666';
+		
+		// 상업용 컬럼 수정
+		var forC = document.getElementsByClassName('forC');
+		for(var i =0;i<forC.length;i++){
+			forC[i].style.display= '';
+		}
+		
+		//팝업창 닫기
+		document.getElementById('lightInstP').style.display = 'none';
+		document.getElementById('fadeInstP').style.display = 'none'; 
+		
+	}
+	
 	
 	//=====팝업창=====
 	function openInstP() {
 		document.getElementById('lightInstP').style.display = 'block';
 		document.getElementById('fadeInstP').style.display = 'block';
+		//농부신청 클릭시 페이지 최상단으로 이동.
+		window.scrollTo(0, 0);
 	}	
 	
 	// ===== 표 출력 ======
@@ -413,10 +573,10 @@ input {
 					forC[i].style.display= '';
 				}
 				// 상업용 취미용 버튼 css 수정하기
-				document.getElementById('business').style.backgroundColor = '#66bb6a'
-				document.getElementById('business').style.color = '#f8f9fa' 
-				document.getElementById('hobby').style.backgroundColor = '#f8f9fa'
-				document.getElementById('hobby').style.color =  '#666666'
+				document.getElementById('business').style.backgroundColor = '#66bb6a';
+				document.getElementById('business').style.color = '#f8f9fa';
+				document.getElementById('hobby').style.backgroundColor = '#f8f9fa';
+				document.getElementById('hobby').style.color =  '#666666';
 				cctv.value = "Y";
 				kitPrpos.value="상업용";
 				
@@ -426,10 +586,10 @@ input {
 					forC[i].style.display= 'none';
 				}
 				// 상업용 취미용 버튼 css 수정하기
-				document.getElementById('business').style.backgroundColor = '#f8f9fa'
-				document.getElementById('business').style.color =  '#666666'//66bb6a
-				document.getElementById('hobby').style.backgroundColor =  '#66bb6a'
-				document.getElementById('hobby').style.color = '#f8f9fa'
+				document.getElementById('business').style.backgroundColor = '#f8f9fa';
+				document.getElementById('business').style.color =  '#666666';
+				document.getElementById('hobby').style.backgroundColor =  '#66bb6a';
+				document.getElementById('hobby').style.color = '#f8f9fa';
 				cctv.value = "";
 				kitPrpos.value="취미용";
 			}

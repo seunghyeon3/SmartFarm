@@ -133,11 +133,11 @@ input[type="checkbox"]:checked::before {
 
 		<div class="container">
 
-			<h3>농부 승인</h3>
-
-			<a href="javascript:void(0)"
+			<h3>농부 승인 <a href="javascript:void(0)" style="float:right; font-size: medium;"
 				onclick="document.getElementById('lightInstP').style.display='none';document.getElementById('fadeInstP').style.display='none'">Close
-			</a>
+			</a></h3>
+
+			
 
 			<div id="inner"></div>
 
@@ -233,10 +233,11 @@ input[type="checkbox"]:checked::before {
 								  $('<img>', {'src':'${pageContext.request.contextPath}/resources/images/loadingicon.gif'}) 
 								).append(input)
 							);
+				//농부신청 클릭시 페이지 최상단으로 이동.
 				window.scrollTo(0, 0);
 			
 			}
-			//농부신청 클릭시 페이지 최상단으로 이동.
+			
 		});//on dblclick
 		
 		// 농부승인 - 승인

@@ -18,6 +18,11 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.online-shop > .container > .row > .col-md-12 > .cpro-slider > .owl-nav{
+display: none;
+}
+
+
 </style>
 </head>
 <body>
@@ -311,7 +316,7 @@
 								<h6>
 									<a href="plantProductDetail.do?plant_sale_no=${plant.plant_sale_no }">${plant.plant_sale_title}</a>
 								</h6>
-								<p class="pro-price">
+								<p class="pro-price" id="mainPlantPrice">							
 								${plant.plant_sale_price}
 								</p>
 							</div>
@@ -327,6 +332,12 @@
 		<!--Online Products End-->
 	</div>
 	</body>
+	<script type="text/javascript">
+	 var price = document.querySelectorAll('#mainPlantPrice');
+     for(var i=0;i<price.length;i++) {
+        price[i].innerText = (parseInt(price[i].innerText) * 1).toLocaleString('ko-KR');
+     }
+	</script>
 	   <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	   <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </html>

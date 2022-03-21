@@ -96,4 +96,18 @@
 		ORDER BY pur_his_pur_day desc
 	</select>
 	
+	<select id="selectPurHisCount"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM PUR_HIS 
+		WHERE TO_CHAR(PUR_HIS_PUR_DAY + 1, 'YYYY-MM-DD')= TO_CHAR(SYSDATE+ 9/24, 'YYYY-MM-DD')
+		OR TO_CHAR(PUR_HIS_PUR_DAY + 3, 'YYYY-MM-DD')= TO_CHAR(SYSDATE+ 9/24, 'YYYY-MM-DD')
+	</select>
+	
+	<select id="purHisUpdateState">
+		 <![CDATA[
+		 	{call CHANGE_STATE}
+		 ]]>
+	</select>
+	
 </mapper>

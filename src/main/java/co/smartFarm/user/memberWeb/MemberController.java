@@ -105,8 +105,8 @@ public class MemberController {
 		for (int i = 0; i < 64 - withdrawNo.length(); i++) {
 			zero = zero + "0";
 		}
-		String paramBid = zero + withdrawNo;
-		System.out.println(paramBid);
+		String paramAucnNo = zero + withdrawNo;
+		System.out.println(paramAucnNo);
 		
 		JSONObject jsonInput = new JSONObject();
 		JSONArray data = new JSONArray();
@@ -117,15 +117,15 @@ public class MemberController {
 		
 		JSONObject param = new JSONObject();
 		// from : 관리자 지갑주소 , to : smart contract Address
-		param.put("from", "0x13B770f414f4c5e547da9cE9382071Ebdd8f3F9a");
-		param.put("to", "0x243Ac993BD48280D420d3BfD27d1250d8A51530C");
+		param.put("from", "0x8324b648E446a06e963604D35c6621df60835374");
+		param.put("to", "0xD951b9dd9f8a5acc061a781C5a0239d5747C771E");
 		// input 값 hash 변환 method+parameter(optional)
 		
 		//withdraw data ( 10번 경매 10 -> a (16진수) )
 		//param.put("data", "0x2e1a7d4d000000000000000000000000000000000000000000000000000000000000000a");
 		
 		String withdraw = "0x2e1a7d4d"; 
-		String withdrawData = withdraw+paramBid;
+		String withdrawData = withdraw+paramAucnNo;
 		param.put("data", withdrawData);
 		
 		data.put(param);
@@ -232,9 +232,9 @@ public class MemberController {
 	
 	// 회원농부신청
 	@RequestMapping("/memberFarmer.do")
-	public String memberFarmer() {
-		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		memberVo.setMem_email(memberVo.getMem_email());
+	public String memberFarmer(MemberVO memberVo) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		memberVo.setMem_email(userDetails.getUsername());
 		memberDao.memberUpdateFarmer(memberVo);
 		return "redirect:logout.do";
 	}
@@ -370,14 +370,15 @@ public class MemberController {
 	}
 
 	public boolean sendEmail(MemberVO memberVo) {
-		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 SMTP 서버 정보를 설정한다. 
-		String user = "yisseol@naver.com"; // 이메일
-		String password = "추후수정"; // 비밀번호 추후수정
+		String host = "smtp.gmail.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 SMTP 서버 정보를 설정한다. 
+		String user = "grsmartfarm@gmail.com"; // 이메일
+		String password = "smartfarm"; // 비밀번호 추후수정
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", 587);
 		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");//구글 로그인으로 바꾸면서 추가
 		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
@@ -392,7 +393,7 @@ public class MemberController {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(memberVo.getMem_email())); // 메일 보낼 곳
 			message.setSubject("[똑장이] 임시 비밀번호 발송"); // 메일 제목
 			//220315 PSH 비밀번호 암호화
-			String tmpPwd = bcryp.encode(getRamdomPassword(13));
+			String tmpPwd = getRamdomPassword(13);
 
 			String content = "<div style=\" width: 550px; height: 350px; text-align: center;\">"
 					+ "<div style=\" display: inline-block; background-color: #66bb6a;  text-align:center; width: 350px; height: 200px;  border-radius: 5px; padding:50px;\">"
@@ -406,7 +407,7 @@ public class MemberController {
 			System.out.println("Success Message Send");
 
 			// 임시 비밀번호로 회원의 비밀번호 설정하기
-			memberVo.setMem_pw(tmpPwd);
+			memberVo.setMem_pw(bcryp.encode(tmpPwd));
 			memberDao.memberUpdatePw(memberVo);
 			
 		} catch (MessagingException e) {

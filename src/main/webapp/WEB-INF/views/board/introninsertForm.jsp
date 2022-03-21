@@ -81,10 +81,14 @@
 									<br>
 									<br>
 									<br>
-									<li class="half pr-15"><input type="submit" value="등록"
-										class="fsubmit"></li>
-									<li class="half pr-15"><input type="button" value="취소"
-										onclick="history.back(-1);" class="fsubmit"></li>
+									<li class="half pr-15">
+									<input type="submit" value="등록"
+										class="fsubmit">
+										</li>
+									<li class="half pr-15">
+									<input type="button" value="취소"
+										onclick="history.back(-1);" class="fsubmit">
+										</li>
 								</ul>
 							</form>
 						</div>

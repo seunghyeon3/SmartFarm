@@ -58,8 +58,9 @@
                               <input type="text" class="form-control" placeholder="제목" name="qna_title" required value=${qna.qna_title} >
                            </li>
                            <div class="filebox" style="float: right">
-  								<label for="ex_file">사진 업로드</label>
-  								<input type="file" id="ex_file" name="qnafile">
+  								<input class="upload-name" value="파일선택" disabled="disabled">
+										<label for="ex_filename">업로드</label> <input type="file"
+											id="ex_filename" class="upload-hidden" name="qnafile">
 						   </div>
                             <li class="full">
                               <textarea class="textarea-control" placeholder="내용" required name="qna_con">${qna.qna_con}</textarea>
@@ -74,7 +75,22 @@
                </div>
             </div>
          </section>
-         
+         </body>
+          <script type="text/javascript">
+	$(document).ready(
+			function() {
+				var fileTarget = $('.filebox .upload-hidden');
+				fileTarget.on('change', function() { // 값이 변경되면 
+					if (window.FileReader) { // modern browser 
+						var filename = $(this)[0].files[0].name;
+					} else { // old IE 
+						var filename = $(this).val().split('/').pop().split(
+								'\\').pop(); // 파일명만 추출 
+					} // 추출한 파일명 삽입 
+					$(this).siblings('.upload-name').val(filename);
+				});
+			});
+</script>
  
-</body>
+
 </html>

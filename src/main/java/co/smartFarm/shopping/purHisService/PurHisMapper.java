@@ -8,4 +8,6 @@ public interface PurHisMapper {
 	List<PurHisVO> purHisPriceSelect();
 	List<PurHisVO> purHisRevwSelect(String memEmail);
 	List<PurHisVO> purHisSelect(String mem_email);
+	int selectPurHisCount();
+	int purHisUpdateState();
 }
