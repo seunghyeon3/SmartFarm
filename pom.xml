@@ -333,12 +333,12 @@
 			</plugin>
 		</plugins>
 		<resources>
-		<!-- 	<resource>
+			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.properties</include>
 				</includes>
-			</resource> -->
+			</resource>
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
