@@ -51,7 +51,7 @@
                         <form action="noticeinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목" name="notice_title" required value=${notice.notice_title}>
+                              <input type="text" class="form-control" placeholder="제목" name="notice_title" required >
                            </li>
                            <div class="filebox" style="float: right">
   								<!-- <label for="ex_file">사진 업로드</label>
@@ -61,12 +61,13 @@
 											id="ex_filename" class="upload-hidden" name="noticefile">
 						   </div>
                             <li class="full">
-                              <textarea class="textarea-control" placeholder="내용"  name="notice_con" required>${notice.notice_con}</textarea>
+                              <textarea class="textarea-control" placeholder="내용"  name="notice_con" required></textarea>
                            </li>
                            <li class="full">
                               <input type="submit" value="등록" class="fsubmit">
                            </li>
                         </ul>
+                        <input type="hidden" name="mem_name" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} ">
                         </form>
                      </div>
                   </div>

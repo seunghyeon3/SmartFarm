@@ -55,7 +55,7 @@
     					<input type="radio" name="qna_open_whet" id="qna_open_whet" required value="N"/><span class="ml_10">비공개</span>&nbsp;
 						</td>
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목" name="qna_title" required value=${qna.qna_title} >
+                              <input type="text" class="form-control" placeholder="제목" name="qna_title" required>
                            </li>
                            <div class="filebox" style="float: right">
   								<input class="upload-name" value="파일선택" disabled="disabled">
@@ -63,7 +63,7 @@
 											id="ex_filename" class="upload-hidden" name="qnafile">
 						   </div>
                             <li class="full">
-                              <textarea class="textarea-control" placeholder="내용" required name="qna_con">${qna.qna_con}</textarea>
+                              <textarea class="textarea-control" placeholder="내용" required name="qna_con" required></textarea>
                            </li>
                            <li class="full">
                               <input type="submit" value="등록"  class="fsubmit">

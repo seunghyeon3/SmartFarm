@@ -64,9 +64,9 @@ ul>li>p {
 
 					<h3>${notice.notice_title}</h3>
 					<ul class="post-meta">
-						<li><i class="fas fa-user-circle"></i>${noticeVO.mem_name}</li>
+						<li><i class="fas fa-user-circle"></i>${notice.mem_name}</li>
 						<li><i class="fas fa-calendar-alt"></i>${notice.notice_day}</li>
-						<li><i class="fas fa-comments"></i> ${notice.notice_hit } 조회수</li>
+						<li><i class="fas fa-comments"></i> ${notice.notice_hit} 조회수</li>
 					</ul>
 
 					<div style="width: 100%; text-align : center;">

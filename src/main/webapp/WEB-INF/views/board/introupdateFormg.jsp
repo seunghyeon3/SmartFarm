@@ -67,6 +67,7 @@
 										<input class="upload-name" value="파일선택" disabled="disabled">
 										<label for="ex_filename">업로드</label> <input type="file"
 											id="ex_filename" class="upload-hidden" name="introfile">
+						
 							</div>
 							<br><br><br>
 							<li class="half pr-15">
@@ -76,7 +77,7 @@
 								<input type="button" value="취소" onclick="history.back(-1);" class="fsubmit">
 							</li>
 						</ul>
-						</form>
+						</form> 
 					</div>
 				</div>
 			</div>
