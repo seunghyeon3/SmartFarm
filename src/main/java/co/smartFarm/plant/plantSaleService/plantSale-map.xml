@@ -53,12 +53,12 @@
 	<update id="plantSaleUpdate"
 		parameterType="co.smartFarm.plant.plantSaleService.PlantSaleVO">
 		UPDATE PLANT_SALE
-		SET plant_sale_title =
-		#{plant_sale_title},
+		SET plant_sale_title = #{plant_sale_title},
 		plant_sale_con = #{plant_sale_con},
 		plant_sale_price = #{plant_sale_price},
 		plant_count = #{plant_count},
-		plant_sale_ori_rou = #{plant_sale_ori_rou}
+		plant_sale_ori_rou = #{plant_sale_ori_rou},
+		plant_sale_phy_rou = #{plant_sale_phy_rou}
 		WHERE plant_sale_no = #{plant_sale_no}
 	</update>
 
