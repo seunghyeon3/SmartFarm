@@ -114,7 +114,6 @@
 										<label for="file">업로드</label> <input type="file"
 											id="file" name="file" class="upload-hidden">
 									</div>
-									
 
 								</li>
 								<li class="full"><input type="submit" value="등록"

@@ -109,8 +109,7 @@
 		SELECT *
 		FROM bid_history
 		WHERE bid_history_mem_email = #{memEmail}
-		AND withdraw_whet = 'N'
-		AND aucn_whet = 'N'
+		
 	</select>
 	
 	<delete id="bidHistoryDelete" parameterType="int">
