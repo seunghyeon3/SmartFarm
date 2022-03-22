@@ -67,7 +67,7 @@
 							<div style="display:flex; justify-content:space-between;">
 								<ul class="check-list" style="margin-top: 20px; width: 40%">
 									<li>현재 온도 : <strong id="temp"></strong></li>
-									<svg class="svg" width="400" height="200" style="margin-top: -30px; margin-bottom: -30px; margin-left: -50px;"></svg>
+									<svg id="svg" class="svg" width="400" height="200" style="margin-top: -30px; margin-bottom: -30px; margin-left: -50px;"></svg>
 									<li>현재 습도 : <strong id="hum"></strong></li>
 									<svg class="svg" width="400" height="200" style="margin-top: -30px; margin-bottom: -30px; margin-left: -50px;"></svg>
 								</ul>
@@ -81,7 +81,6 @@
 						
 						<div style="float: left;">
 
-							<!-- 날씨api 사용 위치 -->
 
 						</div>
 						<!--재배 관리 화면 출력부 종료-->
@@ -92,24 +91,43 @@
 					<div class="col-lg-3 col-md-4">
                         <div class="sidebar">
                            <!--Widget Start-->
+                           <div class="side-widget text-widget">
+                              <h5>최신글</h5>
+                              <c:forEach items="${recentlyFree}" var="free" begin="0" end="5">
+                             	 <a style="width:200px;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;" href="freeOne.do?free_no=${free.free_no}">${free.free_title}</a>
+                              </c:forEach>
+                           </div>
+                           <!--Widget End--> 
+                           <!--Widget Start-->
+                           <div class="side-widget">
+                              <h5>NFT경매 목록</h5>
+                              <ul class="lastest-products">
+								<c:forEach items="${aucnEnable }" var="aucn" begin="0" end="3">
+                                 <li> 
+									<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 45px; height: 60px;">
+                                 	<strong>
+                                 		<a href="aucnDetail.do?aucnNo=${aucn.aucn_no}">${aucn.aucn_title}</a>
+									</strong> <span class="pdate">
+									<i class="fas fa-calendar-alt"></i>현재 가격 : ${aucn.now_bid }</span> </li>
+                              	</c:forEach>
+                              </ul>
+                           </div>
+                           <!--Widget Start--> 
+                           <!--Widget Start-->
                            <div class="side-widget project-list-widget">
-                              <h5>Current Projects</h5>
+                              <h5>재배관리 바로가기</h5>
                               <ul>
-                                 <li><a href="#">Waste Management</a></li>
-                                 <li><a href="#">Solar Energy</a></li>
-                                 <li><a href="#">Eco Ideas</a></li>
-                                 <li><a href="#">Recycling Materials</a></li>
-                                 <li><a href="#">Plant Ecology</a></li>
-                                 <li><a href="#">Saving Wildlife</a></li>
-                                 <li><a href="#">Water Resources</a></li>
-                                 <li><a href="#">Forest &amp; Tree Planting</a></li>
-                                 <li><a href="#">Wing Energy</a></li>
+                              	<c:forEach items="${kitList}" var="grow">
+                                 <li><a href="control.do?no=${grow.pur_his_order_no }">${grow.kit_plant_name}</a></li>
+                                 </c:forEach>
                               </ul>
                            </div>
                            <!--Widget End--> 
                         </div>
                      </div>
 					<!--TEST END-->
+					
+
 				</div>
 			</div>
 		</div>
@@ -161,7 +179,6 @@ $("#growKitList").on("click", "li", function(event)	{
 	    })	 */
 		},
 		data = d3.range(n).map(random);
-	
 	
 	var svg = d3.select("svg"),
 	    margin = {top: 50, right: 50, bottom: 50, left: 100},
