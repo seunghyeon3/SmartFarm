@@ -76,6 +76,20 @@ public class NftController {
 							  plant = request.getServletContext().getRealPath("resources/nft/Plant/strawberry.png");
 						  } else if (growDiary.getPlant_name().equals("오이")){
 							  plant = request.getServletContext().getRealPath("resources/nft/Plant/cucumber.png");
+						  } else if (growDiary.getPlant_name().equals("완두콩")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/peas.png");
+						  } else if (growDiary.getPlant_name().equals("망고")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/mango.png");
+						  } else if (growDiary.getPlant_name().equals("키위")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/kiwi.png");
+						  } else if (growDiary.getPlant_name().equals("바질")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/basil.png");
+						  } else if (growDiary.getPlant_name().equals("감자")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/potato.png");
+						  } else if (growDiary.getPlant_name().equals("시금치")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/spinach.png");
+						  } else if (growDiary.getPlant_name().equals("고구마")){
+							  plant = request.getServletContext().getRealPath("resources/nft/Plant/sweetpotato.png");
 						  } else {
 							  plant = request.getServletContext().getRealPath("resources/nft/Plant/whitegrape.png");
 						  }
