@@ -59,6 +59,7 @@
 	<select id="useRevwSearchList" parameterType="String" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
 		SELECT * FROM USE_REVW
 		WHERE USE_REVW_TITLE LIKE '%' || #{useRevwTitle} || '%'
+		ORDER BY ASC;
 	</select>
 	
 	<update id="updateRevwHit" parameterType="int">

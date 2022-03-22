@@ -36,7 +36,7 @@
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="purchaseHistory()">구매내역</a></li>
 									<li><a style="font-size:25px;" href="javascript:void(0)"
-										onclick="bidHistory()">입찰내역</a></li>	
+										onclick="metaMaskCheck2()">입찰내역</a></li>	
 								</ul>
 							</div>
 						</div>
@@ -67,7 +67,10 @@
 	</section>
 	<script
 		src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
-	<script src="resources/js/GrowDiary.js"></script>
+	<script src="resources/js/GrowDiaryNFTAuction.js"></script>
+	<script>
+	
+	</script>
 	<script type="text/javascript"
 		src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
@@ -95,6 +98,7 @@
 			img.setAttribute("alt","로딩중입니다");
 			img.setAttribute("class","mx-auto d-block");
 			document.getElementById('fade').appendChild(img);
+			document.getElementById('fade').style.zIndex= 1005;
 		}
 	
 		/* ----------팝업 생성---------- */
@@ -433,6 +437,20 @@
 			exitLoading();
 		}
 		
+		/* ----------메타마스크 로그인 체크--------- */
+		function metaMaskCheck2(){
+			//메타마스크 로그인체크
+			web3.eth.getAccounts(function(err,accs){
+	             if(err != null){
+	                 alert('There was an error fetching your accounts.')
+	             }else if(accs.length ===0){
+	                 alert("입찰내역 서비스를 이용하기 위해선 메타마스크 연결이 필요합니다.")
+	             }else{
+	             account = accs[0];
+	             bidHistory();
+	             }
+	         }) 
+		}
 		/* ----------입찰내역---------- */
 		function bidHistory() {
 			//클릭시 페이지 최상단으로 이동.
@@ -483,15 +501,20 @@
 							//출금 가능할때 버튼생성 
 							for (var i = 0; i < data.length; i++) {
 								if (grid.getValue(i,
-										'withdraw_whet') == 'N') {
+										'withdraw_whet') == 'N' &&grid.getValue(i,
+										'aucn_whet') == 'N') {
 									console.log(data[i]);
 									var bidHistory = data[i];
 									var input = `<div class="container" style="text-aline:center;">
-									<a id=bidHistoryWithdraw data-no=\${data[i].bid_history_no} href="javascript:withdraw('\${data[i].bid_history_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">출금가능</a></div>`;
+									<a id=bidHistoryWithdraw data-no=\${data[i].bid_history_no} href="javascript:withdraw('\${data[i].bid_history_no},\${data[i].aucn_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">출금가능</a></div>`;
 			
 									grid.setValue(i,
 											'withdraw_whet',
 											input, true);
+								} else{
+									grid.setValue(i,
+											'withdraw_whet',
+											'X', true);
 								}
 								}
 								//document.getElementById('fade').style.display = 'none';
@@ -659,14 +682,13 @@
 			}).done(function(nftNo) {
 				console.log(nftNo);
 				setTimeout( function(){
-					cultivationHistory();
-					exitLoading();
 					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
 					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
 					GrowDiary.methods.createGrowDiaryNft(nftNo, '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}')
 					.send({from: account, })
-					.then(function(result){
+					.then(async function(result){
 						console.log(result);
+						await cultivationHistory();
 					})	
 				},5000);
 			});
@@ -678,22 +700,28 @@
 		function withdraw(bidHistoryNo){
 			//로딩창
 			createLoading();
-			
+			var noLength = bidHistoryNo.indexOf(',');
+			var strBidHistoryNo = bidHistoryNo.substr(0, noLength);
+			var strAucnNo = bidHistoryNo.substr(noLength+1);
+		
 			$.ajax({
 				url : "withdraw.do",
 				data : {
-					"bidHistoryNo" : bidHistoryNo
+					"bidHistoryNo" : strBidHistoryNo
 				}
 			}).done(function(result) {
+				
 				console.log(result);
-				setTimeout( function(){
-					bidHistory();
-					exitLoading();
-					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
-					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:	
-				},5000);
+				
+				NFTAuction.methods.withdraw(strAucnNo)
+				.send({from: account, })
+				.then(async function(result){
+					console.log(result);
+					await bidHistory();
+					alert('출금이 완료되었습니다');
+				})	
 			});
-		}
+			}
 		
 		
  		//회원정보수정

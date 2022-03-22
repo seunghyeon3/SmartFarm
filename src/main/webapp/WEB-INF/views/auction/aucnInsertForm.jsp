@@ -60,7 +60,7 @@
                   <div class="col-md-10">
                      <div class="contact-form mb60">
                         <h3>NFT 경매 등록</h3>
-                        <form action= "aucnInsert.do" onsubmit="metamaskCheck(); return false" method="post">
+                        <form action= "aucnInsert.do" method="post" id = "aucnInsert">
 	                        <ul class="cform">
 		                        <li class="full">
 		                        	<input type="hidden" id="nft_no" name="nft_no" value="${nftVo.nft_no }">
@@ -90,7 +90,8 @@
 	                           </li>
 	                            
 	                           <li class="full">
-	                              <input type="submit" value="등록" class="fsubmit">
+	                              <input type="button" value="등록" class="fsubmit" onclick="metamaskCheck()">
+	                              
 	                           </li>
 	                        </ul>
 	                       </form>
@@ -119,55 +120,30 @@
  		}
          
          async function metamaskCheck(){
+        	 var result = false;
 	        	//메타마스크 로그인체크
-	        	var a = await test();
-	        	if(a == true){
-	            	  return true;
-	              }else{
-	            	  alert('경매등록이 실패하였습니다.')
-	            	  location.reload();
-	            	  
-	              }
+	        	await web3.eth.getAccounts( function(err,accs){
+		             if(err != null){
+		                 alert('There was an error fetching your accounts.');
+		             }else if(accs.length ===0){
+		                 alert("NFT 생산을 위해 메타마스크 로그인을 해주세요");
+		             }else{
+		             	account = accs[0];
+		             	
+	             	 createLoading();
+	          		 NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
+	 					.send({from: account, })
+	 					.then( function(result){
+	 						console.log(result);
+	 		        		alert("경매가 정상적으로 등록되었습니다.");
+	 		        		aucnInsert.submit();
+	 					});	
+		             }
+		         })
+	        	
 	        	
 	         }
          	
-         	async function test(){
-         		 
-         		await web3.eth.getAccounts(async function(err,accs){
-	        		console.log(err);
-	        		console.log(accs);
-			             if(err != null){
-			                 alert('There was an error fetching your accounts.');
-			                 return false;
-			             }else if(accs.length ===0){
-			                 alert("NFT 생산을 위해 메타마스크 로그인을 해주세요");
-			                 console.log("삐융삐융");
-			                 return false;
-			             }else{
-			             	account = accs[0];
-			              console.log("-0-0-0-0-0");
-			              var b = await solInsert();
-			              if( b == true){
-			            	  return true;
-			              }else{
-			            	  return false;
-			              }
-							
-			             }
-			         })
-         	}
-         	 
-         	async function solInsert(){
-         		createLoading();
-         		await NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
-					.send({from: account, })
-					.then(await function(result){
-						console.log(result);
-		        		alert("경매가 정상적으로 등록되었습니다.");
-		        		return true;
-					});	
-         	 }
-         
 	         $(document).ready( function () {
 	             $('#aucn_start_time').dateTimePicker();
 	         })
