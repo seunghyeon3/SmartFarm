@@ -138,7 +138,7 @@
 			},
 			pageOptions: {
 		        useClient: true,
-		        perPage: 10
+		        perPage: 7
 		    }
 			
 		});

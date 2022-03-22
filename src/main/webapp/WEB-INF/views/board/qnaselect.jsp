@@ -75,7 +75,7 @@ ul>li>p {
 							<div>
 							<a href="downloadq.do?img=${qna.qna_phy_rou}"><p>${qna.qna_phy_rou}</p></a>
 							</div>
-							<h5 style="margin-top:80px">${qna.qna_con}</h5>
+							<p>${qna.qna_con}</p>
 							<div>
 							<ul class="cform">
 							<li id="modi"><input type="button" value="수정하기"

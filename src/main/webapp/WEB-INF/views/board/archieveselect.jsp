@@ -70,12 +70,15 @@ ul>li>p{
 					  </ul>
                            <!-- <div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;"> -->
 							<div style="width: 100%; text-align : center;">
-							<img src="downloadq.do?img=${archieve.archieve_img}"style="width: 100%; max-width: 1200px; vertical-align: middle"onError="this.style.visibility='hidden'">
+							<img src="download.do?img=${archieve.archieve_img}"style="width: 100%; max-width: 1200px; vertical-align: middle"
+							onError="this.style.visibility='hidden'">
 							<!-- </div> -->
 							<div>
-							<a href="downloadq.do?img=${archieve.archieve_img}"><p>${archieve.archieve_img}</p></a>
+							<a href="download.do?img=${archieve.archieve_img}"><p>${archieve.archieve_img}</p></a>
 							</div>
+							 <div class="content"style="min-height: 300px;">
                             <p>${archieve.archieve_con}</p>
+                            </div>
                             <ul class="cform">
                             <sec:authorize access="hasRole('ADMIN')">
                                <li class="half pr-15">
