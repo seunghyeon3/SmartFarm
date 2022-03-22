@@ -74,7 +74,7 @@
 	                	<button class="btn btn-link btn-block text-left" data-toggle="collapse" data-target="#collapse\${index}"aria-expanded="false" aria-controls="collapse\${index}"> \${item.faq_title}</button>
 	                	</h2></div>
 	                	<div id="collapse\${index}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-	                	<div class="card-body"> \${ item.faq_con}
+	                	<div class="card-body"> \${item.faq_con}
 	                	<sec:authorize access="hasRole('ADMIN')">
 	                	<br>
 	            	    <a href="faqdelete.do?faq_no=\${item.faq_no}" class="view-more" style="color: white; cursor: pointer; margin: 0px 10px 0px 10px;">삭제</a>
