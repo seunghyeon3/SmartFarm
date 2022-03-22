@@ -24,9 +24,10 @@
 						<h2>${plantSaleDet.plant_sale_title }</h2>
 						
 						<img style="width:550px; height:380px;"
+
 							src="upload/${plantSaleDet.plant_sale_phy_rou}" alt="">
 							
-							
+
 					</div>
 				</div>
 				<div class="col-md-1"></div>
