@@ -128,7 +128,8 @@
 			       setTimeout(func, timer);
 			    }
 			}
-	         function metamaskCheck(){
+	         
+/* 	         function metamaskCheck(){
 	        	//메타마스크 로그인체크
 					web3.eth.getAccounts(function(err,accs){
 			             if(err != null){
@@ -142,7 +143,7 @@
 			             account = accs[0];
 			             nftAuctionInsert();
 			         }) 
-	         }
+	         } */
 	         
 	         function nftAuctionInsert(){
 	        	 NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
@@ -152,6 +153,46 @@
 	        	 return true;
 				}
 	         
+	         
+	            async function metamaskCheck(){
+	                //메타마스크 로그인체크
+	                var a = await test();
+	                console.log(a);
+	                if(a == false){
+	                   return false;
+	                }else{
+	                   alert("asdasd")
+	                }
+	                //return a ? true : false;
+	                
+	              }
+	              
+	              async function test(){
+	                  
+	                  web3.eth.getAccounts(function(err,accs){
+	                   console.log(err);
+	                   console.log(accs);
+	                        if(err != null){
+	                            alert('There was an error fetching your accounts.');
+	                            return false;
+	                        }else if(accs.length ===0){
+	                            alert("NFT 생산을 위해 메타마스크 로그인을 해주세요");
+	                            console.log("삐융삐융");
+	                            return false;
+	                        }else{
+	                           account = accs[0];
+	                         console.log("-0-0-0-0-0");
+	                          NFTAuction.methods.NFTAuction(account,'${aucnNo}',account,0,0,false)
+	                          .send({from: account, })
+	                          .then(function(result){
+	                             console.log(result);
+	                               alert("경매가 정상적으로 등록되었습니다.");
+	                               return true;
+	                       });   
+	                        }
+	                    })
+	              }
+	           
          </script>
 </body>
 </html>

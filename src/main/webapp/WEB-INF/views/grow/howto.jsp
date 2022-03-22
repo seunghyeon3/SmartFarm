@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
@@ -14,7 +15,7 @@
 		<div class="blog-details">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-11 col-md-8">
+					<div class="col-lg-9 col-md-8">
 
 
 						<!--재배키트 페이지 사용법 시작 지점-->
@@ -46,6 +47,47 @@
 
 
 					</div>
+					
+					<!--TEST-->
+					<div class="col-lg-3 col-md-4">
+                        <div class="sidebar">
+                           <!--Widget Start-->
+                           <div class="side-widget text-widget">
+                              <h5>최신글</h5>
+                              <c:forEach items="${recentlyFree}" var="free" begin="0" end="5">
+                             	 <a style="width:200px;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;" href="freeOne.do?free_no=${free.free_no}">${free.free_title}</a>
+                              </c:forEach>
+                           </div>
+                           <!--Widget End--> 
+                           <!--Widget Start-->
+                           <div class="side-widget">
+                              <h5>NFT경매 목록</h5>
+                              <ul class="lastest-products">
+								<c:forEach items="${aucnEnable }" var="aucn" begin="0" end="3">
+                                 <li> 
+									<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 45px; height: 60px;">
+                                 	<strong>
+                                 		<a href="aucnDetail.do?aucnNo=${aucn.aucn_no}">${aucn.aucn_title}</a>
+									</strong> <span class="pdate">
+									<i class="fas fa-calendar-alt"></i>현재 가격 : ${aucn.now_bid }</span> </li>
+                              	</c:forEach>
+                              </ul>
+                           </div>
+                           <!--Widget Start--> 
+                           <!--Widget Start-->
+                           <div class="side-widget project-list-widget">
+                              <h5>재배관리 바로가기</h5>
+                              <ul>
+                              	<c:forEach items="${kitList}" var="grow">
+                                 <li><a href="control.do?no=${grow.pur_his_order_no }">${grow.kit_plant_name}</a></li>
+                                 </c:forEach>
+                              </ul>
+                           </div>
+                           <!--Widget End--> 
+                        </div>
+                     </div>
+					<!--TEST END-->
+					
 				</div>
 			</div>
 		</div>

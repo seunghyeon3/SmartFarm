@@ -255,7 +255,7 @@ display: none;
 											<div class="item">
 												<div class="pro-box">
 													<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 278px; height: 378px;">
-													<h5>${aucn.aucn_title }</h5>
+													<h5>${aucn.aucn_title}</h5>
 													<div class="pro-hover">
 														<h6>${aucn.aucn_title }</h6>
 														<p>현재 가격 : ${aucn.now_bid }</p>
