@@ -32,11 +32,11 @@
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)" 
 										onclick="editMember()">회원정보수정</a></li>
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
-										onclick="cultivationHistory()">재배내역</a></li>
+										onclick="metaMaskCheck()">재배내역</a></li>
 									<li style="margin-bottom:50px"><a style="font-size:25px;" href="javascript:void(0)"
 										onclick="purchaseHistory()">구매내역</a></li>
 									<li><a style="font-size:25px;" href="javascript:void(0)"
-										onclick="bidHistory()">입찰내역</a></li>	
+										onclick="metaMaskCheck2()">입찰내역</a></li>	
 								</ul>
 							</div>
 						</div>
@@ -67,7 +67,10 @@
 	</section>
 	<script
 		src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
-	<script src="resources/js/GrowDiary.js"></script>
+	<script src="resources/js/GrowDiaryNFTAuction.js"></script>
+	<script>
+	
+	</script>
 	<script type="text/javascript"
 		src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
@@ -95,6 +98,7 @@
 			img.setAttribute("alt","로딩중입니다");
 			img.setAttribute("class","mx-auto d-block");
 			document.getElementById('fade').appendChild(img);
+			document.getElementById('fade').style.zIndex= 1005;
 		}
 	
 		/* ----------팝업 생성---------- */
@@ -109,6 +113,12 @@
 		function exitPopup(){
 			document.getElementById('light').style.display='none';
 			document.getElementById('fade').style.display='none';
+		}
+		
+		/* ----------팝업 로딩종료---------- */
+		function exitLoading(){
+			document.getElementById('fade').innerHTML = "";
+			document.getElementById('fade').style.zIndex= 0;
 		}
 		
 		/* ----------회원정보수정---------- */
@@ -231,8 +241,23 @@
 		</div>`;
 		$("#content").html(editForm);
 			//로딩끄기
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 			document.getElementById('light').style.height = '125%';
+		}
+		
+		/* ----------메타마스크 로그인 체크--------- */
+		function metaMaskCheck(){
+			//메타마스크 로그인체크
+			web3.eth.getAccounts(function(err,accs){
+	             if(err != null){
+	                 alert('There was an error fetching your accounts.')
+	             }else if(accs.length ===0){
+	                 alert("재배내역 서비스를 이용하기 위해선 메타마스크 연결이 필요합니다.")
+	             }else{
+	             account = accs[0];
+	             cultivationHistory();
+	             }
+	         }) 
 		}
 		
 		/* ----------재배내역---------- */
@@ -317,25 +342,9 @@
 								//document.getElementById('fade').style.display = 'none';
 								document.getElementById('light').style.height = '80%';
 								
-								//메타마스크 로그인체크
-								web3.eth.getAccounts(function(err,accs){
-						             if(err != null){
-						                 alert('There was an error fetching your accounts.')
-						                 exitPopup();
-						                 return
-						             }
-						             if(accs.length ===0){
-						                 alert("NFT 생산을 위해 메타마스크 로그인을 해주세요")
-						                 exitPopup();
-						                 return
-						             }
-						             account = accs[0];
-						             console.log(account);
-						         }) 
-							
 						} //success
 					});
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 		}
 		/* ----------구매내역---------- */
 		function purchaseHistory() {
@@ -379,6 +388,11 @@
 				}, {
 					header : '수량',
 					name : 'pur_his_sale_count',
+				}, {
+					header : '배송현황',
+					name : 'pur_his_state',
+					sortable: true,
+				    sortingType: 'asc'
 				} ],
 				pageOptions : {
 					useClient : true,
@@ -391,16 +405,52 @@
 						url : "purHisSelect.do",
 						success : function(data) {
 							//데이터 입력
-							console.log(data);
 							grid.resetData(data);
+							
+							// 배송현황 
+							 for (var i = 0; i < data.length; i++) {
+								// 배송상태
+								if (grid.getValue(i,'pur_his_state') == 'C0') {
+									var input = `<span>배송전</span>`;
+									grid.setValue(i,
+											'pur_his_state',
+											input, true);
+								} else if (grid.getValue(i,'pur_his_state') == 'C1'){
+									var input = `<span>배송중</span>`;
+									grid.setValue(i,
+											'pur_his_state',
+											input, true);
+								} else{
+									var input = `<span>배송완료</span>`;
+									grid.setValue(i,
+											'pur_his_state',
+											input, true);
+								}
+								// 금액에 콤마찍기
+								var price = parseInt(grid.getValue(i, 'pur_his_price')).toLocaleString('ko-KR');
+								grid.setValue(i, 'pur_his_price', price, true);
 								
-							//document.getElementById('fade').style.display = 'none';
+								}	 
 							document.getElementById('light').style.height = '80%';
 						} //success
 					});
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 		}
 		
+		/* ----------메타마스크 로그인 체크--------- */
+		function metaMaskCheck2(){
+			//메타마스크 로그인체크
+			web3.eth.getAccounts(function(err,accs){
+	             if(err != null){
+	                 alert('There was an error fetching your accounts.')
+	             }else if(accs.length ===0){
+	                 alert("입찰내역 서비스를 이용하기 위해선 메타마스크 연결이 필요합니다.")
+	             }else{
+	             account = accs[0];
+	             bidHistory();
+	             }
+	         }) 
+		}
 		/* ----------입찰내역---------- */
 		function bidHistory() {
 			//클릭시 페이지 최상단으로 이동.
@@ -451,15 +501,20 @@
 							//출금 가능할때 버튼생성 
 							for (var i = 0; i < data.length; i++) {
 								if (grid.getValue(i,
-										'withdraw_whet') == 'N') {
+										'withdraw_whet') == 'N' &&grid.getValue(i,
+										'aucn_whet') == 'N') {
 									console.log(data[i]);
 									var bidHistory = data[i];
 									var input = `<div class="container" style="text-aline:center;">
-									<a id=bidHistoryWithdraw data-no=\${data[i].bid_history_no} href="javascript:withdraw('\${data[i].bid_history_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">출금가능</a></div>`;
+									<a id=bidHistoryWithdraw data-no=\${data[i].bid_history_no} href="javascript:withdraw('\${data[i].bid_history_no},\${data[i].aucn_no}');" class="read-post" style="padding:0 0px 10px 30px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">출금가능</a></div>`;
 			
 									grid.setValue(i,
 											'withdraw_whet',
 											input, true);
+								} else{
+									grid.setValue(i,
+											'withdraw_whet',
+											'X', true);
 								}
 								}
 								//document.getElementById('fade').style.display = 'none';
@@ -467,7 +522,7 @@
 							
 						} //success
 					});
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 
 		}
 		
@@ -486,7 +541,7 @@
 			
 			var content = document.getElementById('content');
 			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B2'){
-				document.getElementById('fade').style.display = 'none';
+				exitLoading();
 				
 				farmer = `<p style="font-size:1.2em"> <span style="border-bottom: 3px solid #000000;">${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 귀하는 농부이십니다. </span><br><br>
 														재배키트를 구매후 재배컨트롤러를 이용하여 재배가 가능하고<br>
@@ -501,7 +556,7 @@
 				document.getElementById('light').style.height = '40%';
 			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' == 'Reject'){
 				
-				document.getElementById('fade').style.display = 'none';
+				exitLoading();
 				
 				farmer = `<div class="col-md-12" style="text-align:center; font-size:1.5em">
 						${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님 농부 신청이 거절되었습니다 <br><br>
@@ -513,7 +568,7 @@
 				document.getElementById('light').style.height = '50%';
 			}else if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_athr}' == 'B1' && '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_fm_req}' != ''){
 				
-				document.getElementById('fade').style.display = 'none';
+				exitLoading();
 				
 				farmerIng = `<div class="col-md-12" style="text-align:center">
 								<strong class="trank" style="font-size:1.6em"> ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} 님은 이미 농부 신청을 하셨습니다. <br><br>
@@ -567,7 +622,7 @@
 		`;
 		$("#content").html(farmerForm);
 			//로딩끄기
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 			document.getElementById('light').style.height = '70%';
 			}
 			
@@ -610,7 +665,7 @@
 			$("#content").html(withdrawForm);
 			
 			//로딩끄기
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
 			document.getElementById('light').style.height = '80%';
 		}
 
@@ -627,13 +682,14 @@
 			}).done(function(nftNo) {
 				console.log(nftNo);
 				setTimeout( function(){
-					cultivationHistory();
-					document.getElementById('fade').style.display = 'none';
 					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
 					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:
 					GrowDiary.methods.createGrowDiaryNft(nftNo, '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}')
 					.send({from: account, })
-					.then(function(result){console.log(result);})	
+					.then(async function(result){
+						console.log(result);
+						await cultivationHistory();
+					})	
 				},5000);
 			});
 			
@@ -644,22 +700,28 @@
 		function withdraw(bidHistoryNo){
 			//로딩창
 			createLoading();
-			
+			var noLength = bidHistoryNo.indexOf(',');
+			var strBidHistoryNo = bidHistoryNo.substr(0, noLength);
+			var strAucnNo = bidHistoryNo.substr(noLength+1);
+		
 			$.ajax({
 				url : "withdraw.do",
 				data : {
-					"bidHistoryNo" : bidHistoryNo
+					"bidHistoryNo" : strBidHistoryNo
 				}
 			}).done(function(result) {
+				
 				console.log(result);
-				setTimeout( function(){
-					bidHistory();
-					document.getElementById('fade').style.display = 'none';
-					// 일종의 이벤트 리스너가 텍스트 입력값을 취한다:	
-					// 우리 컨트랙트의 `createGrowDiaryNft`함수를 호출한다:	
-				},5000);
+				
+				NFTAuction.methods.withdraw(strAucnNo)
+				.send({from: account, })
+				.then(async function(result){
+					console.log(result);
+					await bidHistory();
+					alert('출금이 완료되었습니다');
+				})	
 			});
-		}
+			}
 		
 		
  		//회원정보수정
@@ -800,6 +862,8 @@
 				return false;
 			} 
 	  }
+	  
+   
 	</script>
 	
 

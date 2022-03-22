@@ -117,7 +117,7 @@ input {
 
 							<input type="search" id="searchKit" class="form-control"
 								placeholder="키트 이름을 입력하세요" style="margin: 0 10px; float: left;">
-							<button onclick="searchKit()">
+							<button onclick="searchKit()" style="cursor:pointer;">
 								<i class="fas fa-search"></i>
 							</button>
 
@@ -168,7 +168,7 @@ input {
 		<div class="blog-single-content"
 			style="width: 80%; display: inline-block;">
 			<form action="kitInsert.do" method="post" id="kitForm"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onsubmit="return formCheck()">
 
 				<div class="single-post-tags wf50" style="margin-bottom:15px;">
 				
@@ -189,48 +189,48 @@ input {
 						</tr>
 						<tr>
 							<th>키트이름</th>
-							<td><input type="text" id="kit_name" name="kit_name"></td>
+							<td><input type="text" id="kit_name" name="kit_name" required></td>
 						</tr>
 						<tr>
 							<th>작물이름</th>
-							<td><input type="text" id="kit_plant_name"
+							<td><input type="text" id="kit_plant_name" required
 								name="kit_plant_name"></td>
 						</tr>
 						<tr>
 							<th>재배기간</th>
-							<td><input type="number" id="kit_grow_day"
+							<td><input type="number" id="kit_grow_day" required
 								name="kit_grow_day"></td>
 						</tr>
 						<tr>
 							<th>적정온도</th>
-							<td><input type="number" id="kit_tp" name="kit_tp"></td>
+							<td><input type="number" id="kit_tp" name="kit_tp" required></td>
 						</tr>
 						<tr>
 							<th>습도</th>
-							<td><input type="number" id="kit_hd" name="kit_hd"></td>
+							<td><input type="number" id="kit_hd" name="kit_hd" required></td>
 						</tr>
 						<tr>
 							<th>일사량</th>
-							<td><input type="number" id="kit_sun" name="kit_sun"></td>
+							<td><input type="number" id="kit_sun" name="kit_sun" required></td>
 						</tr>
 						<tr>
 							<th>급액량</th>
-							<td><input type="number" id="kit_water" name="kit_water"></td>
+							<td><input type="number" id="kit_water" name="kit_water" required></td>
 						</tr>
 						<!-- 상업용에만 있는 컬럼 -->
 						<tr class="forC">
 							<th>농약량</th>
-							<td><input type="number" id="kit_pes" name="kit_pes"></td>
+							<td><input type="number" id="kit_pes" name="kit_pes" required></td>
 						</tr>
 						<!-- 상업용에만 있는 컬럼 -->
 						<tr class="forC">
 							<th>cctv</th>
-							<td><input type="text" id="kit_cctv" name="kit_cctv"
+							<td><input type="text" id="kit_cctv" name="kit_cctv" required
 								value="Y" readonly></td>
 						</tr>
 						<tr>
 							<th>키트 가격</th>
-							<td><input type="number" id="kit_price" name="kit_price"></td>
+							<td><input type="number" id="kit_price" name="kit_price" required></td>
 						</tr>
 						
 
@@ -238,16 +238,16 @@ input {
 						<tr>
 							<th>대표 이미지</th>
 							<td><div class="filebox preview-image">
-									<input type="file" id="mainImg" name="img" class="upload-hidden" style="float:left; height:40px; width:20%;">
+									<input type="file" id="mainImg" name="img" class="upload-hidden" style="float:left; height:40px; width:20%;" required>
 									<label for="mainImg" style="float: right; height:35px; padding-top: 5px;">업로드</label>
-									<input class="upload-name" id="mainImg" value="파일선택" disabled="disabled" style="height:35px; width:60%; float: right; display:inline-block; margin-bottom:0;">
+									<input class="upload-name" id="mainImg" value="파일선택" disabled="disabled" style="height:35px; width:60%; float: right; display:inline-block; margin-bottom:0;" required>
 								</div>
 							</td><!-- <input type="file" id="kit_main_img" name="img"> -->
 						</tr>
 						<tr>
 							<th>설명 이미지</th>
 							<td><div class="filebox preview-image" >
-									<input type="file" id="expImg" name="img" class="upload-hidden" style="float:left; height:40px; width:20%;">
+									<input type="file" id="expImg" name="img" class="upload-hidden" style="float:left; height:40px; width:20%;" required>
 									<label for="expImg" style="float: right; height:35px; padding-top: 5px;">업로드</label>
 									<input class="upload-name" id="expImg" value="파일선택" disabled="disabled" style="height:35px; width:60%; float: right; display:inline-block; margin-bottom:0;">
 								
@@ -264,11 +264,11 @@ input {
 
 						<tr style="display: none;">
 							<th>조회수</th>
-							<td><input type="text" value=0 id="kit_hit" name="kit_hit"></td>
+							<td><input type="number" value=0 id="kit_hit" name="kit_hit"></td>
 						</tr>
 						<tr style="display: none;">
 							<th>판매수</th>
-							<td><input type="text" value=0 id="kit_sale_count"
+							<td><input type="number" value=0 id="kit_sale_count"
 								name="kit_sale_count"> <input type="text" id="kit_prpos"
 								name="kit_prpos" value="상업용"></td>
 						</tr>
@@ -310,6 +310,12 @@ input {
 	
 	 // ===== 파일 업로드 =====
     $(document).ready(function(){
+    	
+    	
+    	var error = '${param.error}'
+    	if(error=='1'){
+    		alert('오류가 발생했습니다. 다시 시도해주세요');
+    	}
 		   var fileTarget = $('.filebox .upload-hidden');
 
 		    fileTarget.on('change', function(){
@@ -397,15 +403,13 @@ input {
 	
 	// ===== 표 출력 ======
 		var grid = new tui.Grid({
-			rowHeight : 'auto',
+			minRowHeight : 53,
 			el : document.getElementById('grid'),
 			rowHeaders : [ 'rowNum' ],//번호 매기기
 			scrollX : false,
 			scrollY : false,
-			columnOptions : {
-				rowHeight : 50
-			},
-			columns : [ {
+		
+			columns : [  {
 				header : '키트 번호',
 				name : 'kit_no',
 				sortingType : 'asc',
@@ -422,17 +426,13 @@ input {
 				align: 'center',
 				width : '135',
 				filter : 'select'
-			},
-			
-			{
+			}, {
 				header : '분류',
 				name : 'kit_plant_class',
 				align: 'center',
 				width : '135',
 				filter : 'select'
-			}, 
-			
-			{
+			}, {
 				header:'조회수',
 				name : 'kit_hit',
 				align: 'right',
@@ -440,8 +440,7 @@ input {
 				sortingType : 'desc',
 				sortable : true
 				
-			},
-			{
+			}, {
 				header:'판매수',
 				name : 'kit_sale_count',
 				align: 'right',
@@ -449,8 +448,7 @@ input {
 				sortingType : 'desc',
 				sortable : true
 				
-			},
-			{
+			}, {
 				header : '관리',
 				name : 'kit_sale_whet',
 				width : '200',
@@ -458,9 +456,9 @@ input {
 				sortable : true
 
 			} ],
-			columnOptions : {
-				resizable : true
-			},
+			/* columnOptions : {
+				resizable : false
+			}, */
 			pageOptions: {
 		        useClient: true,
 		        perPage: 5
@@ -474,7 +472,7 @@ input {
 		//데이터 입력
 		grid.resetData(gridData);
 		grid.hideColumn('kit_no', 'kit_no');
-		
+		grid.setBodyHeight(53*5);//바디 크기 설정
 		
 		//표에 버튼 넣기
 		function changeValue() {
@@ -484,11 +482,11 @@ input {
 				console.log(grid.getValue(i, 'kit_sale_whet'));
 
 				if (grid.getValue(i, 'kit_sale_whet') == 'Y') {// 내리기
-					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px;  margin-left:23px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+i+' onclick="enroll(this)" class="read-post" style="padding:0 0px 12px 35px; width: 80px; height:30px; cursor:pointer; margin-left:23px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 
 				} else { //올리기
-					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; color: #f8f9fa; height:30px; padding:0 0px 12px 35px; margin-left:23px;">올리기</a></div>';
+					var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+i+' onclick="enroll(this)" class="read-post" style="width: 80px; color: #f8f9fa; height:30px;cursor:pointer; padding:0 0px 12px 35px; margin-left:23px; border: 1px solid #66bb6a;">올리기</a></div>';
 					grid.setValue(i, 'kit_sale_whet', input, true);
 				}
 
@@ -521,21 +519,50 @@ input {
 						
 						if(result == '1'){//성공했을 때 버튼 바꾸기 (올리기->내리기 | 내리기->올리기)
 							if (id == 'Y') {//내리기
-								var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+key+' onclick="enroll(this)" class="read-post" style="margin-left:23px; padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
+								var input = '<div class="container" style="text-aline:center;"> <a id="N" data-key='+key+' onclick="enroll(this)" class="read-post" style="cursor:pointer; margin-left:23px; padding:0 0px 12px 35px; width: 80px; height:30px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;">내리기</a></div>';
 								grid.setValue(key, 'kit_sale_whet', input, true);
-	
-							} else { //올리기
-								var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+key+' onclick="enroll(this)" class="read-post" style="margin-left:23px; color: #f8f9fa; width: 80px; height:30px; padding:0 0px 12px 35px;">올리기</a></div>';
-								grid.setValue(key, 'kit_sale_whet', input, true);
+						
 								
+							} else { //올리기
+								var input = '<div class="container" style="text-aline:center;"> <a id="Y" data-key='+key+' onclick="enroll(this)" class="read-post" style="cursor:pointer; margin-left:23px; color: #f8f9fa; width: 80px; height:30px; padding:0 0px 12px 35px; border: 1px solid #66bb6a;">올리기</a></div>';
+								grid.setValue(key, 'kit_sale_whet', input, true);
+														
 							}
+							grid.setBodyHeight(53 * 5); //바디 크기 설정
 							
-						} else {
+							/* document.getElementById('grid').style.height = '265px';
+					      
+
+					      grid = createGrid(53); */
+							
+						} else {         
 							toastr.error('오류가 발생했습니다. 다시 시도해주세요.');
 						}
 					})
 			 
 		}
+		
+		// row height 설정하기
+		function createGrid(height) {
+		      return new tui.Grid({
+		        el: document.getElementById('grid'),
+		        data: gridData,
+		        columns: createRowHeight(height)
+		      });
+		 }
+		
+		 function createRowHeight(height) {
+		      const option = { rowHeight: height };
+
+		      // If the height is less than 40, minRowHeight should be set.
+		      if (height < 53) {
+		        option.minRowHeight = 53;
+		      }
+
+		      console.log('rowHeight option', option);
+		      return option;
+		    }
+
 		
 		
 		//키트 검색
@@ -567,11 +594,11 @@ input {
 			var forC = document.getElementsByClassName('forC'); // 상업용 컬럼 가져오기
 			var cctv = document.getElementById('kit_cctv');
 			var kitPrpos = document.getElementById('kit_prpos');
+			var kitPes = document.getElementById('kit_pes');
+			
+			
 			if(id == 'business'){//상업용인 경우
-				//상업용 컬럼 보이게 하기
-				for(var i =0;i<forC.length;i++){
-					forC[i].style.display= '';
-				}
+				
 				// 상업용 취미용 버튼 css 수정하기
 				document.getElementById('business').style.backgroundColor = '#66bb6a';
 				document.getElementById('business').style.color = '#f8f9fa';
@@ -579,19 +606,29 @@ input {
 				document.getElementById('hobby').style.color =  '#666666';
 				cctv.value = "Y";
 				kitPrpos.value="상업용";
+				kitPes.value = '';
+				
+				//상업용 컬럼 보이게 하기
+				for(var i =0;i<forC.length;i++){
+					forC[i].style.display= '';
+				}
 				
 			} else {// 취미용인경우
-				//상업용 컬럼 안보이게 하기
-				for(var i =0;i<forC.length;i++){
-					forC[i].style.display= 'none';
-				}
+				
 				// 상업용 취미용 버튼 css 수정하기
 				document.getElementById('business').style.backgroundColor = '#f8f9fa';
 				document.getElementById('business').style.color =  '#666666';
 				document.getElementById('hobby').style.backgroundColor =  '#66bb6a';
 				document.getElementById('hobby').style.color = '#f8f9fa';
-				cctv.value = "";
-				kitPrpos.value="취미용";
+				cctv.value = "N";
+				kitPrpos.value = "취미용";
+				kitPes.value = 0;
+				
+				//상업용 컬럼 안보이게 하기
+				for(var i =0;i<forC.length;i++){
+					forC[i].style.display= 'none';
+				}
+				
 			}
 			
 		}

@@ -91,51 +91,10 @@ public class MemberController {
 		return aucnDao.bidHistoryList(memberVo.getMem_email());
 	}
 	
-	//출금버튼 누르면 솔리디티 출금 메소드 실행하고 입찰내역 삭제
+	//출금버튼 누르면 입찰내역 삭제
 	@RequestMapping("/withdraw.do")
 	@ResponseBody
 	public int withdraw(@RequestParam(value="bidHistoryNo") int bidHistoryNo) {
-		int aucnNo = aucnDao.bidHistoryAucnNo(bidHistoryNo);
-		
-		// 파라미터값 64byte로 변환 
-		String withdrawNo = Integer.toHexString(aucnNo);
-		
-		String zero = "";
-		
-		for (int i = 0; i < 64 - withdrawNo.length(); i++) {
-			zero = zero + "0";
-		}
-		String paramAucnNo = zero + withdrawNo;
-		System.out.println(paramAucnNo);
-		
-		JSONObject jsonInput = new JSONObject();
-		JSONArray data = new JSONArray();
-		
-		// 이 두친구도 고정값
-		jsonInput.put("jsonrpc", "2.0");
-		jsonInput.put("method", "eth_sendTransaction");
-		
-		JSONObject param = new JSONObject();
-		// from : 관리자 지갑주소 , to : smart contract Address
-		param.put("from", "0x8324b648E446a06e963604D35c6621df60835374");
-		param.put("to", "0xD951b9dd9f8a5acc061a781C5a0239d5747C771E");
-		// input 값 hash 변환 method+parameter(optional)
-		
-		//withdraw data ( 10번 경매 10 -> a (16진수) )
-		//param.put("data", "0x2e1a7d4d000000000000000000000000000000000000000000000000000000000000000a");
-		
-		String withdraw = "0x2e1a7d4d"; 
-		String withdrawData = withdraw+paramAucnNo;
-		param.put("data", withdrawData);
-		
-		data.put(param);
-		jsonInput.put("params", data);
-		//data.put("latest");
-		// id는 아무거나 넣으슈
-		jsonInput.put("id", 67);
-		System.out.println(jsonInput.toString());
-        EthResultVO result = aucnDa.callEthFunction(jsonInput.toString(), EthResultVO.class);
-        System.out.println(result);
 		
 		return aucnDao.bidHistoryDelete(bidHistoryNo);
 	}
@@ -377,7 +336,7 @@ public class MemberController {
 	public boolean sendEmail(MemberVO memberVo) {
 		String host = "smtp.gmail.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 SMTP 서버 정보를 설정한다. 
 		String user = "grsmartfarm@gmail.com"; // 이메일
-		String password = "smartfarm"; // 비밀번호 추후수정
+		String password = "smartfarm"; // 비밀번호 
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);

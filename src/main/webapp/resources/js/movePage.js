@@ -36,7 +36,7 @@ function movePage(url, realPath){
                 $("<h3>").append(
                    $("<a>").attr("href", realPath+"/plantShopList.do").text("작물 판매"),
                    $("<span>").text(" | "),   
-                   $("<a>").attr("href", realPath+"/kitShopList.do").text("키트 판매")
+                   $("<a>").attr("href", realPath+"/kitShopList.do?kitPrpos=&orderBy=name").text("키트 판매")
                    )
              )
           }
@@ -112,6 +112,9 @@ function movePage(url, realPath){
                         )
                   )
         }
+       
+		
+        
     }
    } 
     

@@ -52,7 +52,7 @@
 										입력해주세요</p></li>
 								<!-- 이름, 핸드폰 -->
 								<li class="half pr-15" style="margin-bottom:5px;"><span
-									style="margin: 10px 15px; color: #666666; font-size: large;">이름</span>
+									style="margin: 10px 15px; color: #666666; font-size: large;" >이름</span>
 								</li>
 								<li class="half pl-15" style="margin-bottom:5px;"><span
 									style="margin: 10px 15px; color: #666666; font-size: large;">핸드폰</span>
@@ -64,17 +64,30 @@
 
 								<!-- 핸드폰 번호 -->
 
-								<li class="half pl-15"><input type="text"
+								<li class="half pl-15">
+								
+								<!-- <input type="text"
 									class="form-control telCheck"
 									style="width: 117px; float: left; -webkit-appearance: none;"
-									id="mem_tel1" max="9999" name="mem_tel1" required> <span
+									id="mem_tel1" max="9999" name="mem_tel1" required maxlength="3">  -->
+									
+									
+									<select style="width: 117px; float: left;" class=" full form-control" id="mem_tel1" name="mem_tel1">
+	                       	   			<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="011">016</option>
+									</select>
+									
+									
+									
+									<span
 									style="float: left; margin: 15px;">&mdash;</span> <input
-									type="text" max="9999" class="form-control telCheck"
+									type="text" class="form-control telCheck"
 									style="width: 118px; float: left" id="mem_tel2" name="mem_tel2"
-									required><span style="float: left; margin: 15px;">&mdash;</span>
-									<input type="text" class="form-control" max="9999"
+									required maxlength="4"><span style="float: left; margin: 15px;" >&mdash;</span>
+									<input type="text" class="form-control" 
 									style="width: 118px; float: left" id="mem_tel3" name="mem_tel3"
-									required> <input type="hidden" class="telCheck"
+									required maxlength="4"> <input type="hidden" class="telCheck"
 									id="mem_tel" name="mem_tel"></li>
 
 								<!-- 주소 -->
@@ -228,7 +241,7 @@
 	 		}
 		});
 		
-		// // ===== 핸드폰 번호 자릿수 확인 =====
+		/* // // ===== 핸드폰 번호 자릿수 확인 =====
 		$('#mem_tel1').focusout(function () {
 			var memTel1 = document.getElementById('mem_tel1').value;
 			if( memTel1.length != 3 ){
@@ -255,7 +268,7 @@
 				return false;
 				
 			} 
-		})
+		}) */
 		
 		
 		
@@ -325,7 +338,7 @@
 	 		}
 	 		
 	 		var mem_tel = document.getElementById('mem_tel1').value +"-"+document.getElementById('mem_tel2').value 
-			+"-"+document.getElementById('mem_tel2').value ;
+			+"-"+document.getElementById('mem_tel3').value ;
 			document.getElementById('mem_tel').value = mem_tel;
 	 		
 	 		return true;

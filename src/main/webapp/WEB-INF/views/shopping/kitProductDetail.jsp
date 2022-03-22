@@ -9,6 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
+
 <style type="text/css">
 /* input number에서 화살표 없애기 Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
@@ -27,58 +32,60 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 				<div class="col-md-6">
 					<div class="section-title-2">
 						<h5>키트 판매</h5>
-						<h2>${kitSelectOne.kit_name }</h2>
-						<img alt="이미지 들어가야함" src="resources/images/aboutimg.jpg"
-							style="width: 300px">
+						<h2>(${kitSelectOne.kit_prpos })&nbsp;${kitSelectOne.kit_name }</h2>
+						<img style="width:550px; height:380px;"
+										src="resources/kit/${kitSelectOne.kit_main_img}" alt="">
 						<!-- 추후수정 -->
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-1"></div>
+				<div class="col-md-5" style="margin-top: 50px;">
 					<div class="contact-form mb60">
-						<ul class="cform">
+						<ul class="cform"  style="">
 							<li class="full">
-								<h3>${kitSelectOne.kit_name}</h3>
+								<h3>${kitSelectOne.kit_name }</h3>
 								<hr>
 							</li>
 							<li class="full">
-								<h5>수량</h5>
+								
+								<h5 style="margin-bottom: 10px;">수량</h5>
 								<div class="col-md-12">
 									<div class="col-md-2"
-										style="float: left; margin-right: 1px; margin-left: 0">
+										style="float: left; margin-right: 1px; ">
 										<a onclick="changeNum(this)" id="minus" class="view-more"
-											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px;">-</a>
+											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px; ">-</a>
 									</div>
 									<div class="col-md-2"
 										style="float: left; margin: 0; padding-left: 0px; padding-right: 0px;">
 										<input type="number" id="cartCount" min="1" value="1"
 											class="form-control" readonly>
 									</div>
-									<div class="col-md-2" style="float: left; margin-left: 0px;">
+									<div class="col-md-2" style="float: left; margin-left: 8px;">
 										<a onclick="changeNum(this)" id="plus" class="view-more"
 											style="color: white; cursor: pointer; margin-top: 0px; padding-top: 5px; padding-bottom: 5px;">+</a>
 									</div>
 								</div>
 							</li>
+							<li><h5>용도&nbsp;:&nbsp;${kitSelectOne.kit_prpos }</h5></li> 
 							<li class="full" id="price"></li>
 							<!-- 장바구니 넣기 -->
-							<sec:authorize access="permitAll">
-								<sec:authentication property="principal" var="member" />
-								<li class="full"><a onclick="purchase()" class="view-more"
-									style="color: white; cursor: pointer;">구매</a> <a
-									onclick="insertCart()" class="view-more"
-									style="color: white; cursor: pointer; margin-right: 5px">장바구니</a>
-								</li>
-							</sec:authorize>
+							<li class="full" style="text-align: center;"><a onclick="insertCart()" class="view-more" 
+								style="cursor: pointer; margin-top: 0px;width: 120px; float:left; margin-left: 100px; margin-right: 20px;color: #66bb6a; background-color: #fff; border: 1px solid #66bb6a;">장바구니</a> <a
+								onclick="purchase()" class="view-more"
+								style="color: white; cursor: pointer; margin-right: 5px; width: 120px; float:left; margin-top: 0px;">구매</a>
+							</li>
+								
+							
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-12">
-					<img alt="" src=" resources/kit/${kitSelectOne.kit_exp_img}">
-					<!-- 추후수정 -->
+					<img style="width:100%; border:2px solid black;"
+							src="resources/kit/${kitSelectOne.kit_exp_img}">
 				</div>
 
 				<!-- 리뷰 출력 -->
-				<div class="col-md-12" >
+				<div class="col-md-12" style="margin-top:80px">
 					
 					<div class="sidebar">
 						<!--이용후기-->
@@ -104,8 +111,20 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 				</div>
 			</div>
+			
+			<!--페이징처리 시작-->
+			<div class="row" style="display: flex; justify-content: center;">
+				<div id="pagination" style="margin: 0 auto;"></div>
+			</div>
+			<!--페이징처리 종료-->
+			
 		</div>
 	</section>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+	
 	<script type="text/javascript">
 
 	
@@ -125,7 +144,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success: function (res) {
 				console.log(res);
-				showRevw(res);
+				//showRevw(res);
+				paginationRevw(res);
 			}
 			
 		})
@@ -140,28 +160,59 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	function showRevw(list) {
 		console.log(list);
 		var kitRevw = $('#useRevw');
-		/* var hr = document.createElement('hr');
-		var br = document.createElement('br');
 		
-		kitRevw.append(hr, br); */
 		var tmp = "";
 		for(index in list){
 			tmp += `<li><img src="/resources/images/flp2.jpg" alt=""> 
 				<strong><a href="useRevwDetail.do?useRevwNo=\${list[index].use_revw_no}" style="font-size: large;">\${list[index].use_revw_title}</a>`;
 				
-				
-			/* if ('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' == `\${list[index].mem_email}` ) {
-				
-				tmp += `<a href="useRevwCommDelete.do?useRevwCommNo=\${list[index].use_revw_no}" style="float: right; color: #e11f3e">삭제</a>`;
-			} */
-			
 			var date = new Date(1 * `\${list[index].use_revw_write_day}`);
 			tmp += `</strong>  <p>\${list[index].use_revw_con}</p>
 				<spanclass="pdate"><i class="fas fa-calendar-alt"></i>`+date.toLocaleString()+`</span><hr></li>`;
 			
-			
 		}
+		
 		$('#useRevw').append(tmp);
+		
+	}
+	
+	
+	// ===== 페이징 처리하기 =====
+	function paginationRevw(list) {
+		console.log("================");
+		console.log(list);
+	
+		if (list.length > 0){ // 리스트가 있는 경우
+	    	
+	    	let container = $('#pagination');
+		        container.pagination({
+		            dataSource: list,
+		            callback: function (data, pagination) {
+		            	var revw ="";
+						var tmp = "";
+		            	
+		                $.each(data, function (index, item) {
+		                	
+		                	tmp += `<li><img src="/resources/images/flp2.jpg" alt=""> 
+		        				<strong><a href="useRevwDetail.do?useRevwNo=\${list[index].use_revw_no}" style="font-size: large;">\${list[index].use_revw_title}</a>`;
+		        				
+		        			var date = new Date(1 * `\${list[index].use_revw_write_day}`);
+		        			tmp += `</strong>  <p>\${list[index].use_revw_con}</p>
+		        				<spanclass="pdate"><i class="fas fa-calendar-alt"></i>`+date.toLocaleString()+`</span><hr></li>`;
+		        			revw += tmp;
+							
+		                });
+		                
+		                $('#useRevw').html(revw);
+		            },
+		            pageSize: 3
+		        });
+		        
+	    	} else {// 리스트가 없는 경우
+	    		var temp = `<div class="col-lg-12 col-sm-12" style="float:left;"> <h5> 아직 작성된 이용후기가 없습니다 </h5> </div>`
+	    		$("#useRevw").html(temp);
+	    	}
+	
 	}
 	
 	//======버튼 누르면 내역 바뀜======

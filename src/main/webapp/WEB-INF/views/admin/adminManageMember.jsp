@@ -198,17 +198,26 @@ input[type="checkbox"]:checked::before {
 
 		// GRID 에 데이터를 입력
 		var gridData = ${memberSelectList}
-
 		grid.resetData(gridData);
 
+		// 농부신청을 한 사람들만 마우스오버하면 커서 포인터로 바꾸기
+		grid.on('mouseover', (ev) => {
+			
+			 if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "Reject") && !(grid.getValue(ev.rowKey, "mem_fm_req") === ' ') && !(grid.getValue(ev.rowKey, "mem_athr") == "농부")){
+				
+				var toast = grid.getElement(ev.rowKey, "mem_fm_req");
+				$(toast).closest("tr").css({"cursor": "pointer"});
+				
+			} 
+			
+		});
+		
+		
 		//클릭하면 팝업창 띄우기
 		grid.on('dblclick', (ev) => {
-			//console.log(grid.getValue(ev.rowKey, "mem_fm_req"));
-			 //console.log(!(grid.getValue(ev.rowKey, "mem_fm_req") == "거절됨") && !(grid.getValue(ev.rowKey, "mem_fm_req") === null))
 			
 			if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "Reject") && !(grid.getValue(ev.rowKey, "mem_fm_req") === ' ') && !(grid.getValue(ev.rowKey, "mem_athr") == "농부")){
 			  
-				//console.log(ev);
 				document.getElementById('lightInstP').style.display = 'block';
 				document.getElementById('fadeInstP').style.display = 'block';
 				document.getElementById('inner').remove();
@@ -293,7 +302,7 @@ input[type="checkbox"]:checked::before {
 				.then(function (result) {
 					//console.log(result);
 					grid.resetData(result);
-				})
+				});
 			
 		}
 		

@@ -78,7 +78,7 @@
 	                	temp = `<div class="col-lg-3 col-sm-6">
 							<div class="product-box">
 							 <a href="javascript:void(0)" onclick="useRevwHit('\${item.use_revw_no }')">
-								 <img src="resources/images/shop/pro1.jpg" alt="">
+								 <img src="upload/${item.use_revw_ori_rou}" alt="">
 							 </a>
 						<div class="pro-txt">
 							<h6>

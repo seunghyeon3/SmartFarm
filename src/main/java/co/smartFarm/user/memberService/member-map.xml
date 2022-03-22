@@ -39,6 +39,7 @@
 		    END MEM_FM_RESULT
 		FROM MEMBER
 		WHERE MEM_EMAIL NOT LIKE 'admin%'
+		ORDER BY 1 ASC
 	</select>
 
 	<!-- 회원가입 -->

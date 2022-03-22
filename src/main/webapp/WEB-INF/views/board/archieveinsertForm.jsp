@@ -51,20 +51,21 @@
                         <form action="archieveinsert.do" method="post" enctype="multipart/form-data">
                         <ul class="cform">
                            <li class="full">
-                              <input type="text" class="form-control" placeholder="제목" name="archieve_title" required value=${archieve.archieve_title}>
+                              <input type="text" class="form-control" placeholder="제목" name="archieve_title" required >
                            </li>
                            <div class="filebox" style="float: right">
-  								<input class="upload-name" value="파일선택" disabled="disabled">
-										<label for="ex_filename">업로드</label> <input type="file"
-											id="ex_filename" class="upload-hidden" name="archievefile">
+  								<!-- <input class="upload-name" value="파일선택" disabled="disabled"> -->
+										<label for="ex_filename">업로드</label> 
+										<input type="file" id="ex_filename" class="upload-hidden" name="archievefile">
 						   </div>
                             <li class="full">
-                              <textarea class="textarea-control" placeholder="내용" name="archieve_con" required>${archieve.archieve_con}</textarea>
+                              <textarea cols="50" rows="8"class="textarea-control" placeholder="내용" name="archieve_con" required></textarea>
                            </li>
                            <li class="full">
                               <input type="submit" value="등록"  class="fsubmit">
                            </li>
                         </ul>
+                         <input type="hidden" name="mem_name" value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name} ">
                         </form>
                      </div>
                   </div>

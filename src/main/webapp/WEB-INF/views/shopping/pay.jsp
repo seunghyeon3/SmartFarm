@@ -139,10 +139,10 @@ input {
 					<div class="col-md-8 col-sm-3" id="showSum"></div>
 					<div class="col-md-4 col-sm-3">
 
-						<input type="button" id="select" onclick="requestPay()" value="결제"
+						<input type="button" id="select" onclick="cancel()" value="취소"
 							name="Add to Cart"
 							style="padding: 10px 30px; margin-right: 25px; margin-left: 50px; background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a; border-radius: 5px; cursor: pointer">
-						<input type="button" id="all" onclick="history.back()" value="취소"
+						<input type="button" id="all" onclick="requestPay()" value="결제"
 							name="Add to Cart"
 							style="padding: 10px 30px; background-color: #66bb6a; color: #f8f9fa; border: 1px solid #66bb6a; border-radius: 5px; cursor: pointer">
 
@@ -234,6 +234,11 @@ input {
 
 		}
 		setMoney();
+		
+		// ===== 취소버튼을 누르면 cart로 이동하기
+		function cancel() {
+			location.href = "cartDetail.do";
+		}
 
 		// ===== 총액 구하기 =====
 		function getSum() {
@@ -278,7 +283,7 @@ input {
 				pay_method : "card",
 				merchant_uid : uid, // uid
 				name : pur_name, //구매품목
-				amount : 1000, //총액  추후수정 pur_his_price
+				amount : pur_his_price, //총액  추후수정 
 				buyer_email : mem_email, // 구매자 이메일
 				buyer_name : pur_his_recv, // 구매자 이름
 				buyer_tel : pur_his_tel, // 구매자 전화번호
@@ -298,7 +303,7 @@ input {
 				} else { // 결제 실패 시 로직
 
 					console.log(rsp);
-					toastr.error('결제에 실패했습니다. 다시 시도해주세요');
+					toastr.error('결제에 실패했습니다.\n다시 시도해주세요');
 
 				}
 			});

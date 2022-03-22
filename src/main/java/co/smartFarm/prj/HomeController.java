@@ -1,5 +1,7 @@
 package co.smartFarm.prj;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import co.smartFarm.auction.aucnService.AucnService;
 import co.smartFarm.board.free.freeService.FreeService;
 import co.smartFarm.board.notice.noticeService.NoticeService;
+import co.smartFarm.board.notice.noticeService.NoticeVO;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwService;
 import co.smartFarm.kit.kitService.KitService;
 import co.smartFarm.plant.plantSaleService.PlantSaleService;
@@ -47,7 +50,12 @@ public class HomeController {
 		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 		model.addAttribute("priceRank", purHisDao.purHisPriceSelect());
 		model.addAttribute("kitRecommand", kitDao.kitRecommand());
-		model.addAttribute("recentlyNotice", noticeDao.recentlyNotice());
+		List<NoticeVO> list = noticeDao.recentlyNotice();
+		list.get(0).setNotice_con(list.get(0).getNotice_con().replace("<br>", " "));
+		list.get(1).setNotice_con(list.get(1).getNotice_con().replace("<br>", " "));
+		System.out.println(list.toString());
+		model.addAttribute("recentlyNotice", list);
+		
 		model.addAttribute("recentlyFree", freeDao.recentlyFree());
 		model.addAttribute("recentlyUseRevw", useRevwDao.recentlyUseRevw());
 		model.addAttribute("recentlyPlantSale" , plantSaleDao.plantSaleSelectListOrderNo());

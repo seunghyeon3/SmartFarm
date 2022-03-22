@@ -101,13 +101,13 @@
 	                       	   		<select style="margin-top:10px;" class=" full form-control" id="plant_no" name="plant_no" onchange="selectFnc(this)">
 	                       	   			<option value="-1">작물목록</option>
 		                       	   		<c:forEach var="list" items="${selectMemList}">
-											<option value="${list.plant_no }"> 작물 종류 : ${list.plant_name } | 등급 : ${list.plant_grd } | 재고 : ${list.plant_ivy } | 총 재배량 : ${list.plant_tot_grow_amnt }</option>
+											<option value="${list.plant_no }"> 작물 종류 : ${list.plant_name } | 등급 : ${list.plant_grd } | 재배일 : ${list.plant_proc_day.substring(0,10)} | 재고 : ${list.plant_ivy } | 총 재배량 : ${list.plant_tot_grow_amnt }</option>
 										</c:forEach>
 									</select>
 	                       	   </li>
 	                           <li class="full">
 	                           		<span style="margin:10px 15px;color:#666666;font-size:large;">제목</span>
-	                              <input type="text" style="margin-top:10px;" id="plant_sale_title" name="plant_sale_title" class="form-control"  oninvalid="toastr.error('제목을 입력해주세요')" required>
+	                              <input type="text" style="margin-top:10px;" id="plant_sale_title" maxlength="10" name="plant_sale_title" class="form-control"  oninvalid="toastr.error('제목을 입력해주세요')" required>
 	                           </li>
 	                           <li class="half pr-15">
 	                           		<span style="margin:10px 15px;color:#666666;font-size:large;">가격</span>
@@ -130,7 +130,7 @@
 									</div>
 								</li>
 
-							   <!-- hidden 목록 추후수정 -->
+							   <!-- hidden 목록 -->
 		                       <sec:authorize access="isAuthenticated()">
 									<sec:authentication property="principal" var="member"/>
 									<input type="hidden" id="mem_email" name="mem_email"

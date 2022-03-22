@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.smartFarm.board.Archieve.archieveService.ArchieveService;
 import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 import co.smartFarm.board.qna.qnaService.QnaVO;
+import co.smartFarm.user.memberService.MemberService;
 
 
 
@@ -97,11 +98,14 @@ public class ArchieveController {
    }
 
    // 자료실 글쓰기
+   @Autowired
+	 private MemberService memberDao;
    @RequestMapping(value = "/archieveinsert.do")
    public String archieveInsert(ArchieveVO archieve, Model model,  MultipartFile archievefile)
          throws IllegalStateException, IOException {
       // file 업로드
       String uploadDir = "c:/Temp/";
+      archieve.setArchieve_con(archieve.getArchieve_con().replace("\r\n","<br>"));
       // 경로 생
       if (!archievefile.isEmpty()) {
          String filename = archievefile.getOriginalFilename();
@@ -110,8 +114,8 @@ public class ArchieveController {
          archievefile.transferTo(new File(fullPath));
          archieve.setArchieve_img(filename);
       }
-      System.out.println(archieve.toString());
       archieveDao.archieveInsert(archieve);
+      System.out.println(archieve.toString());
       model.addAttribute("archieve", archieveDao.archieveSelectList());
       return "redirect:/archieve.do?archieve_img";
    }
@@ -129,8 +133,10 @@ public class ArchieveController {
    public String archieveupdate(ArchieveVO archieve, Model model, MultipartFile archievefile,HttpServletRequest request) 
 		   throws IllegalStateException, IOException {
 	   // file 업로드
-	   String uploadDir = request.getServletContext().getRealPath("/resources/images/");
+	   String uploadDir = "c:/Temp/";
+//	   String uploadDir = request.getServletContext().getRealPath("/resources/images/");
 	   System.out.println(uploadDir);
+	   archieve.setArchieve_con(archieve.getArchieve_con().replace("\r\n","<br>"));
 	      // 경로 
 	      if (!archievefile.isEmpty()) {
 	         String filename = archievefile.getOriginalFilename();

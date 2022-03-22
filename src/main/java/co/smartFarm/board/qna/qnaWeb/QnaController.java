@@ -107,7 +107,10 @@ public class QnaController {
 	public String qnaInsert(QnaVO qna, Model model, MultipartFile qnafile,HttpServletRequest request)
 			throws IllegalStateException, IOException {
 		// file 업로드
-		String uploadDir = "c:/Temp/";
+		/* String uploadDir = "c:/Temp/"; */
+		String uploadDir =
+			 	request.getServletContext().getRealPath("/resources/images/");
+		qna.setQna_con(qna.getQna_con().replace("\r\n","<br>"));
 		// 경로
 		if (!qnafile.isEmpty()) {
 			String filename = qnafile.getOriginalFilename();
@@ -116,7 +119,6 @@ public class QnaController {
 			qnafile.transferTo(new File(fullPath));
 			qna.setQna_phy_rou(filename);
 		}
-		System.out.println(qna.toString());
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMem_email(userDetails.getUsername());
@@ -148,8 +150,12 @@ public class QnaController {
 	@RequestMapping(value = "/qnaupdate.do")
 	public String qnaupdate(QnaVO qna, Model model, MultipartFile qnafile, HttpServletRequest request) throws IllegalStateException, IOException {
 		// file 업로드
-		   String uploadDir = request.getServletContext().getRealPath("/resources/images/");
+		/* String uploadDir = "c:/Temp/"; */
+		
+		 	String uploadDir =
+		 	request.getServletContext().getRealPath("/resources/images/");
 		   System.out.println(uploadDir);
+		   qna.setQna_con(qna.getQna_con().replace("\r\n","<br>"));
 		// 경로
 		if (!qnafile.isEmpty()) {
 			String filename = qnafile.getOriginalFilename();

@@ -196,6 +196,7 @@ border-radius: 15px;
 						</div>
 						<div class="col-md-12" style="margin-top:50px;">
 							※ 입찰버튼을 누르고 wei를 입력 후 입찰버튼을 누르면 입찰이 완료됩니다. ※<br>
+							※ 혹여나 현재 최고 금액이 보이지 않을 경우 새로고침을 해주세요. ※<br>
 							<span style="color:#e11f3e">※ 경매에 참여하였지만 낙찰 받지 못한 경우 마이페이지에서 입찰현황을 확인하여 출금해주세요!! ※</span>
 						</div>
 					<div id="light" class="col-md-12 white_content">
@@ -275,6 +276,7 @@ border-radius: 15px;
 			popupBidWindow.setAttribute('data-bid', aucnEventData.bid);
 			}
 			console.log(aucnEventData.bid);
+			
 		}
 		
 		function onOpen(event) {
@@ -321,14 +323,16 @@ border-radius: 15px;
 	
 	/* ----------팝업 로딩생성---------- */
 	function createLoading(){
-		document.getElementById('fade').style.display = 'block';
+		<!-- 220308 PSH loading page 수정 -->
+		/* document.getElementById('fade').style.display = 'block'; */
 		document.getElementById('fade').innerHTML = "";
-		document.getElementById('fade').classList.add("loading");
+		document.getElementById('fade').style.display="flex";
 		var img = document.createElement("img");
 		img.setAttribute("src","resources/images/loadingicon.gif");
 		img.setAttribute("alt","로딩중입니다");
 		img.setAttribute("class","mx-auto d-block");
 		document.getElementById('fade').appendChild(img);
+		document.getElementById('fade').style.zIndex= 1005;
 	}
 
 	/* ----------팝업 생성---------- */
@@ -342,6 +346,12 @@ border-radius: 15px;
 	function exitPopup(){
 		document.getElementById('light').style.display='none';
 		document.getElementById('fade').style.display='none';
+	}
+	
+	/* ----------팝업 로딩종료---------- */
+	function exitLoading(){
+		document.getElementById('fade').innerHTML = "";
+		document.getElementById('fade').style.zIndex= 0;
 	}
 	
 		// 경매 남은 시간 카운트다운
@@ -373,10 +383,26 @@ border-radius: 15px;
 	    		  location.href="aucnMain.do";
 	    	  }
 	    	  else {
-	    		  aucnBid()
+	    		  metaMaskCheck();
 	    	  } 
 	      }
-			
+		
+		/* ---------- 메타마스크 로그인 체크 --------- */
+		function metaMaskCheck(){
+			//메타마스크 로그인체크
+			web3.eth.getAccounts(function(err,accs){
+	             if(err != null){
+	                 alert('There was an error fetching your accounts.')
+	             }else if(accs.length ===0){
+	                 alert("재배내역 서비스를 이용하기 위해선 메타마스크 연결이 필요합니다.")
+	             }else{
+	             account = accs[0];
+	             aucnBid();
+	             }
+	         }) 
+		}
+		
+		/* ---------- 입찰 팝업 --------- */
 		 function aucnBid() {
 				//클릭시 페이지 최상단으로 이동.
 				window.scrollTo(0,0);
@@ -388,7 +414,7 @@ border-radius: 15px;
 				createPopup();
 				
 				//로딩끄기
-				document.getElementById('fade').style.display = 'none';
+				exitLoading();
 				
 				//메타마스크 로그인체크
 				web3.eth.getAccounts(function(err,accs){
@@ -433,14 +459,27 @@ border-radius: 15px;
 					alert("금액을 입력하세요.");
 					toastr.error("금액을 입력하세요.");
 				}else{
-					alert('입찰에 성공하였습니다.');
-					//nft 경매 솔리디티 함수 실행
-					var inputBid ={
-						 bid: document.getElementById("inputMessage").value,
-						 id: '${member.mem_email}',
-						 aucn: '${aucnSelect.aucn_no }'
-					};
-					webSocketSendChat(inputBid);
+					createLoading();
+					
+					NFTAuction.methods.bid(${aucnSelect.aucn_no })
+					.send({from: account, value: inputAucnBid})
+					.then(async function(result){
+						
+						console.log(result);
+						//nft 입찰 웹소켓 전송
+						var inputBid ={
+							 bid: document.getElementById("inputMessage").value,
+							 id: '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}',
+							 aucn: '${aucnSelect.aucn_no }'
+						};
+						await webSocketSendChat(inputBid);
+						await exitLoading(); 
+						alert('입찰에 성공하였습니다.');
+					});
+					
+					
+					
+
 				}
 			}
 	</script>

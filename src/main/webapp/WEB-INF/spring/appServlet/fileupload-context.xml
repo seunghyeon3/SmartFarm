@@ -9,8 +9,12 @@
 	</bean>
 	
 	 <!-- 나중에 배포할때 빼야되는 부분 -->
-	<bean class="java.lang.String" id="saveDir">
+	<!-- <bean class="java.lang.String" id="saveDir">
 		<constructor-arg value="c:/Temp/"/>
+	</bean> -->
+	
+		<bean class="java.lang.String" id="saveDir">
+		<constructor-arg value="/home/ubuntu/apache-tomcat-9.0.59/webapps/upload/"/>
 	</bean>
 
 </beans>

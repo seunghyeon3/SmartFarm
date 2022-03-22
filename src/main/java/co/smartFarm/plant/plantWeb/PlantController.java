@@ -48,7 +48,7 @@ public class PlantController {
 	// 작물 상세창
 	// 220302 PSH shoppingController -> plantController 구분 작업
 	/*
-	 * @RequestMapping("/plantProductDetail.do") public String plantProductDetail()
+	 * @RequestMapping("/plantShopDetail.do") public String plantProductDetail()
 	 * {
 	 * 
 	 * return "shopping/plantProductDetail"; }
