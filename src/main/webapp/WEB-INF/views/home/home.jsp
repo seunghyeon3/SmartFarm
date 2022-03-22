@@ -314,7 +314,7 @@ display: none;
 							</div>
 							<div class="pro-txt">
 								<h6>
-									<a href="plantProductDetail.do?plant_sale_no=${plant.plant_sale_no }">${plant.plant_sale_title}</a>
+									<a href="plantShopDetail.do?plant_sale_no=${plant.plant_sale_no }">${plant.plant_sale_title}</a>
 								</h6>
 								<p class="pro-price" id="mainPlantPrice">							
 								${plant.plant_sale_price}

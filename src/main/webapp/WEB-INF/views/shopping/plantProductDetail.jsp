@@ -24,13 +24,16 @@
 						<h2>${plantSaleDet.plant_sale_title }</h2>
 						
 						<img style="width:550px; height:380px;"
-							src="resources/kit/${plantSaleDet.plant_sale_ori_rou}" alt="">
+							src="resources/plant/${plantSaleDet.plant_sale_ori_rou}" alt="">
 					</div>
 				</div>
 				<div class="col-md-1"></div>
 				
-				<div class="col-md-5" style="margin-top: 0;">
-					<div class="col-md-12" id="update" style="height: 90px; margin-bottom: 30px;">
+				<div class="col-md-5" style="margin-top: 0; margin-bottom: 30px;">
+					
+					<div class="col-md-12" id="forPadding" style="height: 90px; margin-bottom: 30px; display:block;"></div>
+					
+					<div class="col-md-12" id="update" style="height: 90px; margin-bottom: 30px; display:none;">
 						<a onclick="deletePlant(${plantSaleDet.plant_sale_no })" class="view-more"
 							style="color: white; cursor: pointer;background-color:#e11f3e;color:#ffffff;  width:100px; text-align:center;">삭제</a> <a
 							href="plantProductUpdate.do?plant_sale_no=${plantSaleDet.plant_sale_no }" class="view-more"
@@ -83,8 +86,10 @@
 					$("<br>"), $("<hr>") );
 			
 			//세션과 작물을 판매하는 아이디가 같은 경우 수정,삭제 버튼을 보여줌
-			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' == '${plantSaleDet.mem_email}'){
-				document.getElementById('update').style.display="block";
+			if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' === '${plantSaleDet.mem_email}'){
+			
+				document.getElementById('update').style.display = "block";
+				document.getElementById('forPadding').style.display = "none";
 			}
 		});
  		

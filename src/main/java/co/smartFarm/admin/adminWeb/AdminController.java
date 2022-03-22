@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.aspectj.internal.lang.annotation.ajcDeclareParents;
@@ -68,6 +69,9 @@ public class AdminController {
 
 	@Autowired
 	ExcelService excelDao;
+	
+	@Autowired
+	private String saveDir;
 
 	// ===== 매출 페이지 이동 =====
 	@RequestMapping("/admin/adminHome.do")
@@ -306,8 +310,6 @@ public class AdminController {
 
 		// 파일 처리하기
 		// 저장장소
-		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/kit"); // 추후수정
-
 		MultipartFile mainFile = list.get(0);
 		MultipartFile expFile = list.get(1); 
 
@@ -322,11 +324,11 @@ public class AdminController {
 			String saveFileExp = uuidExpImg + kitExpImg.substring(kitExpImg.lastIndexOf("."));
 
 			try { // 메인 이미지
-				mainFile.transferTo(new File(saveDirectory, saveFileMain));
+				mainFile.transferTo(new File(saveDir, saveFileMain));
 				kitVo.setKit_main_img(saveFileMain);
 
 				// 설명 이미지
-				expFile.transferTo(new File(saveDirectory, saveFileExp));
+				expFile.transferTo(new File(saveDir, saveFileExp));
 				kitVo.setKit_exp_img(saveFileExp);
 				
 				// kit에 insert 하기
@@ -342,7 +344,7 @@ public class AdminController {
 
 		}
 
-		return "redirect:/admin/adminManageKit.do";
+		return "redirect:/admin/adminManageKit.do?error=1";
 	}
 
 }

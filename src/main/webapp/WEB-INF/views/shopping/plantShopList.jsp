@@ -56,7 +56,7 @@
 							<div class="pro-txt">
 								<h6>
 									<a
-										href="plantProductDetail.do?plant_sale_no=${list.plant_sale_no }">${list.plant_sale_title}</a>
+										href="plantShopDetail.do?plant_sale_no=${list.plant_sale_no }">${list.plant_sale_title}</a>
 								</h6>
 								<p class="pro-price" id="plantSalePrice">${list.plant_sale_price }</p>
 							</div>
@@ -106,8 +106,9 @@
       //로딩될 때 실행되는 함수
       $(function () {
     	  //페이징
-    	var kitSelectListP = ${plantSaleListP};
-    	if (kitSelectListP.length > 0){ // 리스트가 있는 경우
+    	  console.log(${plantSaleListP});
+    	var plantSelectListP = ${plantSaleListP};
+    	if (plantSelectListP.length > 0){ // 리스트가 있는 경우
     	  let container = $('#pagination');
 	        container.pagination({
 	            dataSource: ${plantSaleListP},
@@ -115,18 +116,23 @@
 				var psList ="";
 				var temp = "";
 	                $.each(data, function (index, list) {
+	                	var tmp = `\${list.plant_sale_ori_rou}`;
+	                	
+	                	if(imgRou == ''){
+	                		tmp = 'nullImg.jpg';
+	                	}
+	                	var imgRou = "resources/plant/" + tmp;
+	                	
 	                	temp = `<div class="col-lg-3 col-sm-6" style="float:left;">
 						<div class="product-box">
 							<div class="pro-thumb">
-								<a
-									onclick="insertCart('cartInsert.do?cart_plant_no=\${list.plant_sale_no }&cart_price=\${list.plant_sale_price}&cart_sale_count=1')"
-									href="javascript:void(0);">장바구니 추가</a> <img
-									src="resources/images/shop/pro1.jpg" alt="">
+								<a onclick="insertCart('cartInsert.do?cart_plant_no=\${list.plant_sale_no }&cart_price=\${list.plant_sale_price}&cart_sale_count=1')"
+									href="javascript:void(0);">장바구니 추가</a> <img style="width:300px; height:180px;" src=`+imgRou+` alt="">
 							</div>
 							<div class="pro-txt">
 								<h6>
 									<a
-										href="plantProductDetail.do?plant_sale_no=\${list.plant_sale_no }">\${list.plant_sale_title}</a>
+										href="plantShopDetail.do?plant_sale_no=\${list.plant_sale_no }">\${list.plant_sale_title}</a>
 								</h6>
 								<p class="pro-price" id="plantSalePrice">\${list.plant_sale_price }</p>
 							</div>
@@ -240,7 +246,7 @@
             )
             fourDiv.append(
                $('<h6>').append(
-                  $('<a>').attr('href', 'plantProductDetail.do?id=' + $ {
+                  $('<a>').attr('href', 'plantDetail.do?id=' + $ {
                      데이터
                   }),
                   $('<p>').addClass('pro-price').html($ {

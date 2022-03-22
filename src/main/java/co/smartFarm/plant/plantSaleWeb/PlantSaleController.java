@@ -51,6 +51,9 @@ public class PlantSaleController {
 
 	@Autowired
 	private PlantService plantDao;
+	
+	@Autowired
+	private String saveDir;
 
 	// 작물 전체 리스트
 	@RequestMapping("/plantShopList.do")
@@ -73,7 +76,8 @@ public class PlantSaleController {
 			throws IllegalStateException, IOException {
 
 		// 사진 저장하기
-		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/plant"); // 추후수정
+		
+		
 		System.out.println(oriFile.toString());
 		if (!oriFile.isEmpty()) {
 
@@ -81,9 +85,9 @@ public class PlantSaleController {
 			String uuid = UUID.randomUUID().toString();
 			String plantSaleOriRou = uuid + originRou.substring(originRou.lastIndexOf("."));
 
-			oriFile.transferTo(new File(saveDirectory, plantSaleOriRou));
+			oriFile.transferTo(new File(saveDir, plantSaleOriRou));
 
-			plantSaleVo.setPlant_sale_ori_rou(plantSaleOriRou);
+			plantSaleVo.setPlant_sale_ori_rou(originRou);
 			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);
 			System.out.println(oriFile);
 		}
@@ -98,8 +102,8 @@ public class PlantSaleController {
 	}
 
 	// ===== 작물 상세조회 창으로 넘어가기=====
-	@RequestMapping("/plantProductDetail.do")
-	public String plantProductDetail(@Param("plant_sale_no") String plant_sale_no, Model model) {
+	@RequestMapping("/plantShopDetail.do")
+	public String plantShopDetail(@Param("plant_sale_no") String plant_sale_no, Model model) {
 		// 내용 조회하기
 		System.out.println("확인하기 === " + plant_sale_no);
 		PlantSaleVO plantSaleVo = plantSaleDao.plantSaleSelectOneByNo(Integer.parseInt(plant_sale_no));
@@ -156,14 +160,14 @@ public class PlantSaleController {
 			throws IllegalStateException, IOException {
 
 		// 사진 저장
-		String saveDirectory = req.getSession().getServletContext().getRealPath("/resources/plant"); // 경로 추후수정
-
+		
+		
 		if (!oriFile.isEmpty()) {
 			String originRou = oriFile.getOriginalFilename();
 			String uuid = UUID.randomUUID().toString();
 			String plantSaleOriRou = uuid + originRou.substring(originRou.lastIndexOf("."));
 
-			oriFile.transferTo(new File(saveDirectory, plantSaleOriRou));
+			oriFile.transferTo(new File(saveDir, plantSaleOriRou));
 
 			plantSaleVo.setPlant_sale_ori_rou(plantSaleOriRou);
 			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);

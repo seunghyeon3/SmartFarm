@@ -68,6 +68,7 @@
 				toastr.error('유효한 이메일 형식을 입력하세요');
 				
 			}else{
+				toastr.success('이메일 발송중입니다. 잠시만 기다려주세요');
 				fetch("findMemberPw.do",
 					{
 					method:'post',
@@ -84,7 +85,8 @@
 						toastr.error('유효하지 않은 이메일입니다');
 						
 					} else if(result == '1') {
-						toastr.success('임시비밀번호가 메일로 발송되었습니다');
+						alert('임시비밀번호가 메일로 발송되었습니다.');
+						location.href="login.do";
 					} else if(result == '2'){
 						toastr.error('임시비밀번호 발송에 실패했습니다.\n다시 시도해주세요')
 					}
