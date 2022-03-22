@@ -126,25 +126,25 @@ display: none;
 					<div class="row">
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">${mainCount.member }</p>
+								<p class="counter-count">254897</p>
 								<p class="ctxt">이용 회원</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">${mainCount.aucn }</p>
+								<p class="counter-count">984</p>
 								<p class="ctxt">완료된 경매</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">${mainCount.plant }</p>
+								<p class="counter-count">20</p>
 								<p class="ctxt">작물 종류</p>
 							</div>
 						</div>
 						<div class="col-lg-3 col-sm-6 col-md-3">
 							<div class="counter-box">
-								<p class="counter-count">${mainCount.plant_sale }</p>
+								<p class="counter-count">9822</p>
 								<p class="ctxt">거래 된 작물</p>
 							</div>
 						</div>
@@ -314,7 +314,7 @@ display: none;
 							</div>
 							<div class="pro-txt">
 								<h6>
-									<a href="plantProductDetail.do?plant_sale_no=${plant.plant_sale_no }">${plant.plant_sale_title}</a>
+									<a href="plantShopDetail.do?plant_sale_no=${plant.plant_sale_no }">${plant.plant_sale_title}</a>
 								</h6>
 								<p class="pro-price" id="mainPlantPrice">							
 								${plant.plant_sale_price}

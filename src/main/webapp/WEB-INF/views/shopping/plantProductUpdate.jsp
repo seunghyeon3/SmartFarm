@@ -99,7 +99,7 @@
 								<li class="full">
 								   	   <span style="margin:10px 15px;color:#666666;font-size:large;">제목</span>
 	               
-								<input type="text" style="margin-top:10px;" id="plant_sale_title"
+								<input type="text" style="margin-top:10px;" id="plant_sale_title" maxlength="10"
 									name="plant_sale_title" class="form-control" placeholder="제목"
 									value="${plantSale.plant_sale_title}"
 									oninvalid="toastr.error('제목을 입력해주세요')" required></li>
@@ -139,16 +139,13 @@
 								<!-- hidden 목록 추후수정 -->
 								<input type="hidden" id="plant_sale_plant_class"
 									name="plant_sale_no" value="${plantSale.plant_sale_no }">
-								<sec:authorize>
-									<sec:authentication property="principal.username" var="mem_email" />
-									<input type="text" id="mem_email" name="mem_email"
-										value='${mem_email}'>
-									<input type="text" id="mem_name" name="mem_name"
-										value="${mem_email}">
-									<input type="text" id="plant_sale_plant_class"
-										name="plant_sale_plant_class">
+								<input type="hidden" id="mem_email" name="mem_email"
+									value='${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}'>
+								<input type="hidden" id="mem_name" name="mem_name"
+									value="${SPRING_SECURITY_CONTEXT.authentication.principal.mem_name}">
+									
 
-								</sec:authorize>
+								
 								<li class="half pr-15">
 	                              <input type="submit" onclick="back()" value="취소" style="background-color: #f8f9fa; color: #66bb6a; border: 1px solid #66bb6a;" class="fsubmit">
 	                           </li>

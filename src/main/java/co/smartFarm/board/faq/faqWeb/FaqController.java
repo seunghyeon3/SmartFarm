@@ -48,6 +48,7 @@ public class FaqController {
 	// FAQ 글쓰기 업데이트
 	 @RequestMapping("/faqupdate.do")
 	   public String faqUpdate(FaqVO faq) {
+		 faq.setFaq_con(faq.getFaq_con().replace("\r\n","<br>"));
 		 System.out.println(faq.toString());
 		 faqDao.faqUpdate(faq);
 	      return "redirect:/faq.do";
@@ -55,6 +56,7 @@ public class FaqController {
 	// FAQ 글쓰기
 	 @RequestMapping(value = "/faqinsert.do")
 	 public String faqInsert(FaqVO faq, Model model) {
+		  faq.setFaq_con(faq.getFaq_con().replace("\r\n","<br>"));
 		  System.out.println(faq.getFaq_title());
 		  faqDao.faqInsert(faq);
 	      model.addAttribute("faq", faqDao.faqSelectList());

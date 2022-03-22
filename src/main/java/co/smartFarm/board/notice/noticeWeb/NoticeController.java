@@ -8,11 +8,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 //3
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import co.smartFarm.board.Archieve.archieveService.ArchieveVO;
 import co.smartFarm.board.notice.noticeService.NoticeService;
 import co.smartFarm.board.notice.noticeService.NoticeVO;
+import co.smartFarm.user.memberService.MemberService;
 import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
@@ -60,16 +61,18 @@ public class NoticeController {
 
 	// 공지사항 다운로드 파일 
 	@GetMapping("/download.do")
-	public void download(HttpServletResponse response, @RequestParam String img) throws Exception {
+	public void download(HttpServletResponse response, @RequestParam String img) {
         try {
         	// 경로에 접근할 때 역슬래시('\') 사용
         	String path = "c:\\Temp\\"+img; 
         	// 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
         	File file = new File(path);
+        	System.out.println(file.getName());
         	response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); 
         	// 파일 읽어오기
         	FileInputStream fileInputStream = new FileInputStream(path);  
         	OutputStream out = response.getOutputStream();
+        	System.out.println("11111"+fileInputStream);
         	// 1024바이트씩 계속 읽으면서 outputStream에 저장, -1이 나오면 더이상 읽을 파일이 없음
         	int read = 0;
                 byte[] buffer = new byte[1024];
@@ -78,7 +81,7 @@ public class NoticeController {
                 }
                 
         } catch (Exception e) {
-            throw new Exception("download error");
+           System.out.println(e);
         }
 	}
 	
@@ -88,25 +91,31 @@ public class NoticeController {
 			return "board/noticeinsertForm";
 		}
 	// 공지사항 글쓰기
-	 @RequestMapping(value = "/noticeinsert.do")
-	   public String archieveInsert(NoticeVO notice, Model model,  MultipartFile noticefile, HttpServletRequest request)
-	         throws IllegalStateException, IOException {
-	      // file 업로드
-	      String uploadDir = "c:/Temp/";
-	     
-		// 경로 
-	      if (!noticefile.isEmpty()) {
-	         String filename = noticefile.getOriginalFilename();
+		// 공지사항 글쓰기
+		 @Autowired
+		 private MemberService memberDao;
+		 @RequestMapping(value = "/noticeinsert.do")
+		   public String archieveInsert(NoticeVO notice,Model model,  MultipartFile noticefile, HttpServletRequest request)
+		         
+				   throws IllegalStateException, IOException {
 
-	         String fullPath = uploadDir +"/"+ filename;
-	         noticefile.transferTo(new File(fullPath));
-	         notice.setNotice_img(filename);
-	      }
-	      System.out.println(notice.toString());
-	      noticeDao.noticeInsert(notice);
-	      model.addAttribute("notice", noticeDao.noticeSelectList());
-	      return "redirect:/notice.do?notice_img";
-	   }
+		      // file 업로드
+		      String uploadDir = "c:/Temp/";
+		      notice.setNotice_con(notice.getNotice_con().replace("\r\n","<br>"));
+		      System.out.println(notice.toString());
+			// 경로 
+		      if (!noticefile.isEmpty()) {
+		         String filename = noticefile.getOriginalFilename();
+
+		         String fullPath = uploadDir +"/"+ filename;
+		         noticefile.transferTo(new File(fullPath));
+		         notice.setNotice_img(filename);
+		      }
+              noticeDao.noticeInsert(notice);
+		      System.out.println(notice.toString());
+		      model.addAttribute("notice", noticeDao.noticeSelectList());
+		      return "redirect:/notice.do?notice_img";
+		   }
 	// 공지사항 수정 Form
 	  @RequestMapping(value = "/noticeupdateForm.do")
 	   public String noticeupdateForm(@RequestParam("notice_no") String test, NoticeVO notice, Model model){
@@ -121,6 +130,7 @@ public class NoticeController {
 			   throws IllegalStateException, IOException {
 		  // file 업로드
 	      String uploadDir = "c:/Temp/";
+	      notice.setNotice_con(notice.getNotice_con().replace("\r\n","<br>"));
 	      // 경로 
 	      if (!noticefile.isEmpty()) {
 	         String filename = noticefile.getOriginalFilename();
