@@ -283,7 +283,7 @@ input {
 				pay_method : "card",
 				merchant_uid : uid, // uid
 				name : pur_name, //구매품목
-				amount : 1000, //총액  추후수정 pur_his_price
+				amount : pur_his_price, //총액  추후수정 
 				buyer_email : mem_email, // 구매자 이메일
 				buyer_name : pur_his_recv, // 구매자 이름
 				buyer_tel : pur_his_tel, // 구매자 전화번호

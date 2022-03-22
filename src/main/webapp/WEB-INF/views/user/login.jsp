@@ -74,7 +74,7 @@
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			var error = (${param.error})
+			var error = '${param.error}';
 			if(error > 0){
 				toastr.error("아이디와 비밀번호를 확인해주세요");
 			}

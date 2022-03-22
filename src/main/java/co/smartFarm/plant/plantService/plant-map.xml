@@ -8,6 +8,7 @@
 		resultType="co.smartFarm.plant.plantService.PlantVO">
 		SELECT * FROM PLANT
 		WHERE MEM_EMAIL = #{mem_email}
+		ORDER BY PLANT_PROC_DAY DESC
 	</select>
 	
 	

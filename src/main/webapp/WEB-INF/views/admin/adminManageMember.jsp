@@ -203,12 +203,12 @@ input[type="checkbox"]:checked::before {
 		// 농부신청을 한 사람들만 마우스오버하면 커서 포인터로 바꾸기
 		grid.on('mouseover', (ev) => {
 			
-			if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "Reject") && !(grid.getValue(ev.rowKey, "mem_fm_req") === ' ') && !(grid.getValue(ev.rowKey, "mem_athr") == "농부")){
+			 if(!(grid.getValue(ev.rowKey, "mem_fm_req") == "Reject") && !(grid.getValue(ev.rowKey, "mem_fm_req") === ' ') && !(grid.getValue(ev.rowKey, "mem_athr") == "농부")){
 				
 				var toast = grid.getElement(ev.rowKey, "mem_fm_req");
 				$(toast).closest("tr").css({"cursor": "pointer"});
 				
-			}
+			} 
 			
 		});
 		
@@ -302,7 +302,7 @@ input[type="checkbox"]:checked::before {
 				.then(function (result) {
 					//console.log(result);
 					grid.resetData(result);
-				})
+				});
 			
 		}
 		

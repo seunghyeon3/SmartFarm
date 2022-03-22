@@ -320,7 +320,7 @@
             )
             fourDiv.append(
                $('<h6>').append(
-                  $('<a>').attr('href', 'plantProductDetail.do?id=' + $ {
+                  $('<a>').attr('href', 'plantShopDetail.do?id=' + $ {
                      데이터
                   }),
                   $('<p>').addClass('pro-price').html($ {

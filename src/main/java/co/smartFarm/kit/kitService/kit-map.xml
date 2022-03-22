@@ -40,11 +40,7 @@
 	<select id="adminKitSelectList"
 		resultType="co.smartFarm.kit.kitService.KitVO">
 		SELECT * FROM KIT
-		<trim prefix="ORDER BY">
-			<if test="orderBy =='name'"> kit_name asc</if>
-			<if test="orderBy =='hit'"> kit_hit desc</if>
-			<if test="orderBy =='saleCount'"> kit_sale_count desc</if>
-		</trim>
+		ORDER BY KIT_NAME ASC
 	</select>
 
 	<select id="kitRecommand" resultType="co.smartFarm.kit.kitService.KitVO">
@@ -90,7 +86,7 @@
 		INSERT INTO kit
 		VALUES(#{kit_no}, #{kit_name}, #{kit_prpos}, #{kit_plant_class}, #{kit_plant_name}, #{kit_grow_day}, 
 		#{kit_tp}, #{kit_hd}, #{kit_sun}, #{kit_water}, #{kit_pes}, #{kit_cctv}, #{kit_price}, #{kit_main_img}, 
-		#{kit_exp_img}, #{kit_sale_whet}, #{kit_hit}, #{kit_sale_count})
+		#{kit_exp_img}, #{kit_sale_whet}, 0, 0)
 		
 	</insert>
 	

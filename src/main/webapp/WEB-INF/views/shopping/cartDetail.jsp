@@ -145,7 +145,17 @@
 		
 		// GRID 에 데이터를 입력한다.
 		grid.resetData(gridData);
-
+		
+		
+		//toast ui grid tr에만 cursor pointer로 바꾸기
+	    grid.on('mouseover', (ev) => {
+	         
+	         var toast = grid.getElement(ev.rowKey, "cart_detail");
+	         $(toast).closest("tr").css({"cursor": "pointer"});
+	            
+	    });
+		
+		
 		// 판매가와 총액에 콤마 찍기
 		function setGrid() {
 			
@@ -165,7 +175,7 @@
 					console.log( link + kitNo );
 					
 				} else { // 작물인 경우
-					var link = "plantProductDetail.do?plant_no=";
+					var link = "plantShopDetail.do?plant_sale_no=";
 					var plantNo = cartOption.substr(1);
 					console.log( link+ plantNo);
 				}
@@ -187,7 +197,7 @@
 					location.href = link + kitNo;
 					
 				} else { // 작물인 경우
-					var link = "plantProductDetail.do?plant_sale_no=";
+					var link = "plantShopDetail.do?plant_sale_no=";
 					var plantNo = cartOption.substr(1);
 					location.href = link + plantNo;
 				} 
