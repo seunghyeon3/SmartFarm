@@ -45,29 +45,32 @@ public class FaqController {
 	   public String faqInsert() {
 	      return "board/faqinsertForm";
 	   }
-	// FAQ 글쓰기 업데이트
-	 @RequestMapping("/faqupdate.do")
-	   public String faqUpdate(FaqVO faq) {
-		 faq.setFaq_con(faq.getFaq_con().replace("\r\n","<br>"));
-		 System.out.println(faq.toString());
-		 faqDao.faqUpdate(faq);
-	      return "redirect:/faq.do";
-	   }	 
-	// FAQ 글쓰기
+	 // FAQ 글쓰기
 	 @RequestMapping(value = "/faqinsert.do")
 	 public String faqInsert(FaqVO faq, Model model) {
-		  faq.setFaq_con(faq.getFaq_con().replace("\r\n","<br>"));
-		  System.out.println(faq.getFaq_title());
-		  faqDao.faqInsert(faq);
-	      model.addAttribute("faq", faqDao.faqSelectList());
-	      return "redirect:/faq.do";
-	   }	 
+		 faq.setFaq_con(faq.getFaq_con().replace("<br>","\r\n"));
+		 System.out.println(faq.getFaq_title());
+		 faqDao.faqInsert(faq);
+		 model.addAttribute("faq", faqDao.faqSelectList());
+		 return "redirect:/faq.do";
+	 }	 
 	 // FAQ 수정 Form
 	  @RequestMapping(value = "/faqupdateForm.do")
-	   public String faqupdateForm(FaqVO faq, Model model){
-	      model.addAttribute("faq", faqDao.faqSelect(faq));
+	   public String faqupdateForm(@RequestParam("faq_no") String test, FaqVO faq, Model model){
+	      
+		 faq = faqDao.faqSelect(faq);
+		 faq.setFaq_con(faq.getFaq_con().replace("<br>","\r\n"));
+		  model.addAttribute("faq",faq);
 	      return "board/faqUpdateForm";
 	   }
+	  // FAQ 수정
+	  @RequestMapping("/faqupdate.do")
+	  public String faqUpdate(FaqVO faq) {
+		  faq.setFaq_con(faq.getFaq_con().replace("\r\n","<br>"));
+		  System.out.println(faq.toString());
+		  faqDao.faqUpdate(faq);
+		  return "redirect:/faq.do";
+	  }	 
 	  // FAQ 삭제 
 	  @RequestMapping("/faqdelete.do")
 	   public String faqDelete(FaqVO faq,Model model) {

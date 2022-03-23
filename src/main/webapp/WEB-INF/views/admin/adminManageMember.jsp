@@ -239,7 +239,8 @@ input[type="checkbox"]:checked::before {
 				$('#lightInstP').append(
 						$('<div>').attr("id", "inner").append(
 								 /* $('<img>', {'src':${pageContext.request.contextPath}'/resources/images/'+grid.getValue(ev.rowKey, "mem_fm_req")}) */
-								  $('<img>', {'src':'../upload/' + grid.getValue(ev.rowKey, "mem_fm_req")}) 
+								  $('<img>', {'src':'../../upload/' + grid.getValue(ev.rowKey, "mem_fm_req")}).css('width', '100%') 
+								  
 								).append(input)
 							);
 				//농부신청 클릭시 페이지 최상단으로 이동.

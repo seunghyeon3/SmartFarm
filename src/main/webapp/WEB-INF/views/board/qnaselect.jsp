@@ -92,18 +92,10 @@ ul>li>p {
 					</div>
 					<div>
 						<div>
-							<div>
-								<a href="downloadq.do?img=${qna.qna_phy_rou}"><p>첨부파일 :
-										${qna.qna_phy_rou}</p></a>
+							<div style="margin-top: 50px;margin-bottom: 50px;">
+								<span>첨부파일 : </span><a href="downloadq.do?img=${qna.qna_phy_rou}">${qna.qna_phy_rou}</a>
 							</div>
 							<ul class="cform">
-								<%-- <li id="modi"><input type="button" value="수정"
-									onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
-									class="fsubmit"></li>
-								<li class="half pr-15"><input type=button value="삭제"
-									onclick="location.href='qnadelete.do?qna_no=${qna.qna_no}'"
-									class="fsubmit"></li> --%>
-
 								<li id="back" class="full"><div style="text-align: center;">
 									<input type="button" value="뒤로가기" style="width:200px; display: inline-block;"
 										onclick="history.back(-1);" class="fsubmit">

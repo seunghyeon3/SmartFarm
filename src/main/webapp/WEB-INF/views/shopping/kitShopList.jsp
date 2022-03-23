@@ -137,6 +137,14 @@
 					var temp = "";
 	            	
 	                $.each(data, function (index, item) {
+	                	
+	                	 //모든 돈에 콤마 넣기
+		           		 var tmp = `\${item.kit_price}`
+		           		 
+		           		 var price = (parseInt(tmp) * 1).toLocaleString('ko-KR');
+		           			
+		           		 
+	                	
 	                	temp = `<div class="col-lg-3 col-sm-6" style="float:left;">
 							<div class="product-box">
 								<div class="pro-thumb">
@@ -150,7 +158,7 @@
 									<a href="kitProductDetail.do?kit_no=\${item.kit_no }">
 										\${item.kit_name}</a>
 									</h6>
-									<p class="pro-price" id="kitPrice">\${item.kit_price}</p>
+									<p class="pro-price" id="kitPrice">` + price + `</p>
 									<div style="height: 10px; margin: 10px 0 10px 0;">
 										<span style="float:left; font-size:small;">조회수 : \${item.kit_hit}</span>
 										<span style="float:left; font-size:small; padding: 0 10px 0 10px;">|</span>
@@ -213,13 +221,13 @@
 		 document.getElementById('hit').href =  "kitShopList.do?kitPrpos="+kitPrpos+"&orderBy=hit";
 		 document.getElementById('name').href =  "kitShopList.do?kitPrpos="+kitPrpos+"&orderBy=name";
 	
-		 //모든 돈에 콤마 넣기
+		 /* //모든 돈에 콤마 넣기
 		 var price = document.querySelectorAll('#kitPrice');
 		 for(var i=0;i<price.length;i++) {
 			 
 			 price[i].innerText = (parseInt(price[i].innerText) * 1).toLocaleString('ko-KR');
 			
-		 }
+		 } */
 		 
     }); // $(function (){})
 	
@@ -290,6 +298,7 @@
          //toastr.success("상품이 장바구니에 담겼습니다.");
     	 if('${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}' ==''){
   			alert('로그인 후 사용해 주세요');
+  			location.href = "login.do";
   		} else {
 	         location.href = link;
 	         toastr.success("상품이 장바구니에 담겼습니다.");

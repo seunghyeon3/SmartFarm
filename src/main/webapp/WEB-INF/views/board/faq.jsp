@@ -25,23 +25,6 @@
 		<div class="container">
 			<h1>FAQ</h1>
 			<div class="row" id="prolist">
-			<!-- 	<div class="col-md-6 col-sm-6"></div>
-				<div class="col-md-6 col-sm-1">
-					<div class="side-search">
-						<form action="noticeSearch.do" method="post">
-						<select class="form-control" id="key" name="key"
-							style="width: 120px; float: left">
-							<option value="faq_con">내용</option> 
-							<option value="faq_title">제목</option>
-						</select> <input type="search" id="val" name="val" class="form-control"
-							placeholder="검색"
-							style="margin: 0 10px; width: 380px; float: left;">
-						<button onclick="searchFnc()" type="submit">
-							<i class="fas fa-search"></i>
-						</button>
-						</form>
-					</div>
-				</div> -->
 				<div class="col-md-12 col-sm-6" style="padding: 20px;">
 						<div class="accordion" id="accordionExample">
 						</div>

@@ -117,12 +117,9 @@ public class NftController {
 						   String uid = UUID.randomUUID().toString();
 						   //머지이미지 나중에 서버경로로 바꾸기 지금은 git 저장 경로
 						   String merge = "merge"+uid+".png";
-						   //집경로
-						   //String merge = "C:\\SmartFarm\\src\\main\\webapp\\resources\\nft\\merge\\merge"+uid+".png";
-						   //String merge = request.getServletContext().getRealPath("resources/nft/merge/mergeImage.png");
 						    ImageIO.write(mergedImage, "png", new File(SaveDir, merge));
 						    System.out.println("NFT 생성이 완료되었습니다.");
-						    System.out.println();
+						    
 						    nft.setMem_email(growDiary.getMem_email());
 						    nft.setGrow_diary_log_rou(growDiary.getGrow_diary_log_rou());
 						    nft.setNft_img("merge"+uid+".png");
