@@ -24,9 +24,11 @@ import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class GrowDiaryController {
-	@Autowired
 	//220302 PSH GrowDiaryMapper mapGD에서 아래 내용오르 수정
+	@Autowired
 	GrowDiaryService growDiaryDao;
+	@Autowired
+	private String saveDir;
 	
 //	영농 일지 페이지
 	//220302 PSH GrowController -> GrowDiaryController 구분 작업
@@ -55,7 +57,7 @@ public class GrowDiaryController {
 		
 		System.out.println(route);
 
-		Path path = Paths.get("D:\\"+route);
+		Path path = Paths.get(saveDir+route);
 		List<String> lines = java.nio.file.Files.readAllLines(path);
 		
 		return lines;
