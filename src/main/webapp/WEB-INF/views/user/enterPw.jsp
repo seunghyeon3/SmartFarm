@@ -47,7 +47,7 @@
 	<script>
 		function passwordCheck() {
 
-			if(document.getElementById('password').value == ${member.mem_pw}){
+			if(document.getElementById('password').value == ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_pw}){
 				alert('정상적으로 입력되었습니다.');
 				return true;
 			}else{
