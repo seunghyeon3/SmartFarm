@@ -145,7 +145,7 @@ public class NoticeController {
 	      model.addAttribute("list", list);
 	      return "redirect:/notice.do?notice_img";
 	   }
-	// 자료실 삭제
+	// 공지사항 삭제
 	  @RequestMapping("/noticedelete.do")
 	   public String noticeDelete(@RequestParam(value="notice_no")int notice_no,Model model) {
 	      System.out.println(notice_no);
@@ -155,7 +155,7 @@ public class NoticeController {
 	      model.addAttribute("notices", noticeDao.noticeSelectList());
 	      return "redirect:/notice.do";
 	   }
-	// 자료실 조회
+	// 공지사항 조회
 	   @RequestMapping("noticehitUpdate/.do")
 	   public String noticeHitUpdate(@RequestParam(value="notice_no")int notice_no,Model model) {
 	      System.out.println(notice_no);
