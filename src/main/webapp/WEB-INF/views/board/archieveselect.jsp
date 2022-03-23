@@ -66,6 +66,21 @@ ul>li>p {
 			<div class="row">
 				<div class="col-md-12 col-sm-6">
 					<div class="blog-single-content" style="width: 100%;">
+					
+						<ul class="cform" style="margin:20px;">
+							<li class="half pl-15"></li>
+							<sec:authorize access="hasRole('ADMIN')">
+								<li class="half pl-15"><input type="button" value="수정" style="width:200px;"
+									onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'"
+									class="fsubmit">
+									<input type=button value="삭제" style="width:200px;  background-color:#e11f3e;color:#ffffff;" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
+                        		
+									</li>
+								<%-- <li class="half pr-15">
+                        		<input type=button value="삭제" style="width:200px;background-color:#e11f3e;color:#ffffff;" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
+                        		</li> --%>
+							</sec:authorize>
+						</ul>
 						<h3>${archieve.archieve_title}</h3>
 						<ul class="post-meta">
 							<li><i class="fas fa-user-circle"></i>${archieve.mem_name}</li>
@@ -85,17 +100,27 @@ ul>li>p {
 
 							</div>
  --%>
-							<a href="download.do?img=${archieve.archieve_img}"><p>첨부파일 : ${archieve.archieve_img}</p></a></div>
+							<a href="downloada.do?img=${archieve.archieve_img}"><p>첨부파일 : ${archieve.archieve_img}</p></a></div>
 						</div>
 
 						<ul class="cform">
-							<sec:authorize access="hasRole('ADMIN')">
-								<li class="half pr-15"><input type="button" value="수정하기"
+							<%-- <sec:authorize access="hasRole('ADMIN')">
+								<li class="half pr-15"><input type="button" value="수정" style="width:200px;"
 									onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'"
-									class="fsubmit"></li>
-							</sec:authorize>
-							<li class="half pr-15"><input type="button" value="뒤로가기"
-								onclick="history.back(-1);" class="fsubmit"></li>
+									class="fsubmit">
+									<input type=button value="삭제" style="width:200px;  background-color:#e11f3e;color:#ffffff;" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
+                        		
+									</li>
+								<li class="half pr-15">
+                        		<input type=button value="삭제" style="width:200px;background-color:#e11f3e;color:#ffffff;" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
+                        		</li>
+							</sec:authorize> --%>
+							<li class="full">
+								<div style="text-align: center;">
+									<input type="button" value="뒤로가기" style="width:200px; display: inline-block;"
+										onclick="history.back(-1);" class="fsubmit">
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>

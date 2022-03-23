@@ -39,6 +39,9 @@ public class ArchieveController {
    @Autowired
    private ArchieveService archieveDao;
 
+   // 파일업로드
+	@Autowired
+	private String saveDir; // 파일저장 경로를 자동 주입
    //파일업로드
    private static final String FILE_SERVER_PATH = "c:/Temp/";
    @RequestMapping("/download")
@@ -73,7 +76,7 @@ public class ArchieveController {
 	public void download(HttpServletResponse response, @RequestParam String img) throws Exception {
        try {
        	// 경로에 접근할 때 역슬래시('\') 사용
-       	String path = "c:\\Temp\\"+img; 
+       	String path = saveDir+img; 
        	// 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
        	File file = new File(path);
        	response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); 
@@ -103,14 +106,15 @@ public class ArchieveController {
    @RequestMapping(value = "/archieveinsert.do")
    public String archieveInsert(ArchieveVO archieve, Model model,  MultipartFile archievefile)
          throws IllegalStateException, IOException {
-      // file 업로드
-      String uploadDir = "c:/Temp/";
+		/*
+		 * // file 업로드 String uploadDir = "c:/Temp/";
+		 */
       archieve.setArchieve_con(archieve.getArchieve_con().replace("\r\n","<br>"));
       // 경로 생
       if (!archievefile.isEmpty()) {
          String filename = archievefile.getOriginalFilename();
 
-         String fullPath = uploadDir + filename;
+         String fullPath = saveDir + filename;
          archievefile.transferTo(new File(fullPath));
          archieve.setArchieve_img(filename);
       }
@@ -124,7 +128,11 @@ public class ArchieveController {
    public String archieveupdateForm(@RequestParam("archieve_no") String test, ArchieveVO archieve, Model model){
       System.out.println(archieve.toString());
       System.out.println(archieveDao.archieveSelect(archieve));
-      model.addAttribute("archieve", archieveDao.archieveSelect(archieve));
+      
+      archieve = archieveDao.archieveSelect(archieve);
+      
+      archieve.setArchieve_con(archieve.getArchieve_con().replace("<br>","\r\n"));
+      model.addAttribute("archieve", archieve);
       return "board/archieveupdateForm";
    }
 
@@ -133,15 +141,15 @@ public class ArchieveController {
    public String archieveupdate(ArchieveVO archieve, Model model, MultipartFile archievefile,HttpServletRequest request) 
 		   throws IllegalStateException, IOException {
 	   // file 업로드
-	   String uploadDir = "c:/Temp/";
+		/* String uploadDir = "c:/Temp/"; */
 //	   String uploadDir = request.getServletContext().getRealPath("/resources/images/");
-	   System.out.println(uploadDir);
+	   System.out.println(saveDir);
 	   archieve.setArchieve_con(archieve.getArchieve_con().replace("\r\n","<br>"));
 	      // 경로 
 	      if (!archievefile.isEmpty()) {
 	         String filename = archievefile.getOriginalFilename();
 
-	         String fullPath = uploadDir +"/"+ filename;
+	         String fullPath = saveDir +"/"+ filename;
 	         archievefile.transferTo(new File(fullPath));
 	         archieve.setArchieve_img(filename);
 	      }

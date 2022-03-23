@@ -73,7 +73,7 @@
 						
 					</div>
 					
-			<!--TEST-->
+					<!--TEST-->
 					<div class="col-lg-3 col-md-4">
                       <div class="sidebar">
                           <!--Widget Start-->
@@ -119,7 +119,7 @@
                          <!--Widget End--> 
                       </div>
                    </div>
-			<!--TEST END-->
+					<!--TEST END-->
 					
 
 				</div>

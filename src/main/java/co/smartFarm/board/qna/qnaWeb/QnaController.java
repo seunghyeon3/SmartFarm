@@ -40,6 +40,8 @@ public class QnaController {
 
 	@Autowired
 	private QnaService qnaDao;
+	@Autowired
+	private String saveDir; // 파일저장 경로를 자동 주입
 
 //파일 업로드 
 	private static final String FILE_SERVER_PATH = "c:/Temp/";
@@ -76,7 +78,7 @@ public class QnaController {
 		public void downloadq(HttpServletResponse response, @RequestParam String img) throws Exception {
 	        try {
 	        	// 경로에 접근할 때 역슬래시('\') 사용
-	        	String path = "c:\\Temp\\"+img; 
+	        	String path = saveDir+img; 
 	        	// 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
 	        	File file = new File(path);
 	        	response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); 
@@ -108,14 +110,16 @@ public class QnaController {
 			throws IllegalStateException, IOException {
 		// file 업로드
 		/* String uploadDir = "c:/Temp/"; */
-		String uploadDir =
-			 	request.getServletContext().getRealPath("/resources/images/");
+		/*
+		 * String uploadDir =
+		 * request.getServletContext().getRealPath("/resources/images/");
+		 */
 		qna.setQna_con(qna.getQna_con().replace("\r\n","<br>"));
 		// 경로
 		if (!qnafile.isEmpty()) {
 			String filename = qnafile.getOriginalFilename();
 
-			String fullPath = uploadDir + filename;
+			String fullPath = saveDir + filename;
 			qnafile.transferTo(new File(fullPath));
 			qna.setQna_phy_rou(filename);
 		}
@@ -142,7 +146,9 @@ public class QnaController {
 	public String qnaupdateForm(@RequestParam("qna_no") String test, QnaVO qna, Model model) {
 		System.out.println(qna.toString());
 		System.out.println(qnaDao.qnaSelect(qna));
-		model.addAttribute("qna", qnaDao.qnaSelect(qna));
+		 qna = qnaDao.qnaSelect(qna);
+	      qna.setQna_con(qna.getQna_con().replace("<br>","\r\n"));
+		model.addAttribute("qna", qna);
 		return "board/qnaupdateForm";
 	}
 
@@ -152,15 +158,17 @@ public class QnaController {
 		// file 업로드
 		/* String uploadDir = "c:/Temp/"; */
 		
-		 	String uploadDir =
-		 	request.getServletContext().getRealPath("/resources/images/");
-		   System.out.println(uploadDir);
+		/*
+		 * String uploadDir =
+		 * request.getServletContext().getRealPath("/resources/images/");
+		 */
+		   System.out.println(saveDir);
 		   qna.setQna_con(qna.getQna_con().replace("\r\n","<br>"));
 		// 경로
 		if (!qnafile.isEmpty()) {
 			String filename = qnafile.getOriginalFilename();
 
-			String fullPath = uploadDir + "/" + filename;
+			String fullPath = saveDir + "/" + filename;
 			qnafile.transferTo(new File(fullPath));
 			qna.setQna_phy_rou(filename);
 		}

@@ -5,7 +5,7 @@ function movePage(url, realPath){
     
     	document.getElementById("topMenu").style.display = "block";
     	
-         if(url.substring(0,10) == realPath+"/intro"){
+         if(url.substring(0,12) == realPath+"/intro"){
             $("#menuPan").append(
                $("<h1>").text("스마트 팜 안내"),
                $('<br>'),
@@ -18,7 +18,7 @@ function movePage(url, realPath){
                   )
             )
          }
-         else if(url.substring(0,11) == realPath+"/notice" || url.substring(0,13) == realPath+"/archieve"){
+         else if(url.substring(0,13) == realPath+"/notice" || url.substring(0,15) == realPath+"/archieve"){
             $("#menuPan").append(
                $("<h1>").text("스마트 팜 알림"),
                $('<br>'),
@@ -29,7 +29,7 @@ function movePage(url, realPath){
                   )
             )
          }
-         else if(url.substring(0,14) == realPath+"/plantShop" || url.substring(0,8) == realPath+"/kit"){
+         else if(url.substring(0,16) == realPath+"/plantShop" || url.substring(0,10) == realPath+"/kit"){
              $("#menuPan").append(
                 $("<h1>").text("판매"),
                 $('<br>'),
@@ -40,7 +40,7 @@ function movePage(url, realPath){
                    )
              )
           }
-         else if(url.substring(0,9) == realPath+"/aucn"){
+         else if(url.substring(0,11) == realPath+"/aucn"){
              $("#menuPan").append(
                 $("<h1>").text("경매"),
                 $('<br>'),
@@ -50,7 +50,7 @@ function movePage(url, realPath){
              )
           }  
          //220308 PSH 이용후기 수정 예정
-         else if(url.substring(0,9) == realPath+"/free" || url.substring(0,8) == realPath+"/use"){
+         else if(url.substring(0,11) == realPath+"/free" || url.substring(0,10) == realPath+"/use"){
               $("#menuPan").append(
                       $("<h1>").text("커뮤니티"),
                       $('<br>'),
@@ -61,7 +61,7 @@ function movePage(url, realPath){
                          )
                    )
          }
-         else if(url.substring(0,8) == realPath+"/qna" || url.substring(0,8) == realPath+"/faq"){
+         else if(url.substring(0,10) == realPath+"/qna" || url.substring(0,10) == realPath+"/faq"){
              $("#menuPan").append(
                      $("<h1>").text("고객지원"),
                      $('<br>'),
@@ -95,7 +95,7 @@ function movePage(url, realPath){
                         )
                   )
         } 
-         else if(url.substring(0,10) == realPath+"/admin"){
+         else if(url.substring(0,12) == realPath+"/admin"){
              $("#menuPan").append(
                      $("<h1>").text("관리자 페이지"),
                      $('<br>'),
@@ -117,5 +117,3 @@ function movePage(url, realPath){
         
     }
    } 
-    
-var tempvalue= "abcd";
