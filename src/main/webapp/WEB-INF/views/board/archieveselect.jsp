@@ -93,14 +93,8 @@ ul>li>p {
 							<p>${archieve.archieve_con}</p>
 						</div>
 						<div style="margin-top: 50px;margin-bottom: 50px;">
-												<%-- 	<div style="width: 100%; text-align: center;">
-								<img src="download.do?img=${archieve.archieve_img}"
-									style="width: 100%; max-width: 1200px; vertical-align: middle"
-									onError="this.style.visibility='hidden'">
-
-							</div>
- --%>
-							<a href="downloada.do?img=${archieve.archieve_img}"><p>첨부파일 : ${archieve.archieve_img}</p></a></div>
+										
+							<span>첨부파일 : </span><a href="downloada.do?img=${archieve.archieve_img}">${archieve.archieve_img}</a>
 						</div>
 
 						<ul class="cform">

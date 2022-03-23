@@ -66,7 +66,7 @@ ul>li>p {
 						<li class="half pl-15"></li>
 							<sec:authorize access="hasRole('ADMIN')">
 								<li class="half pr-15"><input type="button" value="수정" style="width:200px;"
-									onclick="location.href='noticeupdateForm.do?notice_no=12'"
+									onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'"
 									class="fsubmit">
 							    <input type=button value="삭제" style="width:200px;  background-color:#e11f3e;color:#ffffff;" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
 							    </li>
@@ -90,24 +90,15 @@ ul>li>p {
 						</div>
 						<div style="margin-top: 50px; margin-bottom: 50px;">
 							<!-- style="text-align : center;" -->
-							<a href="download.do?img=${notice.notice_img}"><p>첨부파일 : ${notice.notice_img}</p></a>
+							<span>첨부파일 : </span><a href="download.do?img=${notice.notice_img}">${notice.notice_img}</a>
 						</div>
 
 						<ul class="cform">
-							<%-- <sec:authorize access="hasRole('ADMIN')">
-								<li class="half pr-15"><input type="button" value="수정"
-									onclick="location.href='noticeupdateForm.do?notice_no=12'"
-									class="fsubmit"></li>
-									<li class="half pr-15">
-							    <input type=button value="삭제" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
-							    </li>
-							</sec:authorize> --%>
 							<li class="full">
 							<div style="text-align: center;">
 									<input type="button" value="뒤로가기" style="width:200px; display: inline-block;"
 										onclick="history.back(-1);" class="fsubmit">
 								</div>
-								
 								</li>
 						</ul>
 						<!--Leave a Comment End-->
