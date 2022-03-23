@@ -395,7 +395,7 @@ border-radius: 15px;
 	             if(err != null){
 	                 alert('There was an error fetching your accounts.')
 	             }else if(accs.length ===0){
-	                 alert("재배내역 서비스를 이용하기 위해선 메타마스크 연결이 필요합니다.")
+	                 alert("경매 입찰 서비스를 이용하기 위해선 메타마스크 연결이 필요합니다.")
 	             }else{
 	             account = accs[0];
 	             aucnBid();
@@ -416,35 +416,7 @@ border-radius: 15px;
 				
 				//로딩끄기
 				exitLoading();
-				
-				//메타마스크 로그인체크
-				web3.eth.getAccounts(function(err,accs){
-		             if(err != null){
-		                 alert('There was an error fetching your accounts.')
-		                 exitPopup();
-		                 return
-		             }
-		             if(accs.length ===0){
-		                 alert("입찰을 위해 메타마스크 로그인을 해주세요")
-		                 exitPopup();
-		                 return
-		             }
-		             account = accs[0];
-		         }) 
-/* 				function send(){
-					 // 서버로 전송할 데이터를 담을 msg 객체 생성.
-					 var msg ={
-					 cmd: "message",
-					 tmsg: document.getElementById("inputMessage").value,
-					 id: '${member.mem_email}',
-					 aucn: '${aucnSelect.aucn_no }'
-					 };
-					 // Send the msg object as a JSON-formatted string.
-					 webSocket.send(JSON.stringify(msg));
-					 
-					 // Blank the text input element, ready to receive the next line of text from the user.
-					 document.getElementById("inputMessae").value ="";
-					} */
+						
 			}
 		 
 			//입력값과 최고가 비교하는 함수
