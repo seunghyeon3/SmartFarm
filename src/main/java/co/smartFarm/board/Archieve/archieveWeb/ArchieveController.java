@@ -149,7 +149,7 @@ public class ArchieveController {
 	      if (!archievefile.isEmpty()) {
 	         String filename = archievefile.getOriginalFilename();
 
-	         String fullPath = saveDir +"/"+ filename;
+	         String fullPath = saveDir + filename;
 	         archievefile.transferTo(new File(fullPath));
 	         archieve.setArchieve_img(filename);
 	      }
