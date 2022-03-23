@@ -44,22 +44,32 @@ public class FreeController {
 	
 	//자유게시판 리스트
     @RequestMapping(value = "/free.do") 
-    public String free(Model model) throws JsonProcessingException {
+    public String free(Model model, MemberVO memberVo, FreeVO free) throws JsonProcessingException {
 		ObjectMapper map = new ObjectMapper();
-		
 		String Str = map.writeValueAsString(freeDao.freeList());
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String memEmail = userDetails.getUsername();
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String memEmail = userDetails.getUsername();
+			model.addAttribute("kitList", growDao.growListing(memEmail));
+		}
+
 		model.addAttribute("test", Str);
 		model.addAttribute("recentlyFree", freeDao.recentlyFree());
 		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
-		model.addAttribute("kitList", growDao.growListing(memEmail));
 		return "board/free";
     }
 
     //자유게시판 상세페이지
     @RequestMapping(value = "/freeOne.do")
     public String freeOne(int free_no, Model model ) {
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String memEmail = userDetails.getUsername();
+			model.addAttribute("kitList", growDao.growListing(memEmail));
+		}
+		freeDao.freeHitUp(free_no);
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
         model.addAttribute(freeDao.freeOne(free_no)); 
         model.addAttribute("comments", freeDao.freeCommList(free_no));
         model.addAttribute("count", freeDao.freeCommCount(free_no));

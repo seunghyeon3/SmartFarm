@@ -23,6 +23,8 @@ public interface FreeMapper {
     int freeUpdate(FreeVO free);
     
     int freeDelete(int free_no);
+    
+    void freeHitUp(int free_no);
 
 
     List<FreeVO> recentlyFree();
