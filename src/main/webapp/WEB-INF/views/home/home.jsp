@@ -114,9 +114,11 @@ display: none;
 					<div class="col-md-7">
 						<div class="h2-about-txt">
 							<h3>똑 장 이</h3>
-							<h2>똑장이는 똑똑하고 훌륭한 아이</h2>
-							<span>모든 기능을 한 프로그램에서 사용 가능합니다.</span><br><span> 농장운영, 분석, 경매, 작물 구매,판매, 노하우 경매까지
-								모든 것을 한번에 가능 하게 도와 주는 장소 입니다.</span>
+							<h2>똑장이는 똑똑하고 훌륭한 농장</h2>
+							<span>안녕하세요 똑부러지는 농장이 입니다 다른 스마트팜과 달리 고객의 마음을 먼저 듣고 소통하는 농장이가 되겠습니다. 모든 기능을 한 프로그램에서 사용 가능합니다.</span><br><span> 농장운영, 분석, 경매, 작물 구매,판매, 노하우 경매까지
+								모든 것을 한번에 가능 하게 도와 주는 홈페이지 입니다.</span>
+								<span>차별화된 서비스 지금 만나러 가시죠.</span>
+								
 						</div>
 					</div>
 				</div>
@@ -213,7 +215,7 @@ display: none;
 						<div class="donation-amount" style="text-align: center;">
 							<!-- 이미지 들어 갈것 -->
 							<img src="<c:url value='/resources/images/first.gif'/>" alt="">
-							<h1 style="color: white;">${priceRank[0].mem_email }</h1>
+							<h3 style="color: white;">${priceRank[0].mem_email }</h3>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -254,7 +256,7 @@ display: none;
 										<c:forEach items="${aucnEnable }" var="aucn">
 											<div class="item">
 												<div class="pro-box">
-													<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 278px; height: 378px;">
+													<img src="<c:url value='../upload/${aucn.nft_img }'/>" alt="" style="width: 278px; height: 378px;">
 													<h5>${aucn.aucn_title}</h5>
 													<div class="pro-hover">
 														<h6>${aucn.aucn_title }</h6>
@@ -281,7 +283,7 @@ display: none;
 				<div class="row">
 					<div class="col-md-12">
 						<h1>Why 똑장이!!</h1>
-						<p>회원 가입 해야 하는 이유 넣어야함.꼬실만한 문구들</p>
+						<p>간편한 가입, 간편한 서비스로 구성된 똑장이에서 쉽게 키트를 주문하고 재배하여 NFT 생산을 해보세요.</p>
 						<a href="register.do" class="cus">Signup to Join us</a>
 					</div>
 				</div>

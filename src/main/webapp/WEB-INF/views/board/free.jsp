@@ -103,7 +103,7 @@
                             <ul class="lastest-products">
 						<c:forEach items="${aucnEnable }" var="aucn" begin="0" end="3">
                                <li> 
-							<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 45px; height: 60px;">
+							<img src="<c:url value='../upload/${aucn.nft_img }'/>" alt="" style="width: 45px; height: 60px;">
                                	<strong>
                                		<a href="aucnDetail.do?aucnNo=${aucn.aucn_no}">${aucn.aucn_title}</a>
 							</strong> <span class="pdate">
