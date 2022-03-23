@@ -63,7 +63,7 @@
                         <input type="submit" value="확인" onclick="location.href=noticeupdate.do" class="fsubmit">
                         </li>
                         <li class="half pr-15">
-                        <input type=button value="삭제" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
+                       <input type=button value="취소" onclick="history.back(-1);"class="fsubmit">
                         </li>
                      </ul>
                   	</form>

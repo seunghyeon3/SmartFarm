@@ -88,8 +88,11 @@ ul>li>p {
 								<li class="half pr-15"><input type="button" value="수정"
 									onclick="location.href='noticeupdateForm.do?notice_no=12'"
 									class="fsubmit"></li>
+									<li class="half pr-15">
+							    <input type=button value="삭제" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
+							    </li>
 							</sec:authorize>
-							<li class="half pr-15"><input type="button" value="뒤로가기"
+							<li class="full"><input type="button" value="뒤로가기"
 								onclick="history.back(-1);" class="fsubmit"></li>
 						</ul>
 						<!--Leave a Comment End-->
