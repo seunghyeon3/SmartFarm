@@ -116,6 +116,14 @@
 				var psList ="";
 				var temp = "";
 	                $.each(data, function (index, list) {
+	                	
+	                	
+	                	//모든 돈에 콤마 넣기
+		           		 var tmp = `\${list.plant_sale_price}`
+		           		 
+		           		 var price = (parseInt(tmp) * 1).toLocaleString('ko-KR');
+	                	
+	                	
 	                	var tmp = `\${list.plant_sale_ori_rou}`;
 	                	var imgRou;
 	                	if(imgRou == ''){
@@ -134,7 +142,7 @@
 									<a
 										href="plantShopDetail.do?plant_sale_no=\${list.plant_sale_no }">\${list.plant_sale_title}</a>
 								</h6>
-								<p class="pro-price" id="plantSalePrice">\${list.plant_sale_price }</p>
+								<p class="pro-price" id="plantSalePrice">` + price + `</p>
 							</div>
 						</div>
 					</div>`;
@@ -153,7 +161,7 @@
 	});
       
       
-      //로딩되면 금액에 콤마넣기
+      /* //로딩되면 금액에 콤마넣기
       $(document).ready(function () {
     	  var price = document.querySelectorAll('#plantSalePrice');
  		 for(var i=0;i<price.length;i++) {
@@ -161,7 +169,7 @@
  			 price[i].innerText = (parseInt(price[i].innerText) * 1).toLocaleString('ko-KR');
  			
  		 }
-	})
+	}) */
       
      // 검색 창에 자동완성 기능
       fetch("plantSaleTit.do")
