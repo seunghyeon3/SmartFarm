@@ -62,7 +62,7 @@ public class NoticeController {
 	public void download(HttpServletResponse response, @RequestParam String img) {
         try {
         	// 경로에 접근할 때 역슬래시('\') 사용
-        	String path = "c:\\Temp\\"+img; 
+        	String path = saveDir+img; 
         	// 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
         	File file = new File(path);
         	System.out.println(file.getName());
@@ -118,7 +118,10 @@ public class NoticeController {
 	   public String noticeupdateForm(@RequestParam("notice_no") String test, NoticeVO notice, Model model){
 	      System.out.println(notice.toString());
 	      System.out.println(noticeDao.noticeSelect(notice));
-	      model.addAttribute("notice", noticeDao.noticeSelect(notice));
+	      
+	      notice = noticeDao.noticeSelect(notice);
+	      notice.setNotice_con(notice.getNotice_con().replace("<br>","\r\n"));
+	      model.addAttribute("notice", notice);
 	      return "board/noticeupdateForm";
 	   }
 	// 공지사항 수정 
@@ -141,7 +144,7 @@ public class NoticeController {
 	      model.addAttribute("list", list);
 	      return "redirect:/notice.do?notice_img";
 	   }
-	// 자료실 삭제
+	// 공지사항 삭제
 	  @RequestMapping("/noticedelete.do")
 	   public String noticeDelete(@RequestParam(value="notice_no")int notice_no,Model model) {
 	      System.out.println(notice_no);
@@ -151,7 +154,7 @@ public class NoticeController {
 	      model.addAttribute("notices", noticeDao.noticeSelectList());
 	      return "redirect:/notice.do";
 	   }
-	// 자료실 조회
+	// 공지사항 조회
 	   @RequestMapping("noticehitUpdate/.do")
 	   public String noticeHitUpdate(@RequestParam(value="notice_no")int notice_no,Model model) {
 	      System.out.println(notice_no);

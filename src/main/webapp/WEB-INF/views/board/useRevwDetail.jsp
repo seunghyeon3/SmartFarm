@@ -45,7 +45,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					</ul>
 
 					<div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;">
-						<img src="resources/images/blog/bf4.jpg" alt="">
+						<img src="../upload/${useRevwDetail.use_revw_phy_rou }" alt="">
 					</div>
 
 					<h5 style="margin-top:80px">${useRevwDetail.use_revw_con}</h5>

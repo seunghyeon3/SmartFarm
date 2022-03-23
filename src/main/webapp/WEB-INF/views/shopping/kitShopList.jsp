@@ -142,7 +142,7 @@
 								<div class="pro-thumb">
 									<a onclick="insertCart('cartInsert.do?cart_kit_no=\${item.kit_no }&cart_price=\${item.kit_price}&cart_sale_count=1')"
 										href="javascript:void(0);">장바구니 추가</a> <img style="width:300px; height:180px;"
-										src="resources/kit/\${item.kit_main_img}" alt="">
+										src="../upload/\${item.kit_main_img}" alt="">
 								</div>
 								<div class="pro-txt">
 									<p style="margin: 0;">(\${item.kit_prpos})</p>

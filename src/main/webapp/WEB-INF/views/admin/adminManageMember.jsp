@@ -148,7 +148,7 @@ input[type="checkbox"]:checked::before {
 	</div>
 
 
-	<div id="fadeInstP" class="black_overlay" style="z-index: 2;"></div>
+	<div id="fadeInstP" class="loading black_overlay" style="z-index: 2;"></div>
 
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script type="text/javascript"
@@ -239,7 +239,7 @@ input[type="checkbox"]:checked::before {
 				$('#lightInstP').append(
 						$('<div>').attr("id", "inner").append(
 								 /* $('<img>', {'src':${pageContext.request.contextPath}'/resources/images/'+grid.getValue(ev.rowKey, "mem_fm_req")}) */
-								  $('<img>', {'src':'${pageContext.request.contextPath}/resources/images/loadingicon.gif'}) 
+								  $('<img>', {'src':'../upload/' + grid.getValue(ev.rowKey, "mem_fm_req")}) 
 								).append(input)
 							);
 				//농부신청 클릭시 페이지 최상단으로 이동.

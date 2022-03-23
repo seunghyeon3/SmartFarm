@@ -66,7 +66,7 @@
                        <input type="submit" value="확인" onclick="location.href=qnaupdate.do" class="fsubmit">
                        </li>
                        <li class="half pr-15">
-                       <input type=button value="삭제" onclick="location.href='qnadelete.do?qna_no=${qna.qna_no}'"class="fsubmit">
+                       <input type=button value="취소" onclick="history.back(-1);"class="fsubmit">
                         </li>
                      </ul>
                   </form>

@@ -25,7 +25,7 @@
 						
 						<img style="width:550px; height:380px;"
 
-							src="upload/${plantSaleDet.plant_sale_phy_rou}" alt="">
+							src="../upload/${plantSaleDet.plant_sale_phy_rou}" alt="">
 							
 
 					</div>

@@ -24,6 +24,8 @@ public interface FreeService {
 
 	int freeDelete(int free_no);
 
+    void freeHitUp(int free_no);
+
 	
 	List<FreeVO> recentlyFree();
 
