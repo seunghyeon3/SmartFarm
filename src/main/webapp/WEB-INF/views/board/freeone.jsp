@@ -55,7 +55,8 @@
 								
 								<li class="comment">
 									<div class="user-thumb">
-										<img src="images/auser.jpg" alt="">
+									<c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 7) %></c:set>
+										<img id="commImg" src="resources/random/${ran }.jpg" alt="">
 									</div>
 									<div class="comment-txt">
 										<h6>${comm.mem_name }</h6>
@@ -167,6 +168,7 @@ $("#postcomm").on("click",function(event) {
  			var html ='<ul id="comments" class="comments"><li class="comment"><div class="user-thumb"><img src="images/auser.jpg" alt=""></div><div class="comment-txt"><h6>'+result.newcomments[i].mem_name+'</h6><p>'+result.newcomments[i].free_comm_con+'</p><ul class="comment-time"><li>Posted: '+result.newcomments[i].free_comm_day+'</li></ul></div></li></ul>';
  			$("#comments").append(html);
 		}
+ 			location.reload();
 	})
 })
 
