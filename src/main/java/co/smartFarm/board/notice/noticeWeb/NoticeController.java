@@ -131,7 +131,7 @@ public class NoticeController {
 	      if (!noticefile.isEmpty()) {
 	         String filename = noticefile.getOriginalFilename();
 
-	         String fullPath = saveDir +"/"+ filename;
+	         String fullPath = saveDir + filename;
 	         noticefile.transferTo(new File(fullPath));
 	         notice.setNotice_img(filename);
 	      }
