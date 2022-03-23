@@ -114,6 +114,7 @@
 				})		  
 			}
 		});
+	
 /* 
 $("#diary").on("click", "li", function(event){ 
 	console.log(event.target.dataset.route);

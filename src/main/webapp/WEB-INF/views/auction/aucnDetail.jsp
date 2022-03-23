@@ -277,11 +277,6 @@ border-radius: 15px;
 			}
 			console.log(aucnEventData.bid);
 			
-			var solidityAucnNo = parseInt(modelAucnNo);
-			NFTAuction.methods.bid(solidityAucnNo)
-			.send({from: account, value: aucnEventData.bid})
-			.then(function(result){console.log(result);});
-		
 		}
 		
 		function onOpen(event) {
@@ -328,14 +323,16 @@ border-radius: 15px;
 	
 	/* ----------팝업 로딩생성---------- */
 	function createLoading(){
-		document.getElementById('fade').style.display = 'block';
+		<!-- 220308 PSH loading page 수정 -->
+		/* document.getElementById('fade').style.display = 'block'; */
 		document.getElementById('fade').innerHTML = "";
-		document.getElementById('fade').classList.add("loading");
+		document.getElementById('fade').style.display="flex";
 		var img = document.createElement("img");
 		img.setAttribute("src","resources/images/loadingicon.gif");
 		img.setAttribute("alt","로딩중입니다");
 		img.setAttribute("class","mx-auto d-block");
 		document.getElementById('fade').appendChild(img);
+		document.getElementById('fade').style.zIndex= 1005;
 	}
 
 	/* ----------팝업 생성---------- */
@@ -462,14 +459,27 @@ border-radius: 15px;
 					alert("금액을 입력하세요.");
 					toastr.error("금액을 입력하세요.");
 				}else{
-					alert('입찰에 성공하였습니다.');
-					//nft 경매 솔리디티 함수 실행
-					var inputBid ={
-						 bid: document.getElementById("inputMessage").value,
-						 id: '${member.mem_email}',
-						 aucn: '${aucnSelect.aucn_no }'
-					};
-					webSocketSendChat(inputBid);
+					createLoading();
+					
+					NFTAuction.methods.bid(${aucnSelect.aucn_no })
+					.send({from: account, value: inputAucnBid})
+					.then(async function(result){
+						
+						console.log(result);
+						//nft 입찰 웹소켓 전송
+						var inputBid ={
+							 bid: document.getElementById("inputMessage").value,
+							 id: '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}',
+							 aucn: '${aucnSelect.aucn_no }'
+						};
+						await webSocketSendChat(inputBid);
+						await exitLoading(); 
+						alert('입찰에 성공하였습니다.');
+					});
+					
+					
+					
+
 				}
 			}
 	</script>

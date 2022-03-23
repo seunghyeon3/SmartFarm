@@ -43,7 +43,7 @@
 											</div>
 											<div style="float: right;">
 												<h5 style="display: inline;">보유한 키트가 없습니다</h5>
-												<a href="kitShopList.do" class="dn-btn">키트 구매 바로가기</a>
+												<a href="kitShopList.do?kitPrpos=&orderBy=name" class="dn-btn">키트 구매 바로가기</a>
 											</div>
 										</div>
 									</div>

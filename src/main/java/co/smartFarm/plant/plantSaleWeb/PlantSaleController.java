@@ -169,7 +169,7 @@ public class PlantSaleController {
 
 			oriFile.transferTo(new File(saveDir, plantSaleOriRou));
 
-			plantSaleVo.setPlant_sale_ori_rou(plantSaleOriRou);
+			plantSaleVo.setPlant_sale_ori_rou(originRou);
 			plantSaleVo.setPlant_sale_phy_rou(plantSaleOriRou);
 			System.out.println(oriFile);
 		}

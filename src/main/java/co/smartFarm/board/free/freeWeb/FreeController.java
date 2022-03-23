@@ -20,9 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.smartFarm.auction.aucnService.AucnMapper;
 import co.smartFarm.board.free.freeService.FreeMapper;
 import co.smartFarm.board.free.freeService.FreeVO;
 import co.smartFarm.board.useRevw.useRevwService.UseRevwVO;
+import co.smartFarm.grow.growService.GrowService;
+import co.smartFarm.grow.growService.GrowVO;
+import co.smartFarm.grow.growServiceImpl.GrowServiceImpl;
 import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
@@ -30,31 +34,47 @@ public class FreeController {
 
     @Autowired
     FreeMapper freeDao;
+    @Autowired
+    AucnMapper aucnDao;
+	@Autowired
+	GrowService growDao;
 	@Autowired
 	private String saveDir;
+
 	
 	//자유게시판 리스트
     @RequestMapping(value = "/free.do") 
-    public String free(Model model) throws JsonProcessingException {
-    	
+    public String free(Model model, MemberVO memberVo, FreeVO free) throws JsonProcessingException {
 		ObjectMapper map = new ObjectMapper();
-		
 		String Str = map.writeValueAsString(freeDao.freeList());
-    	
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String memEmail = userDetails.getUsername();
+			model.addAttribute("kitList", growDao.growListing(memEmail));
+		}
+
 		model.addAttribute("test", Str);
-		
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 		return "board/free";
     }
 
     //자유게시판 상세페이지
     @RequestMapping(value = "/freeOne.do")
     public String freeOne(int free_no, Model model ) {
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String memEmail = userDetails.getUsername();
+			model.addAttribute("kitList", growDao.growListing(memEmail));
+		}
+		freeDao.freeHitUp(free_no);
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
         model.addAttribute(freeDao.freeOne(free_no)); 
         model.addAttribute("comments", freeDao.freeCommList(free_no));
         model.addAttribute("count", freeDao.freeCommCount(free_no));
         System.out.println(model);
         return "board/freeone";
-        
     }
     
     //자유게시판 댓글쓰기

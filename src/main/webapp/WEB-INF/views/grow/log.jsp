@@ -73,28 +73,55 @@
 						
 					</div>
 					
-					<!--TEST-->
+			<!--TEST-->
 					<div class="col-lg-3 col-md-4">
-                        <div class="sidebar">
-                           <!--Widget Start-->
-                           <div class="side-widget project-list-widget">
-                              <h5>Current Projects</h5>
-                              <ul>
-                                 <li><a href="#">Waste Management</a></li>
-                                 <li><a href="#">Solar Energy</a></li>
-                                 <li><a href="#">Eco Ideas</a></li>
-                                 <li><a href="#">Recycling Materials</a></li>
-                                 <li><a href="#">Plant Ecology</a></li>
-                                 <li><a href="#">Saving Wildlife</a></li>
-                                 <li><a href="#">Water Resources</a></li>
-                                 <li><a href="#">Forest &amp; Tree Planting</a></li>
-                                 <li><a href="#">Wing Energy</a></li>
-                              </ul>
-                           </div>
-                           <!--Widget End--> 
-                        </div>
-                     </div>
-					<!--TEST END-->
+                      <div class="sidebar">
+                          <!--Widget Start-->
+                    	  <div class="side-widget">
+           				  	 <h6>태그</h6>
+           				 	 <div class="single-post-tags"> 
+           				 		<a href="#">친환경</a> <a href="#"> Plant Ecology </a> <a href="#"> Wildlife </a> <a href="#"> Eco Ideas </a> <a href="#"> 자원관리 </a> <a href="#"> 물 </a> <a href="#"> Forest Planting </a> <a href="#"> Donation </a><a href="#"> 재활용 </a> 
+           					 </div>
+          				  </div>
+          				  <!--Widget End--> 
+                         <!--Widget Start-->
+                         <div class="side-widget text-widget">
+                            <h6>최신글</h6>
+                            <c:forEach items="${recentlyFree}" var="free" begin="0" end="5">
+                           	 <a style="width:200px;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;" href="freeOne.do?free_no=${free.free_no}">${free.free_title}</a>
+                            </c:forEach>
+                         </div>
+                         <!--Widget End--> 
+                         <!--Widget Start-->
+                         <div class="side-widget">
+                            <h6>NFT경매 목록</h6>
+                            <ul class="lastest-products">
+						<c:forEach items="${aucnEnable }" var="aucn" begin="0" end="3">
+                               <li> 
+							<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 45px; height: 60px;">
+                               	<strong>
+                               		<a href="aucnDetail.do?aucnNo=${aucn.aucn_no}">${aucn.aucn_title}</a>
+							</strong> <span class="pdate">
+							<i class="fas fa-calendar-alt"></i>현재 가격 : ${aucn.now_bid }</span> </li>
+                            	</c:forEach>
+                            </ul>
+                         </div>
+                         <!--Widget Start--> 
+                         <!--Widget Start-->
+                         <div class="side-widget project-list-widget">
+                            <h6>재배 바로가기</h6>
+                            <ul>
+                            	<c:forEach items="${kitList}" var="grow">
+                               <li><a href="control.do?no=${grow.pur_his_order_no }">${grow.kit_plant_name}</a></li>
+                               </c:forEach>
+                            </ul>
+                         </div>
+                         <!--Widget End--> 
+                      </div>
+                   </div>
+			<!--TEST END-->
+					
+
 				</div>
 			</div>
 		</div>
@@ -151,6 +178,7 @@
 					console.log(txt);
 					li.data = txt;
 					li.setAttribute('data-log', txt);
+					li.setAttribute('style', 'cursor:pointer;');
 					li.innerHTML=k;
 					$("#daily").append(li);
 		            /* $("#daily").html("<li data-log='"+txt+"'" ) */
@@ -182,6 +210,7 @@ $("#daily").on("click", "li", function(event){
 			console.log($("#${no}").parent());
 			$("#${no}").parent().click();
 	});
+	
 
 </script>
 

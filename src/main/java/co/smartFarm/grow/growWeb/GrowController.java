@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import co.smartFarm.auction.aucnService.AucnMapper;
+import co.smartFarm.board.free.freeService.FreeMapper;
 import co.smartFarm.grow.growService.GrowService;
 import co.smartFarm.grow.growService.GrowVO;
 import co.smartFarm.user.memberService.MemberVO;
@@ -43,10 +46,16 @@ public class GrowController {
 	// 220302 PSH 쓴 이유..?
 	private static final int String = 0;
 
-	@Autowired
 	// 220302 PSH GrowMapper mapG 에서 아래 내용오르 수정
+	@Autowired
 	GrowService growDao;
-
+	@Autowired
+    FreeMapper freeDao;
+	@Autowired
+    AucnMapper aucnDao;
+	@Autowired
+	private String saveDir;
+    
 //	재배 진행 정보 페이지
 	@RequestMapping(value = "/grow.do", method = RequestMethod.GET)
 	public String grow(Locale locale, Model model, HttpSession session) throws ParseException {
@@ -72,6 +81,12 @@ public class GrowController {
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
 			return "redirect:login.do";
 		}
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String memEmail = userDetails.getUsername();
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
+		model.addAttribute("kitList", growDao.growListing(memEmail));
+		
 		return "grow/howto";
 	}
 
@@ -86,7 +101,8 @@ public class GrowController {
 		String memEmail = userDetails.getUsername();
 		model.addAttribute("kitList", growDao.growComList(memEmail));
 		System.out.println(model);
-
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 		return "grow/cctv";
 
 	}
@@ -103,6 +119,8 @@ public class GrowController {
 
 		List<GrowVO> voList = growDao.growListing(memEmail);
 		model.addAttribute("kitList", voList);
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 		System.out.println(model);
 		if (no != null) {
 			model.addAttribute("no", no);
@@ -133,7 +151,7 @@ public class GrowController {
 	public Map<String, String> nftList(String nft) throws Exception {
 		Map<String, String> map = new HashMap<>();
 
-		String test = "D:\\" + nft;
+		String test = saveDir + nft;
 
 //		로그
 		System.out.println(test);
@@ -178,6 +196,8 @@ public class GrowController {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String memEmail = userDetails.getUsername();
 		model.addAttribute("kitList", growDao.growListing(memEmail));
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 		if (no != null) {
 			model.addAttribute("no", no);
 		}
@@ -196,7 +216,7 @@ public class GrowController {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String memEmail = userDetails.getUsername();
 
-		String DATA_DIRECTORY = "D:\\";
+		String DATA_DIRECTORY = saveDir;
 		File dir = new File(DATA_DIRECTORY);
 
 		FilenameFilter filter = new FilenameFilter() {
@@ -207,7 +227,8 @@ public class GrowController {
 		};
 		String[] filenames = dir.list(filter);
 		model.addAttribute("filenames", filenames);
-
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 //		로그
 		System.out.println(model);
 
@@ -226,7 +247,7 @@ public class GrowController {
 	@ResponseBody
 	public List<String> logBody(@RequestParam Map<String, String> param) throws Exception {
 
-		String test = "D:\\" + param.get("file") + ".txt";
+		String test = saveDir + param.get("file") + ".txt";
 
 //		로그
 		System.out.println(test);
@@ -294,7 +315,7 @@ public class GrowController {
 		Gson gson = new Gson();
 		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
 
-		String logRoute = "D:\\" + memEmail + deviceId + sd + ".txt";
+		String logRoute = saveDir + memEmail + deviceId + sd + ".txt";
 		System.out.println(logRoute);
 
 		try {
