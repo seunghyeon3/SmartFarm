@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 //3
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.smartFarm.board.notice.noticeService.NoticeService;
 import co.smartFarm.board.notice.noticeService.NoticeVO;
 import co.smartFarm.user.memberService.MemberService;
-import co.smartFarm.user.memberService.MemberVO;
 
 @Controller
 public class NoticeController {
@@ -39,7 +36,8 @@ public class NoticeController {
 	private NoticeService noticeDao;
 
 	// 파일업로드
-	private static final String FILE_SERVER_PATH = "c:/Temp/";
+	@Autowired
+	private String saveDir; // 파일저장 경로를 자동 주입
 
 	// 공지사항 리스트
 	@RequestMapping(value = "/notice.do")
@@ -100,14 +98,13 @@ public class NoticeController {
 				   throws IllegalStateException, IOException {
 
 		      // file 업로드
-		      String uploadDir = "c:/Temp/";
 		      notice.setNotice_con(notice.getNotice_con().replace("\r\n","<br>"));
 		      System.out.println(notice.toString());
 			// 경로 
 		      if (!noticefile.isEmpty()) {
 		         String filename = noticefile.getOriginalFilename();
 
-		         String fullPath = uploadDir +"/"+ filename;
+		         String fullPath = saveDir + filename;
 		         noticefile.transferTo(new File(fullPath));
 		         notice.setNotice_img(filename);
 		      }
@@ -129,13 +126,12 @@ public class NoticeController {
 	   public String noticeupdate(NoticeVO notice, Model model, MultipartFile noticefile) 
 			   throws IllegalStateException, IOException {
 		  // file 업로드
-	      String uploadDir = "c:/Temp/";
 	      notice.setNotice_con(notice.getNotice_con().replace("\r\n","<br>"));
 	      // 경로 
 	      if (!noticefile.isEmpty()) {
 	         String filename = noticefile.getOriginalFilename();
 
-	         String fullPath = uploadDir +"/"+ filename;
+	         String fullPath = saveDir + filename;
 	         noticefile.transferTo(new File(fullPath));
 	         notice.setNotice_img(filename);
 	      }
