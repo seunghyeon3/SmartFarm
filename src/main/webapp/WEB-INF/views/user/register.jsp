@@ -186,7 +186,7 @@
 
 	</div>
 
-	<div id="fadePInfo" class="black_overlay" style="z-index: 1;"></div>
+	<div id="fadePInfo" class="black_overlay loading" style="z-index: 1;"></div>
 
 	<script>
 		//=====카카오 로그인으로 들어오는 경우 ===== 
