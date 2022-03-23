@@ -146,12 +146,12 @@ user-select:none;
 					<!--Team Box Start-->
 					<div class="col-lg-3 col-md-4 col-sm-6">
 						<div class="team-box">
-							<img src="resources/nft/merge/${nft.nft_img }" alt="">
+							<img src="../upload/${nft.nft_img }" alt="">
 							<div class="team-info" style="padding-top: 60px;">
 								<ul class="w-btn-neon2">
 									<li><a href="javascript:void(0)"
 										onclick="pointCheck('${nft.grow_diary_grd }')">점수</a></li>
-									<li><a href="javascript:void(0)" onclick="growDiary()">일지</a></li>
+									<li><a href="javascript:void(0)" onclick="growDiary('${nft.grow_diary_log_rou }')">일지</a></li>
 									<li><a href="aucnInsertForm.do?nftNo=${nft.nft_no}">경매</a></li>
 								</ul>
 							</div>
@@ -160,7 +160,7 @@ user-select:none;
 				</c:forEach>
 				<!--Team Box End-->
 				<div id="light" class="col-md-12 white_content">
-					팝업창 <a href="javascript:void(0)" onclick="exitPopup()"
+					 <a href="javascript:void(0)" onclick="exitPopup()"
 						onkeyup="escExit(event)" style="float: right">Close </a> <br>
 					<br>
 					<div id="content">123</div>
@@ -178,6 +178,11 @@ user-select:none;
 	</script>
 
 	<script>
+		/* ----------팝업 로딩종료---------- */
+		function exitLoading(){
+			document.getElementById('fade').innerHTML = "";
+			document.getElementById('fade').style.zIndex= 0;
+		}
 		/* ----------팝업 로딩생성---------- */
 		function createLoading() {
 			document.getElementById('fade').style.display = 'block';
@@ -212,7 +217,7 @@ user-select:none;
 			toastr.info("해당 NFT의 등급은 " + nftGrd + " 등급입니다");
 		}
 
-		function growDiary() {
+		function growDiary(rou) {
 			//클릭시 페이지 최상단으로 이동.
 			window.scrollTo(0, 0);
 
@@ -223,7 +228,22 @@ user-select:none;
 			createPopup();
 	
 			//로딩끄기
-			document.getElementById('fade').style.display = 'none';
+			exitLoading();
+			
+			$.ajax({
+			url: 'diaryBody.do',
+			type: 'post',
+			data: {"route" : rou },
+			success: function(result) {
+	        	console.log(result);
+				$("#content").empty();
+				for(i=0; i<result.length; i++) {
+					$("#content").append("<li>" + result[i] + "</li>")
+				}
+				
+			}
+		})	
+			
 		}
 	</script>
 </body>

@@ -256,7 +256,7 @@ display: none;
 										<c:forEach items="${aucnEnable }" var="aucn">
 											<div class="item">
 												<div class="pro-box">
-													<img src="<c:url value='/resources/nft/merge/${aucn.nft_img }'/>" alt="" style="width: 278px; height: 378px;">
+													<img src="<c:url value='../upload/${aucn.nft_img }'/>" alt="" style="width: 278px; height: 378px;">
 													<h5>${aucn.aucn_title}</h5>
 													<div class="pro-hover">
 														<h6>${aucn.aucn_title }</h6>
