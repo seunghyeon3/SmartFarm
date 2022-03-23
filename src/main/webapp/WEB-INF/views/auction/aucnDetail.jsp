@@ -147,7 +147,7 @@ border-radius: 15px;
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3">
-						<img src="resources/nft/merge/${aucnSelect.nft_img }" alt="">
+						<img src="../upload/${aucnSelect.nft_img }" alt="">
 						<br> <strong class="trank">${aucnSelect.kit_prpos }
 							${aucnSelect.kit_plant_name } NFT</strong>
 					</div>

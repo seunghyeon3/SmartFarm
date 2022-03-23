@@ -25,7 +25,7 @@
                            <div class="blog-post">
                               <div class="blog-thumb">
                                   <img
-                                    src="resources/nft/merge/${aucn.nft_img }" alt="">
+                                    src="../upload/${aucn.nft_img }" alt="">
                               </div>
                               <div class="post-txt">
                                  <ul class="post-meta">
