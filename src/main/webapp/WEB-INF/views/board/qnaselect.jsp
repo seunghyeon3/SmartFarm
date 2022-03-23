@@ -61,6 +61,20 @@ ul>li>p {
 		<div class="container">
 			<div class="col-md-12 col-sm-6">
 				<div class="blog-single-content" style="width: 100%;">
+				
+				<ul id="modi" class="cform" style="display: none;">
+					<li class="half pl-15"></li>
+					<li class="half pl-15">
+						<input type="button" value="수정" style="width:200px;"
+							onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
+							class="fsubmit">
+							<input type=button value="삭제" style="width:200px;  background-color:#e11f3e;color:#ffffff;" 
+							onclick="location.href='qnadelete.do?qna_no=${qna.qna_no}'"
+							class="fsubmit">
+					</li>
+							
+				
+				</ul>
 					<h3>${qna.qna_title}</h3>
 					<ul class="post-meta">
 						<li><i class="fas fa-user-circle"></i>${qna.mem_name}</li>
@@ -83,16 +97,18 @@ ul>li>p {
 										${qna.qna_phy_rou}</p></a>
 							</div>
 							<ul class="cform">
-								<li id="modi"><input type="button" value="수정"
+								<%-- <li id="modi"><input type="button" value="수정"
 									onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
 									class="fsubmit"></li>
 								<li class="half pr-15"><input type=button value="삭제"
 									onclick="location.href='qnadelete.do?qna_no=${qna.qna_no}'"
-									class="fsubmit"></li>
+									class="fsubmit"></li> --%>
 
-								<li id="back"><input type="button" value="뒤로가기"
-									onclick="history.back(-1);" class="fsubmit" width:=""
-									1022px;="" style="width: 1012px;"></li>
+								<li id="back" class="full"><div style="text-align: center;">
+									<input type="button" value="뒤로가기" style="width:200px; display: inline-block;"
+										onclick="history.back(-1);" class="fsubmit">
+								</div></li>
+								</ul>
 						</div>
 						<br> <br> <br>
 						<!--답글-->
@@ -130,7 +146,7 @@ ul>li>p {
 									</form>
 								</ul>
 							</div>
-							</ul>
+							
 						</div>
 
 					</div>
@@ -142,14 +158,15 @@ ul>li>p {
 		 * 댓글 등록하기(Ajax)
 		 */
 		 
-		 if('${qna.mem_email}' == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}'){
-			 document.getElementById('modi').setAttribute('class', 'half pr-15')
-			 document.getElementById('back').setAttribute('class', 'half pr-15')
+		if('${qna.mem_email}' == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}'){
+			/*  document.getElementById('modi').setAttribute('class', 'half pr-15')
+			 document.getElementById('back').setAttribute('class', 'half pr-15') */
 			 
+			 document.getElementById('modi').style.display = '';
 		 }else{
 			 document.getElementById('modi').remove();
 			 document.getElementById('back').setAttribute('class', 'full')
-		 }
+		 } 
 		 
 		 
 		function fn_comment(code) {
