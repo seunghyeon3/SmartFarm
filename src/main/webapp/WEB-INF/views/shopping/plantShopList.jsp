@@ -117,12 +117,12 @@
 				var temp = "";
 	                $.each(data, function (index, list) {
 	                	var tmp = `\${list.plant_sale_ori_rou}`;
-	                	
+	                	var imgRou;
 	                	if(imgRou == ''){
-	                		tmp = 'nullImg.jpg';
+	                		imgRou = "resources/plant/nullImg.jpg"; 
+	                	}else{
+	                		imgRou = "../upload/" + tmp;
 	                	}
-	                	var imgRou = "resources/plant/" + tmp;
-	                	
 	                	temp = `<div class="col-lg-3 col-sm-6" style="float:left;">
 						<div class="product-box">
 							<div class="pro-thumb">

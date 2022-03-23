@@ -26,8 +26,8 @@
 					</ul>
 
 					<div class="blog-single-thumb">
-						<img src="resources/images/blog/bf4.jpg" alt="">
-						<img src="${freeVO.free_phy_rou }" alt="">
+						<img src="../upload/${freeVO.free_phy_rou }" alt="">
+						<%-- <img src="${freeVO.free_phy_rou }" alt=""> --%>
 					</div>
 					<div class="content" style="min-height: 300px;">
 						<p>${freeVO.free_con}</p>

@@ -34,7 +34,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 						<h5>키트 판매</h5>
 						<h2>(${kitSelectOne.kit_prpos })&nbsp;${kitSelectOne.kit_name }</h2>
 						<img style="width:550px; height:380px;"
-										src="resources/kit/${kitSelectOne.kit_main_img}" alt="">
+										src="../upload/${kitSelectOne.kit_main_img}" alt="">
 						<!-- 추후수정 -->
 					</div>
 				</div>
@@ -81,7 +81,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 				</div>
 				<div class="col-md-12">
 					<img style="width:100%; border:2px solid black;"
-							src="resources/kit/${kitSelectOne.kit_exp_img}">
+							src="../upload/${kitSelectOne.kit_exp_img}">
 				</div>
 
 				<!-- 리뷰 출력 -->
@@ -163,7 +163,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		
 		var tmp = "";
 		for(index in list){
-			tmp += `<li><img src="/resources/images/flp2.jpg" alt=""> 
+			tmp += `<li><img src="../upload/${list[index].use_revw_phy_rou}" alt=""> 
 				<strong><a href="useRevwDetail.do?useRevwNo=\${list[index].use_revw_no}" style="font-size: large;">\${list[index].use_revw_title}</a>`;
 				
 			var date = new Date(1 * `\${list[index].use_revw_write_day}`);
@@ -193,7 +193,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		            	
 		                $.each(data, function (index, item) {
 		                	
-		                	tmp += `<li><img src="/resources/images/flp2.jpg" alt=""> 
+		                	tmp += `<li><img src="../upload/${list[index].use_revw_phy_rou}" alt=""> 
 		        				<strong><a href="useRevwDetail.do?useRevwNo=\${list[index].use_revw_no}" style="font-size: large;">\${list[index].use_revw_title}</a>`;
 		        				
 		        			var date = new Date(1 * `\${list[index].use_revw_write_day}`);
