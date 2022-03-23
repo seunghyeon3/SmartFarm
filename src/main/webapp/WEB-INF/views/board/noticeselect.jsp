@@ -58,48 +58,45 @@ ul>li>p {
 <body>
 	<section class="contact-page wf100 p80">
 		<div class="container">
-		     <div class="row">
-				<!--Blog Single Content Start-->
-				<div class="blog-single-content">
+			<div class="row">
+				<div class="col-md-12 col-sm-6">
+					<div class="blog-single-content" style="width: 100%;">
 
-					<h3>${notice.notice_title}</h3>
-					<ul class="post-meta">
-						<li><i class="fas fa-user-circle"></i>${notice.mem_name}</li>
-						<li><i class="fas fa-calendar-alt"></i>${notice.notice_day}</li>
-						<li><i class="fas fa-comments"></i> ${notice.notice_hit} 조회수</li>
-					</ul>
+						<h3>${notice.notice_title}</h3>
+						<ul class="post-meta">
+							<li><i class="fas fa-user-circle"></i>${notice.mem_name}</li>
+							<li><i class="fas fa-calendar-alt"></i>${notice.notice_day}</li>
+							<li><i class="fas fa-comments"></i> ${notice.notice_hit} 조회수</li>
+						</ul>
 
-					<div style="width: 100%; text-align : center;">
-					<img src="download.do?img=${notice.notice_img}"style="width: 100%; max-width: 1200px; vertical-align: middle"
-						onError="this.style.visibility='hidden'">
+						<div style="width: 100%; text-align: center;">
+							<img src="../upload/${notice.notice_img}"
+								style="width: 100%; max-width: 1200px; vertical-align: middle"
+								onError="this.style.visibility='hidden'">
+						</div>
+
+						<div class="content" style="min-height: 300px;">
+							<p>${notice.notice_con}</p>
+						</div>
+						<div style="margin-top: 50px; margin-bottom: 50px;">
+							<!-- style="text-align : center;" -->
+							<a href="download.do?img=${notice.notice_img}"><p>첨부파일 : ${notice.notice_img}</p></a>
+						</div>
+
+						<ul class="cform">
+							<sec:authorize access="hasRole('ADMIN')">
+								<li class="half pr-15"><input type="button" value="수정"
+									onclick="location.href='noticeupdateForm.do?notice_no=12'"
+									class="fsubmit"></li>
+							</sec:authorize>
+							<li class="half pr-15"><input type="button" value="뒤로가기"
+								onclick="history.back(-1);" class="fsubmit"></li>
+						</ul>
+						<!--Leave a Comment End-->
 					</div>
-					<div> <!-- style="text-align : center;" -->
-						<a href="download.do?img=${notice.notice_img}"><p>${notice.notice_img}</p></a>
-					</div>
-					<div class="content"style="min-height: 300px;">
-						<p>${notice.notice_con}</p>
-					</div>
-					<br><hr>
-					<ul class="cform">
-					<sec:authorize access="hasRole('ADMIN')">
-					<li class="half pr-15">
-					
-						<input type="button" value="수정하기"
-							onclick="location.href='noticeupdateForm.do?notice_no=${notice.notice_no}'"
-							class="fsubmit">
-					</li>
-					</sec:authorize>
-					<li class="half pr-15">
-					
-					<input type="button" value="뒤로가기" onclick="history.back(-1);"
-						class="fsubmit">
-						</li>
-					</ul>
-					<!--Leave a Comment End-->
+					<!--Blog Single Content End-->
 				</div>
-				<!--Blog Single Content End-->
 			</div>
-		</div>
 	</section>
 </body>
 </html>

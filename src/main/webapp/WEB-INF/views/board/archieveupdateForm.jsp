@@ -58,7 +58,7 @@
                         <input class="upload-name" value="파일선택" disabled="disabled">
 						<label for="ex_filename">업로드</label> <input type="file" id="ex_filename" class="upload-hidden" name="archievefile">
                         </div>
-                        <li class="full"><textarea class="textarea-control"placeholder="내용" name="archieve_con" required>${archieve.archieve_con}</textarea>
+                        <li class="full"><textarea rows="20" class="textarea-control"placeholder="내용" name="archieve_con" required>${archieve.archieve_con}</textarea>
                         </li>
                         <li class="half pr-15"><input type="submit" value="확인" onclick="location.href=archieveupdate.do" class="fsubmit">
                         </li>
