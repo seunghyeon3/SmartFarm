@@ -61,7 +61,17 @@ ul>li>p {
 			<div class="row">
 				<div class="col-md-12 col-sm-6">
 					<div class="blog-single-content" style="width: 100%;">
-
+						
+						<ul class="cform"style="margin:20px;">
+						<li class="half pl-15"></li>
+							<sec:authorize access="hasRole('ADMIN')">
+								<li class="half pr-15"><input type="button" value="수정" style="width:200px;"
+									onclick="location.href='noticeupdateForm.do?notice_no=12'"
+									class="fsubmit">
+							    <input type=button value="삭제" style="width:200px;  background-color:#e11f3e;color:#ffffff;" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
+							    </li>
+							</sec:authorize>
+						</ul>
 						<h3>${notice.notice_title}</h3>
 						<ul class="post-meta">
 							<li><i class="fas fa-user-circle"></i>${notice.mem_name}</li>
@@ -84,16 +94,21 @@ ul>li>p {
 						</div>
 
 						<ul class="cform">
-							<sec:authorize access="hasRole('ADMIN')">
+							<%-- <sec:authorize access="hasRole('ADMIN')">
 								<li class="half pr-15"><input type="button" value="수정"
 									onclick="location.href='noticeupdateForm.do?notice_no=12'"
 									class="fsubmit"></li>
 									<li class="half pr-15">
 							    <input type=button value="삭제" onclick="location.href='noticedelete.do?notice_no=${notice.notice_no}'"class="fsubmit">
 							    </li>
-							</sec:authorize>
-							<li class="full"><input type="button" value="뒤로가기"
-								onclick="history.back(-1);" class="fsubmit"></li>
+							</sec:authorize> --%>
+							<li class="full">
+							<div style="text-align: center;">
+									<input type="button" value="뒤로가기" style="width:200px; display: inline-block;"
+										onclick="history.back(-1);" class="fsubmit">
+								</div>
+								
+								</li>
 						</ul>
 						<!--Leave a Comment End-->
 					</div>
