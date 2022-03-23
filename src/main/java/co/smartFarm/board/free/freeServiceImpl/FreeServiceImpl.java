@@ -66,4 +66,9 @@ public class FreeServiceImpl implements FreeService{
 	public List<FreeVO> recentlyFree() {
 		return map.recentlyFree();
 	}
+
+	@Override
+	public void freeHitUp(int free_no) {
+		map.freeHitUp(free_no);
+	}
 }
