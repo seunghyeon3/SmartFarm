@@ -242,7 +242,7 @@
 		$("#content").html(editForm);
 			//로딩끄기
 			exitLoading();
-			document.getElementById('light').style.height = '125%';
+			document.getElementById('light').style.height = '110%';
 		}
 		
 		/* ----------메타마스크 로그인 체크--------- */
@@ -623,7 +623,7 @@
 		$("#content").html(farmerForm);
 			//로딩끄기
 			exitLoading();
-			document.getElementById('light').style.height = '70%';
+			document.getElementById('light').style.height = '50%';
 			}
 			
 		}
@@ -650,15 +650,13 @@
 					<span style="color:#e11f3e; border-bottom: 3px solid #e11f3e;">삭제된 데이터는 복구되지 않습니다.</span><br><br>	
 					<span style="color:#e11f3e; border-bottom: 3px solid #e11f3e;">삭제되는 내용을 확인하시고 필요한 데이터는 미리 백업을 해주세요.</span><br>
 				
-				<form action="memberDelete.do" onsubmit="return passwordCheck()">
 				<div class="input-group">
 					<input id="password" type="password" class="form-control"
 						placeholder="마지막으로 비밀번호를 입력해주세요" required>
 				</div>
 				<div class="input-group">
-					<button class="login-btn" style="cursor: pointer;background-color:#e11f3e;color:#ffffff;" type="submit">탈퇴</button>
+					<button class="login-btn" style="cursor: pointer;background-color:#e11f3e;color:#ffffff;" onclick="">탈퇴</button>
 				</div>
-				</form>
 				</div>
 				</div>
 				`
@@ -854,13 +852,19 @@
 	  
 	  function passwordCheck(){
 		  
-		  if(document.getElementById('password').value == '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_pw}'){
-				alert('정상적으로 입력되었습니다.');
-				return true;
-			}else{
-				alert('비밀번호가 일치하지 않습니다.');
-				return false;
-			} 
+			$.ajax({
+				type : "POST",
+				url : "pwcheck.do",
+				data : {pass : document.getElementById('password').value},
+				success : function(Kpassword) {
+					console.log(Kpassword);
+					if(Kpassword){
+					 	window.location.href = "memberDelete.do";
+					}else{
+						alert('비밀번호가 일치하지 않습니다.');
+					}
+				} //success
+			});
 	  }
 	  
    

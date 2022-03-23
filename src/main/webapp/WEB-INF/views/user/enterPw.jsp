@@ -46,12 +46,12 @@
 		function passwordCheck() {
 			$.ajax({
 				type : "POST",
-				url : "mypage.do",
+				url : "pwcheck.do",
 				data : {pass : document.getElementById('password').value},
 				success : function(Kpassword) {
 					console.log(Kpassword);
 					if(Kpassword){
-					 	window.location.href = "mypageOk.do";
+					 	window.location.href = "mypage.do";
 					}else{
 						alert('비밀번호가 일치하지 않습니다.');
 						location.reload();

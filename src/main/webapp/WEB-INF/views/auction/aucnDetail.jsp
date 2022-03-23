@@ -228,7 +228,7 @@ border-radius: 15px;
 					</div>
 
 					<div id="123"></div>
-					<div id="fade" class="black_overlay"></div>
+					<div id="fade" class="black_overlay loading"></div>
 				</div>
 			</div>
 		</div>
@@ -340,6 +340,7 @@ border-radius: 15px;
 		document.getElementById('light').style.display = 'block';
 		document.getElementById('content').classList
 				.add("blog-single-content");
+		
 	}
 	
 	/* ----------팝업 창닫기---------- */
