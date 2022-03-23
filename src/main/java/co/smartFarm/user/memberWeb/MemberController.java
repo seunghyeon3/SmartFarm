@@ -69,9 +69,9 @@ public class MemberController {
 	CustomUserDetailsService cuds;
 	// 마이페이지 경로
 	// 220302 PSH MypageController -> MemberController 구분 작업
-	@RequestMapping("/mypage.do")
+	@RequestMapping("/pwcheck.do")
 	@ResponseBody
-	public boolean mypage(@RequestParam("pass") String pass) {
+	public boolean pwcheck(@RequestParam("pass") String pass) {
 		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String Ypass = memberVo.getMem_pw();
 		if(bcryp.matches(pass, Ypass)) {
@@ -80,7 +80,7 @@ public class MemberController {
 		return false;
 		}
 	}
-	@RequestMapping("/mypageOk.do")
+	@RequestMapping("/mypage.do")
 	public String mypage() {
 		return "user/mypage";
 	}
