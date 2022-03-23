@@ -93,9 +93,13 @@ ul>li>p {
 								<li class="half pr-15"><input type="button" value="수정"
 									onclick="location.href='archieveupdateForm.do?archieve_no=${archieve.archieve_no}'"
 									class="fsubmit"></li>
+								<li class="half pr-15">
+                        		<input type=button value="삭제" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
+                        		</li>
 							</sec:authorize>
-							<li class="half pr-15"><input type="button" value="뒤로가기"
-								onclick="history.back(-1);" class="fsubmit"></li>
+							<li class="full"><input type="button" value="뒤로가기"
+								onclick="history.back(-1);" class="fsubmit">
+							</li>
 						</ul>
 					</div>
 				</div>

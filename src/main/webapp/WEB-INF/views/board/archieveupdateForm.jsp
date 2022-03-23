@@ -63,7 +63,7 @@
                         <li class="half pr-15"><input type="submit" value="확인" onclick="location.href=archieveupdate.do" class="fsubmit">
                         </li>
                         <li class="half pr-15">
-                        <input type=button value="삭제" onclick="location.href='archievedelete.do?archieve_no=${archieve.archieve_no}'"class="fsubmit">
+                        <input type=button value="취소" onclick="history.back(-1);"class="fsubmit">
                         </li>
                      </ul>
                   </form>

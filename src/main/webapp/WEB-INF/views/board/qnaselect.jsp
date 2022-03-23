@@ -14,19 +14,18 @@
 </head>
 <style>
 .filebox label {
-
-   display: inline-block;
-   padding: .5em .75em;
-   color: #fff;
-   font-size: inherit;
-   line-height: normal;
-   vertical-align: middle;
-   background-color: #5cb85c;
-   cursor: pointer;
-   border: 1px solid #4cae4c;
-   border-radius: .25em;
-   -webkit-transition: background-color 0.2s;
-   transition: background-color 0.2s;
+	display: inline-block;
+	padding: .5em .75em;
+	color: #fff;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #5cb85c;
+	cursor: pointer;
+	border: 1px solid #4cae4c;
+	border-radius: .25em;
+	-webkit-transition: background-color 0.2s;
+	transition: background-color 0.2s;
 }
 
 .filebox label:hover {
@@ -38,13 +37,13 @@
 }
 
 .filebox input[type="file"] {
-   position: absolute;
-   width: 1px;
-   height: 1px;
-   padding: 0;
-   overflow: hidden;
-   clip: rect(0, 0, 0, 0);
-   border: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 
 ul>li>p {
@@ -61,73 +60,81 @@ ul>li>p {
 	<section class="shop wf100 p80">
 		<div class="container">
 			<div class="col-md-12 col-sm-6">
-					<div class="blog-single-content" style="width: 100%;">
-								<h3>${qna.qna_title}</h3>
-							<ul class="post-meta">
-							<li><i class="fas fa-user-circle"></i>${qna.mem_name}</li>
-							<li><i class="fas fa-calendar-alt"></i>${qna.qna_day}</li>
-							<li><i class="fas fa-comments"></i>${qna.qna_hit}</li>
-							</ul>
-							<div style="width: 100%; text-align : center;">
-							<img src="../upload/${qna.qna_phy_rou}"style="width: 100%; max-width: 1200px; vertical-align: middle"onError="this.style.visibility='hidden'">
-							</div> 
-							<!-- <div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;"> -->
-							<div class="content" style="min-height: 300px;">
-							<p>${qna.qna_con}</p>
-							</div>
+				<div class="blog-single-content" style="width: 100%;">
+					<h3>${qna.qna_title}</h3>
+					<ul class="post-meta">
+						<li><i class="fas fa-user-circle"></i>${qna.mem_name}</li>
+						<li><i class="fas fa-calendar-alt"></i>${qna.qna_day}</li>
+						<li><i class="fas fa-comments"></i>${qna.qna_hit}</li>
+					</ul>
+					<div style="width: 100%; text-align: center;">
+						<img src="../upload/${qna.qna_phy_rou}"
+							style="width: 100%; max-width: 1200px; vertical-align: middle"
+							onError="this.style.visibility='hidden'">
+					</div>
+					<!-- <div class="blog-single-thumb" style="border-bottom:thick double #32a1ce;"> -->
+					<div class="content" style="min-height: 300px;">
+						<p>${qna.qna_con}</p>
+					</div>
+					<div>
+						<div>
 							<div>
-							<div>
-							<div>
-							<a href="downloadq.do?img=${qna.qna_phy_rou}"><p>첨부파일 : ${qna.qna_phy_rou}</p></a>
+								<a href="downloadq.do?img=${qna.qna_phy_rou}"><p>첨부파일 :
+										${qna.qna_phy_rou}</p></a>
 							</div>
 							<ul class="cform">
-							<li id="modi"><input type="button" value="수정"
-								onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
-								class="fsubmit">
-							</li>
-							<li id="back">
-							<input type="button" value="뒤로가기"
-								onclick="history.back(-1);" class="fsubmit">
-								</li>
-							</div>
-							<!--답글-->
-							<div class="col-md-8" style="margin-top:100px">
-							<div class="wf100 comment-form" style="border-bottom: 1px solid #dddddd; margin-bottom:40px;">
-						 	<h4>답글</h4>
-							<ul> 
-								<form id="commentForm" name="commentForm" method="post">
-									<br> <br>
-									<div>
+								<li id="modi"><input type="button" value="수정"
+									onclick="location.href='qnaupdateForm.do?qna_no=${qna.qna_no}'"
+									class="fsubmit"></li>
+								<li class="half pr-15"><input type=button value="삭제"
+									onclick="location.href='qnadelete.do?qna_no=${qna.qna_no}'"
+									class="fsubmit"></li>
+
+								<li id="back"><input type="button" value="뒤로가기"
+									onclick="history.back(-1);" class="fsubmit" width:=""
+									1022px;="" style="width: 1012px;"></li>
+						</div>
+						<br> <br> <br>
+						<!--답글-->
+						<div class="col-md-8" style="margin-top: 100px">
+							<div class="wf100 comment-form"
+								style="border-bottom: 1px solid #dddddd; margin-bottom: 40px;">
+								<h4>답글</h4>
+								<ul>
+									<form id="commentForm" name="commentForm" method="post">
+										<br> <br>
 										<div>
-											<span id="cCnt"></span>
-										</div>
-
-										<sec:authorize access="hasRole('ADMIN')">
 											<div>
-												<table class="table">
-													<tr>
-														<td><textarea style="width: 1006px;" rows="3" cols="30" id="reply_con" placeholder="댓글을 입력하세요" name="reply_con"></textarea>
-															<br>
-															<div>
-																<!--  style="display:none;"> -->
-																<a href='#' onClick="fn_comment('${qna.qna_no}')"
-																	class="btn pull-right btn-success">등록</a>
-															</div></td>
-													</tr>
-												</table>
+												<span id="cCnt"></span>
 											</div>
-										</sec:authorize>
-									</div>
-									<input type="hidden" id="qna_no" name="qna_no"
-										value="${qna.qna_no}" />
-								</form>
-							</ul> 
-					</div>
-					</ul>
-				</div>
 
-			</div>
-		</div>
+											<sec:authorize access="hasRole('ADMIN')">
+												<div>
+													<table class="table">
+														<tr>
+															<td><textarea style="width: 1006px;" rows="3"
+																	cols="30" id="reply_con" placeholder="댓글을 입력하세요"
+																	name="reply_con"></textarea> <br>
+																<div>
+																	<!--  style="display:none;"> -->
+																	<a href='#' onClick="fn_comment('${qna.qna_no}')"
+																		class="btn pull-right btn-success">등록</a>
+																</div></td>
+														</tr>
+													</table>
+												</div>
+											</sec:authorize>
+										</div>
+										<input type="hidden" id="qna_no" name="qna_no"
+											value="${qna.qna_no}" />
+									</form>
+								</ul>
+							</div>
+							</ul>
+						</div>
+
+					</div>
+				</div>
 	</section>
 	<script>
 
