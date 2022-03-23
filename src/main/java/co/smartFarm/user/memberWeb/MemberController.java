@@ -70,10 +70,20 @@ public class MemberController {
 	// 마이페이지 경로
 	// 220302 PSH MypageController -> MemberController 구분 작업
 	@RequestMapping("/mypage.do")
+	@ResponseBody
+	public boolean mypage(@RequestParam("pass") String pass) {
+		MemberVO memberVo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String Ypass = memberVo.getMem_pw();
+		if(bcryp.matches(pass, Ypass)) {
+			return true;
+		}else {
+		return false;
+		}
+	}
+	@RequestMapping("/mypageOk.do")
 	public String mypage() {
 		return "user/mypage";
 	}
-
 	// 재배내역 팝업창 클릭시 회원 재배내역 표출
 	// 220302 PSH MypageController -> MemberController 구분 작업
 	@RequestMapping("cultivationHistory.do")

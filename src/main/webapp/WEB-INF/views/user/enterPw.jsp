@@ -26,7 +26,6 @@
 				<div class="col-md-6">
 					<div class="login-box">
 						<h3>비밀번호를 입력하세요</h3>
-						<form action="mypage.do" onsubmit="return passwordCheck()">
 							
 							<div class="input-group">
 								<input id="password" type="password" class="form-control"
@@ -34,9 +33,8 @@
 							</div>
 							
 							<div class="input-group">
-								<button class="login-btn" type="submit">입력</button>
+								<button class="login-btn" onclick="passwordCheck()">입력</button>
 							</div>
-						</form>
 						
 					</div>
 				</div>
@@ -46,14 +44,21 @@
 	<!--Causes End-->
 	<script>
 		function passwordCheck() {
-
-			if(document.getElementById('password').value == ${SPRING_SECURITY_CONTEXT.authentication.principal.mem_pw}){
-				alert('정상적으로 입력되었습니다.');
-				return true;
-			}else{
-				alert('비밀번호가 일치하지 않습니다.');
-				return false;
-			} 
+			$.ajax({
+				type : "POST",
+				url : "mypage.do",
+				data : {pass : document.getElementById('password').value},
+				success : function(Kpassword) {
+					console.log(Kpassword);
+					if(Kpassword){
+					 	window.location.href = "mypageOk.do";
+					}else{
+						alert('비밀번호가 일치하지 않습니다.');
+						location.reload();
+					}
+				} //success
+			});
+			
 		}
 	</script>
 </body>
