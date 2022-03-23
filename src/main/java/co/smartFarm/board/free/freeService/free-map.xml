@@ -54,5 +54,10 @@
 	    SELECT COUNT(FREE_COMM_NO) AS COMM_COUNT FROM FREE_COMM WHERE FREE_NO=#{free_no}
     </select>
     
+    <!-- 조회수 업데이트 -->
+	<update id="freeHitUp" parameterType="int">
+	      UPDATE FREE SET FREE_HIT = FREE_HIT + 1 WHERE FREE_NO = #{free_no}
+	</update>
+    
     
 </mapper>

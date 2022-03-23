@@ -119,7 +119,8 @@ public class GrowController {
 
 		List<GrowVO> voList = growDao.growListing(memEmail);
 		model.addAttribute("kitList", voList);
-		
+		model.addAttribute("recentlyFree", freeDao.recentlyFree());
+		model.addAttribute("aucnEnable", aucnDao.aucnEnable());
 		System.out.println(model);
 		if (no != null) {
 			model.addAttribute("no", no);
@@ -150,7 +151,7 @@ public class GrowController {
 	public Map<String, String> nftList(String nft) throws Exception {
 		Map<String, String> map = new HashMap<>();
 
-		String test = "D:\\" + nft;
+		String test = saveDir + nft;
 
 //		로그
 		System.out.println(test);
@@ -215,7 +216,7 @@ public class GrowController {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String memEmail = userDetails.getUsername();
 
-		String DATA_DIRECTORY = "D:\\";
+		String DATA_DIRECTORY = saveDir;
 		File dir = new File(DATA_DIRECTORY);
 
 		FilenameFilter filter = new FilenameFilter() {
@@ -246,7 +247,7 @@ public class GrowController {
 	@ResponseBody
 	public List<String> logBody(@RequestParam Map<String, String> param) throws Exception {
 
-		String test = "D:\\" + param.get("file") + ".txt";
+		String test = saveDir + param.get("file") + ".txt";
 
 //		로그
 		System.out.println(test);
@@ -314,7 +315,7 @@ public class GrowController {
 		Gson gson = new Gson();
 		List<String> resultTest = gson.fromJson(request.getParameter("kit"), List.class);
 
-		String logRoute = saveDir + "\\" + memEmail + deviceId + sd + ".txt";
+		String logRoute = saveDir + memEmail + deviceId + sd + ".txt";
 		System.out.println(logRoute);
 
 		try {
