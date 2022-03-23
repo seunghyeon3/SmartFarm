@@ -367,7 +367,8 @@
 						console.log(result)
 						if(result == '1'){
 							$('#checkEmailFnc').removeAttr('onclick');
-							$('#checkEmailFnc').css('background-color', '#6c757d');
+							/* $('#checkEmailFnc').css('background-color', '#6c757d'); */
+							$('#checkEmailFnc').css({"background-color": "#6c757d", 'cursor': 'default'});
 							$('#mem_email_check').val("true");
 							
 						}else{
@@ -398,10 +399,9 @@
 			
 			$('#pInfo').removeAttr('onclick');
 			$('#pInfo').html("개인정보 사용에 동의하였습니다.");
-			$('#pInfo').css("color", "#6c757d");
+			$('#pInfo').css({"color": "#6c757d", 'cursor': 'default'});
 			$("#pInfoCheck").val("true");
 			closeFrm();
-			
 		}
 		
 		//=====주소 api=====
