@@ -185,7 +185,7 @@
 	
 		//페이지가 시작될 때 url 에 정보가 담겨있으면 색 바꾸기
    
-    	var kitPrpos = $.urlParam('kitPrpos');
+    	var kitPrpos = '${param.kitPrpos}';
     	 
  		if(kitPrpos == ''){//전체
     		 
@@ -205,7 +205,7 @@
     	 }
     	 
     	 //키트 정렬별 색 바꾸기
-    	 var orderBy = $.urlParam('orderBy');
+    	 var orderBy = '${param.orderBy}';
     	 
     	 if(orderBy == 'name'){
     		 document.getElementById('nameTag').style.color='#66bb6a';

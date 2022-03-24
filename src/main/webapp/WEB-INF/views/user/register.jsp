@@ -38,7 +38,7 @@
 								
 								<!-- 비밀번호 -->
 								<li class="full" style="margin-bottom:5px;"><span
-									style="color: #666666; font-size: large;">비밀번호</span></li>
+									style="margin: 10px 15px; color: #666666; font-size: large;">비밀번호</span></li>
 								<li class="half pr-15"
 									style="padding-bottom: 0; margin-bottom: 10px;"><input
 									type="password" class="form-control" id="mem_pw" name="mem_pw"
@@ -191,7 +191,7 @@
 	<script>
 		//=====카카오 로그인으로 들어오는 경우 ===== 
 		$(document).ready(function () {
-			var mem_email = $.urlParam('mem_email');
+			var mem_email = '${param.mem_email}';
 			$("#mem_email").val(mem_email);
 			
 			$('#checkEmailFnc').removeAttr('onclick');

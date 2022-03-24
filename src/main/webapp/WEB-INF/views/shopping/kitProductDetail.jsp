@@ -136,7 +136,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 				$("<br>"), $("<hr>") );
 		
 		//이용후기 가져오기
-		var kitNo = $.urlParam('kit_no');
+		var kitNo = '${param.kit_no}';
 		var url = "kitSelectRevwList.do?kitNo=" + kitNo;
 		$.ajax({
 			url: url,
@@ -151,10 +151,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		})
 	});
 	// ===== url 자르는 함수 ===== 
-	$.urlParam = function(name){
+	/* $.urlParam = function(name){
 	    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 		 	return results [1] || 0;
-	}
+	} */
 	
 	// ===== 이용후기 뿌리기 =====
 	function showRevw(list) {
