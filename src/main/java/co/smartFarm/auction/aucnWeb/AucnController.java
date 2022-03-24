@@ -27,8 +27,8 @@ import co.smartFarm.user.memberService.MemberVO;
 @Controller
 public class AucnController {
 	
-	//web3 provider
-	private static final String LOCAL = "https://ropsten.infura.io/v3/33f4fa08aa5f49a69e1ea3ddac9d8c98";
+	//web3 provider 20220324 web3 
+	//private static final String LOCAL = "https://ropsten.infura.io/v3/33f4fa08aa5f49a69e1ea3ddac9d8c98";
 	
 	@Autowired
 	private AucnService aucnDao;
@@ -76,11 +76,12 @@ public class AucnController {
 	// web소켓 알림으로 최고입찰자를 제외한 입찰자들에게 알림 전송 (**최고입찰자에게 경매가 완료되었다 알림을 보낼지 물어보기**) 
 	// -> 알림에서 버튼을 누를 시 NFTAuction 솔리디티 method 호출후 withdraw(aucnNo) 실행해서 입찰금액 출금
 	// GrowDiary 솔리디티 method 호출후 ownerUpdate(nftNo, newOwner) 실행해서 NFT소유주 변경
-	//@Scheduled(cron="10 0/1 * * * *")
+	@Scheduled(cron="10 0/1 * * * *")
 	public void nftAuctionEnd() throws IOException {
 			GetClientVersion();
 	}
 	
+	/* 20220324 web3 
 	// 이더리움 호출하는 친구
 	public <T> T callEthFunction(String JSONInput, Class<T> classes){
 	    HttpHeaders headers = new HttpHeaders();
@@ -91,6 +92,7 @@ public class AucnController {
 	    RestTemplate restTemplate = new RestTemplate();
 	    return (T) restTemplate.postForObject(LOCAL, param, classes);
 	}
+	*/
 	
 	public void GetClientVersion() throws IOException{
 	
@@ -107,6 +109,7 @@ public class AucnController {
 			//db 경매현황 업데이트, nft 소유주 변경
 			aucnDao.aucnEnd();
 			
+		/* 20220324 web3 
 			// 파라미터값 64byte로 변환 
 			int testParam = aucnEnd.getAucn_no();
 			
@@ -156,8 +159,12 @@ public class AucnController {
 			System.out.println(jsonInput.toString());
 	        EthResultVO result = callEthFunction(jsonInput.toString(), EthResultVO.class);
 	        System.out.println(result);
+	        
+	        */
+			
 			}
 		}
+		
         
     }
 	
