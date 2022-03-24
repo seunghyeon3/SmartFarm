@@ -180,7 +180,7 @@ display: none;
                   <div class="col-md-6">
                      <!--Blog Small Post Start-->
                      <div class="blog-small-post">
-                        <div class="post-thumb"> <a href="noticeselect.do?notice_no= ${recentlyNotice[0].notice_no }"><i class="fas fa-link"></i></a> <img src="<c:url value='/resources/images/${recentlyNotice[0].notice_img }'/>" alt=""> </div>
+                        <div class="post-thumb"> <a href="noticeselect.do?notice_no= ${recentlyNotice[0].notice_no }"><i class="fas fa-link"></i></a> <img src="<c:url value='../upload/${recentlyNotice[0].notice_img }'/>" alt=""> </div>
                         <div class="post-txt">
                            <span class="pdate"> <i class="fas fa-calendar-alt"></i> ${recentlyNotice[0].notice_day }</span>
                            <h5><a href="noticeselect.do?notice_no= ${recentlyNotice[0].notice_no }">${recentlyNotice[0].notice_title }</a></h5>
@@ -191,7 +191,7 @@ display: none;
                      <!--Blog Small Post End--> 
                               <!--Blog Small Post Start-->
                      <div class="blog-small-post">
-                        <div class="post-thumb"> <a href="noticeselect.do?notice_no= ${recentlyNotice[1].notice_no }"><i class="fas fa-link"></i></a> <img src="<c:url value='/resources/images/${recentlyNotice[1].notice_img }'/>" alt=""> </div>
+                        <div class="post-thumb"> <a href="noticeselect.do?notice_no= ${recentlyNotice[1].notice_no }"><i class="fas fa-link"></i></a> <img src="<c:url value='../upload/${recentlyNotice[0].notice_img }'/>" alt=""> </div>
                         <div class="post-txt">
                            <span class="pdate"> <i class="fas fa-calendar-alt"></i> ${recentlyNotice[1].notice_day }</span>
                            <h5><a href="noticeselect.do?notice_no= ${recentlyNotice[1].notice_no }">${recentlyNotice[1].notice_title }</a></h5>
