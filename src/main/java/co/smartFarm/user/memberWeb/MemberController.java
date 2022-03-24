@@ -60,8 +60,10 @@ public class MemberController {
 	@Autowired
 	AucnService aucnDao;
 	
+	/* 20220324 web3 
 	@Autowired
 	AucnController aucnDa;
+	*/
 
 	//220315 PSH 비밀번호 암호화
 	BCryptPasswordEncoder bcryp = new BCryptPasswordEncoder(16);
