@@ -1,5 +1,6 @@
 package co.smartFarm.user.memberWeb;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,6 +8,7 @@ import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.smartFarm.auction.aucnService.AucnService;
 import co.smartFarm.auction.aucnService.BidHistoryVO;
@@ -65,6 +68,9 @@ public class MemberController {
 	AucnController aucnDa;
 	*/
 
+	@Autowired
+	private String saveDir; // 파일저장 경로를 자동 주입
+	
 	//220315 PSH 비밀번호 암호화
 	BCryptPasswordEncoder bcryp = new BCryptPasswordEncoder(16);
 	@Autowired
@@ -208,9 +214,21 @@ public class MemberController {
 	
 	// 회원농부신청
 	@RequestMapping("/memberFarmer.do")
-	public String memberFarmer(MemberVO memberVo) {
+	public String memberFarmer(MemberVO memberVo, @RequestParam("file") MultipartFile file) {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		memberVo.setMem_email(userDetails.getUsername());
+		String originalFileName = file.getOriginalFilename(); // 원본 파일명 찾기
+		if (!originalFileName.isEmpty()) {
+			String uid = UUID.randomUUID().toString(); // 유니크한 파일명 생성
+			// uuil에 파일확장자 추가하여 물리적 파일명을 만듬
+			String saveFileName = uid + originalFileName.substring(originalFileName.lastIndexOf("."));
+			try {
+				file.transferTo(new File(saveDir, saveFileName));
+				memberVo.setMem_fm_req(saveFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		memberDao.memberUpdateFarmer(memberVo);
 		return "redirect:logout.do";
 	}
