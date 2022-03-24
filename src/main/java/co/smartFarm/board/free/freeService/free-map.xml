@@ -5,7 +5,7 @@
     <!-- 전체리스트 -->
     <select id="freeList"
         resultType="co.smartFarm.board.free.freeService.FreeVO">
-        SELECT FREE_NO, FREE_TITLE, MEM_NAME, FREE_DAY, FREE_HIT FROM FREE ORDER BY FREE_NO ASC
+        SELECT FREE_NO, FREE_TITLE, MEM_NAME, FREE_DAY, FREE_HIT FROM FREE ORDER BY FREE_NO DESC
     </select>
 
     <!-- 단건조회 -->
