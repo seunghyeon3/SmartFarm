@@ -115,6 +115,10 @@
 			}
 		});
 	
+    grid.on('mouseover', (ev) => {
+        var toast = grid.getElement(ev.rowKey, "grow_diary_log_rou");
+        $(toast).closest("tr").css({"cursor": "pointer"});
+  });
 /* 
 $("#diary").on("click", "li", function(event){ 
 	console.log(event.target.dataset.route);
