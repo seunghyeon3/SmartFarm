@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.smartFarm.board.useRevw.useRevwService.UseRevwMapper">
 	<select id="useRevwList" resultType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO">
-		SELECT * FROM USE_REVW
+		SELECT * FROM USE_REVW ORDER BY 1 DESC
 	</select>
 	<select id="createRevw" parameterType="co.smartFarm.board.useRevw.useRevwService.UseRevwVO" statementType="CALLABLE">
         <![CDATA[
