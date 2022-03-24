@@ -595,7 +595,7 @@
 									<li class="full">
 										&lt; 농부증명서등록 &gt;
 									<input type="file"
-										class="form-control" id="mem_fm_req" name="mem_fm_req" style="height: 60px;"
+										class="form-control" id="file" name="file" style="height: 60px;"
 										 readonly>  </li>
 									
 									<li class="half pr-15">
@@ -655,7 +655,7 @@
 						placeholder="마지막으로 비밀번호를 입력해주세요" required>
 				</div>
 				<div class="input-group">
-					<button class="login-btn" style="cursor: pointer;background-color:#e11f3e;color:#ffffff;" onclick="">탈퇴</button>
+					<button class="login-btn" style="cursor: pointer;background-color:#e11f3e;color:#ffffff;" onclick="passwordCheck()">탈퇴</button>
 				</div>
 				</div>
 				</div>
