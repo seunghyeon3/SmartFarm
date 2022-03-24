@@ -39,7 +39,8 @@
 								<c:forEach items="${kitList}" var="grow" varStatus="status">
 								
 								<%-- <li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-startdate="${grow.grow_status }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li> --%>
-								<li class="tags" data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center;"><i id = "${grow.pur_his_order_no }" class="fa-brands fa-raspberry-pi"></i>${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
+								<i style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center; color: green;" id = "${grow.pur_his_order_no }" class="fa-brands fa-raspberry-pi"></i>
+								<li class="tags" data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center; border-radius: 10px;">${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
 								
 								</c:forEach>
 								
@@ -67,11 +68,10 @@
 							<div style="display:flex; justify-content:space-between;">
 								<ul class="check-list" style="margin-top: 20px; width: 40%">
 									<li>현재 온도 : <strong id="temp"></strong></li>
-									<svg id="svg" class="svg" width="400" height="200" style="margin-top: -30px; margin-bottom: -30px; margin-left: -50px;"></svg>
-									<li>현재 습도 : <strong id="hum"></strong></li>
-									<svg class="svg" width="400" height="200" style="margin-top: -30px; margin-bottom: -30px; margin-left: -50px;"></svg>
+									<svg id="svg" class="svg" width="550" height="350" style="margin-left: -60px;"></svg>
 								</ul>
 								<ul class="check-list" style="margin-top: 20px; width: 40%">
+									<li style="height: 110px;">현재 습도 : <strong id="hum"></strong></li>
 									<li style="height: 110px;">조명 여부 : <strong id="light"></strong></li>
 									<li style="height: 110px;">당일 급액량 : <strong id="water"></strong></li>
 									<li style="height: 110px;">당일 농약량 : <strong id="pes"></strong></li>
@@ -153,8 +153,9 @@ function vsvs() {
 var test;
 
 $("#growKitList").on("click", "li", function(event)	{
-	$(event.target).parent().children().css('background-color', '');
-	$(event.target).css('background-color', 'green');
+	$(event.target).parent().children().css({'background-color': '', 'color':'#999999'});
+	$(event.target).css({'background-color': '#009000', 'color':'white'});
+	$(event.target).prev().css('color','#009000');
 	$("#temp").html('');
 	$("#hum").html('');
 	$("#light").html('');
@@ -172,19 +173,6 @@ $("#growKitList").on("click", "li", function(event)	{
 	var n = 40,
 	    random = function(){
 			return 0;
-/* 	    $.ajax({
-	        url: test+"sensorReady",
-	        type: 'get',
-	        success: function(result) {
-				for(var dat of result) {
-					data = d3.range(n).map(dat);
-					console.log(dat);
-				}
-	        },
-	        error: function(){
-	        	console.log("error");
-	        }
-	    })	 */
 		},
 		data = d3.range(n).map(random);
 	
@@ -318,7 +306,7 @@ $("#growKitList").on("click", "li", function(event)	{
 $(function() {
 	console.log(${no});
 		console.log($("#${no}").parent());
-		$("#${no}").parent().click();
+		$("#${no}").next().click();
 });
 
 </script>
