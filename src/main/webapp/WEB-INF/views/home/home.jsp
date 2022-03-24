@@ -312,7 +312,7 @@ display: none;
 						<div class="product-box">
 							<div class="pro-thumb">
 								<%-- <img src="<c:url value='/resources/images/${plant.plant_sale_phy_rou }'/>" alt=""> --%>
-								<img src="<c:url value='/resources/images/shop/pro1.jpg'/>" alt="" style="width: 253px; height: 270px;">
+								<img src="<c:url value='../upload/${plant.plant_sale_phy_rou }'/>" alt="" style="width: 253px; height: 270px;">
 							</div>
 							<div class="pro-txt">
 								<h6>
