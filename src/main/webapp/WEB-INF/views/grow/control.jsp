@@ -27,7 +27,8 @@
 								<c:forEach items="${kitList}" var="grow" varStatus="status">
 								
 								<%-- <li class="tags" style="font-size: 25px; display: inline-block; text-align: center;"><i class="fa-brands fa-raspberry-pi"></i> <a data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-startdate="${grow.grow_status }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" href="javascript:void(0);">${grow.pur_his_order_no }(${grow.kit_plant_name })</a></li> --%>
-								<li class="tags" data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center;"><i id = "${grow.pur_his_order_no }" class="fa-brands fa-raspberry-pi"></i>${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
+								<i style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center; color: green;" id = "${grow.pur_his_order_no }" class="fa-brands fa-raspberry-pi"></i>
+								<li class="tags" data-index="${status.index}" data-tp="${grow.kit_tp }" data-hd="${grow.kit_hd }" data-sun="${grow.kit_sun }" data-water="${grow.kit_water }" data-pes="${grow.kit_pes }" data-kit="${grow.kit_no }" data-percent="${grow.percent }" data-end="${grow.end_estimate }" data-url="http://${grow.pur_his_kit_address}/" id="http://${grow.pur_his_kit_address}/" style="cursor:pointer; font-size: 25px; display: inline-block; text-align: center; border-radius: 10px;">${grow.pur_his_order_no }(${grow.kit_plant_name })</li>
 								
 								</c:forEach>
 								
@@ -132,8 +133,9 @@
 <script type="text/javascript">
 
 	$("#growKitList").on("click", "li", function(event)	{
-		$(event.target).parent().children().css('background-color', '');
-		$(event.target).css('background-color', 'green');
+		$(event.target).parent().children().css({'background-color': '', 'color':'#999999'});
+		$(event.target).css({'background-color': '#009000', 'color':'white'});
+		$(event.target).prev().css('color','#009000');
 /* 		$("input.value").removeAttr("disabled");
 		$("#auto").removeAttr("disabled"); */
 		$("#score").html('');
@@ -384,7 +386,7 @@
 	$(function() {
 		console.log(${no});
 			console.log($("#${no}").parent());
-			$("#${no}").parent().click();
+			$("#${no}").next().click();
 	});
 	
 	
