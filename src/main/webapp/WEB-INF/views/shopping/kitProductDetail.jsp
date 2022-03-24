@@ -265,6 +265,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 			console.log(payList);
 			payList[0].mem_email = '${SPRING_SECURITY_CONTEXT.authentication.principal.mem_email}';
 			payList[0].cart_sale_count = document.getElementById('cartCount').value;
+			payList[0].cart_sum = (payList[0].cart_sale_count) * (payList[0].cart_price);
 			localStorage.setItem("payList", JSON.stringify(payList));
 			location.href = "pay.do";
 		}

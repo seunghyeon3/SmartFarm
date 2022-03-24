@@ -124,7 +124,7 @@
 		           		 var price = (parseInt(tmp) * 1).toLocaleString('ko-KR');
 	                	
 	                	
-	                	var tmp = `\${list.plant_sale_ori_rou}`;
+	                	var tmp = `\${list.plant_sale_phy_rou}`;
 	                	var imgRou;
 	                	if(imgRou == ''){
 	                		imgRou = "resources/plant/nullImg.jpg"; 
