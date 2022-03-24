@@ -68,7 +68,7 @@
 				toastr.error('유효한 이메일 형식을 입력하세요');
 				
 			}else{
-				toastr.success('이메일 발송중입니다. 잠시만 기다려주세요');
+				//toastr.success('이메일 발송중입니다. 잠시만 기다려주세요');
 				fetch("findMemberPw.do",
 					{
 					method:'post',

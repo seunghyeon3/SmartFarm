@@ -192,12 +192,13 @@
 		//=====카카오 로그인으로 들어오는 경우 ===== 
 		$(document).ready(function () {
 			var mem_email = '${param.mem_email}';
-			$("#mem_email").val(mem_email);
-			
-			$('#checkEmailFnc').removeAttr('onclick');
-			$('#checkEmailFnc').css('background-color', '#6c757d');
-			$('#mem_email_check').val("true");
-			
+			if(mem_email !=''){
+				$("#mem_email").val(mem_email);
+				
+				$('#checkEmailFnc').removeAttr('onclick');
+				$('#checkEmailFnc').css('background-color', '#6c757d');
+				$('#mem_email_check').val("true");
+			}
 		});
 		
 		// ===== url 자르는 함수 ===== 

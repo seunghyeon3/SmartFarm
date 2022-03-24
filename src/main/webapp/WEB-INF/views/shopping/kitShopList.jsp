@@ -300,8 +300,10 @@
   			alert('로그인 후 사용해 주세요');
   			location.href = "login.do";
   		} else {
+  			 alert('장바구니에 추가되었습니다');
+  			 //toastr.success("상품이 장바구니에 담겼습니다.");
 	         location.href = link;
-	         toastr.success("상품이 장바구니에 담겼습니다.");
+	         
   		}
       }
       
