@@ -124,7 +124,7 @@
 	                           <!-- 파일업로드 버튼 구성 -->
 							   <li class="full">
 									<div class="filebox preview-image" style="float:right;margin-bottom: 30px;">
-										<input class="upload-name" value="파일선택" disabled="disabled">
+										<input class="upload-name" value="파일선택" disabled="disabled" required>
 										<label for="oriFile">업로드</label> <input type="file"
 											id="oriFile" name=oriFile class="upload-hidden">
 									</div>
