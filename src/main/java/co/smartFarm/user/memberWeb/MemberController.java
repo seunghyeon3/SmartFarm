@@ -219,12 +219,10 @@ public class MemberController {
 		memberVo.setMem_email(userDetails.getUsername());
 		String originalFileName = file.getOriginalFilename(); // 원본 파일명 찾기
 		if (!originalFileName.isEmpty()) {
-			String uid = UUID.randomUUID().toString(); // 유니크한 파일명 생성
 			// uuil에 파일확장자 추가하여 물리적 파일명을 만듬
-			String saveFileName = uid + originalFileName.substring(originalFileName.lastIndexOf("."));
 			try {
-				file.transferTo(new File(saveDir, saveFileName));
-				memberVo.setMem_fm_req(saveFileName);
+				file.transferTo(new File(saveDir, originalFileName));
+				memberVo.setMem_fm_req(originalFileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
