@@ -588,7 +588,7 @@
 							<h5>농부 (인증할만한) 증빙서류
 							(ex 농지, 사업자번호, 커리어, 이미지 )</h5> <br><br>
 							<form action="memberFarmer.do" method="post"
-								onsubmit="return checkFile();">
+								onsubmit="return checkFile();" enctype="multipart/form-data">
 
 								<ul class="cform">
 									
